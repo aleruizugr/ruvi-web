@@ -1,7 +1,8 @@
 # Genera las páginas de la web a partir de las piezas comunes (cabecera y pie).
 # Uso: python3 _construir.py   (el guion bajo hace que GitHub Pages no publique este archivo)
-import pathlib, html
+import pathlib, html, hashlib
 R = pathlib.Path(__file__).parent
+VERSION = hashlib.md5((pathlib.Path(__file__).parent / "ruvi.css").read_bytes()).hexdigest()[:8]   # cambia sola cuando cambian los estilos, para que el navegador no use una copia vieja
 APP = "https://plantilla-repaso.netlify.app"   # botón «Entrar»: cambiar aquí si la app cambia de dirección
 CORREO = "hola@ruvilab.es"
 
@@ -22,7 +23,7 @@ def cabeza(titulo, desc, ruta, noindex=False):
 <link rel="icon" type="image/png" href="/img/favicon.png">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="preload" href="/fuentes/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/ruvi.css">
+<link rel="stylesheet" href="/ruvi.css?v={VERSION}">
 </head><body>'''
 
 def menu(actual):
