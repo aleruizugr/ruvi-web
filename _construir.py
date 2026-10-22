@@ -30,7 +30,7 @@ def menu(actual):
     items = [("/#proyectos", "Proyectos", "opc"), ("/plantilla-repaso/", "Plantilla de Repaso", ""), ("/#contacto", "Contacto", "")]
     links = "".join(f'<a href="{h}" class="{c}"{" aria-current=\"page\"" if h == actual else ""}>{t}</a>' for h, t, c in items)
     return f'''<header class="top"><div class="in">
-<a class="marca" href="/" aria-label="Ruvï, inicio"><img src="/img/logo-ruvi.jpg" alt="" width="44" height="44"><b>RUVÏ</b></a>
+<a class="marca" href="/" aria-label="Ruvï, inicio"><img src="/img/ruvi-monograma.png" alt="" width="40" height="40"><b>RUVÏ</b></a>
 <nav class="menu" aria-label="Menú">{links}</nav>
 </div></header>'''
 
@@ -96,12 +96,12 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
       <p class="muted">Tests tipo examen de vuestros temas, listos para vuestros alumnos en una app. Preparamos las preguntas a partir del BOE o de vuestro temario, vuestros profesores las revisan y los alumnos practican con corrección al momento.</p>
       <span style="color:var(--accent);font-weight:700">Ver el proyecto →</span>
     </div>
-    <img src="/img/logo-ruvi.jpg" alt="" width="96" height="96" style="width:96px;height:96px;border-radius:50%;border:1px solid var(--line)" class="opc-img">
+    <img src="/img/ruvi-monograma.png" alt="" width="96" height="96" style="width:96px;height:96px" class="opc-img">
   </a>
 </div></section>
 
 <section class="banda" id="nosotros"><div class="in grid2" style="align-items:start">
-  <div class="stack"><span class="eb">Quiénes somos</span><h2>Dos socios, una marca</h2></div>
+  <div class="stack"><span class="eb">Quiénes somos</span><h2>Dos socios, una marca</h2><img src="/img/ruvi-logo-oscuro.png" alt="Logotipo de Ruvï" width="600" height="418" style="width:220px;height:auto;margin-top:12px"></div>
   <div class="stack">
     <p>Ruvï es la marca con la que dos socios lanzamos nuestros proyectos. Empezamos por lo que conocemos desde dentro: preparar una oposición.</p>
     <p class="muted">Plantilla de Repaso nació de opositar a Policía Nacional y de echar en falta tests que se parecieran de verdad al examen: tres opciones, penalización por fallo, cronómetro y la ley a mano para entender cada error.</p>
@@ -272,7 +272,8 @@ import re
 t = re.sub(r'<link rel="preconnect"[^>]*>\s*', '', t)
 t = re.sub(r'<link rel="stylesheet" href="https://fonts.googleapis.com[^>]*>', '<link rel="stylesheet" href="/fuentes/fuentes.css">', t)
 t = t.replace('<meta name="claude:viewport-fit-sides" content="cover">', '')
-t = re.sub(r'<img src="data:image/jpeg;base64,[^"]*" alt="Logo de Ruvï">', '<img src="/img/logo-ruvi.jpg" alt="Logo de Ruvï" width="48" height="48">', t)
+t = re.sub(r'<img src="data:image/jpeg;base64,[^"]*" alt="Logo de Ruvï">', '<img src="/img/ruvi-monograma.png" alt="Logo de Ruvï" width="44" height="44">', t)
+t = t.replace('.brand img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:1px solid var(--line);box-shadow:0 4px 14px -8px var(--cobre-2);flex:none}', '.brand img{width:44px;height:44px;object-fit:contain;flex:none}')
 t = t.replace('<div class="brand">', '<a class="brand" href="/" style="text-decoration:none;color:inherit">', 1)
 t = t.replace('· Plantilla de Repaso</span></span></div>', '· Plantilla de Repaso</span></span></a>', 1)
 t = t.replace('<span>Escríbenos: <b>hola@ruvilab.es</b></span>', '<span>Escríbenos: <b>hola@ruvilab.es</b> · <a href="/aviso-legal/" style="color:inherit">Aviso legal</a> · <a href="/privacidad/" style="color:inherit">Privacidad</a></span>')

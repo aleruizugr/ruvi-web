@@ -50,7 +50,7 @@ section{padding-block:64px}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:11;background:var(--bg)}
 .top .in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
 .marca{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
-.marca img{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);object-fit:cover}
+.marca img{width:40px;height:40px;object-fit:contain}
 .marca b{font:700 1.05rem var(--f-display);letter-spacing:.16em}
 .menu{display:flex;gap:4px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
 .menu a{color:var(--ink);text-decoration:none;font-weight:600;font-size:.95rem;padding:8px 12px;border-radius:10px}
