@@ -48,11 +48,11 @@ document.querySelectorAll("[data-copiar]").forEach(function(b){{b.addEventListen
 TELEFONO = "669 767 570"
 WHATSAPP = "34669767570"
 from urllib.parse import quote
-ASUNTO = "Demo de Plantilla de Repaso"
-CUERPO = ("Hola:\n\nQueremos ver una demo de Plantilla de Repaso.\n\n"
+ASUNTO = "Plantilla de Repaso para nuestra academia"
+CUERPO = ("Hola:\n\nNos interesa Plantilla de Repaso y nos gustaría verla con los temas de nuestra academia.\n\n"
           "Academia: \nCiudad: \nNúmero de alumnos: \nTeléfono de contacto: \n"
           "Mejor día y hora para la videollamada: \n\nGracias.")
-WA_TEXTO = "Hola, os escribo desde ruvilab.es. Me gustaría ver una demo de Plantilla de Repaso para mi academia."
+WA_TEXTO = "Hola, os escribo desde ruvilab.es. Me interesa Plantilla de Repaso y me gustaría verla con los temas de mi academia."
 
 def correo_bloque():
     mailto = f"mailto:{CORREO}?subject={quote(ASUNTO)}&body={quote(CUERPO)}"
