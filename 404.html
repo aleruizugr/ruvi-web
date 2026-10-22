@@ -14,7 +14,7 @@
 <link rel="icon" type="image/png" href="/img/favicon.png">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="preload" href="/fuentes/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/ruvi.css?v=5c43ae1c">
+<link rel="stylesheet" href="/ruvi.css?v=5f0f1e40">
 </head><body><header class="top"><div class="in">
 <a class="marca" href="/" aria-label="Ruvï, inicio"><img src="/img/ruvi-monograma.png" alt="" width="40" height="40"><b>RUVÏ</b></a>
 <nav class="menu" aria-label="Menú"><a href="/#proyectos" class="opc">Proyectos</a><a href="/plantilla-repaso/" class="">Plantilla de Repaso</a><a href="/#contacto" class="">Contacto</a></nav>
@@ -31,5 +31,14 @@
 document.querySelectorAll("[data-copiar]").forEach(function(b){b.addEventListener("click",function(){
   var t=b.getAttribute("data-copiar"),ok=function(){b.textContent="Copiado";setTimeout(function(){b.textContent="Copiar"},1800)};
   if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok,function(){});})});
+(function(){var d=document.getElementById("demoDlg");if(!d||!d.showModal)return;
+  var vs=d.querySelectorAll("video"),movil=function(){return matchMedia("(max-width:820px)").matches};
+  var abrir=function(auto){d.showModal();var v=movil()?vs[1]:vs[0];if(auto){var p=v.play();if(p&&p.catch)p.catch(function(){})}};
+  document.querySelectorAll("[data-demo]").forEach(function(b){b.addEventListener("click",function(){abrir(true)})});
+  d.querySelector(".demo-x").addEventListener("click",function(){d.close()});
+  d.addEventListener("click",function(e){if(e.target===d)d.close()});
+  d.addEventListener("close",function(){vs.forEach(function(v){v.pause()});if(location.hash==="#demo")history.replaceState(null,"",location.pathname)});
+  if(location.hash==="#demo")abrir(false);
+})();
 </script>
 </body></html>

@@ -42,8 +42,26 @@ PIE = f'''<footer class="pie"><div class="in">
 document.querySelectorAll("[data-copiar]").forEach(function(b){{b.addEventListener("click",function(){{
   var t=b.getAttribute("data-copiar"),ok=function(){{b.textContent="Copiado";setTimeout(function(){{b.textContent="Copiar"}},1800)}};
   if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok,function(){{}});}})}});
+(function(){{var d=document.getElementById("demoDlg");if(!d||!d.showModal)return;
+  var vs=d.querySelectorAll("video"),movil=function(){{return matchMedia("(max-width:820px)").matches}};
+  var abrir=function(auto){{d.showModal();var v=movil()?vs[1]:vs[0];if(auto){{var p=v.play();if(p&&p.catch)p.catch(function(){{}})}}}};
+  document.querySelectorAll("[data-demo]").forEach(function(b){{b.addEventListener("click",function(){{abrir(true)}})}});
+  d.querySelector(".demo-x").addEventListener("click",function(){{d.close()}});
+  d.addEventListener("click",function(e){{if(e.target===d)d.close()}});
+  d.addEventListener("close",function(){{vs.forEach(function(v){{v.pause()}});if(location.hash==="#demo")history.replaceState(null,"",location.pathname)}});
+  if(location.hash==="#demo")abrir(false);
+}})();
 </script>
 </body></html>'''
+
+DEMO = '''<dialog class="demo-dlg" id="demoDlg" aria-label="Demo de Plantilla de Repaso en vídeo">
+  <button class="demo-x" type="button" aria-label="Cerrar el vídeo"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="video">
+    <video class="v-ancho" controls playsinline preload="none" poster="/img/demo-horizontal.jpg" width="1280" height="720"><source src="/video/demo-horizontal.mp4" type="video/mp4"></video>
+    <video class="v-movil" controls playsinline preload="none" poster="/img/demo-vertical.jpg" width="720" height="1280"><source src="/video/demo-vertical.mp4" type="video/mp4"></video>
+  </div>
+</dialog>'''
+VER_DEMO = '<button class="ver-demo" type="button" data-demo><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>Ver la demo · 1 min</button>'
 
 TELEFONO = "669 767 570"
 WHATSAPP = "34669767570"
@@ -92,7 +110,7 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
     <p class="lead">Hacemos el trabajo pesado para que las academias se centren en enseñar y sus alumnos en aprobar.</p>
     <p class="lead">Preguntas hechas por opositores, con el formato y el nivel de los exámenes oficiales de la División.</p>
     <div class="btns"><a class="btn p" href="/plantilla-repaso/">Conoce Plantilla de Repaso</a><a class="btn s" href="#contacto">Hablemos</a></div>
-    <p style="font-size:.95rem;margin:0"><a href="/plantilla-repaso/#demo">Ver la demo en un minuto →</a></p>
+    <div>{VER_DEMO}</div>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test de Plantilla de Repaso en el móvil, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="390" height="700"></div></div>
 </div></section>
@@ -126,7 +144,8 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
   <p class="lead">Escríbenos y te proponemos una videollamada corta para verla con tus propios temas. El primer mes es gratis.</p>
   {correo_bloque()}
 </div></section>
-</main>''' + PIE)
+</main>
+{DEMO}''' + PIE)
 
 # ---------------------------------------------------------------- Plantilla de Repaso
 escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, convertido en examen",
@@ -140,23 +159,12 @@ escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, conver
     <h1>Tests tipo examen para los alumnos de <mark>tu academia</mark></h1>
     <p class="lead">Preparamos las preguntas de vuestros temas, a partir del BOE o de vuestro propio temario, y vuestros alumnos practican en una app con corrección al momento. Vuestros profesores dedican el tiempo a dar clase, no a hacer tests.</p>
     <div class="btns"><a class="btn p" href="#contacto">Pruébala con tus temas</a><a class="btn s" href="{APP}">Entrar en la app</a></div>
+    <div>{VER_DEMO}</div>
     <p class="muted" style="font-size:.95rem">Primer mes gratis y sin permanencia.</p>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-inicio.png" alt="Pantalla de inicio del alumno: aviso de fallos por repasar, su última nota, preguntas hechas, y la elección de tema, número de preguntas y corrección para empezar un test" width="390" height="844"></div></div>
 </div></section>
 
-<section style="padding-top:0" id="demo"><div class="in stack">
-  <span class="eb">Demo</span>
-  <h2>Mírala funcionar en un minuto</h2>
-  <div class="video">
-    <video class="v-ancho" controls playsinline preload="none" poster="/img/demo-horizontal.jpg" width="1280" height="720" aria-label="Demo de Plantilla de Repaso en vídeo horizontal">
-      <source src="/video/demo-horizontal.mp4" type="video/mp4">
-    </video>
-    <video class="v-movil" controls playsinline preload="none" poster="/img/demo-vertical.jpg" width="720" height="1280" aria-label="Demo de Plantilla de Repaso en vídeo vertical">
-      <source src="/video/demo-vertical.mp4" type="video/mp4">
-    </video>
-  </div>
-</div></section>
 
 <section style="padding-top:0"><div class="in grid2">
   <div class="card stack"><span class="eb">El problema</span><h3>Hacer buenas preguntas lleva horas</h3><p class="muted">Cada tema necesita decenas de preguntas bien hechas, con opciones trampa creíbles y al día con la ley. Ese tiempo sale de las clases.</p></div>
@@ -225,7 +233,8 @@ escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, conver
   {correo_bloque()}
   <div class="btns"><a class="btn s" href="{APP}">Entrar en la app</a></div>
 </div></section>
-</main>''' + PIE)
+</main>
+{DEMO}''' + PIE)
 
 # ---------------------------------------------------------------- Aviso legal
 TITULAR = "Alejandro Ruiz Barreda"
