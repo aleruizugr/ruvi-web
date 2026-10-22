@@ -116,6 +116,13 @@ input[type=number]{width:86px;font:700 1rem var(--f-num);padding:8px;border:1px 
 footer{border-top:1px solid var(--line);padding-top:20px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.9rem}
 footer b{color:var(--ink);user-select:all}
 @media (prefers-reduced-motion:no-preference){.calc .out .big{transition:opacity .15s}}
+.cierre{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.cbtn{display:inline-flex;align-items:center;font:700 1rem var(--f-body);padding:13px 22px;border-radius:12px;text-decoration:none}
+.cbtn.p{background:var(--cobre-2);color:#FFFFFF}
+.cbtn.wa{background:#1F7A4D;color:#FFFFFF}
+.cbtn:focus-visible{outline:3px solid var(--mark);outline-offset:3px}
+@media print{.cierre{display:none}}
 body{margin:0}
 </style>
 </head><body>
@@ -291,6 +298,17 @@ body{margin:0}
   <span class="eb">Próximamente</span>
   <h3 id="t-soon">Nuevos módulos dentro de la misma app</h3>
   <p class="muted">Estamos preparando nuevas herramientas que se podrán añadir a vuestro pack sin cambiar de plataforma. Las academias clientes las conocerán antes que nadie.</p>
+</section>
+
+<section class="cierre" aria-labelledby="t-cierre">
+  <span class="eb">¿Os encaja?</span>
+  <h2 id="t-cierre">Hablemos y os preparamos el primer mes gratis</h2>
+  <p class="lead">Escribidnos con vuestro número de alumnos y el pack que os interesa, y os proponemos una videollamada corta para ver la app con vuestros temas.</p>
+  <div class="cta">
+    <a class="cbtn p" href="mailto:hola@ruvilab.es?subject=Tarifas%20de%20Plantilla%20de%20Repaso&body=Hola%3A%0A%0AHemos%20visto%20las%20tarifas%20y%20nos%20interesa%20Plantilla%20de%20Repaso.%0A%0AAcademia%3A%20%0ACiudad%3A%20%0AN%C3%BAmero%20de%20alumnos%3A%20%0APack%20que%20nos%20interesa%3A%20%0ATel%C3%A9fono%20de%20contacto%3A%20%0A%0AGracias.">Escribir un correo</a>
+    <a class="cbtn wa" href="https://wa.me/34669767570?text=Hola%2C%20he%20visto%20las%20tarifas%20de%20Plantilla%20de%20Repaso%20en%20ruvilab.es%20y%20me%20gustar%C3%ADa%20hablar%20con%20vosotros." target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+  <p class="muted">hola@ruvilab.es · 669 767 570</p>
 </section>
 
 <footer>
