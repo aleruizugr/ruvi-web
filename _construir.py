@@ -139,7 +139,7 @@ escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, conver
     <p class="lema">Tu temario, convertido en examen.</p>
     <h1>Tests tipo examen para los alumnos de <mark>tu academia</mark></h1>
     <p class="lead">Preparamos las preguntas de vuestros temas, a partir del BOE o de vuestro propio temario, y vuestros alumnos practican en una app con corrección al momento. Vuestros profesores dedican el tiempo a dar clase, no a hacer tests.</p>
-    <div class="btns"><a class="btn p" href="#contacto">Pide una demo</a><a class="btn s" href="{APP}">Entrar en la app</a></div>
+    <div class="btns"><a class="btn p" href="#contacto">Pruébala con tus temas</a><a class="btn s" href="{APP}">Entrar en la app</a></div>
     <p class="muted" style="font-size:.95rem">Primer mes gratis y sin permanencia.</p>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-inicio.png" alt="Pantalla de inicio del alumno: aviso de fallos por repasar, su última nota, preguntas hechas, y la elección de tema, número de preguntas y corrección para empezar un test" width="390" height="844"></div></div>
