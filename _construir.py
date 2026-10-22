@@ -89,7 +89,8 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
   <div class="stack">
     <span class="eb">Ruvï</span>
     <h1>Herramientas digitales para <mark>preparar oposiciones</mark></h1>
-    <p class="lead">Hacemos el trabajo pesado para que las academias se centren en enseñar y sus alumnos en aprobar. Hechas por opositores, con el examen real en la cabeza.</p>
+    <p class="lead">Hacemos el trabajo pesado para que las academias se centren en enseñar y sus alumnos en aprobar.</p>
+    <p class="lead">Preguntas hechas por opositores, con el formato y el nivel de los exámenes oficiales de la División.</p>
     <div class="btns"><a class="btn p" href="/plantilla-repaso/">Conoce Plantilla de Repaso</a><a class="btn s" href="#contacto">Hablemos</a></div>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test de Plantilla de Repaso en el móvil, con tres opciones y el cronómetro" width="390" height="696"></div></div>
