@@ -42,15 +42,14 @@ PIE = f'''<footer class="pie"><div class="in">
 document.querySelectorAll("[data-copiar]").forEach(function(b){{b.addEventListener("click",function(){{
   var t=b.getAttribute("data-copiar"),ok=function(){{b.textContent="Copiado";setTimeout(function(){{b.textContent="Copiar"}},1800)}};
   if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok,function(){{}});}})}});
-(function(){{var b=document.getElementById("demoBtn"),c=document.getElementById("demoVideo");if(!b||!c)return;
-  var vs=c.querySelectorAll("video"),t=b.querySelector(".t"),ic=b.querySelector(".play");
-  var PLAY='<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',X='<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
-  var poner=function(abrir){{c.hidden=!abrir;b.setAttribute("aria-expanded",abrir);t.textContent=abrir?"Cerrar vídeo":"Ver la demo · 1 min";ic.innerHTML=abrir?X:PLAY;
-    if(abrir){{var v=matchMedia("(max-width:820px)").matches?vs[1]:vs[0];var p=v.play();if(p&&p.catch)p.catch(function(){{}})}}
-    else vs.forEach(function(v){{v.pause();try{{v.currentTime=0}}catch(e){{}}}})}};
-  b.addEventListener("click",function(){{poner(c.hidden)}});
-  // al terminar el vídeo se recoge solo y deja el botón a la vista
-  vs.forEach(function(v){{v.addEventListener("ended",function(){{poner(false);document.getElementById("demo").scrollIntoView({{behavior:"smooth",block:"start"}})}})}});
+(function(){{var b=document.getElementById("demoBtn"),c=document.getElementById("demoBox"),x=document.getElementById("demoCerrar");if(!b||!c)return;
+  var vs=c.querySelectorAll("video"),cual=function(){{return matchMedia("(max-width:820px)").matches?vs[1]:vs[0]}};
+  var abrir=function(){{c.hidden=false;b.setAttribute("aria-expanded","true");b.textContent="Ocultar la demo";c.scrollIntoView({{behavior:"smooth",block:"start"}});var p=cual().play();if(p&&p.catch)p.catch(function(){{}})}};
+  var cerrar=function(){{vs.forEach(function(v){{v.pause();try{{v.currentTime=0}}catch(e){{}}}});c.hidden=true;b.setAttribute("aria-expanded","false");b.textContent="Ver la demo en un minuto →";document.getElementById("hero").scrollIntoView({{behavior:"smooth",block:"start"}})}};
+  b.addEventListener("click",function(){{c.hidden?abrir():cerrar()}});
+  x.addEventListener("click",cerrar);
+  // al terminar, deja a la vista el botón para quitar el vídeo
+  vs.forEach(function(v){{v.addEventListener("ended",function(){{x.classList.add("fin");x.scrollIntoView({{behavior:"smooth",block:"center"}});x.focus({{preventScroll:true}})}});v.addEventListener("play",function(){{x.classList.remove("fin")}})}});
 }})();
 </script>
 </body></html>'''
@@ -102,9 +101,16 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
     <p class="lead">Hacemos el trabajo pesado para que las academias se centren en enseñar y sus alumnos en aprobar.</p>
     <p class="lead">Preguntas hechas por opositores, con el formato y el nivel de los exámenes oficiales de la División.</p>
     <div class="btns"><a class="btn p" href="/plantilla-repaso/">Conoce Plantilla de Repaso</a><a class="btn s" href="#contacto">Hablemos</a></div>
-    <p style="font-size:.95rem;margin:0"><a href="/plantilla-repaso/#demo">Ver la demo en un minuto →</a></p>
+    <p style="font-size:.95rem;margin:0"><button class="enlace-demo" type="button" id="demoBtn" aria-expanded="false" aria-controls="demoBox">Ver la demo en un minuto →</button></p>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test de Plantilla de Repaso en el móvil, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="390" height="700"></div></div>
+</div>
+<div class="in" id="demoBox" hidden>
+  <div class="video">
+    <video class="v-ancho" controls playsinline preload="none" poster="/img/demo-horizontal.jpg" width="1280" height="720" aria-label="Demo de Plantilla de Repaso en vídeo horizontal"><source src="/video/demo-horizontal.mp4" type="video/mp4"></video>
+    <video class="v-movil" controls playsinline preload="none" poster="/img/demo-vertical.jpg" width="720" height="1280" aria-label="Demo de Plantilla de Repaso en vídeo vertical"><source src="/video/demo-vertical.mp4" type="video/mp4"></video>
+  </div>
+  <div class="demo-pie"><button class="demo-cerrar" type="button" id="demoCerrar">Cerrar vídeo</button></div>
 </div></section>
 
 <section id="proyectos" style="padding-top:0"><div class="in stack">
@@ -155,16 +161,6 @@ escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, conver
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-inicio.png" alt="Pantalla de inicio del alumno: aviso de fallos por repasar, su última nota, preguntas hechas, y la elección de tema, número de preguntas y corrección para empezar un test" width="390" height="844"></div></div>
 </div></section>
 
-
-<section style="padding-top:0" id="demo"><div class="in stack">
-  <span class="eb">Demo</span>
-  <h2>Mírala funcionar en un minuto</h2>
-  <div><button class="ver-demo" type="button" id="demoBtn" aria-expanded="false" aria-controls="demoVideo"><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="t">Ver la demo · 1 min</span></button></div>
-  <div class="video" id="demoVideo" hidden>
-    <video class="v-ancho" controls playsinline preload="none" poster="/img/demo-horizontal.jpg" width="1280" height="720" aria-label="Demo de Plantilla de Repaso en vídeo horizontal"><source src="/video/demo-horizontal.mp4" type="video/mp4"></video>
-    <video class="v-movil" controls playsinline preload="none" poster="/img/demo-vertical.jpg" width="720" height="1280" aria-label="Demo de Plantilla de Repaso en vídeo vertical"><source src="/video/demo-vertical.mp4" type="video/mp4"></video>
-  </div>
-</div></section>
 
 <section style="padding-top:0"><div class="in grid2">
   <div class="card stack"><span class="eb">El problema</span><h3>Hacer buenas preguntas lleva horas</h3><p class="muted">Cada tema necesita decenas de preguntas bien hechas, con opciones trampa creíbles y al día con la ley. Ese tiempo sale de las clases.</p></div>
