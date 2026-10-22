@@ -92,6 +92,7 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
     <p class="lead">Hacemos el trabajo pesado para que las academias se centren en enseñar y sus alumnos en aprobar.</p>
     <p class="lead">Preguntas hechas por opositores, con el formato y el nivel de los exámenes oficiales de la División.</p>
     <div class="btns"><a class="btn p" href="/plantilla-repaso/">Conoce Plantilla de Repaso</a><a class="btn s" href="#contacto">Hablemos</a></div>
+    <p style="font-size:.95rem;margin:0"><a href="/plantilla-repaso/#demo">Ver la demo en un minuto →</a></p>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test de Plantilla de Repaso en el móvil, con tres opciones y el cronómetro" width="390" height="696"></div></div>
 </div></section>
@@ -142,6 +143,19 @@ escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, conver
     <p class="muted" style="font-size:.95rem">Primer mes gratis y sin permanencia.</p>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-inicio.png" alt="Pantalla de inicio del alumno: su última nota, preguntas realizadas, fallos por repasar y botón para empezar un test" width="390" height="820"></div></div>
+</div></section>
+
+<section style="padding-top:0" id="demo"><div class="in stack">
+  <span class="eb">Demo</span>
+  <h2>Mírala funcionar en un minuto</h2>
+  <div class="video">
+    <video class="v-ancho" controls playsinline preload="none" poster="/img/demo-horizontal.jpg" width="1280" height="720" aria-label="Demo de Plantilla de Repaso en vídeo horizontal">
+      <source src="/video/demo-horizontal.mp4" type="video/mp4">
+    </video>
+    <video class="v-movil" controls playsinline preload="none" poster="/img/demo-vertical.jpg" width="720" height="1280" aria-label="Demo de Plantilla de Repaso en vídeo vertical">
+      <source src="/video/demo-vertical.mp4" type="video/mp4">
+    </video>
+  </div>
 </div></section>
 
 <section style="padding-top:0"><div class="in grid2">
