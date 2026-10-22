@@ -44,8 +44,24 @@ document.querySelectorAll("[data-copiar]").forEach(function(b){{b.addEventListen
 </script>
 </body></html>'''
 
+TELEFONO = "669 767 570"
+WHATSAPP = "34669767570"
+from urllib.parse import quote
+ASUNTO = "Demo de Plantilla de Repaso"
+CUERPO = ("Hola:\n\nQueremos ver una demo de Plantilla de Repaso.\n\n"
+          "Academia: \nCiudad: \nNúmero de alumnos: \nTeléfono de contacto: \n"
+          "Mejor día y hora para la videollamada: \n\nGracias.")
+WA_TEXTO = "Hola, os escribo desde ruvilab.es. Me gustaría ver una demo de Plantilla de Repaso para mi academia."
+
 def correo_bloque():
-    return f'<div class="correo"><code>{CORREO}</code><button class="copiar" type="button" data-copiar="{CORREO}">Copiar</button></div>'
+    mailto = f"mailto:{CORREO}?subject={quote(ASUNTO)}&body={quote(CUERPO)}"
+    wa = f"https://wa.me/{WHATSAPP}?text={quote(WA_TEXTO)}"
+    return f'''<div class="btns">
+    <a class="btn p" href="{mailto}">Escribir un correo</a>
+    <a class="btn wa" href="{wa}" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+  <div class="correo"><code>{CORREO}</code><button class="copiar" type="button" data-copiar="{CORREO}">Copiar</button></div>
+  <p class="muted" style="font-size:.95rem">O llámanos o escríbenos al <b style="white-space:nowrap">{TELEFONO}</b>.</p>'''
 
 def escribir(ruta, contenido):
     p = R / ruta.strip("/") / "index.html" if ruta != "/" else R / "index.html"
@@ -211,12 +227,12 @@ escribir("/privacidad/", cabeza("Privacidad y cookies · Ruvï", "Cómo trata Ru
 <main><section><div class="in legal stack">
 <span class="eb">Legal</span><h1 style="font-size:2.2rem">Privacidad y cookies</h1>
 <p class="muted">Última actualización: 22 de octubre de 2026</p>
-<p class="card"><b>En pocas palabras:</b> esta web no usa cookies, ni analíticas, ni publicidad, y no tiene formularios. Solo tratamos tus datos si nos escribes por correo, y solo para contestarte.</p>
+<p class="card"><b>En pocas palabras:</b> esta web no usa cookies, ni analíticas, ni publicidad, y no tiene formularios. Solo tratamos tus datos si nos escribes o nos llamas, y solo para contestarte.</p>
 <h2>Responsable</h2>
 <p>{TITULAR}, NIF 49236511C, C/ Gustavo Adolfo Bécquer, 25, 21122 Huelva. Contacto para privacidad: <a href="mailto:privacidad@ruvilab.es">privacidad@ruvilab.es</a>.</p>
 <h2>Qué datos tratamos y para qué</h2>
 <ul>
-<li><b>Si nos escribes</b> a {CORREO}: tu nombre, tu email, el nombre de tu academia y lo que nos cuentes. Los usamos para contestarte y, si lo pides, para enseñarte la app y prepararte un presupuesto. Base legal: tu petición y las medidas previas a un contrato (artículo 6.1.b del RGPD).</li>
+<li><b>Si nos escribes</b> a {CORREO}, por WhatsApp o nos llamas: tu nombre, tu email, el nombre de tu academia y lo que nos cuentes. Los usamos para contestarte y, si lo pides, para enseñarte la app y prepararte un presupuesto. Base legal: tu petición y las medidas previas a un contrato (artículo 6.1.b del RGPD).</li>
 <li><b>Al visitar la web</b>: el proveedor que la aloja registra datos técnicos, como tu dirección IP y la hora, para servirla y por seguridad. No los usamos para nada más.</li>
 </ul>
 <h2>Cuánto tiempo</h2>
@@ -227,6 +243,7 @@ escribir("/privacidad/", cabeza("Privacidad y cookies · Ruvï", "Cómo trata Ru
 <tr><td>GitHub (Microsoft)</td><td>Alojamiento de la web</td><td>Estados Unidos</td></tr>
 <tr><td>ImprovMX</td><td>Reenvío de los correos que nos mandas</td><td>Estados Unidos</td></tr>
 <tr><td>Google (Gmail)</td><td>Buzón donde leemos y contestamos los correos</td><td>Unión Europea y Estados Unidos</td></tr>
+<tr><td>WhatsApp (Meta)</td><td>Mensajes si nos escribes por WhatsApp</td><td>Unión Europea y Estados Unidos</td></tr>
 </table></div>
 <p>Las transferencias fuera de la Unión Europea se amparan en el Marco de Privacidad de Datos UE-EE. UU. o en las cláusulas contractuales tipo de la Comisión Europea. No vendemos ni cedemos tus datos a nadie.</p>
 <h2>Tus derechos</h2>

@@ -118,3 +118,6 @@ details[open] summary::after{content:"−"}
 .menu a{white-space:nowrap}
 .banda .movil{border-color:#4A3F39;background:#4A3F39}
 @media (max-width:440px){.marca b{display:none}.menu a{padding:8px 9px;font-size:.92rem}}
+.btn.wa{background:#1F7A4D;color:#FFFFFF}
+.btn.wa:hover{background:#17623D}
+.banda .btn.p{background:var(--cobre-1);color:#2E2724}
