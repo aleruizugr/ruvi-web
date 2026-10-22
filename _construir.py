@@ -48,8 +48,8 @@ document.querySelectorAll("[data-copiar]").forEach(function(b){{b.addEventListen
   document.querySelectorAll("[data-demo]").forEach(function(b){{b.addEventListener("click",function(){{abrir(true)}})}});
   d.querySelector(".demo-x").addEventListener("click",function(){{d.close()}});
   d.addEventListener("click",function(e){{if(e.target===d)d.close()}});
-  d.addEventListener("close",function(){{vs.forEach(function(v){{v.pause()}});if(location.hash==="#demo")history.replaceState(null,"",location.pathname)}});
-  if(location.hash==="#demo")abrir(false);
+  d.querySelector(".demo-cerrar").addEventListener("click",function(){{d.close()}});
+  d.addEventListener("close",function(){{vs.forEach(function(v){{v.pause()}})}});
 }})();
 </script>
 </body></html>'''
@@ -60,6 +60,7 @@ DEMO = '''<dialog class="demo-dlg" id="demoDlg" aria-label="Demo de Plantilla de
     <video class="v-ancho" controls playsinline preload="none" poster="/img/demo-horizontal.jpg" width="1280" height="720"><source src="/video/demo-horizontal.mp4" type="video/mp4"></video>
     <video class="v-movil" controls playsinline preload="none" poster="/img/demo-vertical.jpg" width="720" height="1280"><source src="/video/demo-vertical.mp4" type="video/mp4"></video>
   </div>
+  <div class="demo-pie"><button class="demo-cerrar" type="button">Cerrar vídeo</button></div>
 </dialog>'''
 VER_DEMO = '<button class="ver-demo" type="button" data-demo><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>Ver la demo · 1 min</button>'
 
@@ -110,7 +111,7 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
     <p class="lead">Hacemos el trabajo pesado para que las academias se centren en enseñar y sus alumnos en aprobar.</p>
     <p class="lead">Preguntas hechas por opositores, con el formato y el nivel de los exámenes oficiales de la División.</p>
     <div class="btns"><a class="btn p" href="/plantilla-repaso/">Conoce Plantilla de Repaso</a><a class="btn s" href="#contacto">Hablemos</a></div>
-    <div>{VER_DEMO}</div>
+    <div id="demo" class="demo-ancla">{VER_DEMO}</div>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test de Plantilla de Repaso en el móvil, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="390" height="700"></div></div>
 </div></section>
@@ -159,7 +160,7 @@ escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, conver
     <h1>Tests tipo examen para los alumnos de <mark>tu academia</mark></h1>
     <p class="lead">Preparamos las preguntas de vuestros temas, a partir del BOE o de vuestro propio temario, y vuestros alumnos practican en una app con corrección al momento. Vuestros profesores dedican el tiempo a dar clase, no a hacer tests.</p>
     <div class="btns"><a class="btn p" href="#contacto">Pruébala con tus temas</a><a class="btn s" href="{APP}">Entrar en la app</a></div>
-    <div>{VER_DEMO}</div>
+    <div id="demo" class="demo-ancla">{VER_DEMO}</div>
     <p class="muted" style="font-size:.95rem">Primer mes gratis y sin permanencia.</p>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-inicio.png" alt="Pantalla de inicio del alumno: aviso de fallos por repasar, su última nota, preguntas hechas, y la elección de tema, número de preguntas y corrección para empezar un test" width="390" height="844"></div></div>

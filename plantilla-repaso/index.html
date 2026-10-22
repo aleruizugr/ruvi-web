@@ -14,7 +14,7 @@
 <link rel="icon" type="image/png" href="/img/favicon.png">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="preload" href="/fuentes/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/ruvi.css?v=5f0f1e40">
+<link rel="stylesheet" href="/ruvi.css?v=4ce44d05">
 </head><body><header class="top"><div class="in">
 <a class="marca" href="/" aria-label="Ruvï, inicio"><img src="/img/ruvi-monograma.png?v=dad139e9" alt="" width="40" height="40"><b>RUVÏ</b></a>
 <nav class="menu" aria-label="Menú"><a href="/#proyectos" class="opc">Proyectos</a><a href="/plantilla-repaso/" class="" aria-current="page">Plantilla de Repaso</a><a href="/#contacto" class="">Contacto</a></nav>
@@ -27,7 +27,7 @@
     <h1>Tests tipo examen para los alumnos de <mark>tu academia</mark></h1>
     <p class="lead">Preparamos las preguntas de vuestros temas, a partir del BOE o de vuestro propio temario, y vuestros alumnos practican en una app con corrección al momento. Vuestros profesores dedican el tiempo a dar clase, no a hacer tests.</p>
     <div class="btns"><a class="btn p" href="#contacto">Pruébala con tus temas</a><a class="btn s" href="https://plantilla-repaso.netlify.app">Entrar en la app</a></div>
-    <div><button class="ver-demo" type="button" data-demo><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>Ver la demo · 1 min</button></div>
+    <div id="demo" class="demo-ancla"><button class="ver-demo" type="button" data-demo><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>Ver la demo · 1 min</button></div>
     <p class="muted" style="font-size:.95rem">Primer mes gratis y sin permanencia.</p>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-inicio.png?v=b61890ef" alt="Pantalla de inicio del alumno: aviso de fallos por repasar, su última nota, preguntas hechas, y la elección de tema, número de preguntas y corrección para empezar un test" width="390" height="844"></div></div>
@@ -113,6 +113,7 @@
     <video class="v-ancho" controls playsinline preload="none" poster="/img/demo-horizontal.jpg?v=4b154fd0" width="1280" height="720"><source src="/video/demo-horizontal.mp4?v=98f417f6" type="video/mp4"></video>
     <video class="v-movil" controls playsinline preload="none" poster="/img/demo-vertical.jpg?v=f68a0dd7" width="720" height="1280"><source src="/video/demo-vertical.mp4?v=df4b84ca" type="video/mp4"></video>
   </div>
+  <div class="demo-pie"><button class="demo-cerrar" type="button">Cerrar vídeo</button></div>
 </dialog><footer class="pie"><div class="in">
 <span>© 2026 Ruvï · <a href="mailto:hola@ruvilab.es">hola@ruvilab.es</a></span>
 <nav aria-label="Legal"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad y cookies</a></nav>
@@ -127,8 +128,8 @@ document.querySelectorAll("[data-copiar]").forEach(function(b){b.addEventListene
   document.querySelectorAll("[data-demo]").forEach(function(b){b.addEventListener("click",function(){abrir(true)})});
   d.querySelector(".demo-x").addEventListener("click",function(){d.close()});
   d.addEventListener("click",function(e){if(e.target===d)d.close()});
-  d.addEventListener("close",function(){vs.forEach(function(v){v.pause()});if(location.hash==="#demo")history.replaceState(null,"",location.pathname)});
-  if(location.hash==="#demo")abrir(false);
+  d.querySelector(".demo-cerrar").addEventListener("click",function(){d.close()});
+  d.addEventListener("close",function(){vs.forEach(function(v){v.pause()})});
 })();
 </script>
 </body></html>
