@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ruvï · Herramientas para preparar oposiciones</title>
+<meta name="description" content="Ruvï crea herramientas digitales para academias de oposiciones. Nuestro primer proyecto: Plantilla de Repaso, tests de Policía Nacional para los alumnos de tu academia.">
+
+<meta property="og:title" content="Ruvï · Herramientas para preparar oposiciones">
+<meta property="og:description" content="Ruvï crea herramientas digitales para academias de oposiciones. Nuestro primer proyecto: Plantilla de Repaso, tests de Policía Nacional para los alumnos de tu academia.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ruvilab.es/">
+<meta property="og:image" content="https://ruvilab.es/img/ruvi-og.jpg">
+<meta property="og:locale" content="es_ES">
+<link rel="icon" type="image/png" href="/img/favicon.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="preload" href="/fuentes/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/ruvi.css">
+</head><body><header class="top"><div class="in">
+<a class="marca" href="/" aria-label="Ruvï, inicio"><img src="/img/logo-ruvi.jpg" alt="" width="44" height="44"><b>RUVÏ</b></a>
+<nav class="menu" aria-label="Menú"><a href="/#proyectos" class="opc">Proyectos</a><a href="/plantilla-repaso/" class="">Plantilla de Repaso</a><a href="/#contacto" class="">Contacto</a></nav>
+</div></header>
+<main>
+<section><div class="in dos" id="hero">
+  <div class="stack">
+    <span class="eb">Ruvï</span>
+    <h1>Herramientas digitales para <mark>preparar oposiciones</mark></h1>
+    <p class="lead">Hacemos el trabajo pesado para que las academias se centren en enseñar y sus alumnos en aprobar. Hechas por opositores, con el examen real en la cabeza.</p>
+    <div class="btns"><a class="btn p" href="/plantilla-repaso/">Conoce Plantilla de Repaso</a><a class="btn s" href="#contacto">Hablemos</a></div>
+  </div>
+  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test de Plantilla de Repaso en el móvil, con tres opciones y el cronómetro" width="390" height="720"></div></div>
+</div></section>
+
+<section id="proyectos" style="padding-top:0"><div class="in stack">
+  <span class="eb">Proyectos</span>
+  <h2>Lo que hacemos</h2>
+  <a class="card proy" href="/plantilla-repaso/" style="text-decoration:none;color:inherit">
+    <div class="stack" style="gap:12px">
+      <span class="eb" style="color:var(--muted)">Para academias de Policía Nacional</span>
+      <h3 style="font-size:1.7rem">Plantilla de Repaso</h3>
+      <p class="muted">Tests tipo examen de vuestros temas, listos para vuestros alumnos en una app. Preparamos las preguntas a partir del BOE o de vuestro temario, vuestros profesores las revisan y los alumnos practican con corrección al momento.</p>
+      <span style="color:var(--accent);font-weight:700">Ver el proyecto →</span>
+    </div>
+    <img src="/img/logo-ruvi.jpg" alt="" width="96" height="96" style="width:96px;height:96px;border-radius:50%;border:1px solid var(--line)" class="opc-img">
+  </a>
+</div></section>
+
+<section class="banda" id="nosotros"><div class="in grid2" style="align-items:start">
+  <div class="stack"><span class="eb">Quiénes somos</span><h2>Dos socios, una marca</h2></div>
+  <div class="stack">
+    <p>Ruvï es la marca con la que dos socios lanzamos nuestros proyectos. Empezamos por lo que conocemos desde dentro: preparar una oposición.</p>
+    <p class="muted">Plantilla de Repaso nació de opositar a Policía Nacional y de echar en falta tests que se parecieran de verdad al examen: tres opciones, penalización por fallo, cronómetro y la ley a mano para entender cada error.</p>
+  </div>
+</div></section>
+
+<section id="contacto"><div class="in stack" style="max-width:760px;margin-inline:auto;text-align:left">
+  <span class="eb">Contacto</span>
+  <h2>¿Tienes una academia? Te enseñamos la app en 15 minutos</h2>
+  <p class="lead">Escríbenos y te proponemos una videollamada corta para verla con tus propios temas. El primer mes es gratis.</p>
+  <div class="correo"><code>hola@ruvilab.es</code><button class="copiar" type="button" data-copiar="hola@ruvilab.es">Copiar</button></div>
+</div></section>
+</main><footer class="pie"><div class="in">
+<span>© 2026 Ruvï · <a href="mailto:hola@ruvilab.es">hola@ruvilab.es</a></span>
+<nav aria-label="Legal"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad y cookies</a></nav>
+</div></footer>
+<script>
+document.querySelectorAll("[data-copiar]").forEach(function(b){b.addEventListener("click",function(){
+  var t=b.getAttribute("data-copiar"),ok=function(){b.textContent="Copiado";setTimeout(function(){b.textContent="Copiar"},1800)};
+  if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok,function(){});})});
+</script>
+</body></html>

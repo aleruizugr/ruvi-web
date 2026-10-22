@@ -1,0 +1,7 @@
+/* Letras alojadas en la propia web (SIL Open Font License). */
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-display:swap;font-weight:200 800;src:url(/fuentes/bricolage-grotesque.woff2) format("woff2-variations"),url(/fuentes/bricolage-grotesque.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-display:swap;font-weight:400;src:url(/fuentes/source-sans-3-400.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-display:swap;font-weight:600;src:url(/fuentes/source-sans-3-600.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-display:swap;font-weight:700;src:url(/fuentes/source-sans-3-700.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-display:swap;font-weight:500;src:url(/fuentes/jetbrains-mono-500.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-display:swap;font-weight:700;src:url(/fuentes/jetbrains-mono-700.woff2) format("woff2")}

@@ -1,0 +1,120 @@
+/* Ruvï · estilos comunes de la web (ruvilab.es)
+   Colores de la marca: cobre del monograma, gris pardo de las letras, papel.
+   Letras alojadas en la propia web (licencia SIL OFL): sin Google Fonts, sin cookies. */
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-display:swap;font-weight:200 800;src:url(/fuentes/bricolage-grotesque.woff2) format("woff2-variations"),url(/fuentes/bricolage-grotesque.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-display:swap;font-weight:400;src:url(/fuentes/source-sans-3-400.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-display:swap;font-weight:600;src:url(/fuentes/source-sans-3-600.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-display:swap;font-weight:700;src:url(/fuentes/source-sans-3-700.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-display:swap;font-weight:500;src:url(/fuentes/jetbrains-mono-500.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-display:swap;font-weight:700;src:url(/fuentes/jetbrains-mono-700.woff2) format("woff2")}
+
+:root{
+  --bg:#F5F3F0; --surface:#FFFFFF; --ink:#2E2724; --muted:#6E625C; --line:#E4DDD6;
+  --accent:#9A5B38; --accent-soft:#F4E9E0; --mark:#E6BE97; --on-accent:#FFFFFF;
+  --ok:#5B7F5E; --cobre-1:#CD976B; --cobre-2:#955E3F; --top-bg:#FFF8F2; --band:#2E2724; --on-band:#F5F3F0;
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --f-num:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1A1614; --surface:#241F1C; --ink:#F0E9E3; --muted:#B3A69C; --line:#3A322D;
+  --accent:#D9A276; --accent-soft:#3A2A20; --mark:#7A4E32; --on-accent:#1A1614; --ok:#93BE97; --top-bg:#2E231D; --band:#0F0C0B; --on-band:#F0E9E3; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1A1614; --surface:#241F1C; --ink:#F0E9E3; --muted:#B3A69C; --line:#3A322D;
+  --accent:#D9A276; --accent-soft:#3A2A20; --mark:#7A4E32; --on-accent:#1A1614; --ok:#93BE97; --top-bg:#2E231D; --band:#0F0C0B; --on-band:#F0E9E3; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body)}
+img{max-width:100%;display:block}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--mark);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.1}
+h1{font-size:clamp(2.2rem,5.5vw,3.7rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.25rem;font-weight:700}
+p{margin:0}
+.muted{color:var(--muted)}
+.eb{font:700 .75rem/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.lead{font-size:1.15rem;color:var(--muted);max-width:60ch}
+mark{background:linear-gradient(transparent 62%,var(--mark) 62%);color:inherit;padding:0 .08em}
+
+.in{max-width:1080px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+section{padding-block:64px}
+.stack{display:flex;flex-direction:column;gap:20px}
+
+/* cabecera */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:11;background:var(--bg)}
+.top .in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.marca{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.marca img{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);object-fit:cover}
+.marca b{font:700 1.05rem var(--f-display);letter-spacing:.16em}
+.menu{display:flex;gap:4px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.menu a{color:var(--ink);text-decoration:none;font-weight:600;font-size:.95rem;padding:8px 12px;border-radius:10px}
+.menu a:hover{background:var(--accent-soft)}
+.menu a[aria-current="page"]{color:var(--accent)}
+@media (max-width:620px){.menu .opc{display:none}}
+
+/* botones */
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 1rem var(--f-body);padding:13px 22px;border-radius:12px;text-decoration:none;border:1px solid transparent;cursor:pointer}
+.btn.p{background:var(--cobre-2);color:#FFFFFF}
+.btn.p:hover{background:var(--accent)}
+:root[data-theme="dark"] .btn.p:hover{color:var(--on-accent)}
+.btn.s{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.btn.s:hover{border-color:var(--accent)}
+
+/* tarjetas y bloques */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+@media (max-width:820px){.grid2,.grid3{grid-template-columns:1fr}}
+.lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.lista li{display:grid;grid-template-columns:22px 1fr;gap:10px}
+.lista li::before{content:"✓";color:var(--ok);font-weight:700}
+
+/* capturas del móvil */
+.movil{border-radius:28px;border:8px solid var(--band);background:var(--band);overflow:hidden;box-shadow:0 30px 60px -30px rgba(46,39,36,.55);max-width:280px}
+.movil img{width:100%;height:auto}
+
+/* banda oscura */
+.banda{background:var(--band);color:var(--on-band)}
+.banda .muted{color:color-mix(in srgb,var(--on-band) 70%,transparent)}
+.banda .eb{color:var(--cobre-1)}
+
+/* contacto */
+.correo{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.correo code{font:700 1.15rem var(--f-num);background:var(--surface);color:var(--ink);border:1px solid var(--line);padding:10px 14px;border-radius:10px;user-select:all}
+.banda .correo code{background:transparent;color:var(--on-band);border-color:color-mix(in srgb,var(--on-band) 30%,transparent)}
+.copiar{font:600 .95rem var(--f-body);padding:10px 14px;border-radius:10px;border:1px solid var(--cobre-1);background:transparent;color:inherit;cursor:pointer}
+
+/* pie */
+.pie{border-top:1px solid var(--line);padding-block:28px 40px;font-size:.92rem;color:var(--muted)}
+.pie .in{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.pie nav{display:flex;gap:16px;flex-wrap:wrap}
+.pie a{color:var(--muted)}
+
+/* páginas legales */
+.legal{max-width:760px}
+.legal h2{font-size:1.35rem;margin-top:12px}
+.legal ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.legal table{border-collapse:collapse;width:100%}
+.legal th,.legal td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+.legal .tw{overflow-x:auto}
+
+/* bloques a dos columnas: texto + captura (en el móvil, una debajo de otra) */
+.dos{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:48px;align-items:center}
+.dos.inv{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+.proy{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center;transition:border-color .2s}
+.proy:hover{border-color:var(--accent)}
+@media (max-width:820px){.dos,.dos.inv{grid-template-columns:1fr;gap:36px}.dos.inv>:first-child{order:2}.proy{grid-template-columns:1fr}.proy img{display:none}}
+details summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+";color:var(--accent);font-weight:700;font-size:1.3rem;line-height:1}
+details[open] summary::after{content:"−"}
+.menu a{white-space:nowrap}
+.banda .movil{border-color:#4A3F39;background:#4A3F39}
+@media (max-width:440px){.marca b{display:none}.menu a{padding:8px 9px;font-size:.92rem}}

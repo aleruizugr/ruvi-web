@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="description" content="Tarifas de Plantilla de Repaso para academias, con calculadora de cuota.">
+<link rel="icon" type="image/png" href="/img/favicon.png">
+<title>Tarifas Plantilla de Repaso 2026</title>
+
+<link rel="stylesheet" href="/fuentes/fuentes.css">
+<style>
+/* Layout: hoja de tarifas de una sola columna ancha; cabecera tipo «hoja de respuestas», tres packs en fila, calculadora, tablas y condiciones */
+:root{
+  /* Colores de la marca Ruvï: cobre del monograma, gris pardo de las letras, papel blanco */
+  --bg:#F5F3F0; --surface:#FFFFFF; --ink:#2E2724; --muted:#6E625C; --line:#E4DDD6;
+  --accent:#9A5B38; --accent-soft:#F4E9E0; --mark:#E6BE97; --on-accent:#FFFFFF;
+  --ok:#5B7F5E; --cobre-1:#CD976B; --cobre-2:#955E3F; --top-bg:#FFF8F2;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --f-num:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1A1614; --surface:#241F1C; --ink:#F0E9E3; --muted:#B3A69C; --line:#3A322D;
+  --accent:#D9A276; --accent-soft:#3A2A20; --mark:#7A4E32; --on-accent:#1A1614; --ok:#93BE97; --top-bg:#2E231D; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1A1614; --surface:#241F1C; --ink:#F0E9E3; --muted:#B3A69C; --line:#3A322D;
+  --accent:#D9A276; --accent-soft:#3A2A20; --mark:#7A4E32; --on-accent:#1A1614; --ok:#93BE97; --top-bg:#2E231D; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--f-body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1040px;margin:0 auto;padding-block:40px 64px;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.1}
+h1{font-size:clamp(2.1rem,5vw,3.4rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.25rem;font-weight:700}
+p{margin:0}
+.eb{font:700 .75rem/1 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.muted{color:var(--muted)}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+section{display:flex;flex-direction:column;gap:20px}
+.lead{max-width:62ch;font-size:1.1rem;color:var(--muted)}
+mark{white-space:nowrap;background:linear-gradient(transparent 55%,var(--mark) 55%);color:inherit;padding:0 .1em}
+
+/* Cabecera */
+header{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:end}
+.brand{display:flex;gap:12px;align-items:center;font:700 1rem var(--f-display);letter-spacing:.14em;text-transform:uppercase}
+.brand img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:1px solid var(--line);box-shadow:0 4px 14px -8px var(--cobre-2);flex:none}
+.brand i{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--cobre-1),var(--cobre-2));display:grid;place-items:center;color:var(--on-accent);font-style:normal;font-size:.9rem}
+.hero{display:flex;flex-direction:column;gap:18px}
+.sheet{display:grid;grid-template-columns:repeat(3,26px);gap:10px 8px;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.sheet span{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font:700 .7rem var(--f-num);color:var(--muted)}
+.sheet span.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+@media (max-width:640px){header{grid-template-columns:1fr}.sheet{display:none}}
+
+/* Packs */
+.packs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+@media (max-width:860px){.packs{grid-template-columns:1fr}}
+.pack{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px;position:relative}
+.pack.top{border:3px solid transparent;background:linear-gradient(var(--top-bg),var(--top-bg)) padding-box,linear-gradient(150deg,var(--cobre-1),var(--cobre-2)) border-box;box-shadow:0 28px 56px -22px var(--cobre-2);transform:translateY(-12px);padding-block:32px 28px}
+.pack.top h3{font-size:1.5rem;color:var(--accent)}
+.pack.top .price b{color:var(--accent);font-size:2.8rem}
+.pack.top .per{background:var(--cobre-2);color:#FFFFFF}
+@media (max-width:860px){.pack.top{transform:none;order:-1}}
+.badge{position:absolute;top:-15px;left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--cobre-2);color:#FFFFFF;font:700 .8rem/1 var(--f-body);letter-spacing:.1em;text-transform:uppercase;padding:9px 16px;border-radius:99px;box-shadow:0 8px 18px -8px var(--cobre-2)}
+.price{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.price b{font:700 2.4rem/1 var(--f-num);letter-spacing:-.03em}
+.per{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;background:var(--accent-soft);color:var(--accent);font:700 .9rem var(--f-body);padding:6px 10px;border-radius:8px}
+.pack ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:.95rem}
+.pack li{display:grid;grid-template-columns:18px 1fr;gap:8px}
+.pack li::before{content:"✓";color:var(--ok);font-weight:700}
+.pack li.plus::before{content:"+";color:var(--accent)}
+.pack .from{font-size:.85rem;color:var(--muted)}
+
+/* Tablas */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font:700 .78rem var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+td.p{white-space:nowrap}
+td.p b{font:700 1.05rem var(--f-num);font-variant-numeric:tabular-nums}
+td.p small{display:block;color:var(--muted);font:500 .8rem var(--f-num)}
+th.hl{background:var(--cobre-2);color:#FFFFFF}
+td.hl{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--cobre-1),inset -3px 0 0 var(--cobre-1)}
+tr:last-child td.hl{box-shadow:inset 3px 0 0 var(--cobre-1),inset -3px 0 0 var(--cobre-1),inset 0 -3px 0 var(--cobre-1)}
+td.hl b{color:var(--accent);font-size:1.15rem}
+.y{color:var(--ok);font-weight:700}.n{color:var(--muted)}
+td:first-child{font-weight:600}
+
+/* Calculadora */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface)}
+@media (max-width:760px){.calc{grid-template-columns:1fr}}
+.calc .in{padding:24px;display:flex;flex-direction:column;gap:20px}
+.calc .out{padding:24px;background:var(--ink);color:var(--bg);display:flex;flex-direction:column;gap:14px}
+.calc .out .k{font:700 .75rem var(--f-body);letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.calc .out .big{font:700 2.6rem/1 var(--f-num)}
+.calc .out .row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid color-mix(in srgb,var(--bg) 20%,transparent);padding-top:10px;font-size:.95rem}
+.calc .out .row b{font-family:var(--f-num)}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{font:600 .95rem var(--f-body);padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.seg button:focus-visible,input:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+label{font-weight:700;font-size:.9rem}
+.slider{display:flex;align-items:center;gap:14px}
+input[type=range]{flex:1;accent-color:var(--accent)}
+input[type=number]{width:86px;font:700 1rem var(--f-num);padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+
+/* Bloques varios */
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.soon{border:1px dashed var(--accent);background:var(--accent-soft);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:8px}
+.always{display:flex;flex-wrap:wrap;gap:8px}
+.always span{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 12px;font-size:.9rem}
+footer{border-top:1px solid var(--line);padding-top:20px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink);user-select:all}
+@media (prefers-reduced-motion:no-preference){.calc .out .big{transition:opacity .15s}}
+body{margin:0}
+</style>
+</head><body>
+
+<div class="wrap">
+
+<header>
+  <div class="hero">
+    <a class="brand" href="/" style="text-decoration:none;color:inherit"><img src="/img/logo-ruvi.jpg" alt="Logo de Ruvï" width="48" height="48"><span>Ruvï <span class="muted" style="letter-spacing:.06em;text-transform:none;font-family:var(--f-body);font-size:.9rem">· Plantilla de Repaso</span></span></a>
+    <span class="eb">Tarifas para academias · curso 2026-2027</span>
+    <h1>Tests de Policía Nacional listos para tus alumnos, por <mark>4,50 € al mes</mark> o menos cada uno</h1>
+    <p class="lead">Preparamos las preguntas de vuestros temas, a partir del BOE o de vuestro propio temario, y se las damos a vuestros alumnos en una app con corrección al momento. Vuestros profesores dedican el tiempo a dar clase, no a hacer tests.</p>
+  </div>
+  <div class="sheet" aria-hidden="true">
+    <span>a</span><span class="on">b</span><span>c</span>
+    <span class="on">a</span><span>b</span><span>c</span>
+    <span>a</span><span>b</span><span class="on">c</span>
+    <span>a</span><span class="on">b</span><span>c</span>
+  </div>
+</header>
+
+<section aria-labelledby="t-packs">
+  <span class="eb">Packs de la app</span>
+  <h2 id="t-packs">Tres packs, un precio claro por alumno</h2>
+  <p class="lead">Pagáis una cuota mensual según el tamaño del grupo, y al lado veis lo que sale por alumno. Cuantos más alumnos, menos pagáis por cada uno. Y pasar al pack Completo cuesta solo unos céntimos más por alumno. Precios sin IVA.</p>
+  <div class="packs">
+    <article class="pack">
+      <h3>Tests</h3>
+      <p class="from">Para empezar a practicar con tests de examen</p>
+      <div class="price"><span class="from">desde</span><b class="num">120 €</b><span class="muted">/mes</span></div>
+      <span class="per">4,00 € por alumno</span>
+      <span class="from">Baja hasta 3,00 € por alumno en grupos grandes</span>
+      <ul>
+        <li>Tests tipo examen: 3 opciones, −0,5 por fallo y cronómetro</li>
+        <li>Corrección con el artículo literal de la ley</li>
+        <li>Resultados por pestañas: aciertos, fallos, en blanco y «Dudo»</li>
+        <li>Botón «Dudo» con análisis de si compensa arriesgar</li>
+        <li>Mi cuaderno: fallos y preguntas sin contestar, por grupos</li>
+      </ul>
+    </article>
+    <article class="pack">
+      <h3>Plus</h3>
+      <p class="from">Para que la academia guíe el estudio</p>
+      <div class="price"><span class="from">desde</span><b class="num">126 €</b><span class="muted">/mes</span></div>
+      <span class="per">4,20 € por alumno</span>
+      <span class="from">Solo 0,20 € más por alumno que Tests</span>
+      <ul>
+        <li class="plus">Todo lo del pack Tests</li>
+        <li>Plan semanal publicado por la academia</li>
+        <li>Tarjetas de repaso por tema: plazos, cifras y órganos</li>
+        <li>Las preguntas más falladas de la academia, por tema</li>
+      </ul>
+    </article>
+    <article class="pack top">
+      <span class="badge">El más elegido</span>
+      <h3>Completo</h3>
+      <p class="from">La preparación entera en una sola app</p>
+      <div class="price"><span class="from">desde</span><b class="num">135 €</b><span class="muted">/mes</span></div>
+      <span class="per">4,50 € por alumno</span>
+      <span class="from">Solo 0,30 € más por alumno que Plus, y baja hasta 3,50 €</span>
+      <ul>
+        <li class="plus">Todo lo del pack Plus</li>
+        <li>Ranking de la academia</li>
+        <li>Pruebas físicas: nota según las marcas y evolución con gráficas</li>
+        <li>Prioridad en preguntas nuevas y simulacros</li>
+      </ul>
+    </article>
+  </div>
+  <div class="always" aria-label="Incluido en todos los packs">
+    <span>Incluido siempre:</span>
+    <span>Preguntas revisadas por vuestros profesores</span>
+    <span>Cada academia separada de las demás</span>
+    <span>Copias de seguridad diarias cifradas</span>
+    <span>Contrato de protección de datos (RGPD)</span>
+    <span>Modo claro y oscuro</span>
+    <span>Móvil y ordenador</span>
+  </div>
+</section>
+
+<section aria-labelledby="t-precios">
+  <span class="eb">Precio mensual</span>
+  <h2 id="t-precios">Lo que pagáis cada mes según el número de alumnos</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Alumnos</th><th>Tests</th><th>Plus</th><th class="hl">Completo</th></tr></thead>
+    <tbody id="tabla"></tbody>
+  </table></div>
+  <p class="muted">El precio por alumno se calcula con el tramo lleno: un grupo de 30 en el pack Completo paga 135 € al mes, es decir, 4,50 € por alumno. A partir de 51 alumnos el precio por alumno baja. Más de 150 alumnos: a medida. Precios sin IVA.</p>
+</section>
+
+<section aria-labelledby="t-calc">
+  <span class="eb">Calculadora</span>
+  <h2 id="t-calc">Calcula vuestra cuota</h2>
+  <div class="calc">
+    <div class="in">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label id="l-pack">Pack</label>
+        <div class="seg" role="group" aria-labelledby="l-pack" id="segPack">
+          <button type="button" data-p="tests" aria-pressed="false" id="b-tests">Tests</button>
+          <button type="button" data-p="plus" aria-pressed="false" id="b-plus">Plus</button>
+          <button type="button" data-p="completo" aria-pressed="true" id="b-completo">Completo</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label for="nAl">Alumnos que usarán la app</label>
+        <div class="slider"><input type="range" id="rAl" min="1" max="150" value="30" aria-label="Alumnos"><input type="number" id="nAl" min="1" max="150" value="30"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label id="l-pago">Forma de pago</label>
+        <div class="seg" role="group" aria-labelledby="l-pago" id="segPago">
+          <button type="button" data-d="0" aria-pressed="true" id="b-mes">Mensual</button>
+          <button type="button" data-d="5" aria-pressed="false" id="b-tri">Trimestral −5 %</button>
+          <button type="button" data-d="15" aria-pressed="false" id="b-cur">Curso −15 %</button>
+        </div>
+      </div>
+    </div>
+    <div class="out" aria-live="polite">
+      <span class="k" id="oTramo">Tramo hasta 30 alumnos</span>
+      <span class="big num" id="oMes">135 €</span>
+      <span id="oPer">al mes · 4,50 € por alumno</span>
+      <div class="row"><span>Cuota de alta (un solo pago)</span><b>150 €</b></div>
+      <div class="row"><span id="oAnoK">Primer año (mes 1 gratis + 11 meses)</span><b id="oAno">1.635 €</b></div>
+      <span style="font-size:.85rem;opacity:.7">Precios sin IVA. El primer año incluye el alta.</span>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="t-cond">
+  <span class="eb">Condiciones</span>
+  <h2 id="t-cond">Sin permanencia y con el primer mes gratis</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Concepto</th><th>Condición</th></tr></thead>
+    <tbody>
+      <tr><td>Mes de prueba</td><td>El primer mes es gratis y sin compromiso</td></tr>
+      <tr><td>Preguntas incluidas</td><td>100 preguntas por tema, hasta 6 temas nuevos al mes, al ritmo que marque la academia</td></tr>
+      <tr><td>Temas adicionales</td><td><span class="num">35 €</span> por tema (100 preguntas) a partir del 7.º tema del mismo mes</td></tr>
+      <tr><td>Con el temario completo</td><td>La cuota incluye las actualizaciones por cambios de ley, la corrección de errores y hasta 100 preguntas nuevas al mes (segundas tandas o simulacros)</td></tr>
+      <tr><td>Cuota de alta</td><td><span class="num">150 €</span>, un solo pago: preparación de vuestro espacio y de los primeros 6 temas</td></tr>
+      <tr><td>Pago trimestral</td><td>5 % de descuento</td></tr>
+      <tr><td>Pago por curso (10 meses)</td><td>15 % de descuento</td></tr>
+      <tr><td>Permanencia</td><td>Ninguna: os podéis dar de baja cualquier mes avisando con 15 días</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section aria-labelledby="t-preg">
+  <span class="eb">Servicio de preguntas sin app</span>
+  <h2 id="t-preg">Solo las preguntas, para vuestra plataforma</h2>
+  <p class="lead">Cada tema lleva 100 preguntas de tres opciones, con la respuesta correcta, una explicación y el artículo de la ley. Antes de la entrega, el profesor recibe un PDF de revisión para marcar cada pregunta como Vale, Cambiar o Quitar.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Modalidad</th><th>Qué incluye</th><th>Precio</th></tr></thead>
+    <tbody>
+      <tr><td>Preguntas del BOE</td><td>100 preguntas por tema, sacadas del BOE vigente. Bloque de Ciencias Jurídicas (temas 1-26)</td><td class="p"><b>70 €</b><small>por tema</small></td></tr>
+      <tr><td>Bloque de Ciencias Jurídicas</td><td>Las mismas preguntas del BOE para los 26 temas</td><td class="p"><b>1.300 €</b><small>50 € por tema</small></td></tr>
+      <tr><td>Desde vuestro temario</td><td>100 preguntas por tema hechas con vuestro temario, en exclusiva para vuestra academia, con aviso de lo que esté desactualizado respecto al BOE</td><td class="p"><b>140 €</b><small>por tema</small></td></tr>
+      <tr><td>Actualización</td><td>Aviso y corrección de las preguntas cuando cambia una ley</td><td class="p"><b>12 €</b><small>al mes</small></td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted">Formatos de entrega: PDF con soluciones, Excel o CSV, Moodle (GIFT) o cargadas directamente en la app. Si después contratáis la app, las preguntas que ya tengáis se cargan sin coste.</p>
+</section>
+
+<section class="grid2" aria-label="Uso de las preguntas y protección de datos">
+  <div class="note">
+    <h3>Vuestro temario es vuestro</h3>
+    <p class="muted">El temario de cada academia y las preguntas hechas con él no se usan para nadie más. Las preguntas son para uso interno de la academia y no se pueden revender. Las incluidas en la suscripción se usan dentro de la app; el material de revisión es solo para revisarlas.</p>
+  </div>
+  <div class="note">
+    <h3>Datos de vuestros alumnos protegidos</h3>
+    <p class="muted">Firmamos con cada academia un contrato de encargado del tratamiento (RGPD). Datos alojados en la Unión Europea, copias cifradas a diario y cada academia ve solo lo suyo, por diseño de la base de datos.</p>
+  </div>
+</section>
+
+<section class="soon" aria-labelledby="t-soon">
+  <span class="eb">Próximamente</span>
+  <h3 id="t-soon">Nuevos módulos dentro de la misma app</h3>
+  <p class="muted">Estamos preparando nuevas herramientas que se podrán añadir a vuestro pack sin cambiar de plataforma. Las academias clientes las conocerán antes que nadie.</p>
+</section>
+
+<footer>
+  <span>Ruvï · Plantilla de Repaso · Precios sin IVA, vigentes desde noviembre de 2026</span>
+  <span>Escríbenos: <b>hola@ruvilab.es</b> · <a href="/aviso-legal/" style="color:inherit">Aviso legal</a> · <a href="/privacidad/" style="color:inherit">Privacidad</a></span>
+</footer>
+</div>
+
+<script>
+(function(){
+  var NOM={tests:"Tests",plus:"Plus",completo:"Completo"};
+  /* precio por alumno de cada pack en cada tramo */
+  var TRAMOS=[
+    {d:1,h:30,  p:{tests:4.00,plus:4.20,completo:4.50}},
+    {d:31,h:50, p:{tests:4.00,plus:4.20,completo:4.50}},
+    {d:51,h:80, p:{tests:3.50,plus:3.70,completo:4.00}},
+    {d:81,h:120,p:{tests:3.25,plus:3.45,completo:3.75}},
+    {d:121,h:150,p:{tests:3.00,plus:3.20,completo:3.50}}];
+  var ALTA=150;
+  function eur(v,dec){return v.toLocaleString("es-ES",{minimumFractionDigits:dec?2:0,maximumFractionDigits:2})+" €"}
+  function e2(v){return (Math.round(v*100)%100===0)?eur(v,false):eur(v,true)}
+  var tb=document.getElementById("tabla"),html="";
+  TRAMOS.forEach(function(t){
+    html+="<tr><td>"+(t.d===1?"Hasta "+t.h:"De "+t.d+" a "+t.h)+"</td>";
+    ["tests","plus","completo"].forEach(function(p){
+      html+='<td class="p'+(p==="completo"?" hl":"")+'"><b>'+e2(t.h*t.p[p])+'</b><small>'+eur(t.p[p],true)+' / alumno</small></td>';
+    });
+    html+="</tr>";
+  });
+  html+='<tr><td>Más de 150</td><td class="p"><b>A medida</b><small>menos de 3,00 € / alumno</small></td><td class="p"><b>A medida</b><small>menos de 3,20 € / alumno</small></td><td class="p hl"><b>A medida</b><small>menos de 3,50 € / alumno</small></td></tr>';
+  tb.innerHTML=html;
+
+  var st={p:"completo",n:30,d:0};
+  var r=document.getElementById("rAl"),n=document.getElementById("nAl");
+  function pinta(){
+    var t=TRAMOS.find(function(x){return st.n<=x.h})||TRAMOS[TRAMOS.length-1];
+    var per=t.p[st.p], mes=t.h*per;
+    var mesD=mes*(1-st.d/100);
+    document.getElementById("oTramo").textContent="Pack "+NOM[st.p]+" · tramo "+(t.d===1?"hasta ":"de "+t.d+" a ")+t.h+" alumnos";
+    document.getElementById("oMes").textContent=e2(mesD);
+    document.getElementById("oPer").textContent="al mes · "+eur(per*(1-st.d/100),true)+" por alumno"+(st.d?" con el descuento":"");
+    var ano,k;
+    if(st.d===15){ano=mes*10*0.85+ALTA;k="Curso completo (10 meses −15 %) + alta";}
+    else{ano=mesD*11+ALTA;k="Primer año (mes 1 gratis + 11 meses) + alta";}
+    document.getElementById("oAnoK").textContent=k;
+    document.getElementById("oAno").textContent=e2(ano);
+  }
+  function setN(v){v=Math.max(1,Math.min(150,parseInt(v,10)||1));st.n=v;r.value=v;n.value=v;pinta()}
+  r.addEventListener("input",function(){setN(r.value)});
+  n.addEventListener("input",function(){if(n.value!=="")setN(n.value)});
+  function seg(id,key,attr,conv){
+    var g=document.getElementById(id);
+    g.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
+      g.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});
+      st[key]=conv(b.getAttribute(attr));pinta();});
+  }
+  seg("segPack","p","data-p",function(x){return x});
+  seg("segPago","d","data-d",function(x){return +x});
+  pinta();
+})();
+</script>
+
+</body></html>
