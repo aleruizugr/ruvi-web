@@ -94,7 +94,7 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
     <div class="btns"><a class="btn p" href="/plantilla-repaso/">Conoce Plantilla de Repaso</a><a class="btn s" href="#contacto">Hablemos</a></div>
     <p style="font-size:.95rem;margin:0"><a href="/plantilla-repaso/#demo">Ver la demo en un minuto →</a></p>
   </div>
-  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test de Plantilla de Repaso en el móvil, con tres opciones y el cronómetro" width="390" height="696"></div></div>
+  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test de Plantilla de Repaso en el móvil, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="390" height="700"></div></div>
 </div></section>
 
 <section id="proyectos" style="padding-top:0"><div class="in stack">
@@ -142,7 +142,7 @@ escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, conver
     <div class="btns"><a class="btn p" href="#contacto">Pide una demo</a><a class="btn s" href="{APP}">Entrar en la app</a></div>
     <p class="muted" style="font-size:.95rem">Primer mes gratis y sin permanencia.</p>
   </div>
-  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-inicio.png" alt="Pantalla de inicio del alumno: su última nota, preguntas realizadas, fallos por repasar y botón para empezar un test" width="390" height="820"></div></div>
+  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-inicio.png" alt="Pantalla de inicio del alumno: aviso de fallos por repasar, su última nota, preguntas hechas, y la elección de tema, número de preguntas y corrección para empezar un test" width="390" height="844"></div></div>
 </div></section>
 
 <section style="padding-top:0" id="demo"><div class="in stack">
@@ -164,7 +164,7 @@ escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, conver
 </div></section>
 
 <section class="banda"><div class="in dos inv">
-  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-resultado.png" alt="Resultado de un test: la nota sobre 10, aciertos, errores y preguntas en blanco, y la cuenta de cómo se calcula" width="390" height="484"></div></div>
+  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-resultado.png" alt="Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, la cuenta como en el examen y cuántos puntos le ha sumado arriesgar en las preguntas que dudaba" width="390" height="748"></div></div>
   <div class="stack">
     <span class="eb">Qué incluye</span>
     <h2>Practicar como en el examen y entender cada fallo</h2>
