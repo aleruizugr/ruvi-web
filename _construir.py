@@ -68,10 +68,10 @@ def con_version(html_txt):
     # añade ?v=<huella> a las imágenes de /img/, para que el navegador no muestre una versión vieja
     import re as _re
     def f(m):
-        ruta = R / m.group(1).lstrip("/")
+        ruta = R / m.group(2).lstrip("/")
         h = hashlib.md5(ruta.read_bytes()).hexdigest()[:8] if ruta.exists() else "0"
-        return f'src="{m.group(1)}?v={h}"'
-    return _re.sub(r'src="(/img/[^"?]+)"', f, html_txt)
+        return f'{m.group(1)}="{m.group(2)}?v={h}"'
+    return _re.sub(r'(src|poster)="(/(?:img|video)/[^"?]+)"', f, html_txt)
 
 def escribir(ruta, contenido):
     contenido = con_version(contenido)
