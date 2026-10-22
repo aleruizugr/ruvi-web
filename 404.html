@@ -14,7 +14,7 @@
 <link rel="icon" type="image/png" href="/img/favicon.png">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="preload" href="/fuentes/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/ruvi.css?v=4ce44d05">
+<link rel="stylesheet" href="/ruvi.css?v=86633e4b">
 </head><body><header class="top"><div class="in">
 <a class="marca" href="/" aria-label="Ruvï, inicio"><img src="/img/ruvi-monograma.png" alt="" width="40" height="40"><b>RUVÏ</b></a>
 <nav class="menu" aria-label="Menú"><a href="/#proyectos" class="opc">Proyectos</a><a href="/plantilla-repaso/" class="">Plantilla de Repaso</a><a href="/#contacto" class="">Contacto</a></nav>
@@ -31,14 +31,11 @@
 document.querySelectorAll("[data-copiar]").forEach(function(b){b.addEventListener("click",function(){
   var t=b.getAttribute("data-copiar"),ok=function(){b.textContent="Copiado";setTimeout(function(){b.textContent="Copiar"},1800)};
   if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok,function(){});})});
-(function(){var d=document.getElementById("demoDlg");if(!d||!d.showModal)return;
-  var vs=d.querySelectorAll("video"),movil=function(){return matchMedia("(max-width:820px)").matches};
-  var abrir=function(auto){d.showModal();var v=movil()?vs[1]:vs[0];if(auto){var p=v.play();if(p&&p.catch)p.catch(function(){})}};
-  document.querySelectorAll("[data-demo]").forEach(function(b){b.addEventListener("click",function(){abrir(true)})});
-  d.querySelector(".demo-x").addEventListener("click",function(){d.close()});
-  d.addEventListener("click",function(e){if(e.target===d)d.close()});
-  d.querySelector(".demo-cerrar").addEventListener("click",function(){d.close()});
-  d.addEventListener("close",function(){vs.forEach(function(v){v.pause()})});
+(function(){var b=document.getElementById("demoBtn"),c=document.getElementById("demoVideo");if(!b||!c)return;
+  var vs=c.querySelectorAll("video"),t=b.querySelector(".t"),ic=b.querySelector(".play");
+  var PLAY='<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',X='<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  b.addEventListener("click",function(){var abrir=c.hidden;c.hidden=!abrir;b.setAttribute("aria-expanded",abrir);t.textContent=abrir?"Cerrar vídeo":"Ver la demo · 1 min";ic.innerHTML=abrir?X:PLAY;
+    if(abrir){var v=matchMedia("(max-width:820px)").matches?vs[1]:vs[0];var p=v.play();if(p&&p.catch)p.catch(function(){})}else vs.forEach(function(v){v.pause()})});
 })();
 </script>
 </body></html>
