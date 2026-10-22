@@ -121,3 +121,4 @@ details[open] summary::after{content:"−"}
 .btn.wa{background:#1F7A4D;color:#FFFFFF}
 .btn.wa:hover{background:#17623D}
 .banda .btn.p{background:var(--cobre-1);color:#2E2724}
+.lema{font:700 clamp(1.15rem,2.4vw,1.45rem)/1.25 var(--f-display);color:var(--accent);letter-spacing:-.005em;margin:0}

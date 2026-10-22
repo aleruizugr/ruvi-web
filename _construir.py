@@ -92,6 +92,7 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
     <div class="stack" style="gap:12px">
       <span class="eb" style="color:var(--muted)">Para academias de Policía Nacional</span>
       <h3 style="font-size:1.7rem">Plantilla de Repaso</h3>
+      <p class="lema" style="font-size:1.15rem">Tu temario, convertido en examen.</p>
       <p class="muted">Tests tipo examen de vuestros temas, listos para vuestros alumnos en una app. Preparamos las preguntas a partir del BOE o de vuestro temario, vuestros profesores las revisan y los alumnos practican con corrección al momento.</p>
       <span style="color:var(--accent);font-weight:700">Ver el proyecto →</span>
     </div>
@@ -116,13 +117,14 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
 </main>''' + PIE)
 
 # ---------------------------------------------------------------- Plantilla de Repaso
-escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Ruvï",
+escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, convertido en examen",
   "Tests tipo examen de Policía Nacional para los alumnos de tu academia: preguntas del BOE o de tu temario, revisadas por tus profesores, con corrección y la ley en cada pregunta.", "/plantilla-repaso/")
 + menu("/plantilla-repaso/") + f'''
 <main>
 <section><div class="in dos" id="hero">
   <div class="stack">
     <span class="eb">Plantilla de Repaso · Policía Nacional</span>
+    <p class="lema">Tu temario, convertido en examen.</p>
     <h1>Tests tipo examen para los alumnos de <mark>tu academia</mark></h1>
     <p class="lead">Preparamos las preguntas de vuestros temas, a partir del BOE o de vuestro propio temario, y vuestros alumnos practican en una app con corrección al momento. Vuestros profesores dedican el tiempo a dar clase, no a hacer tests.</p>
     <div class="btns"><a class="btn p" href="#contacto">Pide una demo</a><a class="btn s" href="{APP}">Entrar en la app</a></div>
