@@ -43,7 +43,7 @@ section{display:flex;flex-direction:column;gap:20px}
 mark{white-space:nowrap;background:linear-gradient(transparent 55%,var(--mark) 55%);color:inherit;padding:0 .1em}
 
 /* Cabecera */
-header{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:end}
+header{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center}
 .brand{display:flex;gap:12px;align-items:center;font:700 1rem var(--f-display);letter-spacing:.14em;text-transform:uppercase}
 .brand img{width:44px;height:44px;object-fit:contain;flex:none}
 .brand i{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--cobre-1),var(--cobre-2));display:grid;place-items:center;color:var(--on-accent);font-style:normal;font-size:.9rem}
@@ -124,6 +124,10 @@ footer b{color:var(--ink);user-select:all}
 .cbtn:focus-visible{outline:3px solid var(--mark);outline-offset:3px}
 @media print{.cierre{display:none}}
 .lema{font:700 clamp(1.15rem,2.4vw,1.45rem)/1.25 var(--f-display);color:var(--accent);margin:0}
+.movil-t{border-radius:26px;border:7px solid #2E2724;background:#2E2724;overflow:hidden;width:230px;height:400px;box-shadow:0 26px 50px -26px rgba(46,39,36,.55);flex:none}
+.movil-t img{width:100%;height:auto;display:block}
+@media (max-width:640px){.movil-t{display:none}}
+@media print{.movil-t{box-shadow:none}}
 body{margin:0}
 </style>
 </head><body>
@@ -132,18 +136,13 @@ body{margin:0}
 
 <header>
   <div class="hero">
-    <a class="brand" href="/" style="text-decoration:none;color:inherit"><img src="/img/ruvi-monograma.png" alt="Logo de Ruvï" width="44" height="44"><span>Ruvï <span class="muted" style="letter-spacing:.06em;text-transform:none;font-family:var(--f-body);font-size:.9rem">· Plantilla de Repaso</span></span></a>
+    <a class="brand" href="/" style="text-decoration:none;color:inherit"><img src="/img/ruvi-monograma.png?v=dad139e9" alt="Logo de Ruvï" width="44" height="44"><span>Ruvï <span class="muted" style="letter-spacing:.06em;text-transform:none;font-family:var(--f-body);font-size:.9rem">· Plantilla de Repaso</span></span></a>
     <span class="eb">Tarifas para academias · curso 2026-2027</span>
     <p class="lema">Tu temario, convertido en examen.</p>
     <h1>Tests de Policía Nacional listos para tus alumnos, por <mark>4,50 € al mes</mark> o menos cada uno</h1>
     <p class="lead">Preparamos las preguntas de vuestros temas, a partir del BOE o de vuestro propio temario, y se las damos a vuestros alumnos en una app con corrección al momento. Vuestros profesores dedican el tiempo a dar clase, no a hacer tests.</p>
   </div>
-  <div class="sheet" aria-hidden="true">
-    <span>a</span><span class="on">b</span><span>c</span>
-    <span class="on">a</span><span>b</span><span>c</span>
-    <span>a</span><span>b</span><span class="on">c</span>
-    <span>a</span><span class="on">b</span><span>c</span>
-  </div>
+  <div class="movil-t"><img src="/img/app-inicio.png?v=c5283f98" alt="Pantalla de inicio de Plantilla de Repaso para el alumno" width="390" height="820"></div>
 </header>
 
 <section aria-labelledby="t-packs">

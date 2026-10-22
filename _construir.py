@@ -64,7 +64,17 @@ def correo_bloque():
   <div class="correo"><code>{CORREO}</code><button class="copiar" type="button" data-copiar="{CORREO}">Copiar</button></div>
   <p class="muted" style="font-size:.95rem">O llámanos o escríbenos al <b style="white-space:nowrap">{TELEFONO}</b>.</p>'''
 
+def con_version(html_txt):
+    # añade ?v=<huella> a las imágenes de /img/, para que el navegador no muestre una versión vieja
+    import re as _re
+    def f(m):
+        ruta = R / m.group(1).lstrip("/")
+        h = hashlib.md5(ruta.read_bytes()).hexdigest()[:8] if ruta.exists() else "0"
+        return f'src="{m.group(1)}?v={h}"'
+    return _re.sub(r'src="(/img/[^"?]+)"', f, html_txt)
+
 def escribir(ruta, contenido):
+    contenido = con_version(contenido)
     p = R / ruta.strip("/") / "index.html" if ruta != "/" else R / "index.html"
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(contenido, encoding="utf-8")
