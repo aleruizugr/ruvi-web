@@ -82,7 +82,7 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
     <p class="lead">Hacemos el trabajo pesado para que las academias se centren en enseñar y sus alumnos en aprobar. Hechas por opositores, con el examen real en la cabeza.</p>
     <div class="btns"><a class="btn p" href="/plantilla-repaso/">Conoce Plantilla de Repaso</a><a class="btn s" href="#contacto">Hablemos</a></div>
   </div>
-  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test de Plantilla de Repaso en el móvil, con tres opciones y el cronómetro" width="390" height="720"></div></div>
+  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test de Plantilla de Repaso en el móvil, con tres opciones y el cronómetro" width="390" height="696"></div></div>
 </div></section>
 
 <section id="proyectos" style="padding-top:0"><div class="in stack">
@@ -139,7 +139,7 @@ escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, conver
 </div></section>
 
 <section class="banda"><div class="in dos inv">
-  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-resultado.png" alt="Resultado de un test: la nota sobre 10, aciertos, errores y preguntas en blanco, y la cuenta de cómo se calcula" width="390" height="500"></div></div>
+  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-resultado.png" alt="Resultado de un test: la nota sobre 10, aciertos, errores y preguntas en blanco, y la cuenta de cómo se calcula" width="390" height="484"></div></div>
   <div class="stack">
     <span class="eb">Qué incluye</span>
     <h2>Practicar como en el examen y entender cada fallo</h2>
