@@ -109,7 +109,7 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
 
 <section id="nosotros" style="padding-top:0"><div class="in stack" style="max-width:760px">
   <h2>Quiénes somos</h2>
-  <p class="lead">Soy Alejandro, opositor a Policía Nacional. Creé Plantilla de Repaso al echar en falta tests que se parecieran de verdad al examen. Lo llevo junto a mi socio con la marca Ruvï.</p>
+  <p class="lead">Soy Alejandro, opositor a Policía Nacional. Creé Plantilla de Repaso al echar en falta tests que se parecieran de verdad al examen. Lo llevo junto a mi socio, miembro de las Fuerzas y Cuerpos de Seguridad del Estado y también opositor, con la marca Ruvï.</p>
 </div></section>
 
 <section class="banda" id="contacto"><div class="in stack" style="max-width:760px">
