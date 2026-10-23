@@ -184,14 +184,13 @@ escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, conver
 
 # ---------------------------------------------------------------- Aviso legal
 TITULAR = "Alejandro Ruiz Barreda"
-escribir("/aviso-legal/", cabeza("Aviso legal · Ruvï", "Datos del titular de ruvilab.es y condiciones de uso de la web.", "/aviso-legal/")
+escribir("/aviso-legal/", cabeza("Aviso legal · Ruvï", "Contacto y condiciones de uso de la web de Ruvï.", "/aviso-legal/")
 + menu("") + f'''
 <main><section><div class="in legal stack">
 <span class="eb">Legal</span><h1 style="font-size:2.2rem">Aviso legal</h1>
-<p class="muted">Última actualización: 22 de octubre de 2026</p>
-<h2>Titular de la web</h2>
-<p>En cumplimiento del artículo 10 de la Ley 34/2002, de servicios de la sociedad de la información (LSSI), el titular de ruvilab.es es <b>{TITULAR}</b>, con NIF 49236511C y domicilio en C/ Gustavo Adolfo Bécquer, 25, 21122 Huelva (España). Contacto: <a href="mailto:{CORREO}">{CORREO}</a>.</p>
-<p>Ruvï es una marca comercial; Plantilla de Repaso es un producto de Ruvï.</p>
+<p class="muted">Última actualización: 24 de octubre de 2026</p>
+<h2>Contacto</h2>
+<p>Ruvï es una marca comercial; Plantilla de Repaso es un producto de Ruvï. Para cualquier consulta: <a href="mailto:{CORREO}">{CORREO}</a>.</p>
 <h2>Uso de la web</h2>
 <p>Esta web informa sobre los productos de Ruvï. Quien la visita se compromete a usarla de forma lícita y a no dañar su funcionamiento.</p>
 <h2>Propiedad intelectual</h2>
