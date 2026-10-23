@@ -107,6 +107,11 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
   <div class="demo-pie"><button class="demo-cerrar" type="button" id="demoCerrar">Cerrar vídeo</button></div>
 </div></section>
 
+<section id="nosotros" style="padding-top:0"><div class="in stack" style="max-width:760px">
+  <h2>Quiénes somos</h2>
+  <p class="lead">Somos dos socios. Plantilla de Repaso nació opositando a Policía Nacional, al echar en falta tests que se parecieran de verdad al examen.</p>
+</div></section>
+
 <section class="banda" id="contacto"><div class="in stack" style="max-width:760px">
   <h2>¿Tienes una academia?</h2>
   <p class="lead">Te enseñamos la app con tus temas en 15 minutos. El primer mes es gratis.</p>
