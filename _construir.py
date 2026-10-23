@@ -183,7 +183,6 @@ escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, conver
 </main>''' + PIE)
 
 # ---------------------------------------------------------------- Aviso legal
-TITULAR = "Alejandro Ruiz Barreda"
 escribir("/aviso-legal/", cabeza("Aviso legal · Ruvï", "Contacto y condiciones de uso de la web de Ruvï.", "/aviso-legal/")
 + menu("") + f'''
 <main><section><div class="in legal stack">
@@ -208,10 +207,10 @@ escribir("/privacidad/", cabeza("Privacidad y cookies · Ruvï", "Cómo trata Ru
 + menu("") + f'''
 <main><section><div class="in legal stack">
 <span class="eb">Legal</span><h1 style="font-size:2.2rem">Privacidad y cookies</h1>
-<p class="muted">Última actualización: 22 de octubre de 2026</p>
+<p class="muted">Última actualización: 24 de octubre de 2026</p>
 <p class="card"><b>En pocas palabras:</b> esta web no usa cookies, ni analíticas, ni publicidad, y no tiene formularios. Solo tratamos tus datos si nos escribes o nos llamas, y solo para contestarte.</p>
 <h2>Responsable</h2>
-<p>{TITULAR}, NIF 49236511C, C/ Gustavo Adolfo Bécquer, 25, 21122 Huelva. Contacto para privacidad: <a href="mailto:privacidad@ruvilab.es">privacidad@ruvilab.es</a>.</p>
+<p>Ruvï. Contacto para privacidad: <a href="mailto:privacidad@ruvilab.es">privacidad@ruvilab.es</a>.</p>
 <h2>Qué datos tratamos y para qué</h2>
 <ul>
 <li><b>Si nos escribes</b> a {CORREO}, por WhatsApp o nos llamas: tu nombre, tu email, el nombre de tu academia y lo que nos cuentes. Los usamos para contestarte y, si lo pides, para enseñarte la app y prepararte un presupuesto. Base legal: tu petición y las medidas previas a un contrato (artículo 6.1.b del RGPD).</li>
