@@ -87,13 +87,13 @@ def escribir(ruta, contenido):
 
 # ---------------------------------------------------------------- Inicio
 escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
-  "Ruvï crea herramientas para academias de oposiciones. Primer producto: Plantilla de Repaso, tests tipo examen de Policía Nacional.", "/")
+  "Ruvï crea herramientas para academias de oposiciones. Primer producto: Plantilla de Repaso, tests tipo examen para Policía Nacional y cualquier oposición tipo test.", "/")
 + menu("/") + f'''
 <main>
 <section><div class="in dos" id="hero">
   <div class="stack">
     <h1>Herramientas para <mark>preparar oposiciones</mark></h1>
-    <p class="lead">Nuestro primer producto: Plantilla de Repaso, tests tipo examen de Policía Nacional para academias.</p>
+    <p class="lead">Nuestro primer producto: Plantilla de Repaso, tests tipo examen para academias. Nació para Policía Nacional y se adapta a cualquier oposición con examen tipo test.</p>
     <div class="btns"><a class="btn p" href="/plantilla-repaso/">Ver Plantilla de Repaso</a></div>
     <p style="font-size:.95rem;margin:0"><button class="enlace-demo" type="button" id="demoBtn" aria-expanded="false" aria-controls="demoBox">Ver la demo en un minuto →</button></p>
   </div>
@@ -121,13 +121,14 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
 
 # ---------------------------------------------------------------- Plantilla de Repaso
 escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, convertido en examen",
-  "Tests tipo examen de Policía Nacional para tu academia: preguntas de tus temas, revisadas por tus profesores, con corrección con la ley.", "/plantilla-repaso/")
+  "Tests tipo examen para tu academia, de Policía Nacional o cualquier oposición tipo test: preguntas de tus temas, revisadas por tus profesores, con corrección con la ley.", "/plantilla-repaso/")
 + menu("/plantilla-repaso/") + f'''
 <main>
 <section><div class="in dos" id="hero">
   <div class="stack">
     <h1>Tu temario, <mark>convertido en examen</mark></h1>
     <p class="lead">Hacemos las preguntas de vuestros temas. Vuestros alumnos practican en una app, como el día del examen.</p>
+    <p class="muted">Nació para Policía Nacional. Se adapta a cualquier oposición con examen tipo test.</p>
     <div class="btns"><a class="btn p" href="#contacto">Pruébala con tus temas</a></div>
     <p class="muted" style="font-size:.95rem">Primer mes gratis. Sin permanencia.</p>
   </div>
@@ -168,6 +169,7 @@ escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, conver
 
 <section style="padding-top:0"><div class="in stack" style="max-width:820px">
   <h2>Preguntas frecuentes</h2>
+  <details class="card"><summary><b>¿Sirve para otras oposiciones?</b></summary><p class="muted" style="margin-top:10px">Sí. Adaptamos el temario, el número de opciones, la penalización y el tiempo al examen de cada oposición tipo test.</p></details>
   <details class="card"><summary><b>¿Qué datos se guardan de los alumnos?</b></summary><p class="muted" style="margin-top:10px">Nombre, email y progreso, en la Unión Europea. Cada academia solo ve los suyos y firmamos un contrato de protección de datos.</p></details>
   <details class="card"><summary><b>¿Y si una pregunta tiene un error?</b></summary><p class="muted" style="margin-top:10px">Los alumnos avisan desde la propia pregunta y la corregimos para todos.</p></details>
   <details class="card"><summary><b>¿Nuestro temario se usa para otras academias?</b></summary><p class="muted" style="margin-top:10px">No. El temario y sus preguntas son solo vuestros.</p></details>
