@@ -27,7 +27,7 @@ def cabeza(titulo, desc, ruta, noindex=False):
 </head><body>'''
 
 def menu(actual):
-    items = [("/#proyectos", "Proyectos", "opc"), ("/plantilla-repaso/", "Plantilla de Repaso", ""), ("/#contacto", "Contacto", "")]
+    items = [("/plantilla-repaso/", "Plantilla de Repaso", "opc"), ("/#contacto", "Contacto", ""), (APP, "Entrar", "entrar")]
     links = "".join(f'<a href="{h}" class="{c}"{" aria-current=\"page\"" if h == actual else ""}>{t}</a>' for h, t, c in items)
     return f'''<header class="top"><div class="in">
 <a class="marca" href="/" aria-label="Ruvï, inicio"><img src="/img/ruvi-monograma.png" alt="" width="40" height="40"><b>RUVÏ</b></a>
@@ -39,9 +39,6 @@ PIE = f'''<footer class="pie"><div class="in">
 <nav aria-label="Legal"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad y cookies</a></nav>
 </div></footer>
 <script>
-document.querySelectorAll("[data-copiar]").forEach(function(b){{b.addEventListener("click",function(){{
-  var t=b.getAttribute("data-copiar"),ok=function(){{b.textContent="Copiado";setTimeout(function(){{b.textContent="Copiar"}},1800)}};
-  if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok,function(){{}});}})}});
 (function(){{var b=document.getElementById("demoBtn"),c=document.getElementById("demoBox"),x=document.getElementById("demoCerrar");if(!b||!c)return;
   var vs=c.querySelectorAll("video"),cual=function(){{return matchMedia("(max-width:820px)").matches?vs[1]:vs[0]}};
   var abrir=function(){{c.hidden=false;b.setAttribute("aria-expanded","true");b.textContent="Ocultar la demo";c.scrollIntoView({{behavior:"smooth",block:"start"}});var p=cual().play();if(p&&p.catch)p.catch(function(){{}})}};
@@ -70,8 +67,7 @@ def correo_bloque():
     <a class="btn p" href="{mailto}">Escribir un correo</a>
     <a class="btn wa" href="{wa}" target="_blank" rel="noopener">WhatsApp</a>
   </div>
-  <div class="correo"><code>{CORREO}</code><button class="copiar" type="button" data-copiar="{CORREO}">Copiar</button></div>
-  <p class="muted" style="font-size:.95rem">O llámanos o escríbenos al <b style="white-space:nowrap">{TELEFONO}</b>.</p>'''
+  <p class="muted">{CORREO} · <span style="white-space:nowrap">{TELEFONO}</span></p>'''
 
 def con_version(html_txt):
     # añade ?v=<huella> a las imágenes de /img/, para que el navegador no muestre una versión vieja
@@ -91,16 +87,14 @@ def escribir(ruta, contenido):
 
 # ---------------------------------------------------------------- Inicio
 escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
-  "Ruvï crea herramientas digitales para academias de oposiciones. Nuestro primer proyecto: Plantilla de Repaso, tests de Policía Nacional para los alumnos de tu academia.", "/")
+  "Ruvï crea herramientas para academias de oposiciones. Primer producto: Plantilla de Repaso, tests tipo examen de Policía Nacional.", "/")
 + menu("/") + f'''
 <main>
 <section><div class="in dos" id="hero">
   <div class="stack">
-    <span class="eb">Ruvï</span>
-    <h1>Herramientas digitales para <mark>preparar oposiciones</mark></h1>
-    <p class="lead">Hacemos el trabajo pesado para que las academias se centren en enseñar y sus alumnos en aprobar.</p>
-    <p class="lead">Preguntas hechas por opositores, con el formato y el nivel de los exámenes oficiales de la División.</p>
-    <div class="btns"><a class="btn p" href="/plantilla-repaso/">Conoce Plantilla de Repaso</a><a class="btn s" href="#contacto">Hablemos</a></div>
+    <h1>Herramientas para <mark>preparar oposiciones</mark></h1>
+    <p class="lead">Nuestro primer producto: Plantilla de Repaso, tests tipo examen de Policía Nacional para academias.</p>
+    <div class="btns"><a class="btn p" href="/plantilla-repaso/">Ver Plantilla de Repaso</a></div>
     <p style="font-size:.95rem;margin:0"><button class="enlace-demo" type="button" id="demoBtn" aria-expanded="false" aria-controls="demoBox">Ver la demo en un minuto →</button></p>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test de Plantilla de Repaso en el móvil, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="390" height="700"></div></div>
@@ -113,121 +107,71 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
   <div class="demo-pie"><button class="demo-cerrar" type="button" id="demoCerrar">Cerrar vídeo</button></div>
 </div></section>
 
-<section id="proyectos" style="padding-top:0"><div class="in stack">
-  <span class="eb">Proyectos</span>
-  <h2>Lo que hacemos</h2>
-  <a class="card proy" href="/plantilla-repaso/" style="text-decoration:none;color:inherit">
-    <div class="stack" style="gap:12px">
-      <span class="eb" style="color:var(--muted)">Para academias de Policía Nacional</span>
-      <h3 style="font-size:1.7rem">Plantilla de Repaso</h3>
-      <p class="lema" style="font-size:1.15rem">Tu temario, convertido en examen.</p>
-      <p class="muted">Tests tipo examen de vuestros temas, listos para vuestros alumnos en una app. Preparamos las preguntas a partir del BOE o de vuestro temario, vuestros profesores las revisan y los alumnos practican con corrección al momento.</p>
-      <span style="color:var(--accent);font-weight:700">Ver el proyecto →</span>
-    </div>
-    <img src="/img/ruvi-monograma.png" alt="" width="96" height="96" style="width:96px;height:96px" class="opc-img">
-  </a>
-</div></section>
-
-<section class="banda" id="nosotros"><div class="in grid2" style="align-items:start">
-  <div class="stack"><span class="eb">Quiénes somos</span><h2>Dos socios, una marca</h2><img src="/img/ruvi-logo-oscuro.png" alt="Logotipo de Ruvï" width="600" height="418" style="width:220px;height:auto;margin-top:12px"></div>
-  <div class="stack">
-    <p>Ruvï es la marca con la que dos socios lanzamos nuestros proyectos. Empezamos por lo que conocemos desde dentro: preparar una oposición.</p>
-    <p class="muted">Plantilla de Repaso nació de opositar a Policía Nacional y de echar en falta tests que se parecieran de verdad al examen: tres opciones, penalización por fallo, cronómetro y la ley a mano para entender cada error.</p>
-  </div>
-</div></section>
-
-<section id="contacto"><div class="in stack" style="max-width:760px;margin-inline:auto;text-align:left">
-  <span class="eb">Contacto</span>
-  <h2>¿Tienes una academia? Te enseñamos la app en 15 minutos</h2>
-  <p class="lead">Escríbenos y te proponemos una videollamada corta para verla con tus propios temas. El primer mes es gratis.</p>
+<section class="banda" id="contacto"><div class="in stack" style="max-width:760px">
+  <h2>¿Tienes una academia?</h2>
+  <p class="lead">Te enseñamos la app con tus temas en 15 minutos. El primer mes es gratis.</p>
   {correo_bloque()}
 </div></section>
 </main>''' + PIE)
 
 # ---------------------------------------------------------------- Plantilla de Repaso
 escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, convertido en examen",
-  "Tests tipo examen de Policía Nacional para los alumnos de tu academia: preguntas del BOE o de tu temario, revisadas por tus profesores, con corrección y la ley en cada pregunta.", "/plantilla-repaso/")
+  "Tests tipo examen de Policía Nacional para tu academia: preguntas de tus temas, revisadas por tus profesores, con corrección con la ley.", "/plantilla-repaso/")
 + menu("/plantilla-repaso/") + f'''
 <main>
 <section><div class="in dos" id="hero">
   <div class="stack">
-    <span class="eb">Plantilla de Repaso · Policía Nacional</span>
-    <p class="lema">Tu temario, convertido en examen.</p>
-    <h1>Tests tipo examen para los alumnos de <mark>tu academia</mark></h1>
-    <p class="lead">Preparamos las preguntas de vuestros temas, a partir del BOE o de vuestro propio temario, y vuestros alumnos practican en una app con corrección al momento. Vuestros profesores dedican el tiempo a dar clase, no a hacer tests.</p>
-    <div class="btns"><a class="btn p" href="#contacto">Pruébala con tus temas</a><a class="btn s" href="{APP}">Entrar en la app</a></div>
-    <p class="muted" style="font-size:.95rem">Primer mes gratis y sin permanencia.</p>
+    <h1>Tu temario, <mark>convertido en examen</mark></h1>
+    <p class="lead">Hacemos las preguntas de vuestros temas. Vuestros alumnos practican en una app, como el día del examen.</p>
+    <div class="btns"><a class="btn p" href="#contacto">Pruébala con tus temas</a></div>
+    <p class="muted" style="font-size:.95rem">Primer mes gratis. Sin permanencia.</p>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-inicio.png" alt="Pantalla de inicio del alumno: aviso de fallos por repasar, su última nota, preguntas hechas, y la elección de tema, número de preguntas y corrección para empezar un test" width="390" height="844"></div></div>
-</div></section>
-
-
-<section style="padding-top:0"><div class="in grid2">
-  <div class="card stack"><span class="eb">El problema</span><h3>Hacer buenas preguntas lleva horas</h3><p class="muted">Cada tema necesita decenas de preguntas bien hechas, con opciones trampa creíbles y al día con la ley. Ese tiempo sale de las clases.</p></div>
-  <div class="card stack"><span class="eb">La solución</span><h3>Os las damos hechas y en una app</h3><p class="muted">100 preguntas por tema, revisadas por vuestros profesores antes de llegar a los alumnos, y una app para practicar como el día del examen.</p></div>
 </div></section>
 
 <section class="banda"><div class="in dos inv">
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-resultado.png" alt="Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, la cuenta como en el examen y cuántos puntos le ha sumado arriesgar en las preguntas que dudaba" width="390" height="748"></div></div>
   <div class="stack">
-    <span class="eb">Qué incluye</span>
-    <h2>Practicar como en el examen y entender cada fallo</h2>
+    <h2>Como el examen real</h2>
     <ul class="lista">
-      <li>Tests por tema con tres opciones, −0,5 por fallo y cronómetro, como el examen real</li>
-      <li>Corrección con el artículo literal de la ley en cada pregunta</li>
-      <li>Botón «Dudo» para saber si compensa arriesgar</li>
-      <li>Mi cuaderno: los fallos y las preguntas sin contestar de cada test, para repasarlos</li>
-      <li>Plan semanal de la academia y las preguntas más falladas, según el pack</li>
-      <li>Panel para que la academia dé de alta y de baja a sus alumnos</li>
-      <li>Funciona en el móvil y en el ordenador, sin instalar nada</li>
+      <li>Tres opciones, −0,5 por fallo y cronómetro</li>
+      <li>Cada fallo, corregido con el artículo de la ley</li>
+      <li>«Dudo»: saber si compensa arriesgar</li>
+      <li>Cuaderno con los fallos para repasar</li>
+      <li>En el móvil o el ordenador, sin instalar nada</li>
     </ul>
   </div>
 </div></section>
 
 <section><div class="in stack">
-  <span class="eb">Calidad</span>
-  <h2>Preguntas que se parecen al examen</h2>
+  <h2>Cómo funciona</h2>
   <div class="grid3">
-    <div class="card stack"><h3>De la ley o de vuestro temario</h3><p class="muted">Salen del texto vigente del BOE o del temario que nos paséis, que solo se usa para vuestra academia.</p></div>
-    <div class="card stack"><h3>Revisadas por vuestros profesores</h3><p class="muted">Antes de cada entrega, el profesor recibe un PDF para marcar cada pregunta como Vale, Cambiar o Quitar.</p></div>
-    <div class="card stack"><h3>Siempre al día</h3><p class="muted">Si cambia una ley, avisamos y corregimos las preguntas afectadas. Los alumnos pueden avisar de un error desde la propia pregunta.</p></div>
-  </div>
-</div></section>
-
-<section style="padding-top:0"><div class="in stack">
-  <span class="eb">Cómo funciona</span>
-  <h2>En marcha en tres pasos</h2>
-  <div class="grid3">
-    <div class="card stack"><span class="eb" style="font-size:1.6rem;font-family:var(--f-num);letter-spacing:0">1</span><h3>Hablamos</h3><p class="muted">Una videollamada corta: vemos la app y elegís los temas para empezar.</p></div>
-    <div class="card stack"><span class="eb" style="font-size:1.6rem;font-family:var(--f-num);letter-spacing:0">2</span><h3>Preparamos vuestro espacio</h3><p class="muted">Hacemos las preguntas, las revisáis y las cargamos en vuestra academia.</p></div>
-    <div class="card stack"><span class="eb" style="font-size:1.6rem;font-family:var(--f-num);letter-spacing:0">3</span><h3>Vuestros alumnos entran</h3><p class="muted">Les damos de alta con su email y empiezan a practicar desde el móvil.</p></div>
+    <div class="card stack" style="gap:8px"><span class="num">1</span><h3>Elegís los temas</h3><p class="muted">Preguntas del BOE o de vuestro temario, que es solo vuestro.</p></div>
+    <div class="card stack" style="gap:8px"><span class="num">2</span><h3>Vuestros profesores las revisan</h3><p class="muted">Ninguna llega a los alumnos sin su visto bueno.</p></div>
+    <div class="card stack" style="gap:8px"><span class="num">3</span><h3>Los alumnos practican</h3><p class="muted">Les damos de alta con su email y empiezan.</p></div>
   </div>
 </div></section>
 
 <section style="padding-top:0"><div class="in grid2" style="align-items:start">
-  <div class="stack"><span class="eb">Packs</span><h2>Tests, Plus o Completo</h2><p class="lead">Una cuota mensual según el número de alumnos, con el precio por alumno a la vista. El primer mes es gratis y no hay permanencia.</p><div class="btns"><a class="btn p" href="#contacto">Pide las tarifas</a></div></div>
-  <div class="card stack" style="gap:14px">
-    <div><b>Tests</b><p class="muted">Tests tipo examen, corrección con la ley, «Dudo» y Mi cuaderno.</p></div>
-    <div><b>Plus</b><p class="muted">Todo lo anterior, más el plan semanal de la academia y las preguntas más falladas de vuestro grupo.</p></div>
-    <div><b>Completo</b><p class="muted">Todo lo anterior, más el ranking de la academia y las pruebas físicas con su evolución.</p></div>
+  <div class="stack"><h2>Tres packs</h2><p class="lead">Precio según el número de alumnos.</p><div class="btns"><a class="btn s" href="#contacto">Pide las tarifas</a></div></div>
+  <div class="card stack" style="gap:12px">
+    <p><b>Tests</b> <span class="muted">· tests, corrección y cuaderno</span></p>
+    <p><b>Plus</b> <span class="muted">· + plan semanal y preguntas más falladas</span></p>
+    <p><b>Completo</b> <span class="muted">· + ranking y pruebas físicas</span></p>
   </div>
 </div></section>
 
 <section style="padding-top:0"><div class="in stack" style="max-width:820px">
-  <span class="eb">Preguntas frecuentes</span>
-  <h2>Lo que suelen preguntarnos</h2>
-  <details class="card"><summary><b>¿Funciona en el móvil?</b></summary><p class="muted" style="margin-top:10px">Sí. Se abre desde el navegador del móvil o del ordenador y se puede añadir a la pantalla de inicio. No hay que descargar nada de ninguna tienda.</p></details>
-  <details class="card"><summary><b>¿Qué datos se guardan de los alumnos?</b></summary><p class="muted" style="margin-top:10px">Su nombre, su email y su progreso en la app. La academia decide sobre esos datos y firmamos con ella un contrato de protección de datos. Están alojados en la Unión Europea y cada academia solo ve los suyos.</p></details>
-  <details class="card"><summary><b>¿Y si una pregunta tiene un error?</b></summary><p class="muted" style="margin-top:10px">Cada pregunta tiene un botón para avisar. Lo revisamos y la corregimos para todos los alumnos.</p></details>
-  <details class="card"><summary><b>¿Nuestro temario se usa para otras academias?</b></summary><p class="muted" style="margin-top:10px">No. Vuestro temario y las preguntas hechas con él son solo vuestros.</p></details>
+  <h2>Preguntas frecuentes</h2>
+  <details class="card"><summary><b>¿Qué datos se guardan de los alumnos?</b></summary><p class="muted" style="margin-top:10px">Nombre, email y progreso, en la Unión Europea. Cada academia solo ve los suyos y firmamos un contrato de protección de datos.</p></details>
+  <details class="card"><summary><b>¿Y si una pregunta tiene un error?</b></summary><p class="muted" style="margin-top:10px">Los alumnos avisan desde la propia pregunta y la corregimos para todos.</p></details>
+  <details class="card"><summary><b>¿Nuestro temario se usa para otras academias?</b></summary><p class="muted" style="margin-top:10px">No. El temario y sus preguntas son solo vuestros.</p></details>
 </div></section>
 
-<section class="banda" id="contacto"><div class="in stack" style="max-width:820px">
-  <span class="eb">Prueba un mes gratis</span>
-  <h2>Te enseñamos la app con tus propios temas</h2>
-  <p class="muted" style="font-size:1.1rem">Escríbenos y te proponemos una videollamada de 15 minutos. Si ya sois clientes, entrad desde el botón «Entrar en la app».</p>
+<section class="banda" id="contacto"><div class="in stack" style="max-width:760px">
+  <h2>Pruébala un mes gratis</h2>
+  <p class="lead">Te la enseñamos con tus temas en una videollamada de 15 minutos.</p>
   {correo_bloque()}
-  <div class="btns"><a class="btn s" href="{APP}">Entrar en la app</a></div>
 </div></section>
 </main>''' + PIE)
 

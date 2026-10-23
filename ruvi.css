@@ -140,3 +140,8 @@ details[open] summary::after{content:"−"}
 .demo-cerrar{min-height:48px;padding:12px 28px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:700;cursor:pointer}
 .demo-cerrar.fin{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .demo-cerrar:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* versión mínima (23 oct) */
+.num{font:700 1.4rem var(--f-num);color:var(--accent)}
+.menu a.entrar{border:1px solid var(--line);background:var(--surface)}
+.banda .lead,.banda .muted{color:color-mix(in srgb,var(--on-band) 75%,transparent)}
