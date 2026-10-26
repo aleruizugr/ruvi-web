@@ -139,7 +139,7 @@ body{margin:0}
     <a class="brand" href="/" style="text-decoration:none;color:inherit"><img src="/img/ruvi-monograma.png?v=dad139e9" alt="Logo de Ruvï" width="44" height="44"><span>Ruvï <span class="muted" style="letter-spacing:.06em;text-transform:none;font-family:var(--f-body);font-size:.9rem">· Plantilla de Repaso</span></span></a>
     <span class="eb">Tarifas para academias · curso 2026-2027</span>
     <p class="lema">Tu temario, convertido en examen.</p>
-    <h1>Tests de Policía Nacional listos para tus alumnos, por <mark>4,50 € al mes</mark> o menos cada uno</h1>
+    <h1>Tests de Policía Nacional listos para tus alumnos, desde <mark>39 € al mes</mark> más 2,25 € por alumno</h1>
     <p class="lead">Preparamos las preguntas de vuestros temas, a partir del BOE o de vuestro propio temario, y se las damos a vuestros alumnos en una app con corrección al momento. Vuestros profesores dedican el tiempo a dar clase, no a hacer tests.</p>
   </div>
   <div class="movil-t"><img src="/img/app-inicio.png?v=b61890ef" alt="Pantalla de inicio de Plantilla de Repaso para el alumno" width="390" height="820"></div>
@@ -147,15 +147,15 @@ body{margin:0}
 
 <section aria-labelledby="t-packs">
   <span class="eb">Packs de la app</span>
-  <h2 id="t-packs">Tres packs, un precio claro por alumno</h2>
-  <p class="lead">Pagáis una cuota mensual según el tamaño del grupo, y al lado veis lo que sale por alumno. Cuantos más alumnos, menos pagáis por cada uno. Y pasar al pack Completo cuesta solo unos céntimos más por alumno. Precios sin IVA.</p>
+  <h2 id="t-packs">Tres packs: una cuota fija y un precio por alumno</h2>
+  <p class="lead">Cada mes pagáis una cuota fija, que cubre la preparación y la actualización de las preguntas, y un precio por cada plaza de alumno. Sin tramos ni saltos: un alumno más es solo un alumno más. Pasar al pack Completo cuesta unos céntimos más por alumno. Precios sin IVA.</p>
   <div class="packs">
     <article class="pack">
       <h3>Tests</h3>
       <p class="from">Para empezar a practicar con tests de examen</p>
-      <div class="price"><span class="from">desde</span><b class="num">120 €</b><span class="muted">/mes</span></div>
-      <span class="per">4,00 € por alumno</span>
-      <span class="from">Baja hasta 3,00 € por alumno en grupos grandes</span>
+      <div class="price"><b class="num">39 €</b><span class="muted">/mes</span></div>
+      <span class="per">+ 2,25 € por alumno</span>
+      <span class="from">Con 20 alumnos: 84 € al mes</span>
       <ul>
         <li>Tests tipo examen: 3 opciones, −0,5 por fallo y cronómetro</li>
         <li>Corrección con el artículo literal de la ley</li>
@@ -167,9 +167,9 @@ body{margin:0}
     <article class="pack">
       <h3>Plus</h3>
       <p class="from">Para que la academia guíe el estudio</p>
-      <div class="price"><span class="from">desde</span><b class="num">126 €</b><span class="muted">/mes</span></div>
-      <span class="per">4,20 € por alumno</span>
-      <span class="from">Solo 0,20 € más por alumno que Tests</span>
+      <div class="price"><b class="num">44 €</b><span class="muted">/mes</span></div>
+      <span class="per">+ 2,50 € por alumno</span>
+      <span class="from">Con 20 alumnos: 94 € al mes</span>
       <ul>
         <li class="plus">Todo lo del pack Tests</li>
         <li>Plan semanal publicado por la academia</li>
@@ -180,9 +180,9 @@ body{margin:0}
       <span class="badge">El más elegido</span>
       <h3>Completo</h3>
       <p class="from">La preparación entera en una sola app</p>
-      <div class="price"><span class="from">desde</span><b class="num">135 €</b><span class="muted">/mes</span></div>
-      <span class="per">4,50 € por alumno</span>
-      <span class="from">Solo 0,30 € más por alumno que Plus, y baja hasta 3,50 €</span>
+      <div class="price"><b class="num">49 €</b><span class="muted">/mes</span></div>
+      <span class="per">+ 2,75 € por alumno</span>
+      <span class="from">Con 20 alumnos: 104 € al mes, solo 10 € más que Plus</span>
       <ul>
         <li class="plus">Todo lo del pack Plus</li>
         <li>Ranking de la academia</li>
@@ -209,7 +209,7 @@ body{margin:0}
     <thead><tr><th>Alumnos</th><th>Tests</th><th>Plus</th><th class="hl">Completo</th></tr></thead>
     <tbody id="tabla"></tbody>
   </table></div>
-  <p class="muted">El precio por alumno se calcula con el tramo lleno: un grupo de 30 en el pack Completo paga 135 € al mes, es decir, 4,50 € por alumno. A partir de 51 alumnos el precio por alumno baja. Más de 150 alumnos: a medida. Precios sin IVA.</p>
+  <p class="muted">Cuota fija + plazas × precio por alumno. Por ejemplo, 30 alumnos en el pack Completo: 49 € + 30 × 2,75 € = 131,50 € al mes. Más de 150 alumnos: a medida. Precios sin IVA.</p>
 </section>
 
 <section aria-labelledby="t-calc">
@@ -226,7 +226,7 @@ body{margin:0}
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:8px">
-        <label for="nAl">Alumnos que usarán la app</label>
+        <label for="nAl">Plazas (alumnos que usarán la app)</label>
         <div class="slider"><input type="range" id="rAl" min="1" max="150" value="30" aria-label="Alumnos"><input type="number" id="nAl" min="1" max="150" value="30"></div>
       </div>
       <div style="display:flex;flex-direction:column;gap:8px">
@@ -239,9 +239,9 @@ body{margin:0}
       </div>
     </div>
     <div class="out" aria-live="polite">
-      <span class="k" id="oTramo">Tramo hasta 30 alumnos</span>
-      <span class="big num" id="oMes">135 €</span>
-      <span id="oPer">al mes · 4,50 € por alumno</span>
+      <span class="k" id="oTramo">Pack Completo · 30 plazas</span>
+      <span class="big num" id="oMes">131,50 €</span>
+      <span id="oPer">al mes · 49 € + 30 × 2,75 €</span>
       <div class="row"><span>Cuota de alta (un solo pago)</span><b>150 €</b></div>
       <div class="row"><span id="oAnoK">Primer año (mes 1 gratis + 11 meses)</span><b id="oAno">1.635 €</b></div>
       <span style="font-size:.85rem;opacity:.7">Precios sin IVA. El primer año incluye el alta.</span>
@@ -256,6 +256,7 @@ body{margin:0}
     <thead><tr><th>Concepto</th><th>Condición</th></tr></thead>
     <tbody>
       <tr><td>Mes de prueba</td><td>El primer mes es gratis y sin compromiso</td></tr>
+      <tr><td>Plazas</td><td>Pagáis por las plazas de alumno que elijáis. Podéis subirlas cuando queráis; el cambio se cobra desde el mes siguiente</td></tr>
       <tr><td>Preguntas incluidas</td><td>100 preguntas por tema, hasta 6 temas nuevos al mes, al ritmo que marque la academia</td></tr>
       <tr><td>Temas adicionales</td><td><span class="num">35 €</span> por tema (100 preguntas) a partir del 7.º tema del mismo mes</td></tr>
       <tr><td>Con el temario completo</td><td>La cuota incluye las actualizaciones por cambios de ley, la corrección de errores y hasta 100 preguntas nuevas al mes (segundas tandas o simulacros)</td></tr>
@@ -320,36 +321,33 @@ body{margin:0}
 <script>
 (function(){
   var NOM={tests:"Tests",plus:"Plus",completo:"Completo"};
-  /* precio por alumno de cada pack en cada tramo */
-  var TRAMOS=[
-    {d:1,h:30,  p:{tests:4.00,plus:4.20,completo:4.50}},
-    {d:31,h:50, p:{tests:4.00,plus:4.20,completo:4.50}},
-    {d:51,h:80, p:{tests:3.50,plus:3.70,completo:4.00}},
-    {d:81,h:120,p:{tests:3.25,plus:3.45,completo:3.75}},
-    {d:121,h:150,p:{tests:3.00,plus:3.20,completo:3.50}}];
+  /* cuota fija y precio por plaza de alumno de cada pack */
+  var P={tests:{f:39,a:2.25},plus:{f:44,a:2.50},completo:{f:49,a:2.75}};
+  var EJ=[15,20,30,40,50,80,100,150];
   var ALTA=150;
   function eur(v,dec){return v.toLocaleString("es-ES",{minimumFractionDigits:dec?2:0,maximumFractionDigits:2})+" €"}
   function e2(v){return (Math.round(v*100)%100===0)?eur(v,false):eur(v,true)}
+  function precio(p,n){return P[p].f+n*P[p].a}
   var tb=document.getElementById("tabla"),html="";
-  TRAMOS.forEach(function(t){
-    html+="<tr><td>"+(t.d===1?"Hasta "+t.h:"De "+t.d+" a "+t.h)+"</td>";
+  EJ.forEach(function(n){
+    html+="<tr><td>"+n+" alumnos</td>";
     ["tests","plus","completo"].forEach(function(p){
-      html+='<td class="p'+(p==="completo"?" hl":"")+'"><b>'+e2(t.h*t.p[p])+'</b><small>'+eur(t.p[p],true)+' / alumno</small></td>';
+      var m=precio(p,n);
+      html+='<td class="p'+(p==="completo"?" hl":"")+'"><b>'+e2(m)+'</b><small>'+eur(m/n,true)+' / alumno</small></td>';
     });
     html+="</tr>";
   });
-  html+='<tr><td>Más de 150</td><td class="p"><b>A medida</b><small>menos de 3,00 € / alumno</small></td><td class="p"><b>A medida</b><small>menos de 3,20 € / alumno</small></td><td class="p hl"><b>A medida</b><small>menos de 3,50 € / alumno</small></td></tr>';
+  html+='<tr><td>Más de 150</td><td class="p"><b>A medida</b></td><td class="p"><b>A medida</b></td><td class="p hl"><b>A medida</b></td></tr>';
   tb.innerHTML=html;
 
   var st={p:"completo",n:30,d:0};
   var r=document.getElementById("rAl"),n=document.getElementById("nAl");
   function pinta(){
-    var t=TRAMOS.find(function(x){return st.n<=x.h})||TRAMOS[TRAMOS.length-1];
-    var per=t.p[st.p], mes=t.h*per;
+    var c=P[st.p], mes=precio(st.p,st.n);
     var mesD=mes*(1-st.d/100);
-    document.getElementById("oTramo").textContent="Pack "+NOM[st.p]+" · tramo "+(t.d===1?"hasta ":"de "+t.d+" a ")+t.h+" alumnos";
+    document.getElementById("oTramo").textContent="Pack "+NOM[st.p]+" · "+st.n+(st.n===1?" plaza":" plazas");
     document.getElementById("oMes").textContent=e2(mesD);
-    document.getElementById("oPer").textContent="al mes · "+eur(per*(1-st.d/100),true)+" por alumno"+(st.d?" con el descuento":"");
+    document.getElementById("oPer").textContent="al mes · "+eur(c.f,false)+" + "+st.n+" × "+eur(c.a,true)+(st.d?" − "+st.d+" %":"")+" · "+eur(mesD/st.n,true)+" por alumno";
     var ano,k;
     if(st.d===15){ano=mes*10*0.85+ALTA;k="Curso completo (10 meses −15 %) + alta";}
     else{ano=mesD*11+ALTA;k="Primer año (mes 1 gratis + 11 meses) + alta";}
