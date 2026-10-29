@@ -26,8 +26,9 @@ def cabeza(titulo, desc, ruta, noindex=False):
 <link rel="stylesheet" href="/ruvi.css?v={VERSION}">
 </head><body>'''
 
-def menu(actual):
-    items = [("/plantilla-repaso/", "Plantilla de Repaso", "opc"), ("/#contacto", "Contacto", ""), (APP, "Entrar", "entrar")]
+def menu(actual, app=None):
+    # «Entrar» lleva a la app de cada producto: en la página de Dos Décimas, a Dos Décimas; en el resto, a Plantilla de Repaso
+    items = [("/plantilla-repaso/", "Plantilla de Repaso", "opc"), ("/#contacto", "Contacto", ""), (app or APP, "Entrar", "entrar")]
     actual_attr = ' aria-current="page"'   # fuera del f-string: así funciona también con Python anterior al 3.12
     links = "".join(f'<a href="{h}" class="{c}"{actual_attr if h == actual else ""}>{t}</a>' for h, t, c in items)
     return f'''<header class="top"><div class="in">
@@ -304,14 +305,14 @@ FAQ_DD_HTML = "".join(f'<details class="card"><summary><b>{q}</b></summary><p cl
 
 escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
   "Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.", "/dos-decimas/")
-+ menu("/dos-decimas/") + f"""
++ menu("/dos-decimas/", DD_APP) + f"""
 <main>
 <section><div class="in dos" id="hero">
   <div class="stack">
     <span class="eb">Dos Décimas · Policía Nacional, Escala Básica</span>
     <h1>Me quedé fuera por <mark>dos décimas</mark>. Que a ti no te pase.</h1>
     <p class="lead">Las plazas se deciden por décimas, y casi nunca se pierden por no estudiar: se pierden en un plazo, en un «NO» que no leíste o en una duda que arriesgaste. Dos Décimas te enseña dónde se te escapan las tuyas.</p>
-    <div class="btns"><a class="btn p" href="#precio">Ver tarifas</a><a class="btn s" href="#prueba">Pruébala una semana gratis</a></div>
+    <div class="btns"><a class="btn p" href="#precio">Ver tarifas</a><a class="btn s" href="{DD_APP}">Ya tengo cuenta: entrar</a></div>
     <p class="muted" style="font-size:.95rem">Preguntas comprobadas con el BOE vigente por un opositor que se quedó a dos décimas del corte. Desde 7,99 € al mes, sin permanencia.</p>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test en el móvil, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="390" height="700"></div></div>
@@ -366,14 +367,6 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
     <li class="card"><span class="paso">3</span><div><h3>Confirma y crea tu contraseña</h3><p class="muted">Te llega un correo para confirmar que el email es tuyo: abre el enlace (o escribe el código que trae), elige tu contraseña y ya estás dentro.</p></div></li>
   </ol>
   <p class="muted" style="font-size:.95rem">¿No te llega el correo? Mira en spam o escríbenos a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p>
-</div></section>
-
-<section class="banda" id="prueba"><div class="in grid2" style="align-items:center">
-  <div class="stack">
-    <h2>¿Quieres probarla antes?</h2>
-    <p class="lead">Una semana gratis, sin tarjeta. Escríbenos con tu email y te damos acceso.</p>
-  </div>
-  <div class="btns"><a class="btn p" href="mailto:{DD_CORREO}?subject=Quiero%20probar%20Dos%20D%C3%A9cimas%20una%20semana">Pedir mi semana gratis</a></div>
 </div></section>
 
 <section id="faq"><div class="in stack" style="max-width:820px">
