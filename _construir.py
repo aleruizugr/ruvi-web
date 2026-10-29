@@ -42,14 +42,20 @@ PIE = f'''<footer class="pie"><div class="in">
 <nav aria-label="Legal"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad y cookies</a></nav>
 </div></footer>
 <script>
-(function(){{var b=document.getElementById("demoBtn"),c=document.getElementById("demoBox"),x=document.getElementById("demoCerrar");if(!b||!c)return;
-  var vs=c.querySelectorAll("video"),cual=function(){{return matchMedia("(max-width:820px)").matches?vs[1]:vs[0]}};
-  var abrir=function(){{c.hidden=false;b.setAttribute("aria-expanded","true");b.textContent="Ocultar la demo";c.scrollIntoView({{behavior:"smooth",block:"start"}});var p=cual().play();if(p&&p.catch)p.catch(function(){{}})}};
-  var cerrar=function(){{vs.forEach(function(v){{v.pause();try{{v.currentTime=0}}catch(e){{}}}});c.hidden=true;b.setAttribute("aria-expanded","false");b.textContent="Ver la demo en un minuto →";document.getElementById("hero").scrollIntoView({{behavior:"smooth",block:"start"}})}};
-  b.addEventListener("click",function(){{c.hidden?abrir():cerrar()}});
-  x.addEventListener("click",cerrar);
-  // al terminar, deja a la vista el botón para quitar el vídeo
-  vs.forEach(function(v){{v.addEventListener("ended",function(){{x.classList.add("fin");x.scrollIntoView({{behavior:"smooth",block:"center"}});x.focus({{preventScroll:true}})}});v.addEventListener("play",function(){{x.classList.remove("fin")}})}});
+(function(){{
+  // Demos plegables: cada botón con data-demo="x" abre o cierra el bloque id="demo-x" (con su vídeo horizontal y vertical)
+  var cual=function(c){{var vs=c.querySelectorAll("video");return matchMedia("(max-width:820px)").matches?vs[1]:vs[0]}};
+  var parar=function(c){{c.querySelectorAll("video").forEach(function(v){{v.pause();try{{v.currentTime=0}}catch(e){{}}}})}};
+  var cerrar=function(c){{parar(c);c.hidden=true;document.querySelectorAll('[data-demo="'+c.id.slice(5)+'"]').forEach(function(b){{b.setAttribute("aria-expanded","false")}})}};
+  var abrir=function(c){{document.querySelectorAll(".demo").forEach(function(o){{if(o!==c&&!o.hidden)cerrar(o)}});c.hidden=false;
+    document.querySelectorAll('[data-demo="'+c.id.slice(5)+'"]').forEach(function(b){{b.setAttribute("aria-expanded","true")}});
+    c.scrollIntoView({{behavior:"smooth",block:"start"}});var p=cual(c).play();if(p&&p.catch)p.catch(function(){{}})}};
+  document.querySelectorAll("[data-demo]").forEach(function(b){{var c=document.getElementById("demo-"+b.dataset.demo);if(!c)return;
+    b.addEventListener("click",function(){{c.hidden?abrir(c):cerrar(c)}})}});
+  document.querySelectorAll(".demo").forEach(function(c){{var x=c.querySelector(".demo-cerrar");
+    x.addEventListener("click",function(){{cerrar(c);var t=document.querySelector('.producto[data-de="'+c.id.slice(5)+'"]');if(t)t.scrollIntoView({{behavior:"smooth",block:"start"}})}});
+    // al terminar, deja a la vista el botón para quitar el vídeo
+    c.querySelectorAll("video").forEach(function(v){{v.addEventListener("ended",function(){{x.classList.add("fin");x.scrollIntoView({{behavior:"smooth",block:"center"}});x.focus({{preventScroll:true}})}});v.addEventListener("play",function(){{x.classList.remove("fin")}})}})}});
 }})();
 </script>
 </body></html>'''
@@ -90,29 +96,49 @@ def escribir(ruta, contenido):
 
 # ---------------------------------------------------------------- Inicio
 escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
-  "Ruvï crea herramientas para academias de oposiciones. Primer producto: Plantilla de Repaso, tests tipo examen para Policía Nacional y cualquier oposición tipo test.", "/")
+  "Ruvï crea herramientas para preparar oposiciones: Plantilla de Repaso, tests tipo examen para academias, y Dos Décimas, tests de Policía Nacional para opositores por libre.", "/")
 + menu("/") + f'''
 <main>
-<section><div class="in dos" id="hero">
-  <div class="stack">
-    <h1>Herramientas para <mark>preparar oposiciones</mark></h1>
-    <p class="lead">Nuestro primer producto: Plantilla de Repaso, tests tipo examen para academias. Nació para Policía Nacional y se adapta a cualquier oposición con examen tipo test.</p>
-    <div class="btns"><a class="btn p" href="/plantilla-repaso/">Ver Plantilla de Repaso</a></div>
-    <p style="font-size:.95rem;margin:0"><button class="enlace-demo" type="button" id="demoBtn" aria-expanded="false" aria-controls="demoBox">Ver la demo en un minuto →</button></p>
-  </div>
-  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test de Plantilla de Repaso en el móvil, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="390" height="700"></div></div>
+<section><div class="in stack" id="hero">
+  <h1>Herramientas para <mark>preparar oposiciones</mark></h1>
+  <p class="lead" style="max-width:640px">Tests tipo examen para Policía Nacional, hechos por opositores. Dos productos: uno para academias y otro para quien prepara la oposición por su cuenta.</p>
+</div></section>
+
+<section style="padding-top:0"><div class="in productos">
+  <article class="card producto" data-de="plantilla">
+    <button class="miniatura" type="button" data-demo="plantilla" aria-expanded="false" aria-controls="demo-plantilla" aria-label="Ver la demo de Plantilla de Repaso"><img src="/img/demo-horizontal.jpg" alt="" width="1280" height="720" loading="lazy"><span class="play" aria-hidden="true">▶</span></button>
+    <span class="eb">Para academias</span>
+    <h2>Plantilla de Repaso</h2>
+    <p class="muted">Tu temario convertido en tests tipo examen para tus alumnos, con las preguntas revisadas por tus profesores y corregidas con la ley.</p>
+    <div class="btns"><a class="btn p" href="/plantilla-repaso/">Ver Plantilla de Repaso</a><button class="btn s" type="button" data-demo="plantilla" aria-expanded="false" aria-controls="demo-plantilla">▶ Demo · 1 min</button></div>
+  </article>
+  <article class="card producto" data-de="dosdecimas">
+    <button class="miniatura" type="button" data-demo="dosdecimas" aria-expanded="false" aria-controls="demo-dosdecimas" aria-label="Ver el vídeo de Dos Décimas"><img src="/img/dosdecimas-horizontal.jpg" alt="" width="1920" height="1080" loading="lazy"><span class="play" aria-hidden="true">▶</span></button>
+    <span class="eb">Para opositores</span>
+    <h2>Dos Décimas</h2>
+    <p class="muted">Para quien prepara Policía Nacional por su cuenta: tests de los 45 temas comprobados con el BOE vigente, exámenes oficiales y simulacros. Desde 7,99 € al mes.</p>
+    <div class="btns"><a class="btn p" href="/dos-decimas/">Ver Dos Décimas</a><button class="btn s" type="button" data-demo="dosdecimas" aria-expanded="false" aria-controls="demo-dosdecimas">▶ Vídeo · 30 s</button></div>
+  </article>
 </div>
-<div class="in" id="demoBox" hidden>
+<div class="in demo" id="demo-plantilla" hidden>
   <div class="video">
     <video class="v-ancho" controls playsinline preload="none" poster="/img/demo-horizontal.jpg" width="1280" height="720" aria-label="Demo de Plantilla de Repaso en vídeo horizontal"><source src="/video/demo-horizontal.mp4" type="video/mp4"></video>
     <video class="v-movil" controls playsinline preload="none" poster="/img/demo-vertical.jpg" width="720" height="1280" aria-label="Demo de Plantilla de Repaso en vídeo vertical"><source src="/video/demo-vertical.mp4" type="video/mp4"></video>
   </div>
-  <div class="demo-pie"><button class="demo-cerrar" type="button" id="demoCerrar">Cerrar vídeo</button></div>
-</div></section>
+  <div class="demo-pie"><button class="demo-cerrar" type="button">Cerrar vídeo</button></div>
+</div>
+<div class="in demo" id="demo-dosdecimas" hidden>
+  <div class="video">
+    <video class="v-ancho" controls playsinline preload="none" poster="/img/dosdecimas-horizontal.jpg" width="1280" height="720" aria-label="Demo de Dos Décimas en vídeo horizontal"><source src="/video/dosdecimas-horizontal.mp4" type="video/mp4"></video>
+    <video class="v-movil" controls playsinline preload="none" poster="/img/dosdecimas-vertical.jpg" width="720" height="1280" aria-label="Demo de Dos Décimas en vídeo vertical"><source src="/video/dosdecimas-vertical.mp4" type="video/mp4"></video>
+  </div>
+  <div class="demo-pie"><button class="demo-cerrar" type="button">Cerrar vídeo</button></div>
+</div>
+</section>
 
 <section id="nosotros" style="padding-top:0"><div class="in stack" style="max-width:760px">
   <h2>Quiénes somos</h2>
-  <p class="lead">Soy Alejandro, opositor a Policía Nacional. Creé Plantilla de Repaso al echar en falta tests que se parecieran de verdad al examen. Junto a mi socio, miembro de las Fuerzas y Cuerpos de Seguridad del Estado que también pasó por la oposición, fundamos Ruvï.</p>
+  <p class="lead">Soy Alejandro, opositor a Policía Nacional. Creé Plantilla de Repaso al echar en falta tests que se parecieran de verdad al examen, y después Dos Décimas para quien se prepara por su cuenta. Junto a mi socio, miembro de las Fuerzas y Cuerpos de Seguridad del Estado que también pasó por la oposición, fundamos Ruvï.</p>
 </div></section>
 
 <section class="banda" id="contacto"><div class="in stack" style="max-width:760px">
