@@ -28,7 +28,8 @@ def cabeza(titulo, desc, ruta, noindex=False):
 
 def menu(actual, app=None):
     # «Entrar» lleva a la app de cada producto: en la página de Dos Décimas, a Dos Décimas; en el resto, a Plantilla de Repaso
-    items = [("/plantilla-repaso/", "Plantilla de Repaso", "opc"), ("/#contacto", "Contacto", ""), (app or APP, "Entrar", "entrar")]
+    # Dos Décimas sin «opc»: se ve también en el móvil, que es donde más miran los opositores
+    items = [("/plantilla-repaso/", "Plantilla de Repaso", "opc"), ("/dos-decimas/", "Dos Décimas", ""), ("/#contacto", "Contacto", ""), (app or APP, "Entrar", "entrar")]
     actual_attr = ' aria-current="page"'   # fuera del f-string: así funciona también con Python anterior al 3.12
     links = "".join(f'<a href="{h}" class="{c}"{actual_attr if h == actual else ""}>{t}</a>' for h, t, c in items)
     return f'''<header class="top"><div class="in">
