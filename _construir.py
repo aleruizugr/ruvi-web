@@ -28,7 +28,8 @@ def cabeza(titulo, desc, ruta, noindex=False):
 
 def menu(actual):
     items = [("/plantilla-repaso/", "Plantilla de Repaso", "opc"), ("/#contacto", "Contacto", ""), (APP, "Entrar", "entrar")]
-    links = "".join(f'<a href="{h}" class="{c}"{" aria-current=\"page\"" if h == actual else ""}>{t}</a>' for h, t, c in items)
+    actual_attr = ' aria-current="page"'   # fuera del f-string: así funciona también con Python anterior al 3.12
+    links = "".join(f'<a href="{h}" class="{c}"{actual_attr if h == actual else ""}>{t}</a>' for h, t, c in items)
     return f'''<header class="top"><div class="in">
 <a class="marca" href="/" aria-label="Ruvï, inicio"><img src="/img/ruvi-monograma.png" alt="" width="40" height="40"><b>RUVÏ</b></a>
 <nav class="menu" aria-label="Menú">{links}</nav>
@@ -183,6 +184,256 @@ escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, conver
 </div></section>
 </main>''' + PIE)
 
+# ---------------------------------------------------------------- Dos Décimas: Plantilla de Repaso para opositores particulares (lista de espera)
+# Fuera del menú a propósito: de momento se llega solo por enlace directo.
+# La lista de espera guarda en la tabla «lista_espera» del Supabase de producción (ver _sql/lista_espera.sql).
+# Mientras LISTA_ABIERTA sea False, el botón solo dice cuándo abre y la página no envía nada a ningún sitio.
+# Para abrirla: aplicar antes el SQL en Supabase, poner True, ejecutar este guion y publicar.
+LISTA_ABIERTA = False
+SUPABASE_URL = "https://lolqvimwnlikytbsnvsn.supabase.co"
+SUPABASE_CLAVE = "sb_publishable_JHbrAd6FUpp-js3O44kCjg_J6qPVFoL"   # clave pública por diseño (la misma de la app); la protección la pone el RLS
+FECHAS_EXAMEN = [("2027", "En 2027"), ("mas_adelante", "Más adelante"), ("no_lo_se", "No lo sé")]
+OK_LISTA = "Apuntado. Te avisamos por email cuando abra Dos Décimas, con los 45 temas listos."
+
+def lista_js():
+    if not LISTA_ABIERTA:
+        return '''<script>
+(function(){var f=document.getElementById("lista");if(!f)return;
+  f.addEventListener("submit",function(e){e.preventDefault()});
+})();
+</script>'''
+    return f'''<script>
+(function(){{var f=document.getElementById("lista");if(!f)return;
+  var b=f.querySelector("button[type=submit]"),m=document.getElementById("listaMsg"),t=b.textContent;
+  var aviso=function(txt,ok){{m.textContent=txt;m.className="aviso "+(ok?"ok":"mal");m.hidden=false}};
+  f.addEventListener("submit",function(e){{e.preventDefault();
+    if(f.web.value){{aviso({OK_LISTA!r},true);return}}   // campo trampa: solo lo rellenan los robots
+    if(!f.reportValidity())return;
+    b.disabled=true;b.textContent="Enviando…";
+    fetch("{SUPABASE_URL}/rest/v1/lista_espera",{{method:"POST",
+      headers:{{"apikey":"{SUPABASE_CLAVE}","Content-Type":"application/json","Prefer":"return=minimal"}},
+      body:JSON.stringify({{email:f.email.value.trim().toLowerCase(),fecha_examen:f.fecha.value,consentimiento:f.acepto.checked}})
+    }}).then(function(r){{
+      // 409 = ese email ya estaba apuntado: se contesta igual, para no desvelar quién está en la lista
+      if(r.ok||r.status===409){{f.reset();aviso({OK_LISTA!r},true)}}
+      else aviso("No se ha podido guardar. Prueba otra vez o escríbenos a {CORREO}.",false);
+    }}).catch(function(){{aviso("No hay conexión. Prueba otra vez en un momento.",false)}})
+    .then(function(){{b.disabled=false;b.textContent=t}});
+  }});
+}})();
+</script>'''
+
+def lista_form():
+    opciones = "".join(f'<label class="opcion"><input type="radio" name="fecha" value="{v}" required> {t}</label>' for v, t in FECHAS_EXAMEN)
+    boton = ('<button class="btn p" type="submit">Apuntarme a la lista</button>' if LISTA_ABIERTA
+             else '<button class="btn p" type="submit" disabled aria-describedby="listaCerrada">Abrimos la lista el 2 de noviembre</button>')
+    cerrada = '' if LISTA_ABIERTA else '<p class="muted" id="listaCerrada" style="font-size:.95rem">Todavía no guardamos nada: el formulario se activa el 2 de noviembre.</p>'
+    return f'''<form class="card stack form" id="lista" novalidate>
+    <label class="campo"><b>Tu email</b>
+      <input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" placeholder="tu@email.com"></label>
+    <fieldset class="campo"><legend><b>¿Cuándo te examinas?</b></legend><div class="opciones">{opciones}</div></fieldset>
+    <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
+    <label class="casilla"><input type="checkbox" name="acepto" required>
+      <span>He leído la <a href="/privacidad/#lista-espera">política de privacidad</a> y acepto que Ruvï guarde mi email para avisarme cuando abra Dos Décimas.</span></label>
+    <div class="btns">{boton}</div>
+    {cerrada}
+    <p id="listaMsg" class="aviso" role="status" hidden></p>
+  </form>'''
+
+# Avance del temario: cambiar TEMAS_LISTOS cada vez que se publique un tema nuevo (van en orden, del 1 al 45).
+TEMAS_LISTOS = 26
+BLOQUES_TEMARIO = [("Ciencias Jurídicas", 1, 26), ("Ciencias Sociales", 27, 37), ("Técnico-Científicas", 38, 45)]
+
+def avance_temas():
+    filas = ""
+    for nombre, a, b in BLOQUES_TEMARIO:
+        total, listos = b - a + 1, max(0, min(TEMAS_LISTOS, b) - a + 1)
+        filas += f'''<div class="bloque">
+      <div class="bloque-cab"><b>{nombre}</b><span class="muted">temas {a}-{b} · <span class="num-p">{listos}/{total}</span></span></div>
+      <div class="barra" role="img" aria-label="{nombre}: {listos} de {total} temas disponibles"><i style="width:{round(listos / total * 100)}%"></i></div>
+    </div>'''
+    return filas
+
+# ---------- Venta de Dos Décimas ----------
+# Tarifas (IVA incluido) y su enlace de pago de Stripe.
+# OJO: ahora son los enlaces del MODO DE PRUEBA de Stripe (buy.stripe.com/test_…), que no cobran dinero de verdad.
+# Antes de publicar la web hay que cambiarlos por los del modo activo (este guion avisa si quedan enlaces de prueba).
+DD_CORREO = "dosdecimas@ruvilab.es"
+DD_APP = "https://dosdecimas.ruvilab.es"
+TARIFA_FUNDADOR = dict(nombre="Fundador", precio="7,99 €", periodo="al mes", plazas=30,
+  enlace="https://buy.stripe.com/test_bJedRa9RD3NQc2q06Bc3m00")
+TARIFAS_DD = [
+  dict(nombre="Mensual", precio="10,99 €", periodo="al mes", al_mes=None, ahorro=None,
+       enlace="https://buy.stripe.com/test_4gMaEY8Nz7024zY1aFc3m01", nota="Se renueva cada mes. Sin permanencia."),
+  dict(nombre="Trimestre", precio="29,99 €", periodo="cada 3 meses", al_mes="9,99 €", ahorro="−9 %",
+       enlace="https://buy.stripe.com/test_14A00k8Nz98a4zY06Bc3m02", nota="Se renueva cada 3 meses. Sin permanencia."),
+  dict(nombre="Semestre", precio="54,99 €", periodo="cada 6 meses", al_mes="9,17 €", ahorro="−17 %",
+       enlace="https://buy.stripe.com/test_28E00kfbXbgi0jI2eJc3m03", nota="Se renueva cada 6 meses. Sin permanencia."),
+  dict(nombre="Curso completo", precio="89,99 €", periodo="pago único", al_mes="7,50 €", ahorro="−32 %", destacada=True,
+       enlace="https://buy.stripe.com/test_14A6oI6Fr0BEaYmg5zc3m04", nota="Hasta el 31 de octubre de 2027. No se renueva."),
+]
+if any("/test_" in t["enlace"] for t in TARIFAS_DD + [TARIFA_FUNDADOR]):
+    print("AVISO: la página de Dos Décimas lleva enlaces de pago de PRUEBA de Stripe. Cámbialos por los de modo activo antes de publicar.")
+
+def tarifas_dd():
+    tarjetas = "".join(f"""<div class="card tarifa{' dest' if t.get('destacada') else ''}">
+      <div class="tarifa-cab"><h3>{t['nombre']}</h3>{f'<span class="chip">{t["ahorro"]}</span>' if t['ahorro'] else ''}</div>
+      <p class="precio"><span class="num">{t['precio']}</span> {t['periodo']}</p>
+      <p class="muted">{f"Sale a {t['al_mes']} al mes. " if t['al_mes'] else ''}{t['nota']}</p>
+      <a class="btn {'p' if t.get('destacada') else 's'}" href="{t['enlace']}" rel="noopener">Elegir {t['nombre'].lower()}</a>
+    </div>""" for t in TARIFAS_DD)
+    f = TARIFA_FUNDADOR
+    return f"""<div class="card fundador">
+    <div class="stack" style="gap:8px">
+      <span class="eb">Precio fundador · solo {f['plazas']} plazas</span>
+      <p class="precio"><span class="num">{f['precio']}</span> {f['periodo']}, para siempre mientras sigas suscrito</p>
+      <p class="muted">Después, 10,99 € al mes. Si te das de baja y vuelves, pagas el precio de entonces.</p>
+    </div>
+    <a class="btn p" href="{f['enlace']}" rel="noopener">Quiero el precio fundador</a>
+  </div>
+  <div class="tarifas">{tarjetas}</div>"""
+
+FAQ_DD = [
+  ("¿Quién hace y revisa las preguntas?", "Las hace y las revisa un opositor de Policía Nacional que se quedó a dos décimas del corte, comprobando cada una con el BOE vigente. No hay detrás una editorial ni un equipo de profesores."),
+  ("¿Están actualizadas a la ley vigente?", "Sí: antes de publicar un tema se comprueban sus preguntas con la ley vigente del BOE. Si una ley cambia o encuentras un error, avisas desde la pregunta y la corregimos."),
+  ("¿Cuántos temas hay?", f"Ya hay {TEMAS_LISTOS} de los 45 temas, con 100 preguntas cada uno, y vamos añadiendo los que faltan hasta tenerlos todos. Además tienes los 12 exámenes oficiales desde 2015."),
+  ("¿Incluye temario, psicotécnicos u ortografía?", "No incluye temario ni psicotécnicos: son tests de los 45 temas, exámenes oficiales y el simulacro de cada fin de semana. La gramática y la ortografía entran como lo que son en el temario: los temas 36 y 37."),
+  ("¿Funciona en el móvil?", "Sí. Se abre en el navegador del móvil o del ordenador y puedes añadirla a la pantalla de inicio como una app, sin pasar por ninguna tienda."),
+  ("¿Cómo entro después de pagar?", f"Entra en {DD_APP.replace('https://', '')}, pulsa «Primera vez» y escribe el email con el que has pagado. Te llega un correo para crear tu contraseña y ya está."),
+  ("¿Puedo darme de baja cuando quiera?", "Sí, sin permanencia: desde el enlace de los correos de Stripe o escribiéndonos. Mantienes el acceso hasta el final de lo que ya pagaste. El curso completo es un pago único y no se renueva."),
+  ("¿Y si no me convence?", f"Tienes 14 días para desistir y te devolvemos todo, aunque ya la hayas usado. Basta con escribir a {DD_CORREO}."),
+  ("¿Qué pasa si se me corta el simulacro?", "Vuelves a donde ibas mientras quede tiempo: las respuestas se van guardando solas. Solo hay un intento por simulacro."),
+]
+
+FAQ_DD_HTML = "".join(f'<details class="card"><summary><b>{q}</b></summary><p class="muted" style="margin-top:10px">{r}</p></details>' for q, r in FAQ_DD)
+
+escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
+  "Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.", "/dos-decimas/")
++ menu("/dos-decimas/") + f"""
+<main>
+<section><div class="in dos" id="hero">
+  <div class="stack">
+    <span class="eb">Dos Décimas · Policía Nacional, Escala Básica</span>
+    <h1>Me quedé fuera por <mark>dos décimas</mark>. Que a ti no te pase.</h1>
+    <p class="lead">Por eso hice estos tests de Policía Nacional: a nivel de examen, comprobados con la ley vigente y con una corrección que te explica por qué, no solo cuál.</p>
+    <div class="btns"><a class="btn p" href="#precio">Ver tarifas</a><a class="btn s" href="#prueba">Pruébala una semana gratis</a></div>
+    <p class="muted" style="font-size:.95rem">Desde 7,99 € al mes. Sin permanencia.</p>
+  </div>
+  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test en el móvil, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="390" height="700"></div></div>
+</div></section>
+
+<section style="padding-top:0" id="como"><div class="in stack" style="max-width:860px">
+  <h2>Cómo se hacen las preguntas</h2>
+  <div class="grid2">
+    <div class="card stack" style="gap:8px"><h3>Desde la ley vigente</h3><p class="muted">Las preguntas salen de la ley vigente publicada en el BOE. Antes de publicarse, cada una se comprueba con su artículo.</p></div>
+    <div class="card stack" style="gap:8px"><h3>Con el artículo a la vista</h3><p class="muted">Cuando una pregunta sale de un artículo concreto, la corrección te enseña lo que dice la ley.</p></div>
+    <div class="card stack" style="gap:8px"><h3>Si ves un error, avisas</h3><p class="muted">Cada pregunta tiene un botón para avisar de un error. Lo revisamos y la corregimos para todos.</p></div>
+    <div class="card stack" style="gap:8px"><h3>Fecha de revisión de cada tema <span class="chip">En preparación</span></h3><p class="muted">Cada tema mostrará la fecha de su última revisión con la ley vigente.</p></div>
+  </div>
+  <p>Las hace <b>un opositor que se quedó a dos décimas del corte</b>. No hay detrás una editorial ni un equipo de profesores: hay alguien que sabe lo que es quedarse fuera por tan poco.</p>
+</div></section>
+
+<section class="banda"><div class="in dos inv">
+  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-resultado.png" alt="Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, la cuenta como en el examen y cuántos puntos le ha sumado arriesgar en las preguntas que dudaba" width="390" height="748"></div></div>
+  <div class="stack">
+    <span class="eb">Lo que hay dentro</span>
+    <h2>Pensada para no regalar ni una décima</h2>
+    <ul class="lista">
+      <li><span><b>Mis trampas.</b> Cada pregunta sabe qué trampa tiene (un plazo, un número, quién es competente, «podrá» o «deberá»…) y la app te dice en cuáles caes más. Con un test solo de tu trampa.</span></li>
+      <li><span><b>Por qué fallas.</b> En cada fallo marcas si no lo sabías, si leíste mal o si cambiaste la respuesta, y ves en qué se te van los puntos.</span></li>
+      <li><span><b>Lupa de negaciones.</b> Resalta el NO, EXCEPTO o SALVO del enunciado para que no se te escape.</span></li>
+      <li><span><b>Repaso de 5 minutos.</b> Cada día, 5 preguntas que fallaste o dudaste, justo cuando toca repasarlas. Y tu racha de días.</span></li>
+      <li><span><b>Arriesgar o dejar en blanco.</b> Marca «Dudo» y verás cuánto te suma o te resta contestar cuando no estás seguro.</span></li>
+      <li><span><b>Primera intuición.</b> Te dice si cambiar la respuesta te da o te quita puntos.</span></li>
+      <li><span><b>Mi cuaderno de fallos</b> y <b>12 exámenes oficiales</b> (1.200 preguntas), con la nota de corte de cada promoción.</span></li>
+      <li><span>Tres opciones, −0,5 por fallo y cronómetro, como en el examen. Y si cierras a mitad, vuelves donde estabas.</span></li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="temas"><div class="in grid2" style="align-items:start">
+  <div class="stack">
+    <h2>Los 45 temas, 100 preguntas cada uno</h2>
+    <p class="lead">Ya hay {TEMAS_LISTOS} temas listos y vamos añadiendo los que faltan hasta tener los 45.</p>
+    <p class="muted">Cada tema, comprobado con la ley vigente antes de publicarse.</p>
+  </div>
+  <div class="card stack avance">
+    <div class="bloque-cab"><b>Temario completo</b><span class="num-p">{TEMAS_LISTOS} de 45</span></div>
+    <div class="barra total" role="img" aria-label="{TEMAS_LISTOS} de 45 temas listos"><i style="width:{round(TEMAS_LISTOS / 45 * 100)}%"></i></div>
+    {avance_temas()}
+  </div>
+</div></section>
+
+<section class="banda"><div class="in stack" style="max-width:860px">
+  <span class="eb">Cada fin de semana</span>
+  <h2>Un simulacro como el día del examen</h2>
+  <p class="lead">100 preguntas, 50 minutos y un solo intento. El domingo, al cerrar, ves tu nota, la media y la nota de corte de todos los que lo han hecho, y si has superado el corte.</p>
+  <div class="grid3 datos">
+    <div><span class="num">Vie 14:00</span><p class="muted">Abre el viernes</p></div>
+    <div><span class="num">Dom 21:00</span><p class="muted">Cierra el domingo</p></div>
+    <div><span class="num">100</span><p class="muted">preguntas, un solo intento</p></div>
+  </div>
+  <ul class="lista">
+    <li><span><b>Si se corta la conexión o te interrumpen,</b> sigues donde ibas mientras quede tiempo.</span></li>
+    <li><span><b>Cada uno con su orden</b> de preguntas y de opciones, para que el corte sea justo.</span></li>
+    <li><span><b>La corrección al cerrar el domingo,</b> con tus fallos explicados para repasarlos.</span></li>
+  </ul>
+</div></section>
+
+<section style="padding-top:0"><div class="in grid2" style="align-items:start">
+  <div class="stack">
+    <h2>Y también las físicas</h2>
+    <p class="lead">Apunta tus marcas y mira cuántos puntos sacarías hoy, con las tablas de la convocatoria.</p>
+    <ul class="lista">
+      <li><span><b>Circuito de agilidad, dominadas o suspensión en barra y 1.000 metros</b>, con el baremo de hombres o de mujeres.</span></li>
+      <li><span>Tus puntos en cada prueba y tu nota media, y si serías apto.</span></li>
+      <li><span>Cuánto te falta para el siguiente punto: «2 dominadas más para el 8».</span></li>
+    </ul>
+  </div>
+  <div class="card stack" style="gap:12px">
+    <span class="eb">Las reglas</span>
+    <p>Cada prueba puntúa de 0 a 10. Un 0 en cualquiera te elimina. Eres apto con una media de 5.</p>
+    <p class="muted" style="font-size:.95rem">Tablas de puntos del Anexo II de la convocatoria (BOE-A-2026-15055).</p>
+  </div>
+</div></section>
+
+<section id="precio"><div class="in stack">
+  <div class="stack" style="max-width:720px">
+    <h2>Tarifas</h2>
+    <p class="lead">Elige cómo quieres pagar. Todas incluyen lo mismo: los 45 temas, los exámenes oficiales, el simulacro de cada fin de semana y todo lo que vayamos añadiendo.</p>
+  </div>
+  {tarifas_dd()}
+  <p class="muted" style="font-size:.95rem">Precios con IVA incluido. Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Tienes 14 días para desistir y te devolvemos todo. Después de pagar, entra en <a href="{DD_APP}">{DD_APP.replace('https://', '')}</a> con «Primera vez» y el email con el que has pagado.</p>
+</div></section>
+
+<section class="banda" id="prueba"><div class="in grid2" style="align-items:center">
+  <div class="stack">
+    <h2>¿Quieres probarla antes?</h2>
+    <p class="lead">Te damos una semana gratis, sin tarjeta. Escríbenos con el email con el que quieres entrar y te damos acceso.</p>
+  </div>
+  <div class="btns"><a class="btn p" href="mailto:{DD_CORREO}?subject=Quiero%20probar%20Dos%20D%C3%A9cimas%20una%20semana">Pedir mi semana gratis</a></div>
+</div></section>
+
+<section id="faq"><div class="in stack" style="max-width:820px">
+  <h2>Preguntas frecuentes</h2>
+  {FAQ_DD_HTML}
+</div></section>
+</main>""" + PIE)
+
+# /opositores/ fue la primera dirección de Dos Décimas: se mantiene para que no se rompan los enlaces ya compartidos.
+# GitHub Pages no hace redirecciones de servidor, así que se hace desde la propia página.
+escribir("/opositores/", '''<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<title>Dos Décimas · Ruvï</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://ruvilab.es/dos-decimas/">
+<meta http-equiv="refresh" content="0; url=/dos-decimas/">
+<script>location.replace("/dos-decimas/"+location.hash)</script>
+</head><body>
+<p>Esta página se ha movido a <a href="/dos-decimas/">ruvilab.es/dos-decimas</a>.</p>
+</body></html>''')
+
 # ---------------------------------------------------------------- Aviso legal
 escribir("/aviso-legal/", cabeza("Aviso legal · Ruvï", "Contacto y condiciones de uso de la web de Ruvï.", "/aviso-legal/")
 + menu("") + f'''
@@ -204,12 +455,12 @@ escribir("/aviso-legal/", cabeza("Aviso legal · Ruvï", "Contacto y condiciones
 </div></section></main>''' + PIE)
 
 # ---------------------------------------------------------------- Privacidad y cookies
-escribir("/privacidad/", cabeza("Privacidad y cookies · Ruvï", "Cómo trata Ruvï los datos de quien visita ruvilab.es o le escribe. Sin cookies ni analíticas.", "/privacidad/")
+escribir("/privacidad/", cabeza("Privacidad y cookies · Ruvï", "Cómo trata Ruvï los datos de quien visita ruvilab.es, le escribe o se apunta a la lista de espera. Sin cookies ni analíticas.", "/privacidad/")
 + menu("") + f'''
 <main><section><div class="in legal stack">
 <span class="eb">Legal</span><h1 style="font-size:2.2rem">Privacidad y cookies</h1>
-<p class="muted">Última actualización: 24 de octubre de 2026</p>
-<p class="card"><b>En pocas palabras:</b> esta web no usa cookies, ni analíticas, ni publicidad, y no tiene formularios. Solo tratamos tus datos si nos escribes o nos llamas, y solo para contestarte.</p>
+<p class="muted">Última actualización: 27 de octubre de 2026</p>
+<p class="card"><b>En pocas palabras:</b> esta web no usa cookies, ni analíticas, ni publicidad. Solo tratamos tus datos si nos escribes, nos llamas o te apuntas a la lista de espera de Dos Décimas, y solo para eso.</p>
 <h2>Responsable</h2>
 <p>Ruvï. Contacto para privacidad: <a href="mailto:privacidad@ruvilab.es">privacidad@ruvilab.es</a>.</p>
 <h2>Qué datos tratamos y para qué</h2>
@@ -217,12 +468,23 @@ escribir("/privacidad/", cabeza("Privacidad y cookies · Ruvï", "Cómo trata Ru
 <li><b>Si nos escribes</b> a {CORREO}, por WhatsApp o nos llamas: tu nombre, tu email, el nombre de tu academia y lo que nos cuentes. Los usamos para contestarte y, si lo pides, para enseñarte la app y prepararte un presupuesto. Base legal: tu petición y las medidas previas a un contrato (artículo 6.1.b del RGPD).</li>
 <li><b>Al visitar la web</b>: el proveedor que la aloja registra datos técnicos, como tu dirección IP y la hora, para servirla y por seguridad. No los usamos para nada más.</li>
 </ul>
+<h2 id="lista-espera">Lista de espera de Dos Décimas</h2>
+<p>Dos Décimas es la versión de Plantilla de Repaso para opositores que preparan Policía Nacional por su cuenta. Si te apuntas a su lista de espera en <a href="/dos-decimas/">ruvilab.es/dos-decimas</a>:</p>
+<ul>
+<li><b>Qué guardamos:</b> tu email, cuándo te examinas (2027, más adelante o no lo sabes), la fecha en que te apuntas y que has aceptado esta política. Nada más: ni nombre, ni teléfono, ni cookies.</li>
+<li><b>Para qué:</b> avisarte por email cuando abra Dos Décimas. Cuándo te examinas nos ayuda a preparar el lanzamiento. No te mandamos publicidad ni compartimos tu email con nadie.</li>
+<li><b>Base legal:</b> tu consentimiento, al marcar la casilla (artículo 6.1.a del RGPD). Puedes retirarlo cuando quieras.</li>
+<li><b>Dónde:</b> en una base de datos de Supabase, en la Unión Europea. Desde la web solo se puede añadir un email a la lista, no leerla.</li>
+<li><b>Cuánto tiempo:</b> hasta que te des de baja o, como máximo, 12 meses después de apuntarte. Si al abrir el pago decides suscribirte, tus datos pasan a regirse por la <a href="{APP}/privacidad.html">política de privacidad de la app</a>.</li>
+<li><b>Cómo darte de baja:</b> escribe a <a href="mailto:privacidad@ruvilab.es?subject=Baja%20de%20la%20lista%20de%20espera">privacidad@ruvilab.es</a> con el asunto «Baja» desde el email con el que te apuntaste, o contesta «Baja» a cualquiera de nuestros correos. Borramos tu email en un plazo máximo de un mes.</li>
+</ul>
 <h2>Cuánto tiempo</h2>
 <p>Los correos se guardan mientras dure la conversación y, si llegas a ser cliente, mientras dure la relación y los plazos que exige la ley. Si no, los borramos como máximo un año después del último contacto.</p>
 <h2>Quién más interviene</h2>
 <div class="tw"><table>
 <tr><th>Proveedor</th><th>Para qué</th><th>Dónde</th></tr>
 <tr><td>GitHub (Microsoft)</td><td>Alojamiento de la web</td><td>Estados Unidos</td></tr>
+<tr><td>Supabase</td><td>Base de datos de la lista de espera de Dos Décimas</td><td>Unión Europea</td></tr>
 <tr><td>ImprovMX</td><td>Reenvío de los correos que nos mandas</td><td>Estados Unidos</td></tr>
 <tr><td>Google (Gmail)</td><td>Buzón donde leemos y contestamos los correos</td><td>Unión Europea y Estados Unidos</td></tr>
 <tr><td>WhatsApp (Meta)</td><td>Mensajes si nos escribes por WhatsApp</td><td>Unión Europea y Estados Unidos</td></tr>
@@ -231,7 +493,7 @@ escribir("/privacidad/", cabeza("Privacidad y cookies · Ruvï", "Cómo trata Ru
 <h2>Tus derechos</h2>
 <p>Puedes pedir acceder a tus datos, corregirlos, borrarlos, limitar su uso, oponerte o llevártelos escribiendo a <a href="mailto:privacidad@ruvilab.es">privacidad@ruvilab.es</a>. Si crees que no los respetamos, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" rel="noopener">www.aepd.es</a>).</p>
 <h2>Cookies</h2>
-<p>Esta web no instala cookies ni usa herramientas de analítica o publicidad. Las letras y las imágenes se cargan desde la propia web, sin pedir nada a otros servicios. Por eso no verás ningún aviso de cookies.</p>
+<p>Esta web no instala cookies ni usa herramientas de analítica o publicidad. Las letras y las imágenes se cargan desde la propia web, sin pedir nada a otros servicios. El formulario de la lista de espera solo se conecta con nuestra base de datos cuando lo envías, y tampoco usa cookies. Por eso no verás ningún aviso de cookies.</p>
 <h2>La app Plantilla de Repaso</h2>
 <p>Los datos de los alumnos dentro de la app se rigen por su propia <a href="{APP}/privacidad.html">política de privacidad</a>.</p>
 </div></section></main>''' + PIE)

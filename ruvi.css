@@ -145,3 +145,45 @@ details[open] summary::after{content:"−"}
 .num{font:700 1.4rem var(--f-num);color:var(--accent)}
 .menu a.entrar{border:1px solid var(--line);background:var(--surface)}
 .banda .lead,.banda .muted{color:color-mix(in srgb,var(--on-band) 75%,transparent)}
+
+/* página de opositores: datos del simulacro, precio y formulario de la lista de espera */
+.datos .num{display:block;font-size:1.5rem;color:var(--cobre-1)}
+.precio{font-size:1.15rem}
+.precio .num{font-size:clamp(2rem,5vw,2.8rem);color:var(--accent);display:block;line-height:1.1}
+.form{gap:18px}
+.campo{display:flex;flex-direction:column;gap:8px;border:0;margin:0;padding:0;min-width:0}
+.campo legend{padding:0;margin-bottom:8px}
+.campo input[type=email]{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%}
+.campo input[type=email]:focus-visible,.opcion:has(input:focus-visible),.casilla input:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+.opciones{display:flex;gap:10px;flex-wrap:wrap}
+.opcion{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:var(--bg)}
+.opcion:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.opcion input,.casilla input{accent-color:var(--cobre-2);width:18px;height:18px;margin:0}
+.casilla{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;font-size:.95rem;color:var(--muted)}
+.casilla input{margin-top:3px}
+.trampa{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.btn:disabled{opacity:.7;cursor:not-allowed}
+.aviso{padding:12px 14px;border-radius:12px;font-weight:600}
+.aviso.ok{background:var(--accent-soft);color:var(--ink)}
+.aviso.mal{border:1px solid var(--accent);color:var(--accent)}
+#apuntarse{scroll-margin-top:72px}
+.chip{display:inline-block;vertical-align:middle;font:700 .7rem/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:5px 8px;border-radius:999px;margin-left:6px}
+.avance{gap:18px}
+.bloque-cab{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.num-p{font:700 .95rem var(--f-num);color:var(--accent)}
+.barra{height:10px;border-radius:999px;background:var(--accent-soft);overflow:hidden}
+.barra i{display:block;height:100%;background:var(--cobre-2);border-radius:inherit}
+.banda .form{color:var(--ink)}
+#temas,#faq,#como{scroll-margin-top:72px}
+.banda .form .muted{color:var(--muted)}
+.barra.total{height:14px;margin-bottom:8px}
+/* Tarifas de Dos Décimas */
+.fundador{display:grid;grid-template-columns:1.4fr auto;gap:20px;align-items:center;border:2px solid var(--accent)}
+.tarifas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.tarifa{display:flex;flex-direction:column;gap:10px;padding:22px}
+.tarifa-cab{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.tarifa-cab .chip{white-space:nowrap;flex:none}
+.tarifa .precio .num{font-size:clamp(1.6rem,3vw,2rem)}
+.tarifa .btn{margin-top:auto;justify-content:center}
+.tarifa.dest{border:2px solid var(--accent)}
+@media (max-width:980px){.tarifas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.tarifas,.fundador{grid-template-columns:1fr}.fundador .btn{justify-content:center}}
