@@ -211,3 +211,6 @@ details[open] summary::after{content:"−"}
 .miniatura:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .demo{margin-top:32px;scroll-margin-top:84px}
 @media (max-width:820px){.productos{grid-template-columns:1fr}}
+
+/* Logo de Dos Décimas encima del titular de sus páginas */
+.dd-logo{width:64px;height:64px;display:block}

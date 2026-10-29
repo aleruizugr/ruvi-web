@@ -6,7 +6,8 @@ VERSION = hashlib.md5((pathlib.Path(__file__).parent / "ruvi.css").read_bytes())
 APP = "https://plantilla-repaso.netlify.app"   # botón «Entrar»: cambiar aquí si la app cambia de dirección
 CORREO = "hola@ruvilab.es"
 
-def cabeza(titulo, desc, ruta, noindex=False):
+def cabeza(titulo, desc, ruta, noindex=False, icono="ruvi"):
+    # icono="dosdecimas": las páginas de Dos Décimas llevan su propio icono en la pestaña y en la pantalla de inicio
     return f'''<!doctype html>
 <html lang="es"><head>
 <meta charset="utf-8">
@@ -20,8 +21,8 @@ def cabeza(titulo, desc, ruta, noindex=False):
 <meta property="og:url" content="https://ruvilab.es{ruta}">
 <meta property="og:image" content="https://ruvilab.es/img/ruvi-og.jpg">
 <meta property="og:locale" content="es_ES">
-<link rel="icon" type="image/png" href="/img/favicon.png">
-<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="/img/{'dosdecimas-favicon' if icono == 'dosdecimas' else 'favicon'}.png">
+<link rel="apple-touch-icon" href="/img/{'dosdecimas-apple-touch-icon' if icono == 'dosdecimas' else 'apple-touch-icon'}.png">
 <link rel="preload" href="/fuentes/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/ruvi.css?v={VERSION}">
 </head><body>'''
@@ -330,11 +331,12 @@ FAQ_DD = [
 FAQ_DD_HTML = "".join(f'<details class="card"><summary><b>{q}</b></summary><p class="muted" style="margin-top:10px">{r}</p></details>' for q, r in FAQ_DD)
 
 escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
-  "Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.", "/dos-decimas/")
+  "Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.", "/dos-decimas/", icono="dosdecimas")
 + menu("/dos-decimas/", DD_APP) + f"""
 <main>
 <section><div class="in dos" id="hero">
   <div class="stack">
+    <img class="dd-logo" src="/img/dosdecimas-logo.png" alt="Dos Décimas" width="64" height="64">
     <span class="eb">Dos Décimas · Policía Nacional, Escala Básica</span>
     <h1>Me quedé fuera por <mark>dos décimas</mark>. Que a ti no te pase.</h1>
     <p class="lead">Las plazas se deciden por décimas, y casi nunca se pierden por no estudiar: se pierden en un plazo, en un «NO» que no leíste o en una duda que arriesgaste. Dos Décimas te enseña dónde se te escapan las tuyas.</p>
@@ -413,10 +415,11 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
 # GitHub Pages no hace redirecciones de servidor, así que se hace desde la propia página.
 # ---------- Dos Décimas: página a la que vuelve Stripe después de pagar ----------
 escribir("/dos-decimas/gracias/", cabeza("Pago completado · Dos Décimas",
-  "Tu pago de Dos Décimas se ha completado. Entra en la app con el mismo email con el que has pagado.", "/dos-decimas/gracias/", noindex=True)
+  "Tu pago de Dos Décimas se ha completado. Entra en la app con el mismo email con el que has pagado.", "/dos-decimas/gracias/", noindex=True, icono="dosdecimas")
 + menu("/dos-decimas/", DD_APP) + f"""
 <main>
 <section><div class="in stack" style="max-width:720px">
+  <img class="dd-logo" src="/img/dosdecimas-logo.png" alt="Dos Décimas" width="64" height="64">
   <span class="eb">Dos Décimas · pago completado</span>
   <h1>¡Ya estás dentro! <mark>Bienvenido</mark></h1>
   <p class="lead">Tu pago se ha completado. Stripe te enviará el recibo a tu email. Para entrar por primera vez:</p>
