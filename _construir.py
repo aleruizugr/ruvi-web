@@ -257,21 +257,20 @@ def avance_temas():
 
 # ---------- Venta de Dos Décimas ----------
 # Tarifas (IVA incluido) y su enlace de pago de Stripe.
-# OJO: ahora son los enlaces del MODO DE PRUEBA de Stripe (buy.stripe.com/test_…), que no cobran dinero de verdad.
-# Antes de publicar la web hay que cambiarlos por los del modo activo (este guion avisa si quedan enlaces de prueba).
+# Enlaces de pago REALES de Stripe (modo activo, creados el 29-10-2026): cobran dinero de verdad.
 DD_CORREO = "dosdecimas@ruvilab.es"
 DD_APP = "https://dosdecimas.ruvilab.es"
 TARIFA_FUNDADOR = dict(nombre="Fundador", precio="7,99 €", periodo="al mes", plazas=30,
-  enlace="https://buy.stripe.com/test_bJedRa9RD3NQc2q06Bc3m00")
+  enlace="https://buy.stripe.com/3cIcN7bck9DibmO7Vx04801")
 TARIFAS_DD = [
   dict(nombre="Mensual", precio="10,99 €", periodo="al mes", al_mes=None, ahorro=None,
-       enlace="https://buy.stripe.com/test_4gMaEY8Nz7024zY1aFc3m01", nota="Se renueva cada mes. Sin permanencia."),
+       enlace="https://buy.stripe.com/cNi28tbckbLq9eGfnZ04800", nota="Se renueva cada mes. Sin permanencia."),
   dict(nombre="Trimestre", precio="29,99 €", periodo="cada 3 meses", al_mes="9,99 €", ahorro="−9 %",
-       enlace="https://buy.stripe.com/test_14A00k8Nz98a4zY06Bc3m02", nota="Se renueva cada 3 meses. Sin permanencia."),
+       enlace="https://buy.stripe.com/aFafZjfsA4iY9eG0t504802", nota="Se renueva cada 3 meses. Sin permanencia."),
   dict(nombre="Semestre", precio="54,99 €", periodo="cada 6 meses", al_mes="9,17 €", ahorro="−17 %",
-       enlace="https://buy.stripe.com/test_28E00kfbXbgi0jI2eJc3m03", nota="Se renueva cada 6 meses. Sin permanencia."),
+       enlace="https://buy.stripe.com/28E14peowdTy2QicbN04804", nota="Se renueva cada 6 meses. Sin permanencia."),
   dict(nombre="Curso completo", precio="89,99 €", periodo="pago único", al_mes="7,50 €", ahorro="−32 %", destacada=True,
-       enlace="https://buy.stripe.com/test_14A6oI6Fr0BEaYmg5zc3m04", nota="Hasta el 31 de octubre de 2027. No se renueva."),
+       enlace="https://buy.stripe.com/28E9AV2FO16McqS1x904803", nota="Hasta el 31 de octubre de 2027. No se renueva."),
 ]
 if any("/test_" in t["enlace"] for t in TARIFAS_DD + [TARIFA_FUNDADOR]):
     print("AVISO: la página de Dos Décimas lleva enlaces de pago de PRUEBA de Stripe. Cámbialos por los de modo activo antes de publicar.")
