@@ -411,6 +411,25 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
 
 # /opositores/ fue la primera dirección de Dos Décimas: se mantiene para que no se rompan los enlaces ya compartidos.
 # GitHub Pages no hace redirecciones de servidor, así que se hace desde la propia página.
+# ---------- Dos Décimas: página a la que vuelve Stripe después de pagar ----------
+escribir("/dos-decimas/gracias/", cabeza("Pago completado · Dos Décimas",
+  "Tu pago de Dos Décimas se ha completado. Entra en la app con el mismo email con el que has pagado.", "/dos-decimas/gracias/", noindex=True)
++ menu("/dos-decimas/", DD_APP) + f"""
+<main>
+<section><div class="in stack" style="max-width:720px">
+  <span class="eb">Dos Décimas · pago completado</span>
+  <h1>¡Ya estás dentro! <mark>Bienvenido</mark></h1>
+  <p class="lead">Tu pago se ha completado. Stripe te enviará el recibo a tu email. Para entrar por primera vez:</p>
+  <ol class="pasos" style="grid-template-columns:1fr">
+    <li class="card"><span class="paso">1</span><div><h3>Pulsa «Entrar en Dos Décimas»</h3><p class="muted">Se abre la app en <b>{DD_APP.replace('https://', '')}</b>. Guárdala en favoritos o añádela a la pantalla de inicio del móvil.</p></div></li>
+    <li class="card"><span class="paso">2</span><div><h3>Elige «Primera vez»</h3><p class="muted">Escribe <b>el mismo email con el que has pagado</b>.</p></div></li>
+    <li class="card"><span class="paso">3</span><div><h3>Crea tu contraseña</h3><p class="muted">Te llega un correo con un enlace o un código. Ábrelo, elige tu contraseña y a por las décimas.</p></div></li>
+  </ol>
+  <div class="btns"><a class="btn p" href="{DD_APP}">Entrar en Dos Décimas</a></div>
+  <p class="muted" style="font-size:.95rem">¿No te llega el correo? Mira en spam o escríbenos a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p>
+</div></section>
+</main>""" + PIE)
+
 escribir("/opositores/", '''<!doctype html>
 <html lang="es"><head>
 <meta charset="utf-8">
