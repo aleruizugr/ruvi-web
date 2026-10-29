@@ -318,6 +318,14 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test en el móvil, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="390" height="700"></div></div>
 </div></section>
 
+<section style="padding-top:0"><div class="in stack" style="max-width:960px">
+  <h2>Dos Décimas en 30 segundos</h2>
+  <div class="video">
+    <video class="v-ancho" controls playsinline preload="none" poster="/img/dosdecimas-horizontal.jpg" width="1280" height="720" aria-label="Vídeo de Dos Décimas en horizontal: una nota de 6,95 frente a un corte de 7,05 y lo que hace la app para que no te pase"><source src="/video/dosdecimas-horizontal.mp4" type="video/mp4"></video>
+    <video class="v-movil" controls playsinline preload="none" poster="/img/dosdecimas-vertical.jpg" width="720" height="1280" aria-label="Vídeo de Dos Décimas en vertical: una nota de 6,95 frente a un corte de 7,05 y lo que hace la app para que no te pase"><source src="/video/dosdecimas-vertical.mp4" type="video/mp4"></video>
+  </div>
+</div></section>
+
 <section class="banda"><div class="in dos inv">
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-resultado.png" alt="Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, la cuenta como en el examen y cuántos puntos le ha sumado arriesgar en las preguntas que dudaba" width="390" height="748"></div></div>
   <div class="stack">
