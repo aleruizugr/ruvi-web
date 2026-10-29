@@ -363,7 +363,7 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
   <ol class="pasos">
     <li class="card"><span class="paso">1</span><div><h3>Paga tu plan</h3><p class="muted">Con tarjeta, Apple Pay o Google Pay. Te llega el recibo por email.</p></div></li>
     <li class="card"><span class="paso">2</span><div><h3>Entra en la app</h3><p class="muted">Abre <a href="{DD_APP}"><b>{DD_APP.replace('https://', '')}</b></a>, pulsa <b>«Primera vez»</b> y escribe <b>el mismo email con el que has pagado</b>.</p></div></li>
-    <li class="card"><span class="paso">3</span><div><h3>Crea tu contraseña</h3><p class="muted">Abre el enlace del correo que te llega, elige tu contraseña y ya estás dentro.</p></div></li>
+    <li class="card"><span class="paso">3</span><div><h3>Confirma y crea tu contraseña</h3><p class="muted">Te llega un correo para confirmar que el email es tuyo: abre el enlace (o escribe el código que trae), elige tu contraseña y ya estás dentro.</p></div></li>
   </ol>
   <p class="muted" style="font-size:.95rem">¿No te llega el correo? Mira en spam o escríbenos a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p>
 </div></section>
