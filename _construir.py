@@ -1,6 +1,7 @@
 # Genera las páginas de la web a partir de las piezas comunes (cabecera y pie).
 # Uso: python3 _construir.py   (el guion bajo hace que GitHub Pages no publique este archivo)
 import pathlib, html, hashlib
+from urllib.parse import quote
 R = pathlib.Path(__file__).parent
 VERSION = hashlib.md5((pathlib.Path(__file__).parent / "ruvi.css").read_bytes()).hexdigest()[:8]   # cambia sola cuando cambian los estilos, para que el navegador no use una copia vieja
 APP = "https://plantilla-repaso.netlify.app"   # botón «Entrar»: cambiar aquí si la app cambia de dirección
@@ -321,7 +322,11 @@ def tarifas_dd():
   </div>
   <div class="tarifas">{tarjetas}</div>"""
 
+PRUEBA_ASUNTO = quote("Quiero probar Dos Décimas 7 días gratis")
+PRUEBA_CUERPO = quote("Hola, quiero probar Dos Décimas gratis una semana.\n\nEl email con el que quiero entrar es: ")
+
 FAQ_DD = [
+  ("¿Puedo probarla antes de pagar?", f"Sí: 7 días gratis, sin tarjeta. Escríbenos a {DD_CORREO} con el email con el que quieres entrar y te damos de alta."),
   ("¿Cómo entro después de pagar?", f"Entra en {DD_APP.replace('https://', '')}, pulsa «Primera vez» y escribe el mismo email con el que has pagado. Te llega un correo para crear tu contraseña y ya está."),
   ("¿Están actualizadas a la ley vigente?", "Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos."),
   ("¿Funciona en el móvil?", "Sí. Se abre en el navegador del móvil o del ordenador y puedes añadirla a la pantalla de inicio como una app, sin pasar por ninguna tienda."),
@@ -340,8 +345,8 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
     <span class="eb">Dos Décimas · Policía Nacional, Escala Básica</span>
     <h1>Me quedé fuera por <mark>dos décimas</mark>. Que a ti no te pase.</h1>
     <p class="lead">Las plazas se deciden por décimas, y casi nunca se pierden por no estudiar: se pierden en un plazo, en un «NO» que no leíste o en una duda que arriesgaste. Dos Décimas te enseña dónde se te escapan las tuyas.</p>
-    <div class="btns"><a class="btn p" href="#precio">Ver tarifas</a><a class="btn s" href="{DD_APP}">Ya tengo cuenta: entrar</a></div>
-    <p class="muted" style="font-size:.95rem">Preguntas comprobadas con el BOE vigente por un opositor que se quedó a dos décimas del corte. Desde 7,99 € al mes, sin permanencia.</p>
+    <div class="btns"><a class="btn p" href="#prueba">Pruébala 7 días gratis</a><a class="btn s" href="{DD_APP}">Ya tengo cuenta: entrar</a></div>
+    <p class="muted" style="font-size:.95rem">Preguntas comprobadas con el BOE vigente por un opositor que se quedó a dos décimas del corte.</p>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test en el móvil, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="390" height="700"></div></div>
 </div></section>
@@ -386,19 +391,29 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
   <p class="lead">Circuito, dominadas o suspensión y 1.000 metros, con el baremo oficial de hombres o de mujeres: tus puntos, si serías apto y cuánto te falta para el siguiente punto.</p>
 </div></section>
 
-<section class="banda" id="precio"><div class="in stack">
-  <div class="stack" style="max-width:720px">
-    <h2>Tarifas</h2>
-    <p class="lead">Todas incluyen lo mismo. Sin permanencia y con IVA incluido.</p>
-  </div>
-  {tarifas_dd()}
-  <p class="muted" style="font-size:.95rem">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Tienes 14 días para desistir y te devolvemos todo.</p>
+<section class="banda" id="prueba"><div class="in stack" style="max-width:860px">
+  <span class="eb">Sin pagar nada</span>
+  <h2>Pruébala 7 días gratis</h2>
+  <p class="lead">Mándanos el email con el que quieres entrar y te damos acceso a todo durante una semana: tests, exámenes oficiales, simulacro, tus trampas y las físicas. Sin tarjeta y sin compromiso.</p>
+  <div class="btns"><a class="btn p" href="mailto:{DD_CORREO}?subject={PRUEBA_ASUNTO}&amp;body={PRUEBA_CUERPO}">Quiero mi semana gratis</a></div>
+  <p class="muted" style="font-size:.95rem">Te escribimos en cuanto te demos de alta. También puedes pedirlo comentando «ERROR» en cualquiera de nuestros vídeos de Instagram.</p>
+</div></section>
+
+<section id="precio"><div class="in stack">
+  <details class="card plegable" id="planes">
+    <summary><span><b>Ver planes y precios</b><span class="muted" style="display:block;font-size:.95rem;margin-top:4px">Todos incluyen lo mismo. Sin permanencia y con IVA incluido.</span></span></summary>
+    <div class="stack" style="margin-top:20px">
+      {tarifas_dd()}
+      <p class="muted" style="font-size:.95rem">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Tienes 14 días para desistir y te devolvemos todo.</p>
+    </div>
+  </details>
+  <script>if(location.hash==="#precio"||location.hash==="#planes")document.getElementById("planes").open=true</script>
 </div></section>
 
 <section id="entrar"><div class="in stack">
   <h2>Empieza en tres pasos</h2>
   <ol class="pasos">
-    <li class="card"><span class="paso">1</span><div><h3>Paga tu plan</h3><p class="muted">Con tarjeta, Apple Pay o Google Pay. Te llega el recibo por email.</p></div></li>
+    <li class="card"><span class="paso">1</span><div><h3>Elige tu plan</h3><p class="muted">Cuando acabe tu semana gratis, o antes si quieres. Con tarjeta, Apple Pay o Google Pay. Te llega el recibo por email.</p></div></li>
     <li class="card"><span class="paso">2</span><div><h3>Entra en la app</h3><p class="muted">Abre <a href="{DD_APP}"><b>{DD_APP.replace('https://', '')}</b></a>, pulsa <b>«Primera vez»</b> y escribe <b>el mismo email con el que has pagado</b>.</p></div></li>
     <li class="card"><span class="paso">3</span><div><h3>Confirma y crea tu contraseña</h3><p class="muted">Te llega un correo para confirmar que el email es tuyo: abre el enlace (o escribe el código que trae), elige tu contraseña y ya estás dentro.</p></div></li>
   </ol>

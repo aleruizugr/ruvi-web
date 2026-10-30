@@ -14,7 +14,7 @@
 <link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
 <link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
 <link rel="preload" href="/fuentes/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/ruvi.css?v=ad73c350">
+<link rel="stylesheet" href="/ruvi.css?v=2e07944a">
 </head><body><header class="top"><div class="in">
 <a class="marca" href="/" aria-label="Ruvï, inicio"><img src="/img/ruvi-monograma.png?v=dad139e9" alt="" width="40" height="40"><b>RUVÏ</b></a>
 <nav class="menu" aria-label="Menú"><a href="/plantilla-repaso/" class="opc">Plantilla de Repaso</a><a href="/dos-decimas/" class="" aria-current="page">Dos Décimas</a><a href="/#contacto" class="">Contacto</a><a href="https://dosdecimas.ruvilab.es" class="entrar">Entrar</a></nav>
@@ -26,8 +26,8 @@
     <span class="eb">Dos Décimas · Policía Nacional, Escala Básica</span>
     <h1>Me quedé fuera por <mark>dos décimas</mark>. Que a ti no te pase.</h1>
     <p class="lead">Las plazas se deciden por décimas, y casi nunca se pierden por no estudiar: se pierden en un plazo, en un «NO» que no leíste o en una duda que arriesgaste. Dos Décimas te enseña dónde se te escapan las tuyas.</p>
-    <div class="btns"><a class="btn p" href="#precio">Ver tarifas</a><a class="btn s" href="https://dosdecimas.ruvilab.es">Ya tengo cuenta: entrar</a></div>
-    <p class="muted" style="font-size:.95rem">Preguntas comprobadas con el BOE vigente por un opositor que se quedó a dos décimas del corte. Desde 7,99 € al mes, sin permanencia.</p>
+    <div class="btns"><a class="btn p" href="#prueba">Pruébala 7 días gratis</a><a class="btn s" href="https://dosdecimas.ruvilab.es">Ya tengo cuenta: entrar</a></div>
+    <p class="muted" style="font-size:.95rem">Preguntas comprobadas con el BOE vigente por un opositor que se quedó a dos décimas del corte.</p>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png?v=5094978d" alt="Una pregunta tipo test en el móvil, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="390" height="700"></div></div>
 </div></section>
@@ -72,12 +72,19 @@
   <p class="lead">Circuito, dominadas o suspensión y 1.000 metros, con el baremo oficial de hombres o de mujeres: tus puntos, si serías apto y cuánto te falta para el siguiente punto.</p>
 </div></section>
 
-<section class="banda" id="precio"><div class="in stack">
-  <div class="stack" style="max-width:720px">
-    <h2>Tarifas</h2>
-    <p class="lead">Todas incluyen lo mismo. Sin permanencia y con IVA incluido.</p>
-  </div>
-  <div class="card fundador">
+<section class="banda" id="prueba"><div class="in stack" style="max-width:860px">
+  <span class="eb">Sin pagar nada</span>
+  <h2>Pruébala 7 días gratis</h2>
+  <p class="lead">Mándanos el email con el que quieres entrar y te damos acceso a todo durante una semana: tests, exámenes oficiales, simulacro, tus trampas y las físicas. Sin tarjeta y sin compromiso.</p>
+  <div class="btns"><a class="btn p" href="mailto:dosdecimas@ruvilab.es?subject=Quiero%20probar%20Dos%20D%C3%A9cimas%207%20d%C3%ADas%20gratis&amp;body=Hola%2C%20quiero%20probar%20Dos%20D%C3%A9cimas%20gratis%20una%20semana.%0A%0AEl%20email%20con%20el%20que%20quiero%20entrar%20es%3A%20">Quiero mi semana gratis</a></div>
+  <p class="muted" style="font-size:.95rem">Te escribimos en cuanto te demos de alta. También puedes pedirlo comentando «ERROR» en cualquiera de nuestros vídeos de Instagram.</p>
+</div></section>
+
+<section id="precio"><div class="in stack">
+  <details class="card plegable" id="planes">
+    <summary><span><b>Ver planes y precios</b><span class="muted" style="display:block;font-size:.95rem;margin-top:4px">Todos incluyen lo mismo. Sin permanencia y con IVA incluido.</span></span></summary>
+    <div class="stack" style="margin-top:20px">
+      <div class="card fundador">
     <div class="stack" style="gap:8px">
       <span class="eb">Precio fundador · solo 30 plazas</span>
       <p class="precio"><span class="num">7,99 €</span> al mes, para siempre mientras sigas suscrito</p>
@@ -106,13 +113,16 @@
       <p class="muted">Sale a 7,50 € al mes. Hasta el 31 de octubre de 2027. No se renueva.</p>
       <a class="btn p" href="https://buy.stripe.com/28E9AV2FO16McqS1x904803" rel="noopener">Elegir curso completo</a>
     </div></div>
-  <p class="muted" style="font-size:.95rem">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Tienes 14 días para desistir y te devolvemos todo.</p>
+      <p class="muted" style="font-size:.95rem">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Tienes 14 días para desistir y te devolvemos todo.</p>
+    </div>
+  </details>
+  <script>if(location.hash==="#precio"||location.hash==="#planes")document.getElementById("planes").open=true</script>
 </div></section>
 
 <section id="entrar"><div class="in stack">
   <h2>Empieza en tres pasos</h2>
   <ol class="pasos">
-    <li class="card"><span class="paso">1</span><div><h3>Paga tu plan</h3><p class="muted">Con tarjeta, Apple Pay o Google Pay. Te llega el recibo por email.</p></div></li>
+    <li class="card"><span class="paso">1</span><div><h3>Elige tu plan</h3><p class="muted">Cuando acabe tu semana gratis, o antes si quieres. Con tarjeta, Apple Pay o Google Pay. Te llega el recibo por email.</p></div></li>
     <li class="card"><span class="paso">2</span><div><h3>Entra en la app</h3><p class="muted">Abre <a href="https://dosdecimas.ruvilab.es"><b>dosdecimas.ruvilab.es</b></a>, pulsa <b>«Primera vez»</b> y escribe <b>el mismo email con el que has pagado</b>.</p></div></li>
     <li class="card"><span class="paso">3</span><div><h3>Confirma y crea tu contraseña</h3><p class="muted">Te llega un correo para confirmar que el email es tuyo: abre el enlace (o escribe el código que trae), elige tu contraseña y ya estás dentro.</p></div></li>
   </ol>
@@ -121,7 +131,7 @@
 
 <section id="faq"><div class="in stack" style="max-width:820px">
   <h2>Preguntas frecuentes</h2>
-  <details class="card"><summary><b>¿Cómo entro después de pagar?</b></summary><p class="muted" style="margin-top:10px">Entra en dosdecimas.ruvilab.es, pulsa «Primera vez» y escribe el mismo email con el que has pagado. Te llega un correo para crear tu contraseña y ya está.</p></details><details class="card"><summary><b>¿Están actualizadas a la ley vigente?</b></summary><p class="muted" style="margin-top:10px">Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos.</p></details><details class="card"><summary><b>¿Funciona en el móvil?</b></summary><p class="muted" style="margin-top:10px">Sí. Se abre en el navegador del móvil o del ordenador y puedes añadirla a la pantalla de inicio como una app, sin pasar por ninguna tienda.</p></details><details class="card"><summary><b>¿Puedo darme de baja cuando quiera?</b></summary><p class="muted" style="margin-top:10px">Sí, sin permanencia. Mantienes el acceso hasta el final de lo que ya pagaste. El curso completo es un pago único y no se renueva.</p></details><details class="card"><summary><b>¿Y si no me convence?</b></summary><p class="muted" style="margin-top:10px">Tienes 14 días para desistir y te devolvemos todo, aunque ya la hayas usado. Basta con escribir a dosdecimas@ruvilab.es.</p></details>
+  <details class="card"><summary><b>¿Puedo probarla antes de pagar?</b></summary><p class="muted" style="margin-top:10px">Sí: 7 días gratis, sin tarjeta. Escríbenos a dosdecimas@ruvilab.es con el email con el que quieres entrar y te damos de alta.</p></details><details class="card"><summary><b>¿Cómo entro después de pagar?</b></summary><p class="muted" style="margin-top:10px">Entra en dosdecimas.ruvilab.es, pulsa «Primera vez» y escribe el mismo email con el que has pagado. Te llega un correo para crear tu contraseña y ya está.</p></details><details class="card"><summary><b>¿Están actualizadas a la ley vigente?</b></summary><p class="muted" style="margin-top:10px">Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos.</p></details><details class="card"><summary><b>¿Funciona en el móvil?</b></summary><p class="muted" style="margin-top:10px">Sí. Se abre en el navegador del móvil o del ordenador y puedes añadirla a la pantalla de inicio como una app, sin pasar por ninguna tienda.</p></details><details class="card"><summary><b>¿Puedo darme de baja cuando quiera?</b></summary><p class="muted" style="margin-top:10px">Sí, sin permanencia. Mantienes el acceso hasta el final de lo que ya pagaste. El curso completo es un pago único y no se renueva.</p></details><details class="card"><summary><b>¿Y si no me convence?</b></summary><p class="muted" style="margin-top:10px">Tienes 14 días para desistir y te devolvemos todo, aunque ya la hayas usado. Basta con escribir a dosdecimas@ruvilab.es.</p></details>
 </div></section>
 </main><footer class="pie"><div class="in">
 <span>© 2026 Ruvï · <a href="mailto:hola@ruvilab.es">hola@ruvilab.es</a></span>

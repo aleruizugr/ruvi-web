@@ -115,6 +115,9 @@ details summary{cursor:pointer;list-style:none;display:flex;justify-content:spac
 details summary::-webkit-details-marker{display:none}
 details summary::after{content:"+";color:var(--accent);font-weight:700;font-size:1.3rem;line-height:1}
 details[open] summary::after{content:"−"}
+/* tarifas de Dos Décimas, plegadas detrás de «Ver planes y precios» */
+.plegable>summary{align-items:center;font-size:1.15rem}
+.plegable>summary::after{display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:50%;background:var(--accent);color:#fff}
 .menu a{white-space:nowrap}
 .banda .movil{border-color:#4A3F39;background:#4A3F39}
 @media (max-width:440px){.marca b{display:none}.menu a{padding:8px 9px;font-size:.92rem}}
