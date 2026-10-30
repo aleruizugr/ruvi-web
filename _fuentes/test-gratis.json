@@ -1,0 +1,202 @@
+[
+{
+"n": 5,
+"q": "Según el artículo 81.2 de la Constitución Española, las Leyes Orgánicas para su aprobación exigirá:",
+"o": [
+"La mayoría absoluta del Congreso, en una votación final sobre el conjunto del proyecto.",
+"La mayoría simple del Congreso, en una votación final sobre el conjunto del proyecto.",
+"Respectivamente la aprobación por los Plenos de ambas Cámaras."
+],
+"a": 0
+},
+{
+"n": 10,
+"q": "Acudiendo a lo estipulado en el artículo 10.1 relativo a la vigilancia de la salud del Real Decreto 2/2006 de 16 de enero, ¿quién garantizará la vigilancia periódica del estado de salud de los funcionarios del Cuerpo Nacional de Policía, en orden a la prevención de los riesgos inherentes a la función policial?",
+"o": [
+"El Ministerio del Interior.",
+"La Dirección General de la Policía.",
+"El responsable de cada dependencia."
+],
+"a": 1
+},
+{
+"n": 15,
+"q": "Usted observa en el tren, como un individuo sustrae de la mochila de un pasajero que se ha quedado dormido, el teléfono móvil, valorado en 100 euros. Señale la respuesta correcta:",
+"o": [
+"El dispositivo tiene contenido personal, es un delito de hurto agravado.",
+"El valor económico es inferior a 400 euros, es un delito leve de hurto.",
+"Es un delito de hurto en concurso con descubrimiento y revelación de secretos."
+],
+"a": 0
+},
+{
+"n": 20,
+"q": "Conforme lo estipulado en el artículo 18.1 de la Ley 50/1997, de 27 de noviembre, del Gobierno, el Presidente del Gobierno convoca y preside las reuniones del Consejo de Ministros, actuando como Secretario:",
+"o": [
+"El Director del Gabinete.",
+"El Vicepresidente.",
+"El Ministro de la Presidencia."
+],
+"a": 2
+},
+{
+"n": 25,
+"q": "Atendiendo al artículo 153 de la Constitución Española, el control de la actividad de los órganos de las Comunidades Autónomas se ejercerá entre otros:",
+"o": [
+"Por el Tribunal Constitucional, el relativo a la constitucionalidad de sus disposiciones normativas con fuerza de ley.",
+"Por la jurisdicción contencioso-administrativa, el de la administración autónoma y sus normas reglamentarias.",
+"Ambas respuestas son correctas."
+],
+"a": 2
+},
+{
+"n": 30,
+"q": "Según el Real Decreto 137/1993, de 29 de enero, por el que se aprueba el Reglamento de Armas, dentro de la 7ª categoría de armas (artículo 3) “NO” se encuentran:",
+"o": [
+"Las armas de sistema «Flobert».",
+"Las armas acústicas y de salvas.",
+"Las armas para lanzar cabos."
+],
+"a": 1
+},
+{
+"n": 35,
+"q": "Tras completar un maratón, acude al fisioterapeuta para recibir un masaje. Debido a un movimiento reflejo inesperado, su pierna golpea fuertemente la cara del facultativo, el cual consecuencia de ello, pierde la visión de su ojo derecho. ¿Es su conducta penalmente reprochable?",
+"o": [
+"No, ya que existe una causa de justificación que afecta a la antijuridicidad.",
+"No, es una conducta involuntaria por lo que hay una ausencia de acción.",
+"No, ya que se trata de un inimputable con ausencia de culpabilidad."
+],
+"a": 1
+},
+{
+"n": 40,
+"q": "En virtud de lo dispuesto en la Ley Orgánica 7/2021 de 26 de mayo, de protección de datos personales tratados para fines de prevención, detección, investigación y enjuiciamiento de infracciones penales y de ejecución de sanciones penales, y en concreto en su artículo 8.3, con carácter general, el plazo máximo para la supresión de los datos será de:",
+"o": [
+"Quince años.",
+"Veinte años.",
+"Treinta años."
+],
+"a": 1
+},
+{
+"n": 45,
+"q": "¿Qué vehículos según el artículo 68.2 del Real Decreto 1428/2003, de 21 de noviembre, por el que se aprueba el Reglamento General de Circulación, tendrán el carácter de prioritarios cuando circulen en servicio urgente y cuyos conductores adviertan de su presencia mediante la utilización simultánea de la señal luminosa y del aparato emisor de señales acústicas especiales?",
+"o": [
+"Vehículos de los servicios de policía, extinción de incendios y protección civil y salvamento.",
+"Vehículos de los servicios de policía y de asistencia sanitaria, pública o privada.",
+"Ambas respuestas son correctas."
+],
+"a": 2
+},
+{
+"n": 50,
+"q": "Los miembros de una peña de hockey protestan por el descenso de su equipo y bloquean el acceso a los juzgados de la ciudad, arremetiendo con violencia sobre todo lo que se encuentran a su paso, poniendo en peligro la vida de las personas y lesionando a los policías al arrojarles piedras y otros objetos. ¿Qué tipo de infracción penal cometen dichos peñistas?",
+"o": [
+"Delito de desorden público en concurso con delito de atentado.",
+"Hay un delito de atentado y otro de allanamiento de lugar público.",
+"El delito de desorden público absorbe todas las conductas."
+],
+"a": 0
+},
+{
+"n": 55,
+"q": "Un individuo padece una enfermedad mental que anula por completo sus facultades intelectivas y volitivas, haciéndole creer que es un extraterrestre. Convencido de que su compañero de trabajo es un agente enemigo infiltrado, le golpea y le hace perder la visión de un ojo:",
+"o": [
+"Es aplicable la eximente completa relacionada con las anomalías y alteraciones psíquicas, la cual elimina la antijuridicidad.",
+"Aplicación de la eximente completa relacionada con las anomalías y alteraciones psíquicas, que elimina la culpabilidad.",
+"Resultaría aplicable la eximente completa relacionada con las anomalías y alteraciones psíquicas, eliminando la acción."
+],
+"a": 1
+},
+{
+"n": 60,
+"q": "¿Qué potestad especial permite al Estado dictar normas de seguridad pública para los edificios e instalaciones en los que se celebren espectáculos y actividades recreativas según el Capítulo IV de la Ley Orgánica 4/2015, de 30 de marzo, de protección de la seguridad ciudadana?",
+"o": [
+"Potestad especial de policía administrativa de seguridad.",
+"Potestad de control fiscal.",
+"Potestad de intervención judicial preventiva."
+],
+"a": 0
+},
+{
+"n": 65,
+"q": "Atendiendo a lo dispuesto en el artículo 7 de la Orden INT/859/2023, de 21 de julio, por la que se desarrolla la estructura orgánica y funciones de los servicios centrales y territoriales de la Dirección General de la Policía, le corresponde la prevención, mantenimiento y restablecimiento del orden público a:",
+"o": [
+"La Jefatura de Unidades Especiales.",
+"La Jefatura de Unidades de Prevención y Reacción.",
+"La Jefatura de Unidades de Intervención Policial."
+],
+"a": 2
+},
+{
+"n": 70,
+"q": "Los delitos que consistan en la producción de un resultado sólo se entenderán cometidos por omisión cuando la no evitación del mismo, al infringir un especial deber jurídico del autor, equivalga, según el sentido del texto de la ley, a su causación. A tal efecto y atendiendo a la literalidad del artículo 11 de nuestro vigente Código Penal, se equiparará la omisión a la acción:",
+"o": [
+"Cuando exista una específica obligación legal o contractual de actuar",
+"Cuando el omitente haya creado una ocasión de riesgo para el bien jurídicamente protegido mediante una acción u omisión precedente.",
+"Ambas respuestas son correctas."
+],
+"a": 2
+},
+{
+"n": 75,
+"q": "Según el artículo 3 de la Orden INT/859/2023, de 21 de julio, por la que se desarrolla la estructura orgánica y funciones de los servicios centrales y territoriales de la Dirección General de la Policía, ¿dónde se encuentra adscrito el Centro de Comunicaciones Internacionales?",
+"o": [
+"A la Unidad de Coordinación Internacional de la División de Cooperación Internacional.",
+"A la Unidad de Planificación Estratégica y Coordinación de la Dirección Adjunta Operativa.",
+"A la Secretaria General de la División de Cooperación Internacional."
+],
+"a": 2
+},
+{
+"n": 80,
+"q": "¿Qué artículo concreto de la Constitución Española garantiza el principio de la jerarquía normativa?",
+"o": [
+"Artículo 9.",
+"Artículo 10.",
+"Artículo 11."
+],
+"a": 0
+},
+{
+"n": 85,
+"q": "Según el Centro Nacional de Inteligencia, ¿cuál es la primera fase del proceso denominado “ciclo de Inteligencia”?",
+"o": [
+"Difusión.",
+"Obtención.",
+"Dirección."
+],
+"a": 2
+},
+{
+"n": 90,
+"q": "Identifique la frase que está escrita correctamente:",
+"o": [
+"Tras la tempestad, el marinero amainó las velas y logró encayar la embarcación en una inhóspita cala de la costa.",
+"La tripulación no extrañaba la comida de abordo.",
+"La película no consiguió agradar a los espectadores por el clisé de su guion."
+],
+"a": 2
+},
+{
+"n": 95,
+"q": "La Unión Europea, a través del Real Decreto 47/2022, de 18 de enero, sobre protección de las aguas contra la contaminación difusa producida por los nitratos procedentes de fuentes agrarias, considera la contaminación de origen difuso como un problema central en sus políticas ambientales y agrarias. Por ello, ha planteado estrategias europeas al respecto, como la denominada:",
+"o": [
+"De la granja a la mesa.",
+"Horizonte verde.",
+"Agenda verde."
+],
+"a": 0
+},
+{
+"n": 100,
+"q": "El artículo 5 del Real Decreto 207/2024, de 27 de febrero, por el que se desarrolla la estructura orgánica básica del Ministerio del Interior, regula que la Subdirección General de Asuntos Europeos depende de la:",
+"o": [
+"Dirección General de Relaciones Internacionales y Extranjería.",
+"Dirección General de Cooperación Internacional.",
+"Dirección General de Política Interior."
+],
+"a": 0
+}
+]

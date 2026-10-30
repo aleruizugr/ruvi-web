@@ -217,3 +217,20 @@ details[open] summary::after{content:"−"}
 
 /* Logo de Dos Décimas encima del titular de sus páginas */
 .dd-logo{width:64px;height:64px;display:block}
+/* Dos Décimas: test gratis */
+.tg-in{max-width:760px;scroll-margin-top:90px}
+.tg-cab{display:flex;justify-content:space-between}
+.tg-n{font:700 .95rem var(--f-num);color:var(--muted)}
+.tg-barra{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.tg-barra i{display:block;height:100%;background:var(--accent)}
+.tg-q{font:600 1.25rem/1.35 var(--f-body)}
+.tg-op{display:flex;gap:14px;align-items:flex-start;width:100%;text-align:left;font:400 1.05rem/1.35 var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer}
+.tg-op:hover{border-color:var(--accent)}
+.tg-op b{flex:none;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--accent-soft);color:var(--accent);font:700 .9rem var(--f-num)}
+.tg-bl{align-self:flex-start}
+.tg-nota{font:700 4.5rem/1 var(--f-num);color:var(--accent)}
+.tg-rev{margin-top:12px}
+.tg-mal{border-top:1px solid var(--line);padding-top:14px}
+.tg-mq{font-weight:600}
+.tg-no{color:#B3261E;margin-top:6px}
+.tg-si{color:var(--ok);font-weight:600;margin-top:4px}

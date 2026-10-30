@@ -347,6 +347,7 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
     <p class="lead">Las plazas se deciden por décimas, y casi nunca se pierden por no estudiar: se pierden en un plazo, en un «NO» que no leíste o en una duda que arriesgaste. Dos Décimas te enseña dónde se te escapan las tuyas.</p>
     <div class="btns"><a class="btn p" href="#prueba">Pruébala 7 días gratis</a><a class="btn s" href="{DD_APP}">Ya tengo cuenta: entrar</a></div>
     <p class="muted" style="font-size:.95rem">Preguntas comprobadas con el BOE vigente por un opositor que se quedó a dos décimas del corte.</p>
+    <p style="font-size:.95rem"><a href="/dos-decimas/test-gratis/"><b>¿Llegarías al 7,05?</b> Haz el test gratis, sin registro →</a></p>
   </div>
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test en el móvil, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="390" height="700"></div></div>
 </div></section>
@@ -452,6 +453,61 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
   {FAQ_DD_HTML}
 </div></section>
 </main>""" + PIE)
+
+# ---------- Dos Décimas: test gratis «¿Llegarías al 7,05?» ----------
+# 20 preguntas reales de la promoción 43 (las múltiplos de 5 del modelo A, sin elegir a mano). Sin registro:
+# todo ocurre en el navegador y no se guarda ni se envía nada.
+import json as _json
+_TG = _json.dumps(_json.loads((R / "_fuentes" / "test-gratis.json").read_text(encoding="utf-8")), ensure_ascii=False).replace("</", "<\\/")
+_TG_JS = """<script>
+(function(){
+  var P=__PREGUNTAS__,CORTE=7.05,SEG=600,i=0,res=P.map(function(){return null}),fin=0,reloj=null;
+  var $=function(id){return document.getElementById(id)},caja=$("tg");
+  var coma=function(x){return x.toFixed(2).replace(".",",")};
+  var el=function(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e};
+  function tiempo(){var s=Math.max(0,Math.round((fin-Date.now())/1000));var t=$("tg-t");if(t)t.textContent=Math.floor(s/60)+":"+String(s%60).padStart(2,"0");if(s<=0)resultado()}
+  function pregunta(){
+    caja.textContent="";var q=P[i];
+    var cab=el("div","tg-cab");cab.appendChild(el("span","tg-n",(i+1)+" / "+P.length));var t=el("span","tg-n");t.id="tg-t";cab.appendChild(t);caja.appendChild(cab);
+    var b=el("div","tg-barra");var bi=el("i");bi.style.width=(i/P.length*100)+"%";b.appendChild(bi);caja.appendChild(b);
+    caja.appendChild(el("p","tg-q",q.q));
+    q.o.forEach(function(o,k){var x=el("button","tg-op");x.type="button";x.appendChild(el("b",null,"abc"[k]));x.appendChild(el("span",null,o));x.onclick=function(){res[i]=k;sigue()};caja.appendChild(x)});
+    var bl=el("button","btn s tg-bl","Dejar en blanco");bl.type="button";bl.onclick=function(){res[i]=null;sigue()};caja.appendChild(bl);
+    tiempo();caja.scrollIntoView({block:"start"});
+  }
+  function sigue(){i++;i<P.length?pregunta():resultado()}
+  function resultado(){
+    clearInterval(reloj);var A=0,E=0,B=0;res.forEach(function(r,k){if(r===null)B++;else if(r===P[k].a)A++;else E++});
+    var nota=(A-E/2)*10/P.length,dif=CORTE-nota;
+    var tit=nota>=CORTE?"Con esta nota superarías el corte de 2026":dif<=1?"Te quedarías a "+coma(dif)+" del corte":"Te faltarían "+coma(dif)+" puntos para el corte";
+    var txt=nota>=CORTE?"Buena señal, pero 20 preguntas son solo una muestra. Compruébalo con un examen entero.":dif<=1?"Así se pierden las plazas: por décimas. Mira en qué fallas para que no te pase.":"Aún hay margen, y saber dónde fallas es lo primero para recortarlo.";
+    caja.textContent="";caja.appendChild(el("span","eb","Tu resultado"));
+    caja.appendChild(el("p","tg-nota",coma(nota)));caja.appendChild(el("p","muted","Corte de la promoción 43: 7,05 · "+A+" aciertos, "+E+" fallos y "+B+" en blanco"));
+    caja.appendChild(el("h2",null,tit));caja.appendChild(el("p","lead",txt));
+    var bt=el("div","btns");var a=el("a","btn p","Pruébala 7 días gratis");a.href="/dos-decimas/#prueba";bt.appendChild(a);
+    var w=el("a","btn s","Reta a un compañero");w.href="https://wa.me/?text="+encodeURIComponent("He sacado un "+coma(nota)+" en este test con preguntas reales del examen de Policía Nacional de 2026. ¿Tú llegarías al 7,05? https://ruvilab.es/dos-decimas/test-gratis/");w.target="_blank";w.rel="noopener";bt.appendChild(w);caja.appendChild(bt);
+    var mal=P.map(function(q,k){return{q:q,r:res[k]}}).filter(function(x){return x.r!==x.q.a});
+    if(mal.length){caja.appendChild(el("h3","tg-rev","Lo que has fallado o dejado en blanco"));mal.forEach(function(x){var c=el("div","tg-mal");c.appendChild(el("p","tg-mq",x.q.q));if(x.r!==null)c.appendChild(el("p","tg-no","Tu respuesta: "+"abc"[x.r]+") "+x.q.o[x.r]));c.appendChild(el("p","tg-si","Correcta: "+"abc"[x.q.a]+") "+x.q.o[x.q.a]));caja.appendChild(c)});
+      caja.appendChild(el("p","muted","En la app, cada corrección trae además el porqué y lo que dice la ley."))}
+    caja.scrollIntoView({block:"start"});
+  }
+  $("tg-go").onclick=function(){fin=Date.now()+SEG*1000;reloj=setInterval(tiempo,1000);pregunta()};
+})();
+</script>""".replace("__PREGUNTAS__", _TG)
+escribir("/dos-decimas/test-gratis/", cabeza("¿Llegarías al 7,05? · Test gratis de Policía Nacional",
+  "20 preguntas reales del examen de Policía Nacional de 2026, sin registro. Compara tu nota con el corte de 7,05.", "/dos-decimas/test-gratis/", icono="dosdecimas")
++ menu("/dos-decimas/", DD_APP) + """
+<main>
+<section><div class="in stack tg-in" id="tg">
+  <img class="dd-logo" src="/img/dosdecimas-logo.png" alt="Dos Décimas" width="64" height="64">
+  <span class="eb">Test gratis · Policía Nacional</span>
+  <h1>¿Llegarías al <mark>7,05</mark>?</h1>
+  <p class="lead">Ese fue el corte del examen de 2026. Comprueba cómo vas con 20 preguntas reales de ese examen, puntuadas igual: −0,5 por fallo y sin penalizar el blanco.</p>
+  <ul class="lista"><li><span><b>10 minutos</b>, al ritmo del examen</span></li><li><span><b>Sin registro:</b> no pedimos datos ni guardamos tus respuestas</span></li><li><span>Al acabar, tu nota y las respuestas correctas de lo que falles</span></li></ul>
+  <div class="btns"><button class="btn p" type="button" id="tg-go">Empezar el test</button></div>
+  <p class="muted" style="font-size:.95rem">Preguntas 5, 10, 15… hasta la 100 del modelo A del examen del 26-09-2026, con las respuestas de la plantilla publicada. El resultado es orientativo: 20 preguntas son solo una muestra.</p>
+</div></section>
+</main>""" + PIE + _TG_JS)
 
 # /opositores/ fue la primera dirección de Dos Décimas: se mantiene para que no se rompan los enlaces ya compartidos.
 # GitHub Pages no hace redirecciones de servidor, así que se hace desde la propia página.
