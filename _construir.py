@@ -362,14 +362,41 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
 <section class="banda"><div class="in dos inv">
   <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-resultado.png" alt="Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, la cuenta como en el examen y cuántos puntos le ha sumado arriesgar en las preguntas que dudaba" width="390" height="748"></div></div>
   <div class="stack">
-    <span class="eb">Lo que hay dentro</span>
-    <h2>Para no regalar ni una décima</h2>
+    <span class="eb">Mientras practicas</span>
+    <h2>Cada pregunta te enseña algo</h2>
     <ul class="lista">
-      <li><span><b>Mis trampas.</b> Plazos, números, «podrá» o «deberá»… La app te dice en qué trampa caes más y te hace un test solo de esa.</span></li>
-      <li><span><b>Repaso de 5 minutos.</b> Cada día, las preguntas que fallaste o dudaste, justo cuando toca repasarlas.</span></li>
-      <li><span><b>Arriesgar o dejar en blanco.</b> Marca «Dudo» y verás si contestar cuando no estás seguro te suma o te resta.</span></li>
-      <li><span><b>12 exámenes oficiales</b> desde 2015, con la nota de corte de cada promoción.</span></li>
-      <li><span><b>Como el examen:</b> tres opciones, −0,5 por fallo y cronómetro. Y una corrección que te explica por qué.</span></li>
+      <li><span>¿Se te escapan los «NO», «salvo» o «excepto»? <b>La lupa</b> te los resalta en el enunciado.</span></li>
+      <li><span>¿No sabes por qué has fallado? <b>Cada corrección</b> trae la respuesta buena, el porqué y lo que dice el artículo de la ley.</span></li>
+      <li><span>¿Arriesgar o dejar en blanco? Marca <b>«Dudo»</b> y la app te dice si contestar cuando no estás seguro te suma o te resta.</span></li>
+      <li><span><b>Como el examen:</b> tres opciones, −0,5 por fallo y cronómetro.</span></li>
+    </ul>
+  </div>
+</div></section>
+
+<section><div class="in dos">
+  <div class="stack">
+    <span class="eb">Cuando repasas</span>
+    <h2>Sabes qué tema llevas bien y cuál no</h2>
+    <ul class="lista">
+      <li><span>¿Qué tema llevas peor? <b>Cómo vas en cada tema</b> te los ordena del más flojo al más fuerte: por repasar, casi o bien. Tocas uno y lo practicas.</span></li>
+      <li><span>¿Se te olvidan las que ya fallaste? <b>Tus fallos pendientes</b> vuelven hasta que las aciertes.</span></li>
+      <li><span>¿Poco tiempo? <b>Repaso de 5 minutos</b> al día con lo que fallaste o dudaste, justo cuando toca repasarlo.</span></li>
+      <li><span><b>Las más falladas:</b> las preguntas que más se fallan entre todos los opositores de Dos Décimas.</span></li>
+    </ul>
+  </div>
+  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-temas.png" alt="Pantalla «Cómo vas en cada tema»: cada tema con su porcentaje de acierto y su barra en verde o amarillo, del más flojo al más fuerte" width="390" height="748" loading="lazy"></div></div>
+</div></section>
+
+<section class="banda"><div class="in dos inv">
+  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-cuaderno.png" alt="Mi cuaderno: un test con su nota, 7 aciertos y 3 errores, y una pregunta fallada con la respuesta que se dio, la correcta y el porqué" width="390" height="748" loading="lazy"></div></div>
+  <div class="stack">
+    <span class="eb">Tus fallos, a la vista</span>
+    <h2>Aprende de cada error</h2>
+    <ul class="lista">
+      <li><span><b>Mi cuaderno:</b> cada test que haces, con tu nota, lo que fallaste, la respuesta correcta y por qué. Y un botón para practicar solo esas.</span></li>
+      <li><span>¿Fallas siempre en lo mismo? <b>Mis trampas</b> te dice en qué tipo caes más (plazos, números, quién es competente, «podrá» o «deberá»…) y te hace un test solo de esa.</span></li>
+      <li><span>¿No lo sabías o no leíste bien? Al corregir, marcas <b>por qué fallaste</b> con un toque y ves qué es lo que más te pasa.</span></li>
+      <li><span><b>12 exámenes oficiales</b> desde 2015, con la nota de corte de cada promoción: al acabar, sabes si habrías pasado.</span></li>
     </ul>
   </div>
 </div></section>
