@@ -119,7 +119,7 @@ escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
     <span class="eb">Para opositores</span>
     <h2>Dos Décimas</h2>
     <p class="muted">Para quien prepara Policía Nacional por su cuenta: tests de los 45 temas comprobados con el BOE vigente, exámenes oficiales y simulacros. Desde 7,99 € al mes.</p>
-    <div class="btns"><a class="btn p" href="/dos-decimas/">Ver Dos Décimas</a><button class="btn s" type="button" data-demo="dosdecimas" aria-expanded="false" aria-controls="demo-dosdecimas">▶ Vídeo · 30 s</button></div>
+    <div class="btns"><a class="btn p" href="/dos-decimas/">Ver Dos Décimas</a><button class="btn s" type="button" data-demo="dosdecimas" aria-expanded="false" aria-controls="demo-dosdecimas">▶ Vídeo · 40 s</button></div>
   </article>
 </div>
 <div class="in demo" id="demo-plantilla" hidden>
@@ -352,7 +352,7 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
 </div></section>
 
 <section style="padding-top:0"><div class="in stack" style="max-width:960px">
-  <h2>Dos Décimas en 30 segundos</h2>
+  <h2>Dos Décimas en 40 segundos</h2>
   <div class="video">
     <video class="v-ancho" controls playsinline preload="none" poster="/img/dosdecimas-horizontal.jpg" width="1280" height="720" aria-label="Vídeo de Dos Décimas en horizontal: una nota de 6,95 frente a un corte de 7,05 y lo que hace la app para que no te pase"><source src="/video/dosdecimas-horizontal.mp4" type="video/mp4"></video>
     <video class="v-movil" controls playsinline preload="none" poster="/img/dosdecimas-vertical.jpg" width="720" height="1280" aria-label="Vídeo de Dos Décimas en vertical: una nota de 6,95 frente a un corte de 7,05 y lo que hace la app para que no te pase"><source src="/video/dosdecimas-vertical.mp4" type="video/mp4"></video>
