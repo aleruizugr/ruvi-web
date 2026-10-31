@@ -544,21 +544,27 @@ escribir("/opositores/", '''<!doctype html>
 </body></html>''')
 
 # ---------------------------------------------------------------- Aviso legal
-escribir("/aviso-legal/", cabeza("Aviso legal · Ruvï", "Contacto y condiciones de uso de la web de Ruvï.", "/aviso-legal/")
+escribir("/aviso-legal/", cabeza("Aviso legal · Ruvï", "Titular, contacto y condiciones de uso de la web de Ruvï.", "/aviso-legal/")
 + menu("") + f'''
 <main><section><div class="in legal stack">
 <span class="eb">Legal</span><h1 style="font-size:2.2rem">Aviso legal</h1>
-<p class="muted">Última actualización: 24 de octubre de 2026</p>
-<h2>Contacto</h2>
-<p>Ruvï es una marca comercial; Plantilla de Repaso es un producto de Ruvï. Para cualquier consulta: <a href="mailto:{CORREO}">{CORREO}</a>.</p>
+<p class="muted">Última actualización: 31 de octubre de 2026</p>
+<h2>Titular</h2>
+<p>En cumplimiento del artículo 10 de la Ley 34/2002, de servicios de la sociedad de la información y de comercio electrónico, se informa de que esta web y la marca Ruvï, con sus productos Plantilla de Repaso y Dos Décimas, son de:</p>
+<ul>
+<li><b>Titular:</b> Alejandro Ruiz Barreda</li>
+<li><b>NIF:</b> 49236511C</li>
+<li><b>Domicilio:</b> C/ Gustavo Adolfo Bécquer, 25, 21122 Huelva</li>
+<li><b>Email de contacto:</b> <a href="mailto:{CORREO}">{CORREO}</a></li>
+</ul>
 <h2>Uso de la web</h2>
 <p>Esta web informa sobre los productos de Ruvï. Quien la visita se compromete a usarla de forma lícita y a no dañar su funcionamiento.</p>
 <h2>Propiedad intelectual</h2>
 <p>Los textos, el diseño, el logotipo y las imágenes de esta web pertenecen a su titular o se usan con permiso. No se pueden copiar ni reutilizar sin autorización. Las tipografías se usan bajo licencia SIL Open Font License.</p>
 <h2>Enlaces</h2>
-<p>Esta web enlaza a la aplicación Plantilla de Repaso, que tiene su propio <a href="{APP}/aviso-legal.html">aviso legal</a> y su propia <a href="{APP}/privacidad.html">política de privacidad</a>.</p>
+<p>Esta web enlaza a las aplicaciones Plantilla de Repaso, con su propio <a href="{APP}/aviso-legal.html">aviso legal</a> y su propia <a href="{APP}/privacidad.html">política de privacidad</a>, y Dos Décimas, también con su propio <a href="{DD_APP}/aviso-legal.html">aviso legal</a> y su propia <a href="{DD_APP}/privacidad.html">política de privacidad</a>.</p>
 <h2>Responsabilidad</h2>
-<p>Procuramos que la información sea correcta y esté al día, pero puede contener errores o cambiar sin aviso. Los precios y condiciones que valen son los que se acuerdan por escrito con cada academia.</p>
+<p>Procuramos que la información sea correcta y esté al día, pero puede contener errores o cambiar sin aviso. En Plantilla de Repaso, los precios y condiciones que valen son los que se acuerdan por escrito con cada academia. En Dos Décimas, los que aparecen al contratar.</p>
 <h2>Ley aplicable</h2>
 <p>Se aplica la ley española.</p>
 </div></section></main>''' + PIE)
@@ -571,7 +577,7 @@ escribir("/privacidad/", cabeza("Privacidad y cookies · Ruvï", "Cómo trata Ru
 <p class="muted">Última actualización: 27 de octubre de 2026</p>
 <p class="card"><b>En pocas palabras:</b> esta web no usa cookies, ni analíticas, ni publicidad. Solo tratamos tus datos si nos escribes, nos llamas o te apuntas a la lista de espera de Dos Décimas, y solo para eso.</p>
 <h2>Responsable</h2>
-<p>Ruvï. Contacto para privacidad: <a href="mailto:privacidad@ruvilab.es">privacidad@ruvilab.es</a>.</p>
+<p>Alejandro Ruiz Barreda, titular de la marca Ruvï (más datos en el <a href="/aviso-legal/">aviso legal</a>). Contacto para privacidad: <a href="mailto:privacidad@ruvilab.es">privacidad@ruvilab.es</a>.</p>
 <h2>Qué datos tratamos y para qué</h2>
 <ul>
 <li><b>Si nos escribes</b> a {CORREO}, por WhatsApp o nos llamas: tu nombre, tu email, el nombre de tu academia y lo que nos cuentes. Los usamos para contestarte y, si lo pides, para enseñarte la app y prepararte un presupuesto. Base legal: tu petición y las medidas previas a un contrato (artículo 6.1.b del RGPD).</li>
