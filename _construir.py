@@ -7,8 +7,9 @@ VERSION = hashlib.md5((pathlib.Path(__file__).parent / "ruvi.css").read_bytes())
 APP = "https://plantilla-repaso.netlify.app"   # botón «Entrar»: cambiar aquí si la app cambia de dirección
 CORREO = "hola@ruvilab.es"
 
-def cabeza(titulo, desc, ruta, noindex=False, icono="ruvi"):
+def cabeza(titulo, desc, ruta, noindex=False, icono="ruvi", og="ruvi-og.jpg"):
     # icono="dosdecimas": las páginas de Dos Décimas llevan su propio icono en la pestaña y en la pantalla de inicio
+    # og: la imagen que sale al compartir el enlace (las de Dos Décimas se generan con _fuentes/og/generar.sh)
     return f'''<!doctype html>
 <html lang="es"><head>
 <meta charset="utf-8">
@@ -20,7 +21,9 @@ def cabeza(titulo, desc, ruta, noindex=False, icono="ruvi"):
 <meta property="og:description" content="{html.escape(desc)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ruvilab.es{ruta}">
-<meta property="og:image" content="https://ruvilab.es/img/ruvi-og.jpg">
+<meta property="og:image" content="https://ruvilab.es/img/{og}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:locale" content="es_ES">
 <link rel="icon" type="image/png" href="/img/{'dosdecimas-favicon' if icono == 'dosdecimas' else 'favicon'}.png">
 <link rel="apple-touch-icon" href="/img/{'dosdecimas-apple-touch-icon' if icono == 'dosdecimas' else 'apple-touch-icon'}.png">
@@ -61,6 +64,10 @@ PIE = f'''<footer class="pie"><div class="in">
 }})();
 </script>
 </body></html>'''
+
+def pie_con(*scripts):
+    # el pie con más scripts dentro del <body>, antes de cerrarlo
+    return PIE.replace("</body></html>", "".join(scripts) + "\n</body></html>")
 
 TELEFONO = "669 767 570"
 WHATSAPP = "34669767570"
@@ -322,11 +329,48 @@ def tarifas_dd():
   </div>
   <div class="tarifas">{tarjetas}</div>"""
 
-PRUEBA_ASUNTO = quote("Quiero probar Dos Décimas 7 días gratis")
-PRUEBA_CUERPO = quote("Hola, quiero probar Dos Décimas gratis una semana.\n\nEl email con el que quiero entrar es: ")
+# Semana gratis: el formulario llama a pedir_prueba() en el Supabase de producción (migración 016 de plantilla-repaso),
+# que da el alta al momento a los emails nuevos. Sale en la página de Dos Décimas y al acabar el test gratis
+# (origen "web" o "test", para saber de dónde llegan). Clave pública por diseño: solo puede llamar a esa función.
+def prueba_form(origen):
+    return f'''<form class="card stack form prueba-form" data-origen="{origen}" novalidate>
+    <label class="campo"><b>El email con el que quieres entrar</b>
+      <input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="tu@email.com"></label>
+    <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
+    <div class="btns"><button class="btn p" type="submit">Quiero mi semana gratis</button></div>
+    <p class="muted" style="font-size:.9rem">Lo usamos solo para darte acceso a la app, como dice su <a href="{DD_APP}/privacidad.html">política de privacidad</a>.</p>
+    <div class="aviso" role="status" hidden></div>
+  </form>'''
+
+# Va en <script> normal (no f-string): se pega tal cual en las dos páginas.
+PRUEBA_JS = ("""<script>
+(function(){
+  var URL="__URL__/rest/v1/rpc/pedir_prueba",CLAVE="__CLAVE__",APPDD="__APP__",CORREO="__CORREO__";
+  window.activarPrueba=function(f){if(!f||f.dataset.listo)return;f.dataset.listo=1;
+    var b=f.querySelector("button[type=submit]"),m=f.querySelector(".aviso"),t=b.textContent;
+    var aviso=function(html,ok){m.innerHTML=html;m.className="aviso "+(ok?"ok":"mal");m.hidden=false;m.focus&&m.setAttribute("tabindex","-1");m.focus()};
+    f.addEventListener("submit",function(e){e.preventDefault();
+      if(f.web.value)return;   // campo trampa: solo lo rellenan los robots
+      if(!f.reportValidity())return;
+      var correo=f.email.value.trim().toLowerCase();
+      b.disabled=true;b.textContent="Enviando…";
+      fetch(URL,{method:"POST",headers:{"apikey":CLAVE,"Authorization":"Bearer "+CLAVE,"Content-Type":"application/json"},
+        body:JSON.stringify({correo:correo,origen:f.dataset.origen})
+      }).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(d){
+        var esc=correo.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});
+        if(d&&d.estado==="en_espera"){aviso("<b>Recibido.</b> Te damos de alta en unas horas y te escribimos a <b>"+esc+"</b>.",true);return}
+        Array.prototype.forEach.call(f.children,function(c){if(c!==m)c.style.display="none"});   // deja solo el aviso (con display: el CSS de .campo y .btns gana a hidden)
+        aviso("<b>¡Hecho! Tienes 7 días gratis.</b><br>Entra en la app, pulsa <b>«Primera vez»</b> y escribe <b>"+esc+"</b>: te llega un correo para crear tu contraseña.<div class=\\"btns\\" style=\\"margin-top:12px\\"><a class=\\"btn p\\" href=\\""+APPDD+"\\">Entrar en Dos Décimas</a></div><span class=\\"muted\\" style=\\"font-size:.9rem\\">¿Ya la habías probado antes? Escríbenos a "+CORREO+".</span>",true);
+      }).catch(function(s){aviso(s===400?"Ese email no parece válido. Revísalo y prueba otra vez.":"No se ha podido enviar. Prueba otra vez o escríbenos a "+CORREO+".",false)})
+      .then(function(){b.disabled=false;b.textContent=t});
+    });
+  };
+  document.querySelectorAll(".prueba-form").forEach(activarPrueba);
+})();
+</script>""").replace("__URL__", SUPABASE_URL).replace("__CLAVE__", SUPABASE_CLAVE).replace("__APP__", DD_APP).replace("__CORREO__", DD_CORREO)
 
 FAQ_DD = [
-  ("¿Puedo probarla antes de pagar?", f"Sí: 7 días gratis, sin tarjeta. Escríbenos a {DD_CORREO} con el email con el que quieres entrar y te damos de alta."),
+  ("¿Puedo probarla antes de pagar?", "Sí: 7 días gratis, sin tarjeta. Deja tu email en «Pruébala 7 días gratis» y entras al momento."),
   ("¿Cómo entro después de pagar?", f"Entra en {DD_APP.replace('https://', '')}, pulsa «Primera vez» y escribe el mismo email con el que has pagado. Te llega un correo para crear tu contraseña y ya está."),
   ("¿Están actualizadas a la ley vigente?", "Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos."),
   ("¿Funciona en el móvil?", "Sí. Se abre en el navegador del móvil o del ordenador y puedes añadirla a la pantalla de inicio como una app, sin pasar por ninguna tienda."),
@@ -336,7 +380,7 @@ FAQ_DD = [
 FAQ_DD_HTML = "".join(f'<details class="card"><summary><b>{q}</b></summary><p class="muted" style="margin-top:10px">{r}</p></details>' for q, r in FAQ_DD)
 
 escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
-  "Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.", "/dos-decimas/", icono="dosdecimas")
+  "Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.", "/dos-decimas/", icono="dosdecimas", og="dosdecimas-og.jpg")
 + menu("/dos-decimas/", DD_APP) + f"""
 <main>
 <section><div class="in dos" id="hero">
@@ -422,9 +466,8 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
 <section class="banda" id="prueba"><div class="in stack" style="max-width:860px">
   <span class="eb">Sin pagar nada</span>
   <h2>Pruébala 7 días gratis</h2>
-  <p class="lead">Mándanos el email con el que quieres entrar y te damos acceso a todo durante una semana: tests, exámenes oficiales, simulacro, tus trampas y las físicas. Sin tarjeta y sin compromiso.</p>
-  <div class="btns"><a class="btn p" href="mailto:{DD_CORREO}?subject={PRUEBA_ASUNTO}&amp;body={PRUEBA_CUERPO}">Quiero mi semana gratis</a></div>
-  <p class="muted" style="font-size:.95rem">Te escribimos en cuanto te demos de alta. También puedes pedirlo comentando «ERROR» en cualquiera de nuestros vídeos de Instagram.</p>
+  <p class="lead">Deja tu email y entras al momento: una semana con todo, tests, exámenes oficiales, simulacro, tus trampas y las físicas. Sin tarjeta y sin compromiso.</p>
+  {prueba_form("web")}
 </div></section>
 
 <section id="precio"><div class="in stack">
@@ -441,10 +484,11 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
 <section id="entrar"><div class="in stack">
   <h2>Empieza en tres pasos</h2>
   <ol class="pasos">
-    <li class="card"><span class="paso">1</span><div><h3>Elige tu plan</h3><p class="muted">Cuando acabe tu semana gratis, o antes si quieres. Con tarjeta, Apple Pay o Google Pay. Te llega el recibo por email.</p></div></li>
-    <li class="card"><span class="paso">2</span><div><h3>Entra en la app</h3><p class="muted">Abre <a href="{DD_APP}"><b>{DD_APP.replace('https://', '')}</b></a>, pulsa <b>«Primera vez»</b> y escribe <b>el mismo email con el que has pagado</b>.</p></div></li>
+    <li class="card"><span class="paso">1</span><div><h3>Pide tu semana gratis</h3><p class="muted"><a href="#prueba">Deja tu email</a> y tienes 7 días con todo, sin pagar nada.</p></div></li>
+    <li class="card"><span class="paso">2</span><div><h3>Entra en la app</h3><p class="muted">Abre <a href="{DD_APP}"><b>{DD_APP.replace('https://', '')}</b></a>, pulsa <b>«Primera vez»</b> y escribe <b>ese mismo email</b>.</p></div></li>
     <li class="card"><span class="paso">3</span><div><h3>Confirma y crea tu contraseña</h3><p class="muted">Te llega un correo para confirmar que el email es tuyo: abre el enlace (o escribe el código que trae), elige tu contraseña y ya estás dentro.</p></div></li>
   </ol>
+  <p class="muted" style="font-size:.95rem">¿Te convence? Elige tu <a href="#planes">plan</a> cuando acabe la semana, o antes, con tarjeta, Apple Pay o Google Pay, <b>con el mismo email</b>. Si pagas sin haberla probado, empieza en el paso 2.</p>
   <p class="muted" style="font-size:.95rem">¿No te llega el correo? Mira en spam o escríbenos a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p>
 </div></section>
 
@@ -452,7 +496,7 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
   <h2>Preguntas frecuentes</h2>
   {FAQ_DD_HTML}
 </div></section>
-</main>""" + PIE)
+</main>""" + pie_con(PRUEBA_JS))
 
 # ---------- Dos Décimas: test gratis «¿Llegarías al 7,05?» ----------
 # 20 preguntas reales de la promoción 43 (las múltiplos de 5 del modelo A, sin elegir a mano). Sin registro:
@@ -484,7 +528,9 @@ _TG_JS = """<script>
     caja.textContent="";caja.appendChild(el("span","eb","Tu resultado"));
     caja.appendChild(el("p","tg-nota",coma(nota)));caja.appendChild(el("p","muted","Corte de la promoción 43: 7,05 · "+A+" aciertos, "+E+" fallos y "+B+" en blanco"));
     caja.appendChild(el("h2",null,tit));caja.appendChild(el("p","lead",txt));
-    var bt=el("div","btns");var a=el("a","btn p","Pruébala 7 días gratis");a.href="/dos-decimas/#prueba";bt.appendChild(a);
+    // la semana gratis, aquí mismo: el formulario viene en un <template> de la página y se copia al resultado
+    var tpl=$("tg-plantilla");if(tpl&&window.activarPrueba){var pf=tpl.content.firstElementChild.cloneNode(true);caja.appendChild(el("h3",null,"Pruébala 7 días gratis"));caja.appendChild(el("p","muted","Deja tu email y entras al momento en Dos Décimas, con todos los tests, los exámenes oficiales y el simulacro."));caja.appendChild(pf);activarPrueba(pf)}
+    var bt=el("div","btns");
     var w=el("a","btn s","Reta a un compañero");w.href="https://wa.me/?text="+encodeURIComponent("He sacado un "+coma(nota)+" en este test con preguntas reales del examen de Policía Nacional de 2026. ¿Tú llegarías al 7,05? https://ruvilab.es/dos-decimas/test-gratis/");w.target="_blank";w.rel="noopener";bt.appendChild(w);caja.appendChild(bt);
     var mal=P.map(function(q,k){return{q:q,r:res[k]}}).filter(function(x){return x.r!==x.q.a});
     if(mal.length){caja.appendChild(el("h3","tg-rev","Lo que has fallado o dejado en blanco"));mal.forEach(function(x){var c=el("div","tg-mal");c.appendChild(el("p","tg-mq",x.q.q));if(x.r!==null)c.appendChild(el("p","tg-no","Tu respuesta: "+"abc"[x.r]+") "+x.q.o[x.r]));c.appendChild(el("p","tg-si","Correcta: "+"abc"[x.q.a]+") "+x.q.o[x.q.a]));caja.appendChild(c)});
@@ -495,7 +541,7 @@ _TG_JS = """<script>
 })();
 </script>""".replace("__PREGUNTAS__", _TG)
 escribir("/dos-decimas/test-gratis/", cabeza("¿Llegarías al 7,05? · Test gratis de Policía Nacional",
-  "20 preguntas reales del examen de Policía Nacional de 2026, sin registro. Compara tu nota con el corte de 7,05.", "/dos-decimas/test-gratis/", icono="dosdecimas")
+  "20 preguntas reales del examen de Policía Nacional de 2026, sin registro. Compara tu nota con el corte de 7,05.", "/dos-decimas/test-gratis/", icono="dosdecimas", og="dosdecimas-test-og.jpg")
 + menu("/dos-decimas/", DD_APP) + """
 <main>
 <section><div class="in stack tg-in" id="tg">
@@ -507,7 +553,7 @@ escribir("/dos-decimas/test-gratis/", cabeza("¿Llegarías al 7,05? · Test grat
   <div class="btns"><button class="btn p" type="button" id="tg-go">Empezar el test</button></div>
   <p class="muted" style="font-size:.95rem">Preguntas 5, 10, 15… hasta la 100 del modelo A del examen del 26-09-2026, con las respuestas de la plantilla publicada. El resultado es orientativo: 20 preguntas son solo una muestra.</p>
 </div></section>
-</main>""" + PIE + _TG_JS)
+</main>""" + pie_con(_TG_JS, PRUEBA_JS.replace("<script>", '<template id="tg-plantilla">' + prueba_form("test") + "</template><script>", 1)))
 
 # /opositores/ fue la primera dirección de Dos Décimas: se mantiene para que no se rompan los enlaces ya compartidos.
 # GitHub Pages no hace redirecciones de servidor, así que se hace desde la propia página.
@@ -575,12 +621,13 @@ escribir("/privacidad/", cabeza("Privacidad y cookies · Ruvï", "Cómo trata Ru
 <main><section><div class="in legal stack">
 <span class="eb">Legal</span><h1 style="font-size:2.2rem">Privacidad y cookies</h1>
 <p class="muted">Última actualización: 27 de octubre de 2026</p>
-<p class="card"><b>En pocas palabras:</b> esta web no usa cookies, ni analíticas, ni publicidad. Solo tratamos tus datos si nos escribes, nos llamas o te apuntas a la lista de espera de Dos Décimas, y solo para eso.</p>
+<p class="card"><b>En pocas palabras:</b> esta web no usa cookies, ni analíticas, ni publicidad. Solo tratamos tus datos si nos escribes, nos llamas o pides la semana gratis de Dos Décimas, y solo para eso.</p>
 <h2>Responsable</h2>
 <p>Alejandro Ruiz Barreda, titular de la marca Ruvï (más datos en el <a href="/aviso-legal/">aviso legal</a>). Contacto para privacidad: <a href="mailto:privacidad@ruvilab.es">privacidad@ruvilab.es</a>.</p>
 <h2>Qué datos tratamos y para qué</h2>
 <ul>
 <li><b>Si nos escribes</b> a {CORREO}, por WhatsApp o nos llamas: tu nombre, tu email, el nombre de tu academia y lo que nos cuentes. Los usamos para contestarte y, si lo pides, para enseñarte la app y prepararte un presupuesto. Base legal: tu petición y las medidas previas a un contrato (artículo 6.1.b del RGPD).</li>
+<li><b>Si pides la semana gratis de Dos Décimas</b>: tu email, para darte acceso a la app durante 7 días, y de qué página lo pediste. Base legal: tu petición (artículo 6.1.b del RGPD). Desde ese momento tus datos se rigen por la <a href="{DD_APP}/privacidad.html">política de privacidad de Dos Décimas</a>.</li>
 <li><b>Al visitar la web</b>: el proveedor que la aloja registra datos técnicos, como tu dirección IP y la hora, para servirla y por seguridad. No los usamos para nada más.</li>
 </ul>
 <h2 id="lista-espera">Lista de espera de Dos Décimas</h2>
@@ -599,7 +646,7 @@ escribir("/privacidad/", cabeza("Privacidad y cookies · Ruvï", "Cómo trata Ru
 <div class="tw"><table>
 <tr><th>Proveedor</th><th>Para qué</th><th>Dónde</th></tr>
 <tr><td>GitHub (Microsoft)</td><td>Alojamiento de la web</td><td>Estados Unidos</td></tr>
-<tr><td>Supabase</td><td>Base de datos de la lista de espera de Dos Décimas</td><td>Unión Europea</td></tr>
+<tr><td>Supabase</td><td>Base de datos de Dos Décimas (semana gratis y lista de espera)</td><td>Unión Europea</td></tr>
 <tr><td>ImprovMX</td><td>Reenvío de los correos que nos mandas</td><td>Estados Unidos</td></tr>
 <tr><td>Google (Gmail)</td><td>Buzón donde leemos y contestamos los correos</td><td>Unión Europea y Estados Unidos</td></tr>
 <tr><td>WhatsApp (Meta)</td><td>Mensajes si nos escribes por WhatsApp</td><td>Unión Europea y Estados Unidos</td></tr>
@@ -608,7 +655,7 @@ escribir("/privacidad/", cabeza("Privacidad y cookies · Ruvï", "Cómo trata Ru
 <h2>Tus derechos</h2>
 <p>Puedes pedir acceder a tus datos, corregirlos, borrarlos, limitar su uso, oponerte o llevártelos escribiendo a <a href="mailto:privacidad@ruvilab.es">privacidad@ruvilab.es</a>. Si crees que no los respetamos, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" rel="noopener">www.aepd.es</a>).</p>
 <h2>Cookies</h2>
-<p>Esta web no instala cookies ni usa herramientas de analítica o publicidad. Las letras y las imágenes se cargan desde la propia web, sin pedir nada a otros servicios. El formulario de la lista de espera solo se conecta con nuestra base de datos cuando lo envías, y tampoco usa cookies. Por eso no verás ningún aviso de cookies.</p>
+<p>Esta web no instala cookies ni usa herramientas de analítica o publicidad. Las letras y las imágenes se cargan desde la propia web, sin pedir nada a otros servicios. El formulario de la semana gratis solo se conecta con nuestra base de datos cuando lo envías, y tampoco usa cookies. Por eso no verás ningún aviso de cookies.</p>
 <h2>La app Plantilla de Repaso</h2>
 <p>Los datos de los alumnos dentro de la app se rigen por su propia <a href="{APP}/privacidad.html">política de privacidad</a>.</p>
 </div></section></main>''' + PIE)

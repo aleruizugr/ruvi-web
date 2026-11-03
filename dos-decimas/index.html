@@ -9,7 +9,9 @@
 <meta property="og:description" content="Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ruvilab.es/dos-decimas/">
-<meta property="og:image" content="https://ruvilab.es/img/ruvi-og.jpg">
+<meta property="og:image" content="https://ruvilab.es/img/dosdecimas-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:locale" content="es_ES">
 <link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
 <link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
@@ -103,9 +105,15 @@
 <section class="banda" id="prueba"><div class="in stack" style="max-width:860px">
   <span class="eb">Sin pagar nada</span>
   <h2>Pruébala 7 días gratis</h2>
-  <p class="lead">Mándanos el email con el que quieres entrar y te damos acceso a todo durante una semana: tests, exámenes oficiales, simulacro, tus trampas y las físicas. Sin tarjeta y sin compromiso.</p>
-  <div class="btns"><a class="btn p" href="mailto:dosdecimas@ruvilab.es?subject=Quiero%20probar%20Dos%20D%C3%A9cimas%207%20d%C3%ADas%20gratis&amp;body=Hola%2C%20quiero%20probar%20Dos%20D%C3%A9cimas%20gratis%20una%20semana.%0A%0AEl%20email%20con%20el%20que%20quiero%20entrar%20es%3A%20">Quiero mi semana gratis</a></div>
-  <p class="muted" style="font-size:.95rem">Te escribimos en cuanto te demos de alta. También puedes pedirlo comentando «ERROR» en cualquiera de nuestros vídeos de Instagram.</p>
+  <p class="lead">Deja tu email y entras al momento: una semana con todo, tests, exámenes oficiales, simulacro, tus trampas y las físicas. Sin tarjeta y sin compromiso.</p>
+  <form class="card stack form prueba-form" data-origen="web" novalidate>
+    <label class="campo"><b>El email con el que quieres entrar</b>
+      <input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="tu@email.com"></label>
+    <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
+    <div class="btns"><button class="btn p" type="submit">Quiero mi semana gratis</button></div>
+    <p class="muted" style="font-size:.9rem">Lo usamos solo para darte acceso a la app, como dice su <a href="https://dosdecimas.ruvilab.es/privacidad.html">política de privacidad</a>.</p>
+    <div class="aviso" role="status" hidden></div>
+  </form>
 </div></section>
 
 <section id="precio"><div class="in stack">
@@ -150,16 +158,17 @@
 <section id="entrar"><div class="in stack">
   <h2>Empieza en tres pasos</h2>
   <ol class="pasos">
-    <li class="card"><span class="paso">1</span><div><h3>Elige tu plan</h3><p class="muted">Cuando acabe tu semana gratis, o antes si quieres. Con tarjeta, Apple Pay o Google Pay. Te llega el recibo por email.</p></div></li>
-    <li class="card"><span class="paso">2</span><div><h3>Entra en la app</h3><p class="muted">Abre <a href="https://dosdecimas.ruvilab.es"><b>dosdecimas.ruvilab.es</b></a>, pulsa <b>«Primera vez»</b> y escribe <b>el mismo email con el que has pagado</b>.</p></div></li>
+    <li class="card"><span class="paso">1</span><div><h3>Pide tu semana gratis</h3><p class="muted"><a href="#prueba">Deja tu email</a> y tienes 7 días con todo, sin pagar nada.</p></div></li>
+    <li class="card"><span class="paso">2</span><div><h3>Entra en la app</h3><p class="muted">Abre <a href="https://dosdecimas.ruvilab.es"><b>dosdecimas.ruvilab.es</b></a>, pulsa <b>«Primera vez»</b> y escribe <b>ese mismo email</b>.</p></div></li>
     <li class="card"><span class="paso">3</span><div><h3>Confirma y crea tu contraseña</h3><p class="muted">Te llega un correo para confirmar que el email es tuyo: abre el enlace (o escribe el código que trae), elige tu contraseña y ya estás dentro.</p></div></li>
   </ol>
+  <p class="muted" style="font-size:.95rem">¿Te convence? Elige tu <a href="#planes">plan</a> cuando acabe la semana, o antes, con tarjeta, Apple Pay o Google Pay, <b>con el mismo email</b>. Si pagas sin haberla probado, empieza en el paso 2.</p>
   <p class="muted" style="font-size:.95rem">¿No te llega el correo? Mira en spam o escríbenos a <a href="mailto:dosdecimas@ruvilab.es">dosdecimas@ruvilab.es</a>.</p>
 </div></section>
 
 <section id="faq"><div class="in stack" style="max-width:820px">
   <h2>Preguntas frecuentes</h2>
-  <details class="card"><summary><b>¿Puedo probarla antes de pagar?</b></summary><p class="muted" style="margin-top:10px">Sí: 7 días gratis, sin tarjeta. Escríbenos a dosdecimas@ruvilab.es con el email con el que quieres entrar y te damos de alta.</p></details><details class="card"><summary><b>¿Cómo entro después de pagar?</b></summary><p class="muted" style="margin-top:10px">Entra en dosdecimas.ruvilab.es, pulsa «Primera vez» y escribe el mismo email con el que has pagado. Te llega un correo para crear tu contraseña y ya está.</p></details><details class="card"><summary><b>¿Están actualizadas a la ley vigente?</b></summary><p class="muted" style="margin-top:10px">Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos.</p></details><details class="card"><summary><b>¿Funciona en el móvil?</b></summary><p class="muted" style="margin-top:10px">Sí. Se abre en el navegador del móvil o del ordenador y puedes añadirla a la pantalla de inicio como una app, sin pasar por ninguna tienda.</p></details><details class="card"><summary><b>¿Puedo darme de baja cuando quiera?</b></summary><p class="muted" style="margin-top:10px">Sí, sin permanencia. Mantienes el acceso hasta el final de lo que ya pagaste. El curso completo es un pago único y no se renueva.</p></details><details class="card"><summary><b>¿Y si no me convence?</b></summary><p class="muted" style="margin-top:10px">Tienes 14 días para desistir y te devolvemos todo, aunque ya la hayas usado. Basta con escribir a dosdecimas@ruvilab.es.</p></details>
+  <details class="card"><summary><b>¿Puedo probarla antes de pagar?</b></summary><p class="muted" style="margin-top:10px">Sí: 7 días gratis, sin tarjeta. Deja tu email en «Pruébala 7 días gratis» y entras al momento.</p></details><details class="card"><summary><b>¿Cómo entro después de pagar?</b></summary><p class="muted" style="margin-top:10px">Entra en dosdecimas.ruvilab.es, pulsa «Primera vez» y escribe el mismo email con el que has pagado. Te llega un correo para crear tu contraseña y ya está.</p></details><details class="card"><summary><b>¿Están actualizadas a la ley vigente?</b></summary><p class="muted" style="margin-top:10px">Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos.</p></details><details class="card"><summary><b>¿Funciona en el móvil?</b></summary><p class="muted" style="margin-top:10px">Sí. Se abre en el navegador del móvil o del ordenador y puedes añadirla a la pantalla de inicio como una app, sin pasar por ninguna tienda.</p></details><details class="card"><summary><b>¿Puedo darme de baja cuando quiera?</b></summary><p class="muted" style="margin-top:10px">Sí, sin permanencia. Mantienes el acceso hasta el final de lo que ya pagaste. El curso completo es un pago único y no se renueva.</p></details><details class="card"><summary><b>¿Y si no me convence?</b></summary><p class="muted" style="margin-top:10px">Tienes 14 días para desistir y te devolvemos todo, aunque ya la hayas usado. Basta con escribir a dosdecimas@ruvilab.es.</p></details>
 </div></section>
 </main><footer class="pie"><div class="in">
 <span>© 2026 Ruvï · <a href="mailto:hola@ruvilab.es">hola@ruvilab.es</a></span>
@@ -180,6 +189,31 @@
     x.addEventListener("click",function(){cerrar(c);var t=document.querySelector('.producto[data-de="'+c.id.slice(5)+'"]');if(t)t.scrollIntoView({behavior:"smooth",block:"start"})});
     // al terminar, deja a la vista el botón para quitar el vídeo
     c.querySelectorAll("video").forEach(function(v){v.addEventListener("ended",function(){x.classList.add("fin");x.scrollIntoView({behavior:"smooth",block:"center"});x.focus({preventScroll:true})});v.addEventListener("play",function(){x.classList.remove("fin")})})});
+})();
+</script>
+<script>
+(function(){
+  var URL="https://lolqvimwnlikytbsnvsn.supabase.co/rest/v1/rpc/pedir_prueba",CLAVE="sb_publishable_JHbrAd6FUpp-js3O44kCjg_J6qPVFoL",APPDD="https://dosdecimas.ruvilab.es",CORREO="dosdecimas@ruvilab.es";
+  window.activarPrueba=function(f){if(!f||f.dataset.listo)return;f.dataset.listo=1;
+    var b=f.querySelector("button[type=submit]"),m=f.querySelector(".aviso"),t=b.textContent;
+    var aviso=function(html,ok){m.innerHTML=html;m.className="aviso "+(ok?"ok":"mal");m.hidden=false;m.focus&&m.setAttribute("tabindex","-1");m.focus()};
+    f.addEventListener("submit",function(e){e.preventDefault();
+      if(f.web.value)return;   // campo trampa: solo lo rellenan los robots
+      if(!f.reportValidity())return;
+      var correo=f.email.value.trim().toLowerCase();
+      b.disabled=true;b.textContent="Enviando…";
+      fetch(URL,{method:"POST",headers:{"apikey":CLAVE,"Authorization":"Bearer "+CLAVE,"Content-Type":"application/json"},
+        body:JSON.stringify({correo:correo,origen:f.dataset.origen})
+      }).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(d){
+        var esc=correo.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});
+        if(d&&d.estado==="en_espera"){aviso("<b>Recibido.</b> Te damos de alta en unas horas y te escribimos a <b>"+esc+"</b>.",true);return}
+        Array.prototype.forEach.call(f.children,function(c){if(c!==m)c.style.display="none"});   // deja solo el aviso (con display: el CSS de .campo y .btns gana a hidden)
+        aviso("<b>¡Hecho! Tienes 7 días gratis.</b><br>Entra en la app, pulsa <b>«Primera vez»</b> y escribe <b>"+esc+"</b>: te llega un correo para crear tu contraseña.<div class=\"btns\" style=\"margin-top:12px\"><a class=\"btn p\" href=\""+APPDD+"\">Entrar en Dos Décimas</a></div><span class=\"muted\" style=\"font-size:.9rem\">¿Ya la habías probado antes? Escríbenos a "+CORREO+".</span>",true);
+      }).catch(function(s){aviso(s===400?"Ese email no parece válido. Revísalo y prueba otra vez.":"No se ha podido enviar. Prueba otra vez o escríbenos a "+CORREO+".",false)})
+      .then(function(){b.disabled=false;b.textContent=t});
+    });
+  };
+  document.querySelectorAll(".prueba-form").forEach(activarPrueba);
 })();
 </script>
 </body></html>
