@@ -400,7 +400,8 @@ def dd_tarifas():
   </div>
   <div class="tarifas">{tarjetas}</div>"""
 
-FAQ_DD_HTML = "".join(f'<details><summary>{q}</summary><p>{r}</p></details>' for q, r in FAQ_DD)
+_MAS = '<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg>'
+FAQ_DD_HTML = "".join(f'<details><summary>{q}{_MAS}</summary><p>{r}</p></details>' for q, r in FAQ_DD)
 
 
 

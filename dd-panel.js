@@ -166,27 +166,27 @@
       if (dist > 10) ia = (ib - 10 + ORDEN.length) % ORDEN.length;
       return ORDEN[(ia + 1) % ORDEN.length];
     }
-    function empezar(cel, ahora) {
-      var sig = cel.ch === " " && cel.meta !== " " && cel.saltar ? cel.meta : siguiente(cel.ch, cel.meta);
+    function empezar(cel, t) {
+      var sig = siguiente(cel.ch, cel.meta);
       glifo(cel.arriba.geometry, sig, "arriba");      // la nueva mitad de arriba ya asoma detrás
       glifo(cel.frente.geometry, cel.ch, "arriba");   // la que cae: la vieja de arriba...
       glifo(cel.dorso.geometry, sig, "abajo");        // ...con la nueva de abajo por detrás
       cel.eje.rotation.x = 0; cel.eje.visible = true;
-      cel.paso = { sig: sig, t: ahora };
+      cel.paso = { sig: sig, t: t };
     }
+    // va por el reloj, no por los fotogramas: si el móvil se atasca, las tablillas se ponen al día de golpe
     function avanzar(cel, ahora) {
-      if (!cel.paso) {
-        if (cel.ch !== cel.meta && ahora >= cel.espera) empezar(cel, ahora);
-        return cel.ch !== cel.meta;
-      }
-      var k = Math.min(1, (ahora - cel.paso.t) / PASO);
-      cel.eje.rotation.x = -Math.PI * k * k;          // cae acelerando, como con gravedad
-      if (k >= 1) {
-        cel.ch = cel.paso.sig; cel.paso = null;
+      for (var vueltas = 0; vueltas < 12; vueltas++) {
+        if (!cel.paso) {
+          if (cel.ch === cel.meta || ahora < cel.espera) return;
+          empezar(cel, Math.max(cel.espera, cel.fin || 0));
+        }
+        var k = (ahora - cel.paso.t) / PASO;
+        if (k < 1) { cel.eje.rotation.x = -Math.PI * k * k; return; }   // cae acelerando, como con gravedad
+        cel.ch = cel.paso.sig; cel.fin = cel.paso.t + PASO; cel.paso = null;
         glifo(cel.abajo.geometry, cel.ch, "abajo"); cel.eje.visible = false;
-        sonido.clac();
+        if (vueltas === 0) sonido.clac();
       }
-      return true;
     }
 
     var mx = 0, my = 0, rx = 0, ry = 0, desplaza = 0;
