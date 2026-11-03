@@ -201,7 +201,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{o
 .inicio h1{font-size:clamp(3rem,8vw,8.25rem)}
 .inicio .sub{max-width:none}
 .inicio .accesos{display:flex;flex-wrap:wrap;gap:10px;align-self:end;justify-content:flex-end}
-@media (max-width:900px){.inicio .accesos{justify-content:flex-start}}
+@media (max-width:900px){.inicio .in{grid-template-columns:1fr}.inicio .accesos{justify-content:flex-start}}
 .productos .in{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3vw,40px)}
 .producto{background:var(--capa);border-radius:32px;overflow:hidden;display:flex;flex-direction:column}
 .producto.oscuro{background:var(--campo);color:var(--sobre-campo)}
