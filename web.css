@@ -45,6 +45,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{o
 .cab nav{display:flex;align-items:center;gap:22px;font-weight:600;font-size:1rem}
 .cab nav a{text-decoration:none}
 .cab nav a:hover{color:var(--cobre)}
+.cab nav .volver{color:var(--suave)}
+/* en móviles estrechos, la marca de Dos Décimas se queda en el logo («DD») para que quepa la vuelta a Ruvï */
+@media (max-width:440px){.marca .nombre{display:none}}
 .marca,.cab nav a{white-space:nowrap}
 @media (max-width:760px){.cab nav .opc{display:none}.cab .in{gap:14px}.cab nav{gap:14px}}
 

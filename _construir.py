@@ -16,8 +16,8 @@ def cabeza(titulo, desc, ruta, marca="ruvi", og=None, noindex=False, actual=""):
     og = og or ("dosdecimas-og.jpg" if dd else "ruvi-og.jpg")
     icono = "dosdecimas-" if dd else ""
     if dd:
-        cab = f'''<a class="marca" href="/dos-decimas/" aria-label="Dos Décimas, inicio"><img src="/img/dosdecimas-logo.png" alt="" width="36" height="36">Dos Décimas</a>
-<nav aria-label="Menú"><a class="opc" href="/dos-decimas/#como">Cómo funciona</a><a class="opc" href="/dos-decimas/#planes">Precios</a><a href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="{DD_APP}">Entrar</a></nav>'''
+        cab = f'''<a class="marca" href="/dos-decimas/" aria-label="Dos Décimas, inicio"><img src="/img/dosdecimas-logo.png" alt="" width="36" height="36"><span class="nombre">Dos Décimas</span></a>
+<nav aria-label="Menú"><a class="volver" href="/" title="Volver a Ruvï">Ruvï</a><a class="opc" href="/dos-decimas/#como">Cómo funciona</a><a class="opc" href="/dos-decimas/#planes">Precios</a><a href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="{DD_APP}">Entrar</a></nav>'''
     else:
         enlaces = [("/plantilla-repaso/", "Plantilla de Repaso", "opc"), ("/dos-decimas/", "Dos Décimas", ""), ("/#contacto", "Contacto", "opc")]
         marcado = ' aria-current="page"'   # fuera del f-string: Python 3.9 no admite barras dentro
