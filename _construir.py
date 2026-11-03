@@ -328,15 +328,16 @@ PRUEBA_JS = ("""<script>
     f.addEventListener("submit",function(e){e.preventDefault();
       if(f.web.value)return;   // campo trampa: solo lo rellenan los robots
       if(!f.reportValidity())return;
-      var correo=f.email.value.trim().toLowerCase();
+      var correo=f.email.value.trim().toLowerCase(),nombre=f.nombre?f.nombre.value.trim().replace(/\\s+/g," "):"";
       b.disabled=true;b.textContent="Enviando…";
       fetch(URL,{method:"POST",headers:{"apikey":CLAVE,"Authorization":"Bearer "+CLAVE,"Content-Type":"application/json"},
-        body:JSON.stringify({correo:correo,origen:f.dataset.origen})
+        body:JSON.stringify({correo:correo,origen:f.dataset.origen,nombre:nombre||null})
       }).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(d){
         var esc=correo.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});
         if(d&&d.estado==="en_espera"){aviso("<b>Recibido.</b> Te damos de alta en unas horas y te escribimos a <b>"+esc+"</b>.",true);return}
         Array.prototype.forEach.call(f.children,function(c){if(c!==m)c.style.display="none"});   // deja solo el aviso (con display: el CSS de .campo y .btns gana a hidden)
-        aviso("<b>¡Hecho! Tienes 7 días gratis.</b><br>Entra en la app, pulsa <b>«Primera vez»</b> y escribe <b>"+esc+"</b>: te llega un correo para crear tu contraseña.<div class=\\"btns\\" style=\\"margin-top:12px\\"><a class=\\"btn p\\" href=\\""+APPDD+"/?primera\\">Entrar en Dos Décimas</a></div><span class=\\"muted\\" style=\\"font-size:.9rem\\">¿Ya la habías probado antes? Escríbenos a "+CORREO+".</span>",true);
+        var nomEsc=nombre.split(" ")[0].replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});
+        aviso("<b>¡Hecho"+(nomEsc?", "+nomEsc:"")+"! Tienes 7 días gratis.</b><br>Entra en la app, pulsa <b>«Primera vez»</b> y escribe <b>"+esc+"</b>: te llega un correo para crear tu contraseña.<div class=\\"btns\\" style=\\"margin-top:12px\\"><a class=\\"btn p\\" href=\\""+APPDD+"/?primera\\">Entrar en Dos Décimas</a></div><span class=\\"muted\\" style=\\"font-size:.9rem\\">¿Ya la habías probado antes? Escríbenos a "+CORREO+".</span>",true);
       }).catch(function(s){aviso(s===400?"Ese email no parece válido. Revísalo y prueba otra vez.":"No se ha podido enviar. Prueba otra vez o escríbenos a "+CORREO+".",false)})
       .then(function(){b.disabled=false;b.textContent=t});
     });
@@ -362,11 +363,13 @@ DD_CORTE = "7,05"
 
 def dd_form(origen, boton="Pruébala 7 días gratis"):
     return f'''<form class="alta-form prueba-form" data-origen="{origen}" novalidate>
+    <label class="campo campo-nombre"><b>Tu nombre</b>
+      <input type="text" name="nombre" required maxlength="40" autocomplete="given-name" autocapitalize="words" placeholder="Cómo te llamas"></label>
     <label class="campo"><b>Tu email</b>
       <input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="tu@email.com"></label>
     <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
     <div class="btns"><button class="btn btn-p" type="submit">{boton}</button></div>
-    <p class="nota">7 días con todo, sin tarjeta. Usamos tu email solo para darte acceso, como dice la <a href="{DD_APP}/privacidad.html">política de privacidad</a>.</p>
+    <p class="nota">7 días con todo, sin tarjeta. Usamos tu nombre y tu email solo para darte acceso, como dice la <a href="{DD_APP}/privacidad.html">política de privacidad</a>.</p>
     <div class="aviso" role="status" hidden></div>
   </form>'''
 

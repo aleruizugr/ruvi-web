@@ -82,6 +82,10 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{o
 /* Formulario de la semana gratis */
 .alta-form{display:flex;flex-wrap:wrap;gap:10px}
 .alta-form .campo{flex:1 1 240px;display:flex;flex-direction:column;gap:6px}
+.alta-form .campo-nombre{flex:1 1 160px}
+.alta-form input[type=text]{font:inherit;color:var(--tinta);background:var(--capa);border:2px solid transparent;border-radius:999px;min-height:52px;padding:0 22px;width:100%}
+.campo-oscuro .alta-form input[type=text]{background:var(--sobre-campo);color:#2E2724}
+.alta-form input[type=text]:focus{border-color:var(--cobre);outline:none}
 .alta-form .campo b{font-size:1rem}
 .alta-form input[type=email]{font:inherit;color:var(--tinta);background:var(--capa);border:2px solid transparent;border-radius:999px;min-height:52px;padding:0 22px;width:100%}
 .campo-oscuro .alta-form input[type=email]{background:var(--sobre-campo);color:#2E2724}
