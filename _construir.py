@@ -349,7 +349,7 @@ PRUEBA_JS = ("""<script>
 </script>""").replace("__URL__", SUPABASE_URL).replace("__CLAVE__", SUPABASE_CLAVE).replace("__APP__", DD_APP).replace("__CORREO__", DD_CORREO)
 
 FAQ_DD = [
-  ("¿Puedo probarla antes de pagar?", "Sí: 7 días gratis, sin tarjeta. Deja tu email en «Pruébala 7 días gratis» y entras al momento."),
+  ("¿Puedo probarla antes de pagar?", "Sí: 7 días gratis, sin tarjeta. Deja tu email en «Pruébala 7 días gratis» y normalmente entras al momento."),
   ("¿Cómo entro después de pagar?", f"Entra en {DD_APP.replace('https://', '')}, pulsa «Primera vez» y escribe el mismo email con el que has pagado. Te llega un correo para crear tu contraseña y ya está."),
   ("¿Están actualizadas a la ley vigente?", "Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos."),
   ("¿Qué cubre y qué no?", "Cubre la prueba de conocimientos: tests de los 45 temas de la Escala Básica, 12 exámenes oficiales desde 2015 y un simulacro cada fin de semana. También te ayuda con las físicas, con el baremo oficial. No es un temario para estudiar desde cero: es para practicar lo que estudias. Tampoco incluye psicotécnicos ni la entrevista."),
@@ -416,18 +416,102 @@ def dd_tarifas():
 
 FAQ_DD_HTML = "".join(f'<details><summary>{q}</summary><p>{r}</p></details>' for q, r in FAQ_DD)
 
+
+# El móvil en 3D de la portada: las pantallas reales de la app, con dos notas que flotan delante.
+# Sin JS se ve la primera pantalla de frente; con JS gira al arrastrarlo y da una vuelta al cambiar de pantalla.
+TEL_PANTALLAS = [
+  ("pregunta", "Pregunta", "app-pregunta.png", 1400, "Una pregunta tipo test en la app, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco",
+   ("Cronómetro y −0,5 por fallo, como el examen", "«Dudo»: marca las que no tienes claras")),
+  ("resultado", "Resultado", "app-resultado.png", 1496, "Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, y cuántos puntos le ha sumado arriesgar en las que dudaba",
+   ("Sabes si arriesgar te suma o te resta", "Un toque y repasas solo tus fallos")),
+  ("cuaderno", "Mi cuaderno", "app-cuaderno.png", 1496, "Mi cuaderno: un test con su nota, 7 aciertos y 3 errores, y una pregunta fallada con la respuesta dada, la correcta y el porqué",
+   ("Cada fallo, con la buena y el porqué", "Repite solo las que fallaste")),
+  ("temas", "Temas", "app-temas.png", 1496, "Pantalla «Cómo vas en cada tema»: cada tema con su porcentaje de acierto y su barra, del más flojo al más fuerte",
+   ("Del tema más flojo al más fuerte", "Tocas uno y lo practicas")),
+]
+def _tel_html():
+    capas = "".join(f'<i style="--z:{k}"></i>' for k in range(1, 12))
+    imgs, notas, botones = [], [], []
+    for n, (clave, nombre, img, alto, alt, (n1, n2)) in enumerate(TEL_PANTALLAS):
+        primera = n == 0
+        carga = ' fetchpriority="high"' if primera else ' loading="lazy"'
+        oculto = "" if primera else ' aria-hidden="true"'
+        imgs.append(f'<img class="{"activa" if primera else ""}" data-p="{clave}" src="/img/{img}" alt="{alt if primera else ""}" data-alt="{alt}"{oculto} width="780" height="{alto}"{carga}>')
+        notas.append(f'<p class="tel-nota a{" activa" if primera else ""}" data-p="{clave}">{n1}</p><p class="tel-nota b{" activa" if primera else ""}" data-p="{clave}">{n2}</p>')
+        botones.append(f'<button type="button" data-p="{clave}" aria-pressed="{"true" if primera else "false"}">{nombre}</button>')
+    return f'''<div class="escena" role="group" aria-label="La app por dentro">
+    <div class="tel-marco"><div class="tel">
+      <div class="tel-canto" aria-hidden="true">{capas}</div>
+      <div class="tel-espalda" aria-hidden="true"><img src="/img/dosdecimas-logo.png" alt="" width="72" height="72"></div>
+      <div class="tel-frente"><div class="tel-pantalla">{"".join(imgs)}</div></div>
+      <div class="tel-notas" aria-hidden="true">{"".join(notas)}</div>
+    </div></div>
+    <div class="tel-botones" aria-label="Elige una pantalla">{"".join(botones)}</div>
+    <p class="tel-pista" aria-hidden="true">Arrástralo para girarlo</p>
+  </div>'''
+TEL_HTML = _tel_html()
+
+TEL_JS = """<script>
+(function(){
+  // Móvil 3D: inclinación con el ratón, giro al arrastrar (con inercia que vuelve sola) y una vuelta entera al cambiar de pantalla.
+  var esc=document.querySelector(".escena");if(!esc)return;
+  var tel=esc.querySelector(".tel"),marco=esc.querySelector(".tel-marco"),botones=esc.querySelectorAll(".tel-botones button");
+  var quieto=matchMedia("(prefers-reduced-motion: reduce)").matches,orden=[].map.call(botones,function(b){return b.dataset.p});
+  var ry=-28,rx=8,vy=0,arrastre=null,inclX=0,inclY=0,giro=null,actual=orden[0],tocado=false,visible=true,t0=performance.now(),ultimo=t0;
+  var poner=function(p){actual=p;
+    esc.querySelectorAll("[data-p]").forEach(function(e){var si=e.dataset.p===p;
+      if(e.tagName==="BUTTON")e.setAttribute("aria-pressed",si);
+      else{e.classList.toggle("activa",si);if(e.tagName==="IMG"){e.alt=si?e.dataset.alt:"";if(si)e.removeAttribute("aria-hidden");else e.setAttribute("aria-hidden","true")}}})};
+  var cambiar=function(p){if(p===actual&&!giro)return;
+    if(quieto){poner(p);return}
+    giro={desde:ry,hasta:ry+360,t:performance.now(),p:p,hecho:false}};
+  botones.forEach(function(b){b.addEventListener("click",function(){tocado=true;cambiar(b.dataset.p)})});
+  esc.classList.add("vivo");
+  if(quieto){esc.classList.add("quieto");tel.style.transform="rotateY(-14deg) rotateX(4deg)";return}
+  // arrastrar: solo en horizontal, para que el dedo siga pudiendo bajar por la página
+  marco.addEventListener("pointerdown",function(e){if(giro)return;arrastre={x:e.clientX,ry:ry,t:e.timeStamp,ult:e.clientX};tocado=true;marco.setPointerCapture(e.pointerId);esc.classList.add("arrastrando")});
+  marco.addEventListener("pointermove",function(e){
+    var r=marco.getBoundingClientRect();inclX=((e.clientY-r.top)/r.height-.5)*-14;inclY=((e.clientX-r.left)/r.width-.5)*20;
+    if(!arrastre)return;var dt=Math.max(1,e.timeStamp-arrastre.t);vy=(e.clientX-arrastre.ult)/dt*16*.6;arrastre.ult=e.clientX;arrastre.t=e.timeStamp;ry=arrastre.ry+(e.clientX-arrastre.x)*.6});
+  var soltar=function(){if(!arrastre)return;arrastre=null;esc.classList.remove("arrastrando")};
+  marco.addEventListener("pointerup",soltar);marco.addEventListener("pointercancel",soltar);marco.addEventListener("lostpointercapture",soltar);
+  marco.addEventListener("pointerleave",function(){if(!arrastre){inclX=0;inclY=0}});
+  var cerca=function(a){return Math.round(a/360)*360};   // vuelve de frente por el camino más corto
+  var paso=function(ahora){
+    var dt=Math.min(48,ahora-ultimo);ultimo=ahora;
+    if(giro){var k=Math.min(1,(ahora-giro.t)/1100),e=1-Math.pow(1-k,4);ry=giro.desde+(giro.hasta-giro.desde)*e;
+      if(!giro.hecho&&e>.42){poner(giro.p);giro.hecho=true}
+      if(k>=1){ry=giro.hasta;giro=null}}
+    else if(!arrastre){
+      ry+=vy;vy*=Math.pow(.92,dt/16);
+      var reposo=cerca(ry)+(tocado?0:-14+Math.sin((ahora-t0)/1400)*7);   // de entrada, un vaivén suave hasta que alguien lo toca
+      if(Math.abs(vy)<.4)ry+=(reposo-ry)*(1-Math.pow(.9,dt/16))}
+    rx+=(inclX+4-rx)*(1-Math.pow(.88,dt/16));
+    tel.style.transform="rotateX("+rx.toFixed(2)+"deg) rotateY("+(ry+inclY).toFixed(2)+"deg)";
+    var dorso=((ry%360)+360)%360;esc.classList.toggle("de-espaldas",dorso>90&&dorso<270);
+    if(visible&&!document.hidden)requestAnimationFrame(paso);else bucle=false};
+  var bucle=false,arrancar=function(){if(!bucle&&visible){bucle=true;ultimo=performance.now();requestAnimationFrame(paso)}};
+  if("IntersectionObserver" in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;arrancar()}).observe(esc);
+  document.addEventListener("visibilitychange",arrancar);
+  // cada 5 s, la siguiente pantalla, hasta que alguien toca el móvil
+  setInterval(function(){if(!tocado&&visible&&!document.hidden&&!giro)cambiar(orden[(orden.indexOf(actual)+1)%orden.length])},5000);
+  arrancar();
+})();
+</script>"""
+
 escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
   "Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.", "/dos-decimas/", marca="dd")
 + f"""
 <main>
-<section class="portada"><div class="in">
+<section class="portada con-tel"><div class="in">
   <div class="titulo"><h1>Me quedé fuera por dos décimas.</h1></div>
   <div>
     <p class="sub">Que a ti no te pase. Dos Décimas es la app de tests de Policía Nacional que te enseña dónde pierdes las tuyas: en un plazo, en un «NO» que no leíste o en una duda que arriesgaste.</p>
     <div class="alta" id="empezar">{dd_form("web")}</div>
     <p class="test">¿Primero quieres ver cómo vas? <a class="enlace" href="/dos-decimas/test-gratis/">Haz el test gratis de 20 preguntas</a></p>
+    <p class="test">¿Ya lo tienes claro? <a class="enlace" href="#planes">Mira los precios</a></p>
   </div>
-  <div class="movil"><img src="/img/app-pregunta.png" alt="Una pregunta tipo test en la app, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="780" height="1400" fetchpriority="high"></div>
+  {TEL_HTML}
 </div></section>
 
 <section class="sec campo-oscuro calc" id="decimas"><div class="in">
@@ -487,7 +571,7 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
     <h2>Qué tema llevas peor</h2>
     <ul class="lista">
       <li><b>Cómo vas en cada tema</b>Del más flojo al más fuerte: por repasar, casi o bien. Tocas uno y lo practicas.</li>
-      <li><b>Las más falladas</b>Las preguntas que más se fallan entre todos los opositores de Dos Décimas.</li>
+      <li><b>Las más falladas</b>Las preguntas en las que más se cae dentro de la app, para que no te pillen a ti. Cuanta más gente la usa, más afinada está.</li>
     </ul>
   </div>
   <div class="movil ent"><img src="/img/app-temas.png" alt="Pantalla «Cómo vas en cada tema»: cada tema con su porcentaje de acierto y su barra, del más flojo al más fuerte" width="780" height="1496" loading="lazy"></div>
@@ -517,7 +601,7 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
 <section class="sec campo-oscuro prueba" id="prueba"><div class="in">
   <div class="ent">
     <h2>Pruébala 7 días gratis</h2>
-    <p class="lead">Deja tu email y entras al momento: tests, exámenes oficiales, simulacro, tus trampas y las físicas. Sin tarjeta y sin compromiso.</p>
+    <p class="lead">Deja tu email y normalmente entras al momento: tests, exámenes oficiales, simulacro, tus trampas y las físicas. Sin tarjeta y sin compromiso.</p>
   </div>
   <div class="ent">{dd_form("web", "Quiero mi semana gratis")}</div>
 </div></section>
@@ -546,7 +630,7 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
   <div class="ent"><div>{FAQ_DD_HTML}</div></div>
 </div></section>
 </main>
-""" + pie("dd", PRUEBA_JS, DD_JS))
+""" + pie("dd", PRUEBA_JS, DD_JS, TEL_JS))
 
 
 # ---------- Dos Décimas: test gratis «¿Llegarías al 7,05?» ----------
@@ -580,7 +664,7 @@ _TG_JS = """<script>
     caja.appendChild(el("p","tg-nota",coma(nota)));caja.appendChild(el("p","muted","Corte de la promoción 43: 7,05 · "+A+" aciertos, "+E+" fallos y "+B+" en blanco"));
     caja.appendChild(el("h2",null,tit));caja.appendChild(el("p","lead",txt));
     // la semana gratis, aquí mismo: el formulario viene en un <template> de la página y se copia al resultado
-    var tpl=$("tg-plantilla");if(tpl&&window.activarPrueba){var pf=tpl.content.firstElementChild.cloneNode(true);caja.appendChild(el("h3",null,"Pruébala 7 días gratis"));caja.appendChild(el("p","muted","Deja tu email y entras al momento en Dos Décimas, con todos los tests, los exámenes oficiales y el simulacro."));caja.appendChild(pf);activarPrueba(pf)}
+    var tpl=$("tg-plantilla");if(tpl&&window.activarPrueba){var pf=tpl.content.firstElementChild.cloneNode(true);caja.appendChild(el("h3",null,"Pruébala 7 días gratis"));caja.appendChild(el("p","muted","Deja tu email y normalmente entras al momento en Dos Décimas, con todos los tests, los exámenes oficiales y el simulacro."));caja.appendChild(pf);activarPrueba(pf)}
     var bt=el("div","btns");
     var w=el("a","btn s","Reta a un compañero");w.href="https://wa.me/?text="+encodeURIComponent("He sacado un "+coma(nota)+" en este test con preguntas reales del examen de Policía Nacional de 2026. ¿Tú llegarías al 7,05? https://ruvilab.es/dos-decimas/test-gratis/");w.target="_blank";w.rel="noopener";bt.appendChild(w);caja.appendChild(bt);
     var mal=P.map(function(q,k){return{q:q,r:res[k]}}).filter(function(x){return x.r!==x.q.a});

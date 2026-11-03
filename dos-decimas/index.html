@@ -17,7 +17,7 @@
 <link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
 <link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
 <link rel="preload" href="/fuentes/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/web.css?v=256175fa">
+<link rel="stylesheet" href="/web.css?v=58c1d34f">
 <script>document.documentElement.classList.add("js")</script>
 </head><body>
 <header class="cab"><div class="in">
@@ -25,7 +25,7 @@
 <nav aria-label="Menú"><a class="volver" href="/" title="Volver a Ruvï">Ruvï</a><a class="opc" href="/dos-decimas/#como">Cómo funciona</a><a class="opc" href="/dos-decimas/#planes">Precios</a><a href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="https://dosdecimas.ruvilab.es">Entrar</a></nav>
 </div></header>
 <main>
-<section class="portada"><div class="in">
+<section class="portada con-tel"><div class="in">
   <div class="titulo"><h1>Me quedé fuera por dos décimas.</h1></div>
   <div>
     <p class="sub">Que a ti no te pase. Dos Décimas es la app de tests de Policía Nacional que te enseña dónde pierdes las tuyas: en un plazo, en un «NO» que no leíste o en una duda que arriesgaste.</p>
@@ -40,8 +40,18 @@
     <div class="aviso" role="status" hidden></div>
   </form></div>
     <p class="test">¿Primero quieres ver cómo vas? <a class="enlace" href="/dos-decimas/test-gratis/">Haz el test gratis de 20 preguntas</a></p>
+    <p class="test">¿Ya lo tienes claro? <a class="enlace" href="#planes">Mira los precios</a></p>
   </div>
-  <div class="movil"><img src="/img/app-pregunta.png?v=5094978d" alt="Una pregunta tipo test en la app, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="780" height="1400" fetchpriority="high"></div>
+  <div class="escena" role="group" aria-label="La app por dentro">
+    <div class="tel-marco"><div class="tel">
+      <div class="tel-canto" aria-hidden="true"><i style="--z:1"></i><i style="--z:2"></i><i style="--z:3"></i><i style="--z:4"></i><i style="--z:5"></i><i style="--z:6"></i><i style="--z:7"></i><i style="--z:8"></i><i style="--z:9"></i><i style="--z:10"></i><i style="--z:11"></i></div>
+      <div class="tel-espalda" aria-hidden="true"><img src="/img/dosdecimas-logo.png?v=cd061bc4" alt="" width="72" height="72"></div>
+      <div class="tel-frente"><div class="tel-pantalla"><img class="activa" data-p="pregunta" src="/img/app-pregunta.png?v=5094978d" alt="Una pregunta tipo test en la app, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" data-alt="Una pregunta tipo test en la app, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="780" height="1400" fetchpriority="high"><img class="" data-p="resultado" src="/img/app-resultado.png?v=cfd302d4" alt="" data-alt="Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, y cuántos puntos le ha sumado arriesgar en las que dudaba" aria-hidden="true" width="780" height="1496" loading="lazy"><img class="" data-p="cuaderno" src="/img/app-cuaderno.png?v=bda04a21" alt="" data-alt="Mi cuaderno: un test con su nota, 7 aciertos y 3 errores, y una pregunta fallada con la respuesta dada, la correcta y el porqué" aria-hidden="true" width="780" height="1496" loading="lazy"><img class="" data-p="temas" src="/img/app-temas.png?v=89b4cd99" alt="" data-alt="Pantalla «Cómo vas en cada tema»: cada tema con su porcentaje de acierto y su barra, del más flojo al más fuerte" aria-hidden="true" width="780" height="1496" loading="lazy"></div></div>
+      <div class="tel-notas" aria-hidden="true"><p class="tel-nota a activa" data-p="pregunta">Cronómetro y −0,5 por fallo, como el examen</p><p class="tel-nota b activa" data-p="pregunta">«Dudo»: marca las que no tienes claras</p><p class="tel-nota a" data-p="resultado">Sabes si arriesgar te suma o te resta</p><p class="tel-nota b" data-p="resultado">Un toque y repasas solo tus fallos</p><p class="tel-nota a" data-p="cuaderno">Cada fallo, con la buena y el porqué</p><p class="tel-nota b" data-p="cuaderno">Repite solo las que fallaste</p><p class="tel-nota a" data-p="temas">Del tema más flojo al más fuerte</p><p class="tel-nota b" data-p="temas">Tocas uno y lo practicas</p></div>
+    </div></div>
+    <div class="tel-botones" aria-label="Elige una pantalla"><button type="button" data-p="pregunta" aria-pressed="true">Pregunta</button><button type="button" data-p="resultado" aria-pressed="false">Resultado</button><button type="button" data-p="cuaderno" aria-pressed="false">Mi cuaderno</button><button type="button" data-p="temas" aria-pressed="false">Temas</button></div>
+    <p class="tel-pista" aria-hidden="true">Arrástralo para girarlo</p>
+  </div>
 </div></section>
 
 <section class="sec campo-oscuro calc" id="decimas"><div class="in">
@@ -101,7 +111,7 @@
     <h2>Qué tema llevas peor</h2>
     <ul class="lista">
       <li><b>Cómo vas en cada tema</b>Del más flojo al más fuerte: por repasar, casi o bien. Tocas uno y lo practicas.</li>
-      <li><b>Las más falladas</b>Las preguntas que más se fallan entre todos los opositores de Dos Décimas.</li>
+      <li><b>Las más falladas</b>Las preguntas en las que más se cae dentro de la app, para que no te pillen a ti. Cuanta más gente la usa, más afinada está.</li>
     </ul>
   </div>
   <div class="movil ent"><img src="/img/app-temas.png?v=89b4cd99" alt="Pantalla «Cómo vas en cada tema»: cada tema con su porcentaje de acierto y su barra, del más flojo al más fuerte" width="780" height="1496" loading="lazy"></div>
@@ -131,7 +141,7 @@
 <section class="sec campo-oscuro prueba" id="prueba"><div class="in">
   <div class="ent">
     <h2>Pruébala 7 días gratis</h2>
-    <p class="lead">Deja tu email y entras al momento: tests, exámenes oficiales, simulacro, tus trampas y las físicas. Sin tarjeta y sin compromiso.</p>
+    <p class="lead">Deja tu email y normalmente entras al momento: tests, exámenes oficiales, simulacro, tus trampas y las físicas. Sin tarjeta y sin compromiso.</p>
   </div>
   <div class="ent"><form class="alta-form prueba-form" data-origen="web" novalidate>
     <label class="campo campo-nombre"><b>Tu nombre</b>
@@ -192,7 +202,7 @@
 
 <section class="sec faq" id="faq"><div class="in">
   <div class="ent"><h2>Preguntas frecuentes</h2></div>
-  <div class="ent"><div><details><summary>¿Puedo probarla antes de pagar?</summary><p>Sí: 7 días gratis, sin tarjeta. Deja tu email en «Pruébala 7 días gratis» y entras al momento.</p></details><details><summary>¿Cómo entro después de pagar?</summary><p>Entra en dosdecimas.ruvilab.es, pulsa «Primera vez» y escribe el mismo email con el que has pagado. Te llega un correo para crear tu contraseña y ya está.</p></details><details><summary>¿Están actualizadas a la ley vigente?</summary><p>Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos.</p></details><details><summary>¿Qué cubre y qué no?</summary><p>Cubre la prueba de conocimientos: tests de los 45 temas de la Escala Básica, 12 exámenes oficiales desde 2015 y un simulacro cada fin de semana. También te ayuda con las físicas, con el baremo oficial. No es un temario para estudiar desde cero: es para practicar lo que estudias. Tampoco incluye psicotécnicos ni la entrevista.</p></details><details><summary>¿Funciona en el móvil?</summary><p>Sí. Se abre en el navegador del móvil o del ordenador y puedes añadirla a la pantalla de inicio como una app, sin pasar por ninguna tienda.</p></details><details><summary>¿Puedo darme de baja cuando quiera?</summary><p>Sí, sin permanencia. Mantienes el acceso hasta el final de lo que ya pagaste. El curso completo es un pago único y no se renueva.</p></details><details><summary>¿Y si no me convence?</summary><p>Tienes 14 días para desistir y te devolvemos todo, aunque ya la hayas usado. Basta con escribir a dosdecimas@ruvilab.es.</p></details></div></div>
+  <div class="ent"><div><details><summary>¿Puedo probarla antes de pagar?</summary><p>Sí: 7 días gratis, sin tarjeta. Deja tu email en «Pruébala 7 días gratis» y normalmente entras al momento.</p></details><details><summary>¿Cómo entro después de pagar?</summary><p>Entra en dosdecimas.ruvilab.es, pulsa «Primera vez» y escribe el mismo email con el que has pagado. Te llega un correo para crear tu contraseña y ya está.</p></details><details><summary>¿Están actualizadas a la ley vigente?</summary><p>Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos.</p></details><details><summary>¿Qué cubre y qué no?</summary><p>Cubre la prueba de conocimientos: tests de los 45 temas de la Escala Básica, 12 exámenes oficiales desde 2015 y un simulacro cada fin de semana. También te ayuda con las físicas, con el baremo oficial. No es un temario para estudiar desde cero: es para practicar lo que estudias. Tampoco incluye psicotécnicos ni la entrevista.</p></details><details><summary>¿Funciona en el móvil?</summary><p>Sí. Se abre en el navegador del móvil o del ordenador y puedes añadirla a la pantalla de inicio como una app, sin pasar por ninguna tienda.</p></details><details><summary>¿Puedo darme de baja cuando quiera?</summary><p>Sí, sin permanencia. Mantienes el acceso hasta el final de lo que ya pagaste. El curso completo es un pago único y no se renueva.</p></details><details><summary>¿Y si no me convence?</summary><p>Tienes 14 días para desistir y te devolvemos todo, aunque ya la hayas usado. Basta con escribir a dosdecimas@ruvilab.es.</p></details></div></div>
 </div></section>
 </main>
 <footer class="pie"><div class="in">
@@ -239,6 +249,52 @@
       s.innerHTML="Te faltarían <b>"+coma(d)+"</b>. "+(ac===1?"Eso es":"Eso son")+" <b>"+pl(ac,"acierto","aciertos")+" más</b>, o <b>"+pl(bl,"fallo","fallos")+"</b> que tendrías que haber dejado en blanco."};
     r.addEventListener("input",pinta);pinta()}
   if(location.hash==="#precio")location.hash="#planes";
+})();
+</script><script>
+(function(){
+  // Móvil 3D: inclinación con el ratón, giro al arrastrar (con inercia que vuelve sola) y una vuelta entera al cambiar de pantalla.
+  var esc=document.querySelector(".escena");if(!esc)return;
+  var tel=esc.querySelector(".tel"),marco=esc.querySelector(".tel-marco"),botones=esc.querySelectorAll(".tel-botones button");
+  var quieto=matchMedia("(prefers-reduced-motion: reduce)").matches,orden=[].map.call(botones,function(b){return b.dataset.p});
+  var ry=-28,rx=8,vy=0,arrastre=null,inclX=0,inclY=0,giro=null,actual=orden[0],tocado=false,visible=true,t0=performance.now(),ultimo=t0;
+  var poner=function(p){actual=p;
+    esc.querySelectorAll("[data-p]").forEach(function(e){var si=e.dataset.p===p;
+      if(e.tagName==="BUTTON")e.setAttribute("aria-pressed",si);
+      else{e.classList.toggle("activa",si);if(e.tagName==="IMG"){e.alt=si?e.dataset.alt:"";if(si)e.removeAttribute("aria-hidden");else e.setAttribute("aria-hidden","true")}}})};
+  var cambiar=function(p){if(p===actual&&!giro)return;
+    if(quieto){poner(p);return}
+    giro={desde:ry,hasta:ry+360,t:performance.now(),p:p,hecho:false}};
+  botones.forEach(function(b){b.addEventListener("click",function(){tocado=true;cambiar(b.dataset.p)})});
+  esc.classList.add("vivo");
+  if(quieto){esc.classList.add("quieto");tel.style.transform="rotateY(-14deg) rotateX(4deg)";return}
+  // arrastrar: solo en horizontal, para que el dedo siga pudiendo bajar por la página
+  marco.addEventListener("pointerdown",function(e){if(giro)return;arrastre={x:e.clientX,ry:ry,t:e.timeStamp,ult:e.clientX};tocado=true;marco.setPointerCapture(e.pointerId);esc.classList.add("arrastrando")});
+  marco.addEventListener("pointermove",function(e){
+    var r=marco.getBoundingClientRect();inclX=((e.clientY-r.top)/r.height-.5)*-14;inclY=((e.clientX-r.left)/r.width-.5)*20;
+    if(!arrastre)return;var dt=Math.max(1,e.timeStamp-arrastre.t);vy=(e.clientX-arrastre.ult)/dt*16*.6;arrastre.ult=e.clientX;arrastre.t=e.timeStamp;ry=arrastre.ry+(e.clientX-arrastre.x)*.6});
+  var soltar=function(){if(!arrastre)return;arrastre=null;esc.classList.remove("arrastrando")};
+  marco.addEventListener("pointerup",soltar);marco.addEventListener("pointercancel",soltar);marco.addEventListener("lostpointercapture",soltar);
+  marco.addEventListener("pointerleave",function(){if(!arrastre){inclX=0;inclY=0}});
+  var cerca=function(a){return Math.round(a/360)*360};   // vuelve de frente por el camino más corto
+  var paso=function(ahora){
+    var dt=Math.min(48,ahora-ultimo);ultimo=ahora;
+    if(giro){var k=Math.min(1,(ahora-giro.t)/1100),e=1-Math.pow(1-k,4);ry=giro.desde+(giro.hasta-giro.desde)*e;
+      if(!giro.hecho&&e>.42){poner(giro.p);giro.hecho=true}
+      if(k>=1){ry=giro.hasta;giro=null}}
+    else if(!arrastre){
+      ry+=vy;vy*=Math.pow(.92,dt/16);
+      var reposo=cerca(ry)+(tocado?0:-14+Math.sin((ahora-t0)/1400)*7);   // de entrada, un vaivén suave hasta que alguien lo toca
+      if(Math.abs(vy)<.4)ry+=(reposo-ry)*(1-Math.pow(.9,dt/16))}
+    rx+=(inclX+4-rx)*(1-Math.pow(.88,dt/16));
+    tel.style.transform="rotateX("+rx.toFixed(2)+"deg) rotateY("+(ry+inclY).toFixed(2)+"deg)";
+    var dorso=((ry%360)+360)%360;esc.classList.toggle("de-espaldas",dorso>90&&dorso<270);
+    if(visible&&!document.hidden)requestAnimationFrame(paso);else bucle=false};
+  var bucle=false,arrancar=function(){if(!bucle&&visible){bucle=true;ultimo=performance.now();requestAnimationFrame(paso)}};
+  if("IntersectionObserver" in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;arrancar()}).observe(esc);
+  document.addEventListener("visibilitychange",arrancar);
+  // cada 5 s, la siguiente pantalla, hasta que alguien toca el móvil
+  setInterval(function(){if(!tocado&&visible&&!document.hidden&&!giro)cambiar(orden[(orden.indexOf(actual)+1)%orden.length])},5000);
+  arrancar();
 })();
 </script><script>
 (function(){
