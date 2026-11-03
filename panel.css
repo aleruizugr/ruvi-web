@@ -17,7 +17,8 @@ body{margin:0;overflow-x:clip;background:var(--negro);color:var(--crema);font:40
 ::selection{background:var(--cobre);color:var(--sobre-cobre)}
 img,video{max-width:100%;height:auto;display:block}
 a{color:inherit;text-underline-offset:3px;text-decoration-thickness:1px}
-p{margin:0;text-wrap:pretty}
+p,li{text-wrap:pretty}
+p{margin:0}
 h1,h2,h3{margin:0;font-family:var(--f);font-weight:800;font-stretch:72%;text-transform:uppercase;letter-spacing:-.01em;line-height:.92;text-wrap:balance}
 :focus-visible{outline:3px solid var(--cobre);outline-offset:3px;border-radius:6px}
 [id]{scroll-margin-top:76px}
@@ -58,6 +59,8 @@ h1,h2,h3{margin:0;font-family:var(--f);font-weight:800;font-stretch:72%;text-tra
 .portada{padding:clamp(16px,2.5vw,36px) 0 var(--hueco);overflow-x:clip}
 .panel,.mando{margin-left:auto;margin-right:auto;max-width:max(320px,calc((100svh - 500px) * 2.25))}
 .panel{position:relative}
+/* paneles de 3 o 4 filas (Ruvï y Plantilla de Repaso): más bajos, así que pueden ir más anchos */
+.panel.corto{max-width:max(320px,calc((100svh - 400px) * 3.4))}
 .panel-marco{position:relative;background:var(--carcasa);border-radius:10px;padding:clamp(10px,1.6vw,22px)}
 .panel-dom{display:grid;gap:clamp(4px,.9cqw,12px);container-type:inline-size}
 .fila-p{display:grid;grid-template-columns:repeat(16,minmax(0,1fr));gap:clamp(2px,.55cqw,7px)}
@@ -117,11 +120,11 @@ h1,h2,h3{margin:0;font-family:var(--f);font-weight:800;font-stretch:72%;text-tra
 .via:hover{background:var(--tablilla)}
 .via .n{grid-row:1/span 2;font-weight:800;font-stretch:65%;font-size:2.6rem;line-height:1;color:var(--crema-2);font-variant-numeric:tabular-nums;min-width:2ch}
 .via .que{font-weight:800;font-stretch:72%;text-transform:uppercase;font-size:1.6rem;line-height:1;letter-spacing:.01em}
-.via .para{color:var(--crema-2);font-size:1.02rem}
+.via .para{color:var(--crema-2);font-size:1.02rem;max-width:62ch}
 .via[aria-pressed="true"]{background:var(--cobre);color:var(--sobre-cobre)}
 .via[aria-pressed="true"] .n,.via[aria-pressed="true"] .para{color:var(--sobre-cobre)}
 .via .estado{grid-column:2;display:none}
-.ademas{margin-top:24px;font-size:1.02rem;color:var(--crema-2)}
+.ademas{margin-top:24px;font-size:1.02rem;color:var(--crema-2);max-width:66ch}
 .ademas b{color:var(--crema);font-weight:700}
 .pantalla{justify-self:center;width:min(320px,100%);background:var(--carcasa);padding:10px;border-radius:38px;position:relative}
 .pantalla .vidrio{position:relative;aspect-ratio:780/1496;border-radius:29px;overflow:hidden;background:#fff}
@@ -232,7 +235,7 @@ h1,h2,h3{margin:0;font-family:var(--f);font-weight:800;font-stretch:72%;text-tra
 
 /* ---------- Gracias (y páginas de texto de Dos Décimas) ---------- */
 .texto-pag{padding:clamp(40px,6vw,88px) 0 var(--hueco)}
-.texto-pag .in>div{max-width:780px}
+.texto-pag .in>div{max-width:60ch}
 .texto-pag h1{font-size:clamp(3rem,9vw,6rem);margin-bottom:24px}
 .lista-pasos{list-style:none;margin:32px 0;padding:0;display:grid;gap:8px;counter-reset:p}
 .lista-pasos li{counter-increment:p;background:var(--carcasa);border-radius:8px;padding:20px 22px 20px 88px;position:relative}
@@ -240,3 +243,52 @@ h1,h2,h3{margin:0;font-family:var(--f);font-weight:800;font-stretch:72%;text-tra
 .lista-pasos h2,.lista-pasos h3{font-size:1.5rem;margin-bottom:6px}
 .lista-pasos p{color:var(--crema-2)}
 .lista-pasos b{color:var(--crema)}
+
+/* ---------- Ruvï y Plantilla de Repaso ---------- */
+.entrada .accesos{justify-content:flex-start}
+@media (min-width:901px){.entrada .accesos{justify-content:flex-end}}
+.rutas{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.ruta{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px 32px;align-items:center;padding:28px;background:var(--carcasa);border-radius:8px}
+.ruta .n{font-weight:800;font-stretch:65%;font-size:clamp(3rem,6vw,5rem);line-height:.9;color:var(--crema-2);font-variant-numeric:tabular-nums}
+.ruta h3{font-size:clamp(2rem,4.4vw,3.4rem);margin:12px 0 10px}
+.ruta p{max-width:58ch;color:var(--crema-2);font-size:1.08rem}
+.ruta .rotulo{font-size:1rem}
+@media (max-width:860px){.ruta{grid-template-columns:1fr;padding:22px 20px;gap:10px}.ruta .n{font-size:2.6rem}.ruta h3{margin-top:10px}}
+.cuerpo-dos{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,6vw,96px);align-items:start}
+.grande-txt{font-size:clamp(1.25rem,2vw,1.6rem);line-height:1.45}
+@media (max-width:860px){.cuerpo-dos{grid-template-columns:1fr}}
+
+/* Contacto (academias) */
+.contacto{background:var(--carcasa)}
+.contacto .in{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,6vw,96px);align-items:end}
+.contacto h2{font-size:clamp(2.6rem,7vw,6rem)}
+.contacto .lead{margin-top:24px;max-width:36ch;color:var(--crema-2)}
+.contacto .datos{margin-top:18px;font-size:1.05rem}
+.btn-wa{background:#25D366;color:#0B2E17}
+.btn-wa:hover{background:var(--crema);color:var(--sobre-cobre)}
+@media (max-width:860px){.contacto .in{grid-template-columns:1fr}}
+
+/* Vídeo de la demo */
+.video video{width:100%;border-radius:10px;background:#000}
+.video .v-movil{display:none;max-width:420px;margin:0 auto}
+@media (max-width:820px){.video .v-ancho{display:none}.video .v-movil{display:block}}
+
+/* Packs: filas sin precio */
+.tarifa.pack{grid-template-columns:minmax(0,.6fr) minmax(0,1.4fr)}
+@media (max-width:860px){.tarifa.pack{grid-template-columns:1fr}}
+.lista-pasos.tres{margin-top:0}
+
+/* Legales */
+.legal h2{font-size:clamp(1.6rem,3vw,2.3rem);margin:48px 0 14px}
+.legal p,.legal li{font-size:1.08rem;color:var(--crema-2)}
+.legal p b,.legal li b{color:var(--crema)}
+.legal p+p{margin-top:14px}
+.legal ul{margin:0;padding-left:22px;display:grid;gap:8px}
+.legal .resumen{background:var(--carcasa);border-radius:8px;padding:20px 22px;margin-top:20px;color:var(--crema)}
+.legal .tw{overflow-x:auto;margin-top:8px}
+.legal table{border-collapse:collapse;width:100%;font-size:1rem}
+.legal th,.legal td{text-align:left;padding:12px 10px;vertical-align:top}
+.legal th{font-weight:800;font-stretch:85%;text-transform:uppercase;letter-spacing:.03em;font-size:.9rem}
+.legal tr:nth-child(odd) td{background:var(--carcasa)}
+.legal a{color:var(--cobre-2)}
+.simu .tarifa{background:var(--negro)}

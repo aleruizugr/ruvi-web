@@ -1,19 +1,20 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8">
-<!-- Imagen de vista previa (og:image) de Dos Décimas. Se genera con: bash _fuentes/og/generar.sh -->
+<!-- Imagen de vista previa (og:image) con el panel de tablillas. Se genera con: python3 _fuentes/og/generar.py -->
 <style>
-@font-face{font-family:B;src:url(../../fuentes/bricolage-grotesque.woff2) format("woff2-variations");font-weight:200 800}
-@font-face{font-family:S;src:url(../../fuentes/source-sans-3-600.woff2);font-weight:600}
-@font-face{font-family:M;src:url(../../fuentes/jetbrains-mono-700.woff2);font-weight:700}
+@font-face{font-family:A;src:url(../../fuentes/archivo.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%}
 html,body{margin:0;width:1200px;height:630px;overflow:hidden}
-body{background:#2E2724;color:#F5F3F0;font-family:S,sans-serif;display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;box-sizing:border-box}
-.cab{display:flex;align-items:center;gap:20px;font-family:B;font-weight:700;font-size:34px}
-.cab img{width:72px;height:72px;border-radius:16px}
-h1{font-family:B;font-weight:800;font-size:92px;line-height:1.02;margin:0;letter-spacing:-1.5px}
-mark{background:none;color:#E6BE97}
-.pie{display:flex;justify-content:space-between;align-items:flex-end;font-size:30px;color:#CFC4BB}
-.pie b{font-family:M;color:#E6BE97;font-size:30px}
+body{background:#0A0A0A;color:#F2EADF;font-family:A,sans-serif;display:flex;flex-direction:column;justify-content:space-between;padding:48px 60px 44px;box-sizing:border-box}
+.cab{display:flex;align-items:center;gap:18px;font-weight:800;font-stretch:80%;text-transform:uppercase;font-size:30px;letter-spacing:.01em}
+.cab img{width:60px;height:60px;border-radius:14px}
+.panel{background:#121212;border-radius:12px;padding:18px;display:grid;gap:12px}
+.fila{display:grid;grid-template-columns:repeat(16,1fr);gap:7px}
+.fila span{position:relative;height:96px;display:grid;place-items:center;background:#1D1D1D;border-radius:5px;font-weight:800;font-stretch:65%;font-size:72px;line-height:1;padding-top:4px}
+.fila span::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;background:#050505}
+.fila.cobre span{background:#C98A5B;color:#0A0A0A}
+.pie{display:flex;justify-content:space-between;align-items:flex-end;font-size:28px;color:#B9AFA4;font-weight:600}
+.pie b{color:#E0A77A;font-weight:800;font-stretch:80%}
 </style></head><body>
-<div class="cab"><img src="../../img/dosdecimas-logo.png" alt="">Dos Décimas · Policía Nacional</div>
-<h1>__TITULO__</h1>
+<div class="cab"><img src="../../img/__LOGO__" alt="">__NOMBRE__</div>
+<div class="panel">__PANEL__</div>
 <div class="pie"><span>__PIE__</span><b>ruvilab.es</b></div>
 </body></html>

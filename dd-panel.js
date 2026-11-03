@@ -1,7 +1,7 @@
-/* Dos Décimas · el panel de tablillas de la portada.
+/* El panel de tablillas de las portadas (Dos Décimas, Ruvï y Plantilla de Repaso).
    El panel de HTML (.panel-dom) siempre está y es la versión sin 3D (sin WebGL, sin JS o con «reducir movimiento»).
    Si hay WebGL, se monta encima el panel en 3D con Three.js: cada tablilla gira de verdad y pasa por las letras de en medio.
-   La barra de la nota cambia las filas 3 y 5, como la calculadora de antes. */
+   En Dos Décimas, la barra de la nota cambia las filas 3 y 5; en las demás páginas no hay barra. */
 (function () {
   "use strict";
   var raiz = document.querySelector(".panel");
@@ -82,7 +82,7 @@
 
   function montar3d() {
     var T = window.THREE, caja = raiz.querySelector(".panel-3d");
-    var ORDEN = " ABCDEFGHIJKLMNÑOPQRSTUVWXYZÉÍÓÚ0123456789,.+-:€%";
+    var ORDEN = " ABCDEFGHIJKLMNÑOPQRSTUVWXYZÉÍÓÚÏ0123456789,.+-:€%¿?!¡/";
     var ACOLS = 10, AROWS = Math.ceil(ORDEN.length / ACOLS), GW = 128, GH = 184;
     var W = 1, H = GH / GW, HUECO_X = 0.1, HUECO_Y = 0.2, RAYA = 0.014;
 
