@@ -98,7 +98,7 @@
         var esc=correo.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});
         if(d&&d.estado==="en_espera"){aviso("<b>Recibido.</b> Te damos de alta en unas horas y te escribimos a <b>"+esc+"</b>.",true);return}
         Array.prototype.forEach.call(f.children,function(c){if(c!==m)c.style.display="none"});   // deja solo el aviso (con display: el CSS de .campo y .btns gana a hidden)
-        aviso("<b>¡Hecho! Tienes 7 días gratis.</b><br>Entra en la app, pulsa <b>«Primera vez»</b> y escribe <b>"+esc+"</b>: te llega un correo para crear tu contraseña.<div class=\"btns\" style=\"margin-top:12px\"><a class=\"btn p\" href=\""+APPDD+"\">Entrar en Dos Décimas</a></div><span class=\"muted\" style=\"font-size:.9rem\">¿Ya la habías probado antes? Escríbenos a "+CORREO+".</span>",true);
+        aviso("<b>¡Hecho! Tienes 7 días gratis.</b><br>Entra en la app, pulsa <b>«Primera vez»</b> y escribe <b>"+esc+"</b>: te llega un correo para crear tu contraseña.<div class=\"btns\" style=\"margin-top:12px\"><a class=\"btn p\" href=\""+APPDD+"/?primera\">Entrar en Dos Décimas</a></div><span class=\"muted\" style=\"font-size:.9rem\">¿Ya la habías probado antes? Escríbenos a "+CORREO+".</span>",true);
       }).catch(function(s){aviso(s===400?"Ese email no parece válido. Revísalo y prueba otra vez.":"No se ha podido enviar. Prueba otra vez o escríbenos a "+CORREO+".",false)})
       .then(function(){b.disabled=false;b.textContent=t});
     });
