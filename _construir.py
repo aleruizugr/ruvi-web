@@ -3,13 +3,27 @@
 import pathlib, html, hashlib
 from urllib.parse import quote
 R = pathlib.Path(__file__).parent
-VERSION = hashlib.md5((pathlib.Path(__file__).parent / "ruvi.css").read_bytes()).hexdigest()[:8]   # cambia sola cuando cambian los estilos, para que el navegador no use una copia vieja
+WEB_VERSION = hashlib.md5((R / "web.css").read_bytes()).hexdigest()[:8]   # cambia sola cuando cambian los estilos, para que el navegador no use una copia vieja
 APP = "https://plantilla-repaso.netlify.app"   # botón «Entrar»: cambiar aquí si la app cambia de dirección
 CORREO = "hola@ruvilab.es"
+DD_CORREO = "dosdecimas@ruvilab.es"
+DD_APP = "https://dosdecimas.ruvilab.es"
 
-def cabeza(titulo, desc, ruta, noindex=False, icono="ruvi", og="ruvi-og.jpg"):
-    # icono="dosdecimas": las páginas de Dos Décimas llevan su propio icono en la pestaña y en la pantalla de inicio
-    # og: la imagen que sale al compartir el enlace (las de Dos Décimas se generan con _fuentes/og/generar.sh)
+# Toda la web comparte web.css. Cada página es de una marca: «ruvi» (inicio, Plantilla de Repaso, legales)
+# o «dd» (Dos Décimas), que cambia la cabecera, el pie, el icono y la imagen al compartir el enlace.
+def cabeza(titulo, desc, ruta, marca="ruvi", og=None, noindex=False, actual=""):
+    dd = marca == "dd"
+    og = og or ("dosdecimas-og.jpg" if dd else "ruvi-og.jpg")
+    icono = "dosdecimas-" if dd else ""
+    if dd:
+        cab = f'''<a class="marca" href="/dos-decimas/" aria-label="Dos Décimas, inicio"><img src="/img/dosdecimas-logo.png" alt="" width="36" height="36">Dos Décimas</a>
+<nav aria-label="Menú"><a class="opc" href="/dos-decimas/#como">Cómo funciona</a><a class="opc" href="/dos-decimas/#planes">Precios</a><a href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="{DD_APP}">Entrar</a></nav>'''
+    else:
+        enlaces = [("/plantilla-repaso/", "Plantilla de Repaso", "opc"), ("/dos-decimas/", "Dos Décimas", ""), ("/#contacto", "Contacto", "opc")]
+        marcado = ' aria-current="page"'   # fuera del f-string: Python 3.9 no admite barras dentro
+        links = "".join(f'<a class="{c}" href="{h}"{marcado if h == actual else ""}>{t}</a>' for h, t, c in enlaces)
+        cab = f'''<a class="marca" href="/" aria-label="Ruvï, inicio"><img src="/img/ruvi-monograma.png" alt="" width="36" height="36">Ruvï</a>
+<nav aria-label="Menú">{links}<a class="btn btn-s" href="{APP}">Entrar</a></nav>'''
     return f'''<!doctype html>
 <html lang="es"><head>
 <meta charset="utf-8">
@@ -17,6 +31,7 @@ def cabeza(titulo, desc, ruta, noindex=False, icono="ruvi", og="ruvi-og.jpg"):
 <title>{titulo}</title>
 <meta name="description" content="{html.escape(desc)}">
 {'<meta name="robots" content="noindex">' if noindex else ''}
+<meta name="theme-color" content="#F5F3F0">
 <meta property="og:title" content="{titulo}">
 <meta property="og:description" content="{html.escape(desc)}">
 <meta property="og:type" content="website">
@@ -25,67 +40,59 @@ def cabeza(titulo, desc, ruta, noindex=False, icono="ruvi", og="ruvi-og.jpg"):
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="es_ES">
-<link rel="icon" type="image/png" href="/img/{'dosdecimas-favicon' if icono == 'dosdecimas' else 'favicon'}.png">
-<link rel="apple-touch-icon" href="/img/{'dosdecimas-apple-touch-icon' if icono == 'dosdecimas' else 'apple-touch-icon'}.png">
+<link rel="icon" type="image/png" href="/img/{icono}favicon.png">
+<link rel="apple-touch-icon" href="/img/{icono}apple-touch-icon.png">
 <link rel="preload" href="/fuentes/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/ruvi.css?v={VERSION}">
-</head><body>'''
-
-def menu(actual, app=None):
-    # «Entrar» lleva a la app de cada producto: en la página de Dos Décimas, a Dos Décimas; en el resto, a Plantilla de Repaso
-    # Dos Décimas sin «opc»: se ve también en el móvil, que es donde más miran los opositores
-    items = [("/plantilla-repaso/", "Plantilla de Repaso", "opc"), ("/dos-decimas/", "Dos Décimas", ""), ("/#contacto", "Contacto", ""), (app or APP, "Entrar", "entrar")]
-    actual_attr = ' aria-current="page"'   # fuera del f-string: así funciona también con Python anterior al 3.12
-    links = "".join(f'<a href="{h}" class="{c}"{actual_attr if h == actual else ""}>{t}</a>' for h, t, c in items)
-    return f'''<header class="top"><div class="in">
-<a class="marca" href="/" aria-label="Ruvï, inicio"><img src="/img/ruvi-monograma.png" alt="" width="40" height="40"><b>RUVÏ</b></a>
-<nav class="menu" aria-label="Menú">{links}</nav>
+<link rel="stylesheet" href="/web.css?v={WEB_VERSION}">
+<script>document.documentElement.classList.add("js")</script>
+</head><body>
+<header class="cab"><div class="in">
+{cab}
 </div></header>'''
 
-PIE = f'''<footer class="pie"><div class="in">
-<span>© 2026 Ruvï · <a href="mailto:{CORREO}">{CORREO}</a></span>
-<nav aria-label="Legal"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad y cookies</a></nav>
-</div></footer>
-<script>
-(function(){{
-  // Demos plegables: cada botón con data-demo="x" abre o cierra el bloque id="demo-x" (con su vídeo horizontal y vertical)
-  var cual=function(c){{var vs=c.querySelectorAll("video");return matchMedia("(max-width:820px)").matches?vs[1]:vs[0]}};
-  var parar=function(c){{c.querySelectorAll("video").forEach(function(v){{v.pause();try{{v.currentTime=0}}catch(e){{}}}})}};
-  var cerrar=function(c){{parar(c);c.hidden=true;document.querySelectorAll('[data-demo="'+c.id.slice(5)+'"]').forEach(function(b){{b.setAttribute("aria-expanded","false")}})}};
-  var abrir=function(c){{document.querySelectorAll(".demo").forEach(function(o){{if(o!==c&&!o.hidden)cerrar(o)}});c.hidden=false;
-    document.querySelectorAll('[data-demo="'+c.id.slice(5)+'"]').forEach(function(b){{b.setAttribute("aria-expanded","true")}});
-    c.scrollIntoView({{behavior:"smooth",block:"start"}});var p=cual(c).play();if(p&&p.catch)p.catch(function(){{}})}};
-  document.querySelectorAll("[data-demo]").forEach(function(b){{var c=document.getElementById("demo-"+b.dataset.demo);if(!c)return;
-    b.addEventListener("click",function(){{c.hidden?abrir(c):cerrar(c)}})}});
-  document.querySelectorAll(".demo").forEach(function(c){{var x=c.querySelector(".demo-cerrar");
-    x.addEventListener("click",function(){{cerrar(c);var t=document.querySelector('.producto[data-de="'+c.id.slice(5)+'"]');if(t)t.scrollIntoView({{behavior:"smooth",block:"start"}})}});
-    // al terminar, deja a la vista el botón para quitar el vídeo
-    c.querySelectorAll("video").forEach(function(v){{v.addEventListener("ended",function(){{x.classList.add("fin");x.scrollIntoView({{behavior:"smooth",block:"center"}});x.focus({{preventScroll:true}})}});v.addEventListener("play",function(){{x.classList.remove("fin")}})}})}});
-}})();
-</script>
-</body></html>'''
+# Entradas de cada bloque al llegar a él. Sin JS, con «reducir movimiento» o si el navegador no avisa, se ve todo.
+ENTRADAS_JS = """<script>
+(function(){
+  var ents=document.querySelectorAll(".ent"),ver=function(e){e.classList.add("visto")};
+  if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){ver(e.target);io.unobserve(e.target)}})},{rootMargin:"0px 0px -10% 0px"});ents.forEach(function(e){io.observe(e)})}
+  else ents.forEach(ver);
+  setTimeout(function(){ents.forEach(ver)},1500);
+})();
+</script>"""
 
-def pie_con(*scripts):
-    # el pie con más scripts dentro del <body>, antes de cerrarlo
-    return PIE.replace("</body></html>", "".join(scripts) + "\n</body></html>")
+def pie(marca="ruvi", *scripts):
+    # el pie es un cierre: el nombre de la marca a todo el ancho
+    if marca == "dd":
+        nombre, linea = "Dos Décimas", f'Tests de Policía Nacional, Escala Básica · Un proyecto de <a href="/">Ruvï</a> · <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>'
+        extra = f'<a href="{DD_APP}">Entrar en la app</a>'
+    else:
+        nombre, linea = "Ruvï", f'Herramientas para preparar oposiciones · <a href="mailto:{CORREO}">{CORREO}</a>'
+        extra = '<a href="/plantilla-repaso/">Plantilla de Repaso</a><a href="/dos-decimas/">Dos Décimas</a>'
+    return f'''<footer class="pie"><div class="in">
+<p class="grande" translate="no">{nombre}</p>
+<div class="fila"><span>{linea}</span>
+<nav aria-label="Legal">{extra}<a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a></nav></div>
+</div></footer>
+''' + "".join(scripts) + ENTRADAS_JS + "\n</body></html>"
 
 TELEFONO = "669 767 570"
 WHATSAPP = "34669767570"
-from urllib.parse import quote
 ASUNTO = "Plantilla de Repaso para nuestra academia"
 CUERPO = ("Hola:\n\nNos interesa Plantilla de Repaso y nos gustaría verla con los temas de nuestra academia.\n\n"
           "Academia: \nCiudad: \nNúmero de alumnos: \nTeléfono de contacto: \n"
           "Mejor día y hora para la videollamada: \n\nGracias.")
 WA_TEXTO = "Hola, os escribo desde ruvilab.es. Me interesa Plantilla de Repaso y me gustaría verla con los temas de mi academia."
 
-def correo_bloque():
+def contacto(titulo, texto):
     mailto = f"mailto:{CORREO}?subject={quote(ASUNTO)}&body={quote(CUERPO)}"
     wa = f"https://wa.me/{WHATSAPP}?text={quote(WA_TEXTO)}"
-    return f'''<div class="btns">
-    <a class="btn p" href="{mailto}">Escribir un correo</a>
-    <a class="btn wa" href="{wa}" target="_blank" rel="noopener">WhatsApp</a>
+    return f'''<section class="sec campo-oscuro contacto" id="contacto"><div class="in">
+  <div class="ent"><h2>{titulo}</h2><p class="lead">{texto}</p></div>
+  <div class="ent">
+    <div class="btns"><a class="btn btn-p" href="{mailto}">Escribir un correo</a><a class="btn btn-wa" href="{wa}" target="_blank" rel="noopener">WhatsApp</a></div>
+    <p class="datos suave">{CORREO} · <span style="white-space:nowrap">{TELEFONO}</span></p>
   </div>
-  <p class="muted">{CORREO} · <span style="white-space:nowrap">{TELEFONO}</span></p>'''
+</div></section>'''
 
 def con_version(html_txt):
     # añade ?v=<huella> a las imágenes de /img/, para que el navegador no muestre una versión vieja
@@ -105,121 +112,120 @@ def escribir(ruta, contenido):
 
 # ---------------------------------------------------------------- Inicio
 escribir("/", cabeza("Ruvï · Herramientas para preparar oposiciones",
-  "Ruvï crea herramientas para preparar oposiciones: Plantilla de Repaso, tests tipo examen para academias, y Dos Décimas, tests de Policía Nacional para opositores por libre.", "/")
-+ menu("/") + f'''
+  "Ruvï crea herramientas para preparar oposiciones: Plantilla de Repaso, tests tipo examen para academias, y Dos Décimas, tests de Policía Nacional para opositores por libre.", "/", actual="/")
++ f'''
 <main>
-<section><div class="in stack" id="hero">
-  <h1>Herramientas para <mark>preparar oposiciones</mark></h1>
-  <p class="lead" style="max-width:640px">Tests tipo examen para Policía Nacional, hechos por opositores. Dos productos: uno para academias y otro para quien prepara la oposición por su cuenta.</p>
-</div></section>
-
-<section style="padding-top:0"><div class="in productos">
-  <article class="card producto" data-de="plantilla">
-    <button class="miniatura" type="button" data-demo="plantilla" aria-expanded="false" aria-controls="demo-plantilla" aria-label="Ver la demo de Plantilla de Repaso"><img src="/img/demo-horizontal.jpg" alt="" width="1280" height="720" loading="lazy"><span class="play" aria-hidden="true">▶</span></button>
-    <span class="eb">Para academias</span>
-    <h2>Plantilla de Repaso</h2>
-    <p class="muted">Tu temario convertido en tests tipo examen para tus alumnos, con las preguntas revisadas por tus profesores y corregidas con la ley.</p>
-    <div class="btns"><a class="btn p" href="/plantilla-repaso/">Ver Plantilla de Repaso</a><button class="btn s" type="button" data-demo="plantilla" aria-expanded="false" aria-controls="demo-plantilla">▶ Demo · 1 min</button></div>
-  </article>
-  <article class="card producto" data-de="dosdecimas">
-    <button class="miniatura" type="button" data-demo="dosdecimas" aria-expanded="false" aria-controls="demo-dosdecimas" aria-label="Ver el vídeo de Dos Décimas"><img src="/img/dosdecimas-horizontal.jpg" alt="" width="1920" height="1080" loading="lazy"><span class="play" aria-hidden="true">▶</span></button>
-    <span class="eb">Para opositores</span>
-    <h2>Dos Décimas</h2>
-    <p class="muted">Para quien prepara Policía Nacional por su cuenta: tests de los 45 temas comprobados con el BOE vigente, exámenes oficiales y simulacros. Desde 7,99 € al mes.</p>
-    <div class="btns"><a class="btn p" href="/dos-decimas/">Ver Dos Décimas</a><button class="btn s" type="button" data-demo="dosdecimas" aria-expanded="false" aria-controls="demo-dosdecimas">▶ Vídeo · 40 s</button></div>
-  </article>
-</div>
-<div class="in demo" id="demo-plantilla" hidden>
-  <div class="video">
-    <video class="v-ancho" controls playsinline preload="none" poster="/img/demo-horizontal.jpg" width="1280" height="720" aria-label="Demo de Plantilla de Repaso en vídeo horizontal"><source src="/video/demo-horizontal.mp4" type="video/mp4"></video>
-    <video class="v-movil" controls playsinline preload="none" poster="/img/demo-vertical.jpg" width="720" height="1280" aria-label="Demo de Plantilla de Repaso en vídeo vertical"><source src="/video/demo-vertical.mp4" type="video/mp4"></video>
+<section class="portada inicio"><div class="in">
+  <div class="titulo"><h1>Tests para aprobar, hechos por opositores.</h1></div>
+  <div>
+    <p class="sub">Ruvï hace herramientas para preparar Policía Nacional: una para academias y otra para quien se prepara por su cuenta. Con preguntas como las del examen, corregidas con la ley.</p>
   </div>
-  <div class="demo-pie"><button class="demo-cerrar" type="button">Cerrar vídeo</button></div>
-</div>
-<div class="in demo" id="demo-dosdecimas" hidden>
-  <div class="video">
-    <video class="v-ancho" controls playsinline preload="none" poster="/img/dosdecimas-horizontal.jpg" width="1280" height="720" aria-label="Demo de Dos Décimas en vídeo horizontal"><source src="/video/dosdecimas-horizontal.mp4" type="video/mp4"></video>
-    <video class="v-movil" controls playsinline preload="none" poster="/img/dosdecimas-vertical.jpg" width="720" height="1280" aria-label="Demo de Dos Décimas en vídeo vertical"><source src="/video/dosdecimas-vertical.mp4" type="video/mp4"></video>
-  </div>
-  <div class="demo-pie"><button class="demo-cerrar" type="button">Cerrar vídeo</button></div>
-</div>
-</section>
-
-<section id="nosotros" style="padding-top:0"><div class="in stack" style="max-width:760px">
-  <h2>Quiénes somos</h2>
-  <p class="lead">Soy Alejandro, opositor a Policía Nacional. Creé Plantilla de Repaso al echar en falta tests que se parecieran de verdad al examen, y después Dos Décimas para quien se prepara por su cuenta. Junto a mi socio, miembro de las Fuerzas y Cuerpos de Seguridad del Estado que también pasó por la oposición, fundamos Ruvï.</p>
+  <div class="accesos"><a class="btn btn-s" href="/plantilla-repaso/">Tengo una academia</a><a class="btn btn-p" href="/dos-decimas/">Me preparo por mi cuenta</a></div>
 </div></section>
 
-<section class="banda" id="contacto"><div class="in stack" style="max-width:760px">
-  <h2>¿Tienes una academia?</h2>
-  <p class="lead">Te enseñamos la app con tus temas en 15 minutos. El primer mes es gratis.</p>
-  {correo_bloque()}
+<section class="productos" style="padding-bottom:var(--hueco)"><div class="in">
+  <article class="producto ent">
+    <div class="foto"><img src="/img/demo-horizontal.jpg" alt="Plantilla de Repaso en el móvil de un alumno: la pantalla para elegir tema, número de preguntas y corrección" width="1280" height="720"></div>
+    <div class="texto">
+      <p class="para">Para academias</p>
+      <h2>Plantilla de Repaso</h2>
+      <p>Vuestro temario convertido en tests tipo examen para vuestros alumnos, con las preguntas revisadas por vuestros profesores y corregidas con la ley.</p>
+      <div class="btns"><a class="btn btn-p" href="/plantilla-repaso/">Ver Plantilla de Repaso</a></div>
+    </div>
+  </article>
+  <article class="producto oscuro ent">
+    <div class="foto"><img src="/img/dosdecimas-horizontal.jpg" alt="Dos Décimas: una nota de 6,95 frente a un corte de 7,05" width="1920" height="1080"></div>
+    <div class="texto">
+      <p class="para">Para opositores</p>
+      <h2>Dos Décimas</h2>
+      <p class="suave">Para quien prepara Policía Nacional por su cuenta: tests de los 45 temas comprobados con el BOE vigente, exámenes oficiales y simulacros. Desde 7,99 € al mes.</p>
+      <div class="btns"><a class="btn btn-p" href="/dos-decimas/">Ver Dos Décimas</a><a class="btn btn-s" href="/dos-decimas/test-gratis/">Test gratis</a></div>
+    </div>
+  </article>
 </div></section>
-</main>''' + PIE)
+
+<section class="sec campo-capa nosotros" id="nosotros"><div class="in">
+  <div class="ent"><h2>Quiénes somos</h2></div>
+  <div class="ent"><p>Soy Alejandro, opositor a Policía Nacional. Creé Plantilla de Repaso al echar en falta tests que se parecieran de verdad al examen, y después Dos Décimas para quien se prepara por su cuenta. Junto a mi socio, miembro de las Fuerzas y Cuerpos de Seguridad del Estado que también pasó por la oposición, fundamos Ruvï.</p></div>
+</div></section>
+
+{contacto("¿Tienes una academia?", "Te enseñamos la app con tus temas en una videollamada de 15 minutos. El primer mes es gratis.")}
+</main>
+''' + pie("ruvi"))
 
 # ---------------------------------------------------------------- Plantilla de Repaso
 escribir("/plantilla-repaso/", cabeza("Plantilla de Repaso · Tu temario, convertido en examen",
-  "Tests tipo examen para tu academia, de Policía Nacional o cualquier oposición tipo test: preguntas de tus temas, revisadas por tus profesores, con corrección con la ley.", "/plantilla-repaso/")
-+ menu("/plantilla-repaso/") + f'''
+  "Tests tipo examen para tu academia, de Policía Nacional o cualquier oposición tipo test: preguntas de tus temas, revisadas por tus profesores, con corrección con la ley.", "/plantilla-repaso/", actual="/plantilla-repaso/")
++ f'''
 <main>
-<section><div class="in dos" id="hero">
-  <div class="stack">
-    <h1>Tu temario, <mark>convertido en examen</mark></h1>
-    <p class="lead">Hacemos las preguntas de vuestros temas. Vuestros alumnos practican en una app, como el día del examen.</p>
-    <p class="muted">Nació para Policía Nacional. Se adapta a cualquier oposición con examen tipo test.</p>
-    <div class="btns"><a class="btn p" href="#contacto">Pruébala con tus temas</a></div>
-    <p class="muted" style="font-size:.95rem">Primer mes gratis. Sin permanencia.</p>
+<section class="portada"><div class="in">
+  <div class="titulo"><h1>Tu temario, convertido en examen.</h1></div>
+  <div>
+    <p class="sub">Hacemos las preguntas de vuestros temas y vuestros alumnos practican en una app, como el día del examen. Nació para Policía Nacional y se adapta a cualquier oposición tipo test.</p>
+    <div class="btns" style="margin-top:40px;display:flex;flex-wrap:wrap;gap:10px"><a class="btn btn-p" href="#contacto">Pruébala con tus temas</a><a class="btn btn-s" href="#demo">Ver la demo · 1 min</a></div>
+    <p class="test">Primer mes gratis y sin permanencia.</p>
   </div>
-  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-inicio.png" alt="Pantalla de inicio del alumno: aviso de fallos por repasar, su última nota, preguntas hechas, y la elección de tema, número de preguntas y corrección para empezar un test" width="390" height="844"></div></div>
+  <div class="movil"><img src="/img/app-inicio.png" alt="Pantalla de inicio del alumno: aviso de fallos por repasar, su última nota, preguntas hechas, y la elección de tema, número de preguntas y corrección" width="780" height="1688" fetchpriority="high"></div>
 </div></section>
 
-<section class="banda"><div class="in dos inv">
-  <div style="display:flex;justify-content:center"><div class="movil"><img src="/img/app-resultado.png" alt="Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, la cuenta como en el examen y cuántos puntos le ha sumado arriesgar en las preguntas que dudaba" width="390" height="748"></div></div>
-  <div class="stack">
+<section class="sec campo-oscuro func"><div class="in">
+  <div class="ent">
     <h2>Como el examen real</h2>
     <ul class="lista">
-      <li>Tres opciones, −0,5 por fallo y cronómetro</li>
-      <li>Cada fallo, corregido con el artículo de la ley</li>
-      <li>«Dudo»: saber si compensa arriesgar</li>
-      <li>Cuaderno con los fallos para repasar</li>
-      <li>En el móvil o el ordenador, sin instalar nada</li>
+      <li><b>Tres opciones, −0,5 por fallo y cronómetro</b><span class="suave">Practican con las mismas reglas con las que se van a examinar.</span></li>
+      <li><b>Cada fallo, corregido con la ley</b><span class="suave">La respuesta buena, el porqué y el artículo que lo dice.</span></li>
+      <li><b>«Dudo»</b><span class="suave">Saben si arriesgar en las dudosas les suma o les resta.</span></li>
+      <li><b>Cuaderno de fallos</b><span class="suave">Lo que fallaron vuelve hasta que lo aciertan.</span></li>
+      <li><b>En el móvil o el ordenador</b><span class="suave">Sin instalar nada.</span></li>
     </ul>
   </div>
+  <div class="movil ent"><img src="/img/app-resultado.png" alt="Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, y cuántos puntos le ha sumado arriesgar en las que dudaba" width="780" height="1496" loading="lazy"></div>
 </div></section>
 
-<section><div class="in stack">
-  <h2>Cómo funciona</h2>
-  <div class="grid3">
-    <div class="card stack" style="gap:8px"><span class="num">1</span><h3>Elegís los temas</h3><p class="muted">Preguntas del BOE o de vuestro temario, que es solo vuestro.</p></div>
-    <div class="card stack" style="gap:8px"><span class="num">2</span><h3>Vuestros profesores las revisan</h3><p class="muted">Ninguna llega a los alumnos sin su visto bueno.</p></div>
-    <div class="card stack" style="gap:8px"><span class="num">3</span><h3>Los alumnos practican</h3><p class="muted">Les damos de alta con su email y empiezan.</p></div>
+<section class="sec video" id="demo"><div class="in ent">
+  <h2>La demo, en un minuto</h2>
+  <div>
+    <video class="v-ancho" controls playsinline preload="none" poster="/img/demo-horizontal.jpg" width="1280" height="720" aria-label="Demo de Plantilla de Repaso en vídeo horizontal"><source src="/video/demo-horizontal.mp4" type="video/mp4"></video>
+    <video class="v-movil" controls playsinline preload="none" poster="/img/demo-vertical.jpg" width="720" height="1280" aria-label="Demo de Plantilla de Repaso en vídeo vertical"><source src="/video/demo-vertical.mp4" type="video/mp4"></video>
   </div>
 </div></section>
 
-<section style="padding-top:0"><div class="in grid2" style="align-items:start">
-  <div class="stack"><h2>Tres packs</h2><p class="lead">Precio según el número de alumnos.</p><div class="btns"><a class="btn s" href="#contacto">Pide las tarifas</a></div></div>
-  <div class="card stack" style="gap:12px">
-    <p><b>Tests</b> <span class="muted">· tests, corrección y cuaderno</span></p>
-    <p><b>Plus</b> <span class="muted">· + plan semanal y preguntas más falladas</span></p>
-    <p><b>Completo</b> <span class="muted">· + ranking y pruebas físicas</span></p>
+<section class="sec campo-capa pasos" id="como"><div class="in">
+  <div class="ent"><h2>Cómo funciona</h2></div>
+  <ol class="ent">
+    <li><h3>Elegís los temas</h3><p>Preguntas del BOE o de vuestro temario, que es solo vuestro.</p></li>
+    <li><h3>Vuestros profesores las revisan</h3><p>Ninguna llega a los alumnos sin su visto bueno.</p></li>
+    <li><h3>Los alumnos practican</h3><p>Les damos de alta con su email y empiezan.</p></li>
+  </ol>
+</div></section>
+
+<section class="sec packs"><div class="in">
+  <div class="ent">
+    <h2>Tres packs</h2>
+    <p class="lead">El precio depende del número de alumnos.</p>
+    <div class="btns"><a class="btn btn-p" href="#contacto">Pide las tarifas</a></div>
   </div>
+  <ul class="ent">
+    <li><b>Tests</b>Tests tipo examen, corrección con la ley y cuaderno de fallos.</li>
+    <li><b>Plus</b>Todo lo de Tests, más el plan semanal y las preguntas más falladas.</li>
+    <li class="dest"><b>Completo</b>Todo lo anterior, más el ranking de alumnos y las pruebas físicas.</li>
+  </ul>
 </div></section>
 
-<section style="padding-top:0"><div class="in stack" style="max-width:820px">
-  <h2>Preguntas frecuentes</h2>
-  <details class="card"><summary><b>¿Sirve para otras oposiciones?</b></summary><p class="muted" style="margin-top:10px">Sí. Adaptamos el temario, el número de opciones, la penalización y el tiempo al examen de cada oposición tipo test.</p></details>
-  <details class="card"><summary><b>¿Podemos probarla con nuestro temario?</b></summary><p class="muted" style="margin-top:10px">Durante el mes gratis practicáis con preguntas de vuestros temas sacadas del BOE, revisadas por vuestros profesores. Si os quedáis, preparamos las de vuestro propio temario.</p></details>
-  <details class="card"><summary><b>¿Qué datos se guardan de los alumnos?</b></summary><p class="muted" style="margin-top:10px">Nombre, email y progreso, en la Unión Europea. Cada academia solo ve los suyos y firmamos un contrato de protección de datos.</p></details>
-  <details class="card"><summary><b>¿Y si una pregunta tiene un error?</b></summary><p class="muted" style="margin-top:10px">Los alumnos avisan desde la propia pregunta y la corregimos para todos.</p></details>
-  <details class="card"><summary><b>¿Nuestro temario se usa para otras academias?</b></summary><p class="muted" style="margin-top:10px">No. El temario y sus preguntas son solo vuestros.</p></details>
+<section class="sec campo-capa faq"><div class="in">
+  <div class="ent"><h2>Preguntas frecuentes</h2></div>
+  <div class="ent"><div>
+    <details><summary>¿Sirve para otras oposiciones?</summary><p>Sí. Adaptamos el temario, el número de opciones, la penalización y el tiempo al examen de cada oposición tipo test.</p></details>
+    <details><summary>¿Podemos probarla con nuestro temario?</summary><p>Durante el mes gratis practicáis con preguntas de vuestros temas sacadas del BOE, revisadas por vuestros profesores. Si os quedáis, preparamos las de vuestro propio temario.</p></details>
+    <details><summary>¿Qué datos se guardan de los alumnos?</summary><p>Nombre, email y progreso, en la Unión Europea. Cada academia solo ve los suyos y firmamos un contrato de protección de datos.</p></details>
+    <details><summary>¿Y si una pregunta tiene un error?</summary><p>Los alumnos avisan desde la propia pregunta y la corregimos para todos.</p></details>
+    <details><summary>¿Nuestro temario se usa para otras academias?</summary><p>No. El temario y sus preguntas son solo vuestros.</p></details>
+  </div></div>
 </div></section>
 
-<section class="banda" id="contacto"><div class="in stack" style="max-width:760px">
-  <h2>Pruébala un mes gratis</h2>
-  <p class="lead">Te la enseñamos con tus temas en una videollamada de 15 minutos.</p>
-  {correo_bloque()}
-</div></section>
-</main>''' + PIE)
+{contacto("Pruébala un mes gratis", "Te la enseñamos con tus temas en una videollamada de 15 minutos.")}
+</main>
+''' + pie("ruvi"))
 
 # ---------------------------------------------------------------- Dos Décimas: Plantilla de Repaso para opositores particulares (lista de espera)
 # Fuera del menú a propósito: de momento se llega solo por enlace directo.
@@ -294,8 +300,6 @@ def avance_temas():
 # ---------- Venta de Dos Décimas ----------
 # Tarifas (IVA incluido) y su enlace de pago de Stripe.
 # Enlaces de pago REALES de Stripe (modo activo, creados el 29-10-2026): cobran dinero de verdad.
-DD_CORREO = "dosdecimas@ruvilab.es"
-DD_APP = "https://dosdecimas.ruvilab.es"
 TARIFA_FUNDADOR = dict(nombre="Fundador", precio="7,99 €", periodo="al mes", plazas=30,
   enlace="https://buy.stripe.com/3cIcN7bck9DibmO7Vx04801")
 TARIFAS_DD = [
@@ -312,18 +316,8 @@ if any("/test_" in t["enlace"] for t in TARIFAS_DD + [TARIFA_FUNDADOR]):
     print("AVISO: la página de Dos Décimas lleva enlaces de pago de PRUEBA de Stripe. Cámbialos por los de modo activo antes de publicar.")
 
 # Semana gratis: el formulario llama a pedir_prueba() en el Supabase de producción (migración 016 de plantilla-repaso),
-# que da el alta al momento a los emails nuevos. Sale en la página de Dos Décimas y al acabar el test gratis
-# (origen "web" o "test", para saber de dónde llegan). Clave pública por diseño: solo puede llamar a esa función.
-def prueba_form(origen):
-    return f'''<form class="card stack form prueba-form" data-origen="{origen}" novalidate>
-    <label class="campo"><b>El email con el que quieres entrar</b>
-      <input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="tu@email.com"></label>
-    <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
-    <div class="btns"><button class="btn p" type="submit">Quiero mi semana gratis</button></div>
-    <p class="muted" style="font-size:.9rem">Lo usamos solo para darte acceso a la app, como dice su <a href="{DD_APP}/privacidad.html">política de privacidad</a>.</p>
-    <div class="aviso" role="status" hidden></div>
-  </form>'''
-
+# que da el alta al momento a los emails nuevos. El formulario es dd_form(); sale en la página de Dos Décimas y al acabar
+# el test gratis (origen "web" o "test", para saber de dónde llegan). Clave pública por diseño: solo puede llamar a esa función.
 # Va en <script> normal (no f-string): se pega tal cual en las dos páginas.
 PRUEBA_JS = ("""<script>
 (function(){
@@ -361,37 +355,9 @@ FAQ_DD = [
 ]
 
 # ---------- Dos Décimas: página de venta (ruvilab.es/dos-decimas/) ----------
-# Diseño propio (dd.css, no ruvi.css): cabecera de Dos Décimas, campos oscuros para los momentos fuertes
+# Cabecera y pie de Dos Décimas (marca="dd"), campos oscuros para los momentos fuertes
 # y, como pieza viva, la calculadora de décimas (tu nota → cuántas preguntas te faltaron para el 7,05).
-DD_VERSION = hashlib.md5((R / "dd.css").read_bytes()).hexdigest()[:8]
 DD_CORTE = "7,05"
-
-def dd_cabeza(titulo, desc, ruta, og):
-    return f'''<!doctype html>
-<html lang="es"><head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{titulo}</title>
-<meta name="description" content="{html.escape(desc)}">
-<meta name="theme-color" content="#F5F3F0">
-<meta property="og:title" content="{titulo}">
-<meta property="og:description" content="{html.escape(desc)}">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ruvilab.es{ruta}">
-<meta property="og:image" content="https://ruvilab.es/img/{og}">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:locale" content="es_ES">
-<link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
-<link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
-<link rel="preload" href="/fuentes/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/dd.css?v={DD_VERSION}">
-<script>document.documentElement.classList.add("js")</script>
-</head><body>
-<header class="cab"><div class="in">
-<a class="marca" href="/dos-decimas/" aria-label="Dos Décimas, inicio"><img src="/img/dosdecimas-logo.png" alt="" width="36" height="36" translate="no">Dos Décimas</a>
-<nav aria-label="Menú"><a class="opc" href="#como">Cómo funciona</a><a class="opc" href="#planes">Precios</a><a href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="{DD_APP}">Entrar</a></nav>
-</div></header>'''
 
 def dd_form(origen, boton="Pruébala 7 días gratis"):
     return f'''<form class="alta-form prueba-form" data-origen="{origen}" novalidate>
@@ -403,11 +369,7 @@ def dd_form(origen, boton="Pruébala 7 días gratis"):
     <div class="aviso" role="status" hidden></div>
   </form>'''
 
-DD_PIE = f'''<footer class="pie"><div class="in">
-<p class="grande" translate="no">Dos Décimas</p>
-<div class="fila"><span>Tests de Policía Nacional, Escala Básica · Un proyecto de <a href="/">Ruvï</a> · <a href="mailto:{DD_CORREO}">{DD_CORREO}</a></span>
-<nav aria-label="Legal"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="{DD_APP}">Entrar en la app</a></nav></div>
-</div></footer>'''
+
 
 DD_JS = """<script>
 (function(){
@@ -420,12 +382,6 @@ DD_JS = """<script>
       var ac=Math.ceil(d/0.1-1e-9),bl=Math.ceil(d/0.05-1e-9);
       s.innerHTML="Te faltarían <b>"+coma(d)+"</b>. "+(ac===1?"Eso es":"Eso son")+" <b>"+pl(ac,"acierto","aciertos")+" más</b>, o <b>"+pl(bl,"fallo","fallos")+"</b> que tendrías que haber dejado en blanco."};
     r.addEventListener("input",pinta);pinta()}
-  // Entradas de cada bloque al llegar a él (sin JS o con «reducir movimiento» se ve todo desde el principio)
-  var ents=document.querySelectorAll(".ent");
-  if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visto");io.unobserve(e.target)}})},{rootMargin:"0px 0px -10% 0px"});ents.forEach(function(e){io.observe(e)})}
-  else ents.forEach(function(e){e.classList.add("visto")});
-  // por si el navegador no avisa (pestaña en segundo plano, capturas): nada se queda escondido
-  setTimeout(function(){ents.forEach(function(e){e.classList.add("visto")})},1500);
   if(location.hash==="#precio")location.hash="#planes";
 })();
 </script>"""
@@ -454,8 +410,8 @@ def dd_tarifas():
 
 FAQ_DD_HTML = "".join(f'<details><summary>{q}</summary><p>{r}</p></details>' for q, r in FAQ_DD)
 
-escribir("/dos-decimas/", dd_cabeza("Dos Décimas · Tests de Policía Nacional",
-  "Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.", "/dos-decimas/", "dosdecimas-og.jpg")
+escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
+  "Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.", "/dos-decimas/", marca="dd")
 + f"""
 <main>
 <section class="portada"><div class="in">
@@ -572,7 +528,7 @@ escribir("/dos-decimas/", dd_cabeza("Dos Décimas · Tests de Policía Nacional"
   <div class="ent"><div>{FAQ_DD_HTML}</div></div>
 </div></section>
 </main>
-""" + DD_PIE + PRUEBA_JS + DD_JS + "\n</body></html>")
+""" + pie("dd", PRUEBA_JS, DD_JS))
 
 
 # ---------- Dos Décimas: test gratis «¿Llegarías al 7,05?» ----------
@@ -602,7 +558,7 @@ _TG_JS = """<script>
     var nota=(A-E/2)*10/P.length,dif=CORTE-nota;
     var tit=nota>=CORTE?"Con esta nota superarías el corte de 2026":dif<=1?"Te quedarías a "+coma(dif)+" del corte":"Te faltarían "+coma(dif)+" puntos para el corte";
     var txt=nota>=CORTE?"Buena señal, pero 20 preguntas son solo una muestra. Compruébalo con un examen entero.":dif<=1?"Así se pierden las plazas: por décimas. Mira en qué fallas para que no te pase.":"Aún hay margen, y saber dónde fallas es lo primero para recortarlo.";
-    caja.textContent="";caja.appendChild(el("span","eb","Tu resultado"));
+    caja.textContent="";
     caja.appendChild(el("p","tg-nota",coma(nota)));caja.appendChild(el("p","muted","Corte de la promoción 43: 7,05 · "+A+" aciertos, "+E+" fallos y "+B+" en blanco"));
     caja.appendChild(el("h2",null,tit));caja.appendChild(el("p","lead",txt));
     // la semana gratis, aquí mismo: el formulario viene en un <template> de la página y se copia al resultado
@@ -618,41 +574,39 @@ _TG_JS = """<script>
 })();
 </script>""".replace("__PREGUNTAS__", _TG)
 escribir("/dos-decimas/test-gratis/", cabeza("¿Llegarías al 7,05? · Test gratis de Policía Nacional",
-  "20 preguntas reales del examen de Policía Nacional de 2026, sin registro. Compara tu nota con el corte de 7,05.", "/dos-decimas/test-gratis/", icono="dosdecimas", og="dosdecimas-test-og.jpg")
-+ menu("/dos-decimas/", DD_APP) + """
+  "20 preguntas reales del examen de Policía Nacional de 2026, sin registro. Compara tu nota con el corte de 7,05.", "/dos-decimas/test-gratis/", marca="dd", og="dosdecimas-test-og.jpg")
++ """
 <main>
-<section><div class="in stack tg-in" id="tg">
-  <img class="dd-logo" src="/img/dosdecimas-logo.png" alt="Dos Décimas" width="64" height="64">
-  <span class="eb">Test gratis · Policía Nacional</span>
-  <h1>¿Llegarías al <mark>7,05</mark>?</h1>
-  <p class="lead">Ese fue el corte del examen de 2026. Comprueba cómo vas con 20 preguntas reales de ese examen, puntuadas igual: −0,5 por fallo y sin penalizar el blanco.</p>
-  <ul class="lista"><li><span><b>10 minutos</b>, al ritmo del examen</span></li><li><span><b>Sin registro:</b> no pedimos datos ni guardamos tus respuestas</span></li><li><span>Al acabar, tu nota y las respuestas correctas de lo que falles</span></li></ul>
-  <div class="btns"><button class="btn p" type="button" id="tg-go">Empezar el test</button></div>
-  <p class="muted" style="font-size:.95rem">Preguntas 5, 10, 15… hasta la 100 del modelo A del examen del 26-09-2026, con las respuestas de la plantilla publicada. El resultado es orientativo: 20 preguntas son solo una muestra.</p>
-</div></section>
-</main>""" + pie_con(_TG_JS, PRUEBA_JS.replace("<script>", '<template id="tg-plantilla">' + prueba_form("test") + "</template><script>", 1)))
+<section class="tg"><div class="in"><div class="tg-in" id="tg">
+  <h1>¿Llegarías al 7,05?</h1>
+  <p class="sub">Ese fue el corte del examen de 2026. Comprueba cómo vas con 20 preguntas reales de ese examen, puntuadas igual: −0,5 por fallo y sin penalizar el blanco.</p>
+  <ul class="lista"><li><b>10 minutos</b>, al ritmo del examen</li><li><b>Sin registro:</b> no pedimos datos ni guardamos tus respuestas</li><li>Al acabar, tu nota y las respuestas correctas de lo que falles</li></ul>
+  <div class="btns"><button class="btn btn-p" type="button" id="tg-go">Empezar el test</button></div>
+  <p class="peq suave">Preguntas 5, 10, 15… hasta la 100 del modelo A del examen del 26-09-2026, con las respuestas de la plantilla publicada. El resultado es orientativo: 20 preguntas son solo una muestra.</p>
+</div></div></section>
+</main>
+""" + pie("dd", _TG_JS, PRUEBA_JS.replace("<script>", '<template id="tg-plantilla">' + dd_form("test") + "</template><script>", 1)))
 
 # /opositores/ fue la primera dirección de Dos Décimas: se mantiene para que no se rompan los enlaces ya compartidos.
 # GitHub Pages no hace redirecciones de servidor, así que se hace desde la propia página.
 # ---------- Dos Décimas: página a la que vuelve Stripe después de pagar ----------
 escribir("/dos-decimas/gracias/", cabeza("Pago completado · Dos Décimas",
-  "Tu pago de Dos Décimas se ha completado. Entra en la app con el mismo email con el que has pagado.", "/dos-decimas/gracias/", noindex=True, icono="dosdecimas")
-+ menu("/dos-decimas/", DD_APP) + f"""
+  "Tu pago de Dos Décimas se ha completado. Entra en la app con el mismo email con el que has pagado.", "/dos-decimas/gracias/", marca="dd", noindex=True)
++ f"""
 <main>
-<section><div class="in stack" style="max-width:720px">
-  <img class="dd-logo" src="/img/dosdecimas-logo.png" alt="Dos Décimas" width="64" height="64">
-  <span class="eb">Dos Décimas · pago completado</span>
-  <h1>¡Ya estás dentro! <mark>Bienvenido</mark></h1>
-  <p class="lead">Tu pago se ha completado. Stripe te enviará el recibo a tu email. Para entrar por primera vez:</p>
-  <ol class="pasos" style="grid-template-columns:1fr">
-    <li class="card"><span class="paso">1</span><div><h3>Pulsa «Entrar en Dos Décimas»</h3><p class="muted">Se abre la app en <b>{DD_APP.replace('https://', '')}</b>. Guárdala en favoritos o añádela a la pantalla de inicio del móvil.</p></div></li>
-    <li class="card"><span class="paso">2</span><div><h3>Elige «Primera vez»</h3><p class="muted">Escribe <b>el mismo email con el que has pagado</b>.</p></div></li>
-    <li class="card"><span class="paso">3</span><div><h3>Crea tu contraseña</h3><p class="muted">Te llega un correo con un enlace o un código. Ábrelo, elige tu contraseña y a por las décimas.</p></div></li>
+<section class="texto-pag"><div class="in"><div>
+  <h1>¡Ya estás dentro!</h1>
+  <p class="lead">Tu pago se ha completado y Stripe te enviará el recibo a tu email. Para entrar por primera vez:</p>
+  <ol class="lista-pasos">
+    <li><h3>Pulsa «Entrar en Dos Décimas»</h3><p>Se abre la app en <b>{DD_APP.replace('https://', '')}</b>. Guárdala en favoritos o añádela a la pantalla de inicio del móvil.</p></li>
+    <li><h3>Elige «Primera vez»</h3><p>Escribe <b>el mismo email con el que has pagado</b>.</p></li>
+    <li><h3>Crea tu contraseña</h3><p>Te llega un correo con un enlace o un código. Ábrelo, elige tu contraseña y a por las décimas.</p></li>
   </ol>
-  <div class="btns"><a class="btn p" href="{DD_APP}">Entrar en Dos Décimas</a></div>
-  <p class="muted" style="font-size:.95rem">¿No te llega el correo? Mira en spam o escríbenos a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p>
-</div></section>
-</main>""" + PIE)
+  <a class="btn btn-p" href="{DD_APP}">Entrar en Dos Décimas</a>
+  <p class="peq suave" style="margin-top:24px">¿No te llega el correo? Mira en spam o escríbenos a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p>
+</div></div></section>
+</main>
+""" + pie("dd"))
 
 escribir("/opositores/", '''<!doctype html>
 <html lang="es"><head>
@@ -668,10 +622,10 @@ escribir("/opositores/", '''<!doctype html>
 
 # ---------------------------------------------------------------- Aviso legal
 escribir("/aviso-legal/", cabeza("Aviso legal · Ruvï", "Titular, contacto y condiciones de uso de la web de Ruvï.", "/aviso-legal/")
-+ menu("") + f'''
-<main><section><div class="in legal stack">
-<span class="eb">Legal</span><h1 style="font-size:2.2rem">Aviso legal</h1>
-<p class="muted">Última actualización: 31 de octubre de 2026</p>
++ f'''
+<main><section class="texto-pag legal"><div class="in"><div>
+<h1>Aviso legal</h1>
+<p class="suave">Última actualización: 31 de octubre de 2026</p>
 <h2>Titular</h2>
 <p>En cumplimiento del artículo 10 de la Ley 34/2002, de servicios de la sociedad de la información y de comercio electrónico, se informa de que esta web y la marca Ruvï, con sus productos Plantilla de Repaso y Dos Décimas, son de:</p>
 <ul>
@@ -690,15 +644,15 @@ escribir("/aviso-legal/", cabeza("Aviso legal · Ruvï", "Titular, contacto y co
 <p>Procuramos que la información sea correcta y esté al día, pero puede contener errores o cambiar sin aviso. En Plantilla de Repaso, los precios y condiciones que valen son los que se acuerdan por escrito con cada academia. En Dos Décimas, los que aparecen al contratar.</p>
 <h2>Ley aplicable</h2>
 <p>Se aplica la ley española.</p>
-</div></section></main>''' + PIE)
+</div></div></section></main>''' + pie("ruvi"))
 
 # ---------------------------------------------------------------- Privacidad y cookies
 escribir("/privacidad/", cabeza("Privacidad y cookies · Ruvï", "Cómo trata Ruvï los datos de quien visita ruvilab.es, le escribe o se apunta a la lista de espera. Sin cookies ni analíticas.", "/privacidad/")
-+ menu("") + f'''
-<main><section><div class="in legal stack">
-<span class="eb">Legal</span><h1 style="font-size:2.2rem">Privacidad y cookies</h1>
-<p class="muted">Última actualización: 27 de octubre de 2026</p>
-<p class="card"><b>En pocas palabras:</b> esta web no usa cookies, ni analíticas, ni publicidad. Solo tratamos tus datos si nos escribes, nos llamas o pides la semana gratis de Dos Décimas, y solo para eso.</p>
++ f'''
+<main><section class="texto-pag legal"><div class="in"><div>
+<h1>Privacidad y cookies</h1>
+<p class="suave">Última actualización: 27 de octubre de 2026</p>
+<p class="resumen"><b>En pocas palabras:</b> esta web no usa cookies, ni analíticas, ni publicidad. Solo tratamos tus datos si nos escribes, nos llamas o pides la semana gratis de Dos Décimas, y solo para eso.</p>
 <h2>Responsable</h2>
 <p>Alejandro Ruiz Barreda, titular de la marca Ruvï (más datos en el <a href="/aviso-legal/">aviso legal</a>). Contacto para privacidad: <a href="mailto:privacidad@ruvilab.es">privacidad@ruvilab.es</a>.</p>
 <h2>Qué datos tratamos y para qué</h2>
@@ -735,15 +689,15 @@ escribir("/privacidad/", cabeza("Privacidad y cookies · Ruvï", "Cómo trata Ru
 <p>Esta web no instala cookies ni usa herramientas de analítica o publicidad. Las letras y las imágenes se cargan desde la propia web, sin pedir nada a otros servicios. El formulario de la semana gratis solo se conecta con nuestra base de datos cuando lo envías, y tampoco usa cookies. Por eso no verás ningún aviso de cookies.</p>
 <h2>La app Plantilla de Repaso</h2>
 <p>Los datos de los alumnos dentro de la app se rigen por su propia <a href="{APP}/privacidad.html">política de privacidad</a>.</p>
-</div></section></main>''' + PIE)
+</div></div></section></main>''' + pie("ruvi"))
 
 # ---------------------------------------------------------------- 404
-(R / "404.html").write_text(cabeza("Página no encontrada · Ruvï", "Esta página no existe.", "/404", noindex=True) + menu("") + '''
-<main><section><div class="in stack" style="max-width:640px">
-<span class="eb">Error 404</span><h1 style="font-size:2.4rem">Esta página no existe</h1>
+(R / "404.html").write_text(cabeza("Página no encontrada · Ruvï", "Esta página no existe.", "/404", noindex=True) + '''
+<main><section class="texto-pag"><div class="in"><div>
+<h1>Esta página no existe</h1>
 <p class="lead">Puede que el enlace esté mal escrito o que la página se haya movido.</p>
-<div class="btns"><a class="btn p" href="/">Ir al inicio</a></div>
-</div></section></main>''' + PIE, encoding="utf-8")
+<div class="btns" style="margin-top:32px;display:flex;flex-wrap:wrap;gap:10px"><a class="btn btn-p" href="/">Ir al inicio</a><a class="btn btn-s" href="/dos-decimas/">Ver Dos Décimas</a></div>
+</div></div></section></main>''' + pie("ruvi"), encoding="utf-8")
 print("escrito 404.html")
 
 # ---------------------------------------------------------------- Tarifas (página aparte, solo para quien tenga el enlace)

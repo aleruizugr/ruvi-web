@@ -1,4 +1,4 @@
-/* Dos Décimas: estilos propios de ruvilab.es/dos-decimas/ (el resto de la web usa ruvi.css).
+/* Estilos de toda la web de ruvilab.es: Ruvï, Plantilla de Repaso y Dos Décimas (ruvi.css ya no lo usa ninguna página).
    Marca: suelo claro cálido, tinta marrón oscura, cobre como acento y campos oscuros para los momentos fuertes.
    Reglas de la casa: sin etiquetas pequeñas sobre los títulos, sin degradados ni sombras en reposo, sin rejillas de tarjetas. */
 @font-face{font-family:"Bricolage Grotesque";font-style:normal;font-display:swap;font-weight:200 800;src:url(/fuentes/bricolage-grotesque.woff2) format("woff2-variations"),url(/fuentes/bricolage-grotesque.woff2) format("woff2")}
@@ -194,3 +194,99 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{o
 /* El aviso del formulario lo pinta prueba_js (compartido con el test gratis): usa .btn.p y .muted */
 .btn.p{background:var(--cobre);color:var(--sobre-cobre)}
 .muted{color:var(--suave)}
+
+/* ---------- Portada de Ruvï: los dos productos ---------- */
+.portada.inicio{padding-bottom:clamp(48px,6vw,88px)}
+.inicio .in{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.inicio h1{font-size:clamp(3rem,8vw,8.25rem)}
+.inicio .sub{max-width:none}
+.inicio .accesos{display:flex;flex-wrap:wrap;gap:10px;align-self:end;justify-content:flex-end}
+@media (max-width:900px){.inicio .accesos{justify-content:flex-start}}
+.productos .in{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3vw,40px)}
+.producto{background:var(--capa);border-radius:32px;overflow:hidden;display:flex;flex-direction:column}
+.producto.oscuro{background:var(--campo);color:var(--sobre-campo)}
+.producto.oscuro .suave{color:var(--suave-campo)}
+.producto .foto{aspect-ratio:16/10;overflow:hidden;background:#000}
+.producto .foto img{width:100%;height:100%;object-fit:cover;object-position:top}
+.producto .texto{padding:clamp(28px,3.5vw,48px);display:flex;flex-direction:column;gap:16px;flex:1}
+.producto h2{font-size:clamp(2.2rem,3.6vw,3.4rem)}
+.producto p{font-size:1.15rem}
+.producto .para{font-weight:700;color:var(--cobre)}
+.producto.oscuro .para{color:var(--cobre-campo)}
+.producto .btns{margin-top:auto;padding-top:8px;display:flex;flex-wrap:wrap;gap:10px}
+.producto.oscuro .btn-p{background:var(--cobre-campo);color:var(--campo)}
+@media (max-width:860px){.productos .in{grid-template-columns:1fr}}
+.nosotros .in{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px);align-items:start}
+.nosotros h2{font-size:clamp(2.4rem,5vw,4.5rem)}
+.nosotros p{font-size:clamp(1.25rem,1.9vw,1.6rem);line-height:1.45}
+@media (max-width:860px){.nosotros .in{grid-template-columns:1fr}}
+
+/* ---------- Contacto (Ruvï y Plantilla de Repaso) ---------- */
+.contacto .in{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,6vw,96px);align-items:end}
+.contacto h2{font-size:clamp(3rem,7vw,6.5rem)}
+.contacto .lead{font-size:1.25rem;margin-top:28px;max-width:36ch}
+.contacto .btns{display:flex;flex-wrap:wrap;gap:12px}
+.contacto .datos{margin-top:20px;font-size:1.05rem}
+.btn-wa{background:#25D366;color:#0B2E17}
+.btn-wa:hover{background:var(--sobre-campo);color:var(--campo)}
+@media (max-width:860px){.contacto .in{grid-template-columns:1fr}}
+
+/* ---------- Plantilla de Repaso: los tres packs, en filas ---------- */
+.packs .in{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px);align-items:start}
+.packs h2{font-size:clamp(2.4rem,5vw,4.5rem)}
+.packs .lead{margin-top:20px;font-size:1.2rem}
+.packs .btns{margin-top:28px}
+.packs ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.packs li{background:var(--capa);border-radius:24px;padding:24px 28px}
+.packs li b{display:block;font:800 1.9rem/1 var(--f-titulo);letter-spacing:-.03em;margin-bottom:8px}
+.packs li.dest{background:var(--campo);color:var(--sobre-campo)}
+@media (max-width:860px){.packs .in{grid-template-columns:1fr}}
+
+/* ---------- Vídeo de demostración que no es de Dos Décimas ---------- */
+.video .v-ancho,.video .v-movil{border-radius:24px}
+
+/* ---------- Test gratis ---------- */
+.tg{padding:clamp(32px,5vw,72px) 0 var(--hueco)}
+.tg-in{max-width:780px;display:flex;flex-direction:column;gap:20px}
+.tg-in h1{font-size:clamp(3rem,8vw,7rem)}
+.tg-in .sub{font-size:clamp(1.2rem,1.7vw,1.45rem);line-height:1.45}
+.tg-in .lista{margin:0;padding-left:22px;display:grid;gap:6px;font-size:1.1rem}
+.tg-in .btns{display:flex;flex-wrap:wrap;gap:10px}
+.tg-cab{display:flex;justify-content:space-between;font-weight:700;color:var(--suave);font-variant-numeric:tabular-nums}
+.tg-barra{height:8px;border-radius:4px;background:var(--capa);overflow:hidden}
+.tg-barra i{display:block;height:100%;background:var(--cobre)}
+.tg-q{font:700 clamp(1.25rem,2vw,1.5rem)/1.35 var(--f-texto)}
+.tg-op{display:flex;gap:14px;align-items:flex-start;width:100%;text-align:left;font:400 1.1rem/1.4 var(--f-texto);color:var(--tinta);background:var(--capa);border:2px solid transparent;border-radius:20px;padding:16px 18px;cursor:pointer;transition:border-color .15s,transform .15s;touch-action:manipulation}
+.tg-op:hover{border-color:var(--cobre)}
+.tg-op:active{transform:scale(.99)}
+.tg-op b{flex:none;width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:var(--suelo);color:var(--cobre);font-weight:800}
+.tg-bl{align-self:flex-start}
+.tg-nota{font:800 clamp(5.5rem,16vw,10rem)/.9 var(--f-titulo);letter-spacing:-.05em;color:var(--cobre);font-variant-numeric:tabular-nums}
+.tg-in h2{font-size:clamp(2rem,4vw,3.2rem)}
+.tg-in h3{font-size:clamp(1.6rem,3vw,2.2rem);margin-top:24px}
+.tg-in .lead{font-size:1.2rem}
+.tg-mal{background:var(--capa);border-radius:20px;padding:18px 20px}
+.tg-mq{font-weight:700}
+.tg-no{color:var(--mal);margin-top:8px}
+.tg-si{color:var(--ok);font-weight:700;margin-top:4px}
+.btn.s{background:var(--capa);color:var(--tinta)}
+.btn.s:hover{background:var(--tinta);color:var(--suelo)}
+
+/* ---------- Páginas de texto: legales, gracias y 404 ---------- */
+.texto-pag{padding:clamp(40px,6vw,88px) 0 var(--hueco)}
+.texto-pag .in>div{max-width:780px}
+.texto-pag h1{font-size:clamp(2.8rem,7vw,6rem);margin-bottom:24px}
+.texto-pag .lead{font-size:1.25rem}
+.legal h2{font-size:clamp(1.6rem,2.6vw,2.1rem);margin:48px 0 14px}
+.legal p,.legal li{font-size:1.1rem}
+.legal p+p{margin-top:14px}
+.legal ul{margin:0;padding-left:22px;display:grid;gap:8px}
+.legal .resumen{background:var(--capa);border-radius:24px;padding:22px 26px;margin-top:20px}
+.legal .tw{overflow-x:auto;margin-top:8px}
+.legal table{border-collapse:collapse;width:100%;font-size:1rem}
+.legal th,.legal td{text-align:left;padding:12px 10px;vertical-align:top}
+.legal tr:nth-child(odd) td{background:var(--capa)}
+.lista-pasos{list-style:none;margin:32px 0;padding:0;display:grid;gap:12px;counter-reset:p}
+.lista-pasos li{counter-increment:p;background:var(--capa);border-radius:24px;padding:22px 26px 22px 84px;position:relative}
+.lista-pasos li::before{content:counter(p);position:absolute;left:26px;top:16px;font:800 2.6rem/1 var(--f-titulo);color:var(--cobre)}
+.lista-pasos h3{font-size:1.4rem;margin-bottom:6px;line-height:1.15}

@@ -5,6 +5,7 @@
 <title>Privacidad y cookies · Ruvï</title>
 <meta name="description" content="Cómo trata Ruvï los datos de quien visita ruvilab.es, le escribe o se apunta a la lista de espera. Sin cookies ni analíticas.">
 
+<meta name="theme-color" content="#F5F3F0">
 <meta property="og:title" content="Privacidad y cookies · Ruvï">
 <meta property="og:description" content="Cómo trata Ruvï los datos de quien visita ruvilab.es, le escribe o se apunta a la lista de espera. Sin cookies ni analíticas.">
 <meta property="og:type" content="website">
@@ -16,15 +17,17 @@
 <link rel="icon" type="image/png" href="/img/favicon.png">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="preload" href="/fuentes/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/ruvi.css?v=bbd46a15">
-</head><body><header class="top"><div class="in">
-<a class="marca" href="/" aria-label="Ruvï, inicio"><img src="/img/ruvi-monograma.png?v=dad139e9" alt="" width="40" height="40"><b>RUVÏ</b></a>
-<nav class="menu" aria-label="Menú"><a href="/plantilla-repaso/" class="opc">Plantilla de Repaso</a><a href="/dos-decimas/" class="">Dos Décimas</a><a href="/#contacto" class="">Contacto</a><a href="https://plantilla-repaso.netlify.app" class="entrar">Entrar</a></nav>
+<link rel="stylesheet" href="/web.css?v=524e7f57">
+<script>document.documentElement.classList.add("js")</script>
+</head><body>
+<header class="cab"><div class="in">
+<a class="marca" href="/" aria-label="Ruvï, inicio"><img src="/img/ruvi-monograma.png?v=dad139e9" alt="" width="36" height="36">Ruvï</a>
+<nav aria-label="Menú"><a class="opc" href="/plantilla-repaso/">Plantilla de Repaso</a><a class="" href="/dos-decimas/">Dos Décimas</a><a class="opc" href="/#contacto">Contacto</a><a class="btn btn-s" href="https://plantilla-repaso.netlify.app">Entrar</a></nav>
 </div></header>
-<main><section><div class="in legal stack">
-<span class="eb">Legal</span><h1 style="font-size:2.2rem">Privacidad y cookies</h1>
-<p class="muted">Última actualización: 27 de octubre de 2026</p>
-<p class="card"><b>En pocas palabras:</b> esta web no usa cookies, ni analíticas, ni publicidad. Solo tratamos tus datos si nos escribes, nos llamas o pides la semana gratis de Dos Décimas, y solo para eso.</p>
+<main><section class="texto-pag legal"><div class="in"><div>
+<h1>Privacidad y cookies</h1>
+<p class="suave">Última actualización: 27 de octubre de 2026</p>
+<p class="resumen"><b>En pocas palabras:</b> esta web no usa cookies, ni analíticas, ni publicidad. Solo tratamos tus datos si nos escribes, nos llamas o pides la semana gratis de Dos Décimas, y solo para eso.</p>
 <h2>Responsable</h2>
 <p>Alejandro Ruiz Barreda, titular de la marca Ruvï (más datos en el <a href="/aviso-legal/">aviso legal</a>). Contacto para privacidad: <a href="mailto:privacidad@ruvilab.es">privacidad@ruvilab.es</a>.</p>
 <h2>Qué datos tratamos y para qué</h2>
@@ -61,25 +64,17 @@
 <p>Esta web no instala cookies ni usa herramientas de analítica o publicidad. Las letras y las imágenes se cargan desde la propia web, sin pedir nada a otros servicios. El formulario de la semana gratis solo se conecta con nuestra base de datos cuando lo envías, y tampoco usa cookies. Por eso no verás ningún aviso de cookies.</p>
 <h2>La app Plantilla de Repaso</h2>
 <p>Los datos de los alumnos dentro de la app se rigen por su propia <a href="https://plantilla-repaso.netlify.app/privacidad.html">política de privacidad</a>.</p>
-</div></section></main><footer class="pie"><div class="in">
-<span>© 2026 Ruvï · <a href="mailto:hola@ruvilab.es">hola@ruvilab.es</a></span>
-<nav aria-label="Legal"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad y cookies</a></nav>
+</div></div></section></main><footer class="pie"><div class="in">
+<p class="grande" translate="no">Ruvï</p>
+<div class="fila"><span>Herramientas para preparar oposiciones · <a href="mailto:hola@ruvilab.es">hola@ruvilab.es</a></span>
+<nav aria-label="Legal"><a href="/plantilla-repaso/">Plantilla de Repaso</a><a href="/dos-decimas/">Dos Décimas</a><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a></nav></div>
 </div></footer>
 <script>
 (function(){
-  // Demos plegables: cada botón con data-demo="x" abre o cierra el bloque id="demo-x" (con su vídeo horizontal y vertical)
-  var cual=function(c){var vs=c.querySelectorAll("video");return matchMedia("(max-width:820px)").matches?vs[1]:vs[0]};
-  var parar=function(c){c.querySelectorAll("video").forEach(function(v){v.pause();try{v.currentTime=0}catch(e){}})};
-  var cerrar=function(c){parar(c);c.hidden=true;document.querySelectorAll('[data-demo="'+c.id.slice(5)+'"]').forEach(function(b){b.setAttribute("aria-expanded","false")})};
-  var abrir=function(c){document.querySelectorAll(".demo").forEach(function(o){if(o!==c&&!o.hidden)cerrar(o)});c.hidden=false;
-    document.querySelectorAll('[data-demo="'+c.id.slice(5)+'"]').forEach(function(b){b.setAttribute("aria-expanded","true")});
-    c.scrollIntoView({behavior:"smooth",block:"start"});var p=cual(c).play();if(p&&p.catch)p.catch(function(){})};
-  document.querySelectorAll("[data-demo]").forEach(function(b){var c=document.getElementById("demo-"+b.dataset.demo);if(!c)return;
-    b.addEventListener("click",function(){c.hidden?abrir(c):cerrar(c)})});
-  document.querySelectorAll(".demo").forEach(function(c){var x=c.querySelector(".demo-cerrar");
-    x.addEventListener("click",function(){cerrar(c);var t=document.querySelector('.producto[data-de="'+c.id.slice(5)+'"]');if(t)t.scrollIntoView({behavior:"smooth",block:"start"})});
-    // al terminar, deja a la vista el botón para quitar el vídeo
-    c.querySelectorAll("video").forEach(function(v){v.addEventListener("ended",function(){x.classList.add("fin");x.scrollIntoView({behavior:"smooth",block:"center"});x.focus({preventScroll:true})});v.addEventListener("play",function(){x.classList.remove("fin")})})});
+  var ents=document.querySelectorAll(".ent"),ver=function(e){e.classList.add("visto")};
+  if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){ver(e.target);io.unobserve(e.target)}})},{rootMargin:"0px 0px -10% 0px"});ents.forEach(function(e){io.observe(e)})}
+  else ents.forEach(ver);
+  setTimeout(function(){ents.forEach(ver)},1500);
 })();
 </script>
 </body></html>

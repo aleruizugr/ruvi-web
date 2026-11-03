@@ -4,6 +4,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Dos Décimas · Tests de Policía Nacional</title>
 <meta name="description" content="Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.">
+
 <meta name="theme-color" content="#F5F3F0">
 <meta property="og:title" content="Dos Décimas · Tests de Policía Nacional">
 <meta property="og:description" content="Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.">
@@ -16,12 +17,12 @@
 <link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
 <link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
 <link rel="preload" href="/fuentes/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/dd.css?v=e25b0016">
+<link rel="stylesheet" href="/web.css?v=524e7f57">
 <script>document.documentElement.classList.add("js")</script>
 </head><body>
 <header class="cab"><div class="in">
-<a class="marca" href="/dos-decimas/" aria-label="Dos Décimas, inicio"><img src="/img/dosdecimas-logo.png?v=cd061bc4" alt="" width="36" height="36" translate="no">Dos Décimas</a>
-<nav aria-label="Menú"><a class="opc" href="#como">Cómo funciona</a><a class="opc" href="#planes">Precios</a><a href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="https://dosdecimas.ruvilab.es">Entrar</a></nav>
+<a class="marca" href="/dos-decimas/" aria-label="Dos Décimas, inicio"><img src="/img/dosdecimas-logo.png?v=cd061bc4" alt="" width="36" height="36">Dos Décimas</a>
+<nav aria-label="Menú"><a class="opc" href="/dos-decimas/#como">Cómo funciona</a><a class="opc" href="/dos-decimas/#planes">Precios</a><a href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="https://dosdecimas.ruvilab.es">Entrar</a></nav>
 </div></header>
 <main>
 <section class="portada"><div class="in">
@@ -181,8 +182,9 @@
 <footer class="pie"><div class="in">
 <p class="grande" translate="no">Dos Décimas</p>
 <div class="fila"><span>Tests de Policía Nacional, Escala Básica · Un proyecto de <a href="/">Ruvï</a> · <a href="mailto:dosdecimas@ruvilab.es">dosdecimas@ruvilab.es</a></span>
-<nav aria-label="Legal"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="https://dosdecimas.ruvilab.es">Entrar en la app</a></nav></div>
-</div></footer><script>
+<nav aria-label="Legal"><a href="https://dosdecimas.ruvilab.es">Entrar en la app</a><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a></nav></div>
+</div></footer>
+<script>
 (function(){
   var URL="https://lolqvimwnlikytbsnvsn.supabase.co/rest/v1/rpc/pedir_prueba",CLAVE="sb_publishable_JHbrAd6FUpp-js3O44kCjg_J6qPVFoL",APPDD="https://dosdecimas.ruvilab.es",CORREO="dosdecimas@ruvilab.es";
   window.activarPrueba=function(f){if(!f||f.dataset.listo)return;f.dataset.listo=1;
@@ -217,13 +219,14 @@
       var ac=Math.ceil(d/0.1-1e-9),bl=Math.ceil(d/0.05-1e-9);
       s.innerHTML="Te faltarían <b>"+coma(d)+"</b>. "+(ac===1?"Eso es":"Eso son")+" <b>"+pl(ac,"acierto","aciertos")+" más</b>, o <b>"+pl(bl,"fallo","fallos")+"</b> que tendrías que haber dejado en blanco."};
     r.addEventListener("input",pinta);pinta()}
-  // Entradas de cada bloque al llegar a él (sin JS o con «reducir movimiento» se ve todo desde el principio)
-  var ents=document.querySelectorAll(".ent");
-  if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visto");io.unobserve(e.target)}})},{rootMargin:"0px 0px -10% 0px"});ents.forEach(function(e){io.observe(e)})}
-  else ents.forEach(function(e){e.classList.add("visto")});
-  // por si el navegador no avisa (pestaña en segundo plano, capturas): nada se queda escondido
-  setTimeout(function(){ents.forEach(function(e){e.classList.add("visto")})},1500);
   if(location.hash==="#precio")location.hash="#planes";
+})();
+</script><script>
+(function(){
+  var ents=document.querySelectorAll(".ent"),ver=function(e){e.classList.add("visto")};
+  if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){ver(e.target);io.unobserve(e.target)}})},{rootMargin:"0px 0px -10% 0px"});ents.forEach(function(e){io.observe(e)})}
+  else ents.forEach(ver);
+  setTimeout(function(){ents.forEach(ver)},1500);
 })();
 </script>
 </body></html>
