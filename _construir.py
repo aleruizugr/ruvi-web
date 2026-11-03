@@ -413,6 +413,39 @@ FAQ_DD_HTML = "".join(f'<details><summary>{q}{_MAS}</summary><p>{r}</p></details
 # todo ocurre en el navegador y no se guarda ni se envía nada.
 import json as _json
 _TG = _json.dumps(_json.loads((R / "_fuentes" / "test-gratis.json").read_text(encoding="utf-8")), ensure_ascii=False).replace("</", "<\\/")
+
+# Cabecera de las páginas de Dos Décimas con el mundo del panel (dd.css): venta, test gratis y gracias.
+def _huella(ruta):
+    return hashlib.md5((R / ruta.lstrip("/")).read_bytes()).hexdigest()[:8]
+
+def cabeza_dd(titulo, desc, ruta, og="dosdecimas-og.jpg", noindex=False):
+    return f'''<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>{titulo}</title>
+<meta name="description" content="{html.escape(desc)}">
+{'<meta name="robots" content="noindex">' if noindex else ''}
+<meta name="theme-color" content="#0A0A0A">
+<meta property="og:title" content="{titulo}">
+<meta property="og:description" content="{html.escape(desc)}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ruvilab.es{ruta}">
+<meta property="og:image" content="https://ruvilab.es/img/{og}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_ES">
+<link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
+<link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
+<link rel="preload" href="/fuentes/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/dd.css?v={_huella("dd.css")}">
+<script>document.documentElement.classList.add("js")</script>
+</head><body>
+<header class="cab"><div class="in">
+<a class="marca" href="/dos-decimas/" aria-label="Dos Décimas, inicio"><img src="/img/dosdecimas-logo.png" alt="" width="34" height="34"><span class="nombre">Dos Décimas</span></a>
+<nav aria-label="Menú"><a class="volver opc" href="/" title="Volver a Ruvï">Ruvï</a><a class="opc" href="/dos-decimas/#como">Cómo funciona</a><a href="/dos-decimas/#planes">Precios</a><a class="opc" href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="{DD_APP}">Entrar</a></nav>
+</div></header>'''
+
 _TG_JS = """<script>
 (function(){
   var P=__PREGUNTAS__,CORTE=7.05,SEG=600,i=0,res=P.map(function(){return null}),fin=0,reloj=null;
@@ -436,7 +469,7 @@ _TG_JS = """<script>
     var tit=nota>=CORTE?"Con esta nota superarías el corte de 2026":dif<=1?"Te quedarías a "+coma(dif)+" del corte":"Te faltarían "+coma(dif)+" puntos para el corte";
     var txt=nota>=CORTE?"Buena señal, pero 20 preguntas son solo una muestra. Compruébalo con un examen entero.":dif<=1?"Así se pierden las plazas: por décimas. Mira en qué fallas para que no te pase.":"Aún hay margen, y saber dónde fallas es lo primero para recortarlo.";
     caja.textContent="";
-    caja.appendChild(el("p","tg-nota",coma(nota)));caja.appendChild(el("p","muted","Corte de la promoción 43: 7,05 · "+A+" aciertos, "+E+" fallos y "+B+" en blanco"));
+    var np=el("p","tg-nota");np.setAttribute("aria-label","Tu nota: "+coma(nota));coma(nota).split("").forEach(function(ch){var c=el("span",ch===","?"coma":null,ch);c.setAttribute("aria-hidden","true");np.appendChild(c)});caja.appendChild(np);caja.appendChild(el("p","muted","Corte de la promoción 43: 7,05 · "+A+" aciertos, "+E+" fallos y "+B+" en blanco"));
     caja.appendChild(el("h2",null,tit));caja.appendChild(el("p","lead",txt));
     // la semana gratis, aquí mismo: el formulario viene en un <template> de la página y se copia al resultado
     var tpl=$("tg-plantilla");if(tpl&&window.activarPrueba){var pf=tpl.content.firstElementChild.cloneNode(true);caja.appendChild(el("h3",null,"Pruébala 7 días gratis"));caja.appendChild(el("p","muted","Deja tu email y normalmente entras al momento en Dos Décimas, con todos los tests, los exámenes oficiales y el simulacro."));caja.appendChild(pf);activarPrueba(pf)}
@@ -450,8 +483,8 @@ _TG_JS = """<script>
   $("tg-go").onclick=function(){fin=Date.now()+SEG*1000;reloj=setInterval(tiempo,1000);pregunta()};
 })();
 </script>""".replace("__PREGUNTAS__", _TG)
-escribir("/dos-decimas/test-gratis/", cabeza("¿Llegarías al 7,05? · Test gratis de Policía Nacional",
-  "20 preguntas reales del examen de Policía Nacional de 2026, sin registro. Compara tu nota con el corte de 7,05.", "/dos-decimas/test-gratis/", marca="dd", og="dosdecimas-test-og.jpg")
+escribir("/dos-decimas/test-gratis/", cabeza_dd("¿Llegarías al 7,05? · Test gratis de Policía Nacional",
+  "20 preguntas reales del examen de Policía Nacional de 2026, sin registro. Compara tu nota con el corte de 7,05.", "/dos-decimas/test-gratis/", og="dosdecimas-test-og.jpg")
 + """
 <main>
 <section class="tg"><div class="in"><div class="tg-in" id="tg">
@@ -467,17 +500,17 @@ escribir("/dos-decimas/test-gratis/", cabeza("¿Llegarías al 7,05? · Test grat
 # /opositores/ fue la primera dirección de Dos Décimas: se mantiene para que no se rompan los enlaces ya compartidos.
 # GitHub Pages no hace redirecciones de servidor, así que se hace desde la propia página.
 # ---------- Dos Décimas: página a la que vuelve Stripe después de pagar ----------
-escribir("/dos-decimas/gracias/", cabeza("Pago completado · Dos Décimas",
-  "Tu pago de Dos Décimas se ha completado. Entra en la app con el mismo email con el que has pagado.", "/dos-decimas/gracias/", marca="dd", noindex=True)
+escribir("/dos-decimas/gracias/", cabeza_dd("Pago completado · Dos Décimas",
+  "Tu pago de Dos Décimas se ha completado. Entra en la app con el mismo email con el que has pagado.", "/dos-decimas/gracias/", noindex=True)
 + f"""
 <main>
 <section class="texto-pag"><div class="in"><div>
   <h1>¡Ya estás dentro!</h1>
   <p class="lead">Tu pago se ha completado y Stripe te enviará el recibo a tu email. Para entrar por primera vez:</p>
   <ol class="lista-pasos">
-    <li><h3>Pulsa «Entrar en Dos Décimas»</h3><p>Se abre la app en <b>{DD_APP.replace('https://', '')}</b>. Guárdala en favoritos o añádela a la pantalla de inicio del móvil.</p></li>
-    <li><h3>Elige «Primera vez»</h3><p>Escribe <b>el mismo email con el que has pagado</b>.</p></li>
-    <li><h3>Crea tu contraseña</h3><p>Te llega un correo con un enlace o un código. Ábrelo, elige tu contraseña y a por las décimas.</p></li>
+    <li><h2>Pulsa «Entrar en Dos Décimas»</h2><p>Se abre la app en <b>{DD_APP.replace('https://', '')}</b>. Guárdala en favoritos o añádela a la pantalla de inicio del móvil.</p></li>
+    <li><h2>Elige «Primera vez»</h2><p>Escribe <b>el mismo email con el que has pagado</b>.</p></li>
+    <li><h2>Crea tu contraseña</h2><p>Te llega un correo con un enlace o un código. Ábrelo, elige tu contraseña y a por las décimas.</p></li>
   </ol>
   <a class="btn btn-p" href="{DD_APP}">Entrar en Dos Décimas</a>
   <p class="peq suave" style="margin-top:24px">¿No te llega el correo? Mira en spam o escríbenos a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p>
@@ -595,10 +628,7 @@ t = ('<!doctype html>\n<html lang="es"><head>\n<meta charset="utf-8">\n<meta nam
 escribir("/tarifas/", t)
 
 # ---------------------------------------------------------------- Dos Décimas, página nueva (el panel de tablillas)
-# Mundo propio: dd.css y dd-panel.js, sin web.css. Se prueba en /dos-decimas/nueva/ (noindex) antes de cambiar la de venta.
-def _huella(ruta):
-    return hashlib.md5((R / ruta.lstrip("/")).read_bytes()).hexdigest()[:8]
-
+# Mundo propio: dd.css y dd-panel.js, sin web.css (cabecera en cabeza_dd).
 PANEL_FILAS = [("ME QUEDÉ FUERA", "crema"), ("POR DOS DÉCIMAS.", "crema"), ("TU NOTA     6,85", "crema"),
                (f"CORTE 2026  {DD_CORTE}", "crema"), ("TE FALTAN   0,20", "cobre")]
 def _panel():
@@ -655,31 +685,8 @@ ANCLAS_JS = """<script>
 (function(){var m={"#precio":"#planes","#entrar":"#prueba","#decimas":"#empezar"};if(m[location.hash])location.replace(m[location.hash])})();
 </script>"""
 
-_cab_nueva = f'''<!doctype html>
-<html lang="es"><head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Dos Décimas · Tests de Policía Nacional</title>
-<meta name="description" content="Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.">
-<meta name="theme-color" content="#0A0A0A">
-<meta property="og:title" content="Dos Décimas · Tests de Policía Nacional">
-<meta property="og:description" content="Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ruvilab.es/dos-decimas/">
-<meta property="og:image" content="https://ruvilab.es/img/dosdecimas-og.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:locale" content="es_ES">
-<link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
-<link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
-<link rel="preload" href="/fuentes/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/dd.css?v={_huella("dd.css")}">
-<script>document.documentElement.classList.add("js")</script>
-</head><body>
-<header class="cab"><div class="in">
-<a class="marca" href="/dos-decimas/" aria-label="Dos Décimas, inicio"><img src="/img/dosdecimas-logo.png" alt="" width="34" height="34"><span class="nombre">Dos Décimas</span></a>
-<nav aria-label="Menú"><a class="volver opc" href="/" title="Volver a Ruvï">Ruvï</a><a class="opc" href="#como">Cómo funciona</a><a href="#planes">Precios</a><a class="opc" href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="{DD_APP}">Entrar</a></nav>
-</div></header>'''
+_cab_nueva = cabeza_dd("Dos Décimas · Tests de Policía Nacional",
+  "Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.", "/dos-decimas/")
 
 escribir("/dos-decimas/", _cab_nueva + f"""
 <main>

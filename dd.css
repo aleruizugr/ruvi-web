@@ -194,3 +194,49 @@ h1,h2,h3{margin:0;font-family:var(--f);font-weight:800;font-stretch:72%;text-tra
   .js .ent.visto .gira:nth-child(2){transition-delay:.06s}
   .js .ent.visto .gira:nth-child(3){transition-delay:.12s}
 }
+
+/* ---------- Test gratis: cada opción es una fila del panel y la nota sale en tablillas ---------- */
+.peq{font-size:1rem}
+.lead{font-size:1.2rem;line-height:1.45}
+.muted{color:var(--crema-2)}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.tg{padding:clamp(32px,5vw,72px) 0 var(--hueco)}
+.tg-in{max-width:780px;display:flex;flex-direction:column;gap:20px}
+.tg-in h1{font-size:clamp(3rem,9vw,6rem)}
+.tg-in .sub{font-size:clamp(1.15rem,1.8vw,1.4rem);line-height:1.4}
+.tg-in .lista{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.tg-in .lista li{background:var(--carcasa);border-radius:8px;padding:14px 18px;font-size:1.05rem}
+.tg-in .lista b{color:var(--cobre-2)}
+.tg-cab{display:flex;justify-content:space-between;align-items:center}
+.tg-n{display:inline-flex;position:relative;background:var(--tablilla);border-radius:4px;padding:.2em .5em .14em;font-weight:800;font-stretch:65%;font-size:1.5rem;line-height:1;font-variant-numeric:tabular-nums}
+.tg-n::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--raya)}
+.tg-barra{height:6px;border-radius:3px;background:var(--tablilla);overflow:hidden}
+.tg-barra i{display:block;height:100%;background:var(--cobre)}
+.tg-q{font-weight:700;font-size:clamp(1.25rem,2.2vw,1.55rem);line-height:1.35}
+.tg-op{display:flex;gap:16px;align-items:center;width:100%;text-align:left;font:400 1.08rem/1.4 var(--f);color:var(--crema);background:var(--carcasa);border:2px solid transparent;border-radius:8px;padding:16px 18px;cursor:pointer;transition:background-color .15s,border-color .15s;touch-action:manipulation}
+.tg-op:hover{background:var(--tablilla);border-color:var(--cobre)}
+.tg-op b{flex:none;position:relative;display:grid;place-items:center;width:36px;height:44px;border-radius:4px;background:var(--tablilla);color:var(--crema);font-weight:800;font-stretch:65%;font-size:1.5rem;text-transform:uppercase}
+.tg-op b::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--raya)}
+.tg-op:hover b{background:var(--cobre);color:var(--sobre-cobre)}
+.tg-bl{align-self:flex-start}
+.tg-nota{display:flex;gap:6px;margin:8px 0 4px}
+.tg-nota span{position:relative;display:grid;place-items:center;width:clamp(64px,16vw,104px);aspect-ratio:1/1.44;border-radius:6px;background:var(--cobre);color:var(--sobre-cobre);font-weight:800;font-stretch:65%;font-size:clamp(3.4rem,11vw,5.6rem);line-height:1;padding-top:.04em}
+.tg-nota span::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;background:var(--raya)}
+.tg-nota span.coma{width:clamp(28px,7vw,44px)}
+.tg-in h2{font-size:clamp(2rem,5vw,3.4rem)}
+.tg-in h3{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-top:28px}
+.tg-mal{background:var(--carcasa);border-radius:8px;padding:18px 20px}
+.tg-mq{font-weight:700}
+.tg-no{color:var(--mal);margin-top:8px}
+.tg-si{color:#9FD3A4;font-weight:700;margin-top:4px}
+
+/* ---------- Gracias (y páginas de texto de Dos Décimas) ---------- */
+.texto-pag{padding:clamp(40px,6vw,88px) 0 var(--hueco)}
+.texto-pag .in>div{max-width:780px}
+.texto-pag h1{font-size:clamp(3rem,9vw,6rem);margin-bottom:24px}
+.lista-pasos{list-style:none;margin:32px 0;padding:0;display:grid;gap:8px;counter-reset:p}
+.lista-pasos li{counter-increment:p;background:var(--carcasa);border-radius:8px;padding:20px 22px 20px 88px;position:relative}
+.lista-pasos li::before{content:counter(p);position:absolute;left:20px;top:18px;display:grid;place-items:center;width:48px;height:62px;border-radius:4px;background:var(--tablilla);color:var(--cobre-2);font-weight:800;font-stretch:65%;font-size:2.2rem;background-image:linear-gradient(var(--raya),var(--raya));background-size:100% 1px;background-position:0 50%;background-repeat:no-repeat}
+.lista-pasos h2,.lista-pasos h3{font-size:1.5rem;margin-bottom:6px}
+.lista-pasos p{color:var(--crema-2)}
+.lista-pasos b{color:var(--crema)}
