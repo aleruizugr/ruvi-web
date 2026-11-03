@@ -349,6 +349,7 @@ FAQ_DD = [
   ("¿Puedo probarla antes de pagar?", "Sí: 7 días gratis, sin tarjeta. Deja tu email en «Pruébala 7 días gratis» y entras al momento."),
   ("¿Cómo entro después de pagar?", f"Entra en {DD_APP.replace('https://', '')}, pulsa «Primera vez» y escribe el mismo email con el que has pagado. Te llega un correo para crear tu contraseña y ya está."),
   ("¿Están actualizadas a la ley vigente?", "Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos."),
+  ("¿Qué cubre y qué no?", "Cubre la prueba de conocimientos: tests de los 45 temas de la Escala Básica, 12 exámenes oficiales desde 2015 y un simulacro cada fin de semana. También te ayuda con las físicas, con el baremo oficial. No es un temario para estudiar desde cero: es para practicar lo que estudias. Tampoco incluye psicotécnicos ni la entrevista."),
   ("¿Funciona en el móvil?", "Sí. Se abre en el navegador del móvil o del ordenador y puedes añadirla a la pantalla de inicio como una app, sin pasar por ninguna tienda."),
   ("¿Puedo darme de baja cuando quiera?", "Sí, sin permanencia. Mantienes el acceso hasta el final de lo que ya pagaste. El curso completo es un pago único y no se renueva."),
   ("¿Y si no me convence?", f"Tienes 14 días para desistir y te devolvemos todo, aunque ya la hayas usado. Basta con escribir a {DD_CORREO}."),
@@ -435,6 +436,18 @@ escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
     <input type="range" id="calc-nota" min="300" max="800" step="5" value="685">
     <div class="marcas" aria-hidden="true"><span>3,00</span><span>Corte de 2026: {DD_CORTE}</span><span>8,00</span></div>
     <p class="salida" id="calc-salida" aria-live="polite">Te faltarían <b>0,20</b>. Eso son <b>2 aciertos más</b>, o <b>4 fallos</b> que tendrías que haber dejado en blanco.</p>
+  </div>
+</div></section>
+
+<section class="sec compara"><div class="in">
+  <div class="ent"><h2>No es otro banco de preguntas</h2>
+    <p class="lead">Un banco de preguntas te dice si has fallado. Dos Décimas te dice por qué y no te deja volver a fallar lo mismo.</p></div>
+  <div class="tabla ent" role="table" aria-label="Un banco de preguntas frente a Dos Décimas">
+    <div class="fila cab-fila" role="row"><span role="columnheader">Un banco de preguntas</span><span role="columnheader">Dos Décimas</span></div>
+    <div class="fila" role="row"><span role="cell">Te dice que has fallado.</span><span role="cell"><b>Mis trampas</b> te dice en qué tipo de pregunta caes siempre: plazos, números, «podrá» o «deberá».</span></div>
+    <div class="fila" role="row"><span role="cell">Contestas o dejas en blanco a ojo.</span><span role="cell">Marcas <b>«Dudo»</b> y sabes si arriesgar te está sumando o restando.</span></div>
+    <div class="fila" role="row"><span role="cell">Te da la respuesta buena.</span><span role="cell">Te da <b>el porqué y el artículo de la ley</b>, comprobado con el BOE vigente.</span></div>
+    <div class="fila" role="row"><span role="cell">Repites tests al azar.</span><span role="cell"><b>Tus fallos vuelven</b> hasta que los aciertas, en un repaso de 5 minutos al día.</span></div>
   </div>
 </div></section>
 
