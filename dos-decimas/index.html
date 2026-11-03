@@ -4,8 +4,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Dos Décimas · Tests de Policía Nacional</title>
 <meta name="description" content="Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.">
-
-<meta name="theme-color" content="#F5F3F0">
+<meta name="theme-color" content="#0A0A0A">
 <meta property="og:title" content="Dos Décimas · Tests de Policía Nacional">
 <meta property="og:description" content="Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.">
 <meta property="og:type" content="website">
@@ -16,19 +15,30 @@
 <meta property="og:locale" content="es_ES">
 <link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
 <link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
-<link rel="preload" href="/fuentes/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/web.css?v=58c1d34f">
+<link rel="preload" href="/fuentes/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/dd.css?v=1a7566b0">
 <script>document.documentElement.classList.add("js")</script>
 </head><body>
 <header class="cab"><div class="in">
-<a class="marca" href="/dos-decimas/" aria-label="Dos Décimas, inicio"><img src="/img/dosdecimas-logo.png?v=cd061bc4" alt="" width="36" height="36"><span class="nombre">Dos Décimas</span></a>
-<nav aria-label="Menú"><a class="volver" href="/" title="Volver a Ruvï">Ruvï</a><a class="opc" href="/dos-decimas/#como">Cómo funciona</a><a class="opc" href="/dos-decimas/#planes">Precios</a><a href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="https://dosdecimas.ruvilab.es">Entrar</a></nav>
+<a class="marca" href="/dos-decimas/" aria-label="Dos Décimas, inicio"><img src="/img/dosdecimas-logo.png?v=cd061bc4" alt="" width="34" height="34"><span class="nombre">Dos Décimas</span></a>
+<nav aria-label="Menú"><a class="volver opc" href="/" title="Volver a Ruvï">Ruvï</a><a class="opc" href="#como">Cómo funciona</a><a href="#planes">Precios</a><a class="opc" href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="https://dosdecimas.ruvilab.es">Entrar</a></nav>
 </div></header>
 <main>
-<section class="portada con-tel"><div class="in">
-  <div class="titulo"><h1>Me quedé fuera por dos décimas.</h1></div>
-  <div>
-    <p class="sub">Que a ti no te pase. Dos Décimas es la app de tests de Policía Nacional que te enseña dónde pierdes las tuyas: en un plazo, en un «NO» que no leíste o en una duda que arriesgaste.</p>
+<section class="portada"><div class="in">
+  <h1 class="solo-lector">Me quedé fuera por dos décimas.</h1>
+  <div class="panel" data-filas="[[&quot;ME QUEDÉ FUERA  &quot;, &quot;crema&quot;], [&quot;POR DOS DÉCIMAS.&quot;, &quot;crema&quot;], [&quot;TU NOTA     6,85&quot;, &quot;crema&quot;], [&quot;CORTE 2026  7,05&quot;, &quot;crema&quot;], [&quot;TE FALTAN   0,20&quot;, &quot;cobre&quot;]]" aria-hidden="true"><div class="panel-marco"><div class="panel-dom"><div class="fila-p"><span>M</span><span>E</span><span>&nbsp;</span><span>Q</span><span>U</span><span>E</span><span>D</span><span>É</span><span>&nbsp;</span><span>F</span><span>U</span><span>E</span><span>R</span><span>A</span><span>&nbsp;</span><span>&nbsp;</span></div><div class="fila-p"><span>P</span><span>O</span><span>R</span><span>&nbsp;</span><span>D</span><span>O</span><span>S</span><span>&nbsp;</span><span>D</span><span>É</span><span>C</span><span>I</span><span>M</span><span>A</span><span>S</span><span>.</span></div><div class="fila-p"><span>T</span><span>U</span><span>&nbsp;</span><span>N</span><span>O</span><span>T</span><span>A</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>6</span><span>,</span><span>8</span><span>5</span></div><div class="fila-p"><span>C</span><span>O</span><span>R</span><span>T</span><span>E</span><span>&nbsp;</span><span>2</span><span>0</span><span>2</span><span>6</span><span>&nbsp;</span><span>&nbsp;</span><span>7</span><span>,</span><span>0</span><span>5</span></div><div class="fila-p cobre"><span>T</span><span>E</span><span>&nbsp;</span><span>F</span><span>A</span><span>L</span><span>T</span><span>A</span><span>N</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>0</span><span>,</span><span>2</span><span>0</span></div></div></div><div class="panel-3d"></div></div>
+  <div class="mando">
+    <label for="nota">Mueve tu nota</label>
+    <input type="range" id="nota" min="300" max="800" step="5" value="685">
+    <button type="button" class="sonido" id="sonido" aria-pressed="false">Sonido: no</button>
+    <p class="ver-wrap solo-lector"><span>Tu nota:</span> <span class="ver num" id="nota-ver">6,85</span></p>
+    <p class="salida" id="salida" aria-live="polite">Te faltan <b>0,20</b>: 2 aciertos más o 4 fallos dejados en blanco.</p>
+  </div>
+  <div class="entrada">
+    <div>
+      <p class="sub">Saqué un 6,85 y el corte fue un 7,05. Dos Décimas te enseña <b>dónde pierdes las tuyas</b>, para que a ti no te pase.</p>
+      <p class="mas"><a class="enlace" href="/dos-decimas/test-gratis/">Haz el test gratis de 20 preguntas</a><a class="enlace" href="#planes">Mira los precios</a></p>
+    </div>
     <div class="alta" id="empezar"><form class="alta-form prueba-form" data-origen="web" novalidate>
     <label class="campo campo-nombre"><b>Tu nombre</b>
       <input type="text" name="nombre" required maxlength="40" autocomplete="given-name" autocapitalize="words" placeholder="Cómo te llamas"></label>
@@ -39,111 +49,52 @@
     <p class="nota">7 días con todo, sin tarjeta. Usamos tu nombre y tu email solo para darte acceso y mandarte cómo entrar, como dice la <a href="https://dosdecimas.ruvilab.es/privacidad.html">política de privacidad</a>.</p>
     <div class="aviso" role="status" hidden></div>
   </form></div>
-    <p class="test">¿Primero quieres ver cómo vas? <a class="enlace" href="/dos-decimas/test-gratis/">Haz el test gratis de 20 preguntas</a></p>
-    <p class="test">¿Ya lo tienes claro? <a class="enlace" href="#planes">Mira los precios</a></p>
-  </div>
-  <div class="escena" role="group" aria-label="La app por dentro">
-    <div class="tel-marco"><div class="tel">
-      <div class="tel-canto" aria-hidden="true"><i style="--z:1"></i><i style="--z:2"></i><i style="--z:3"></i><i style="--z:4"></i><i style="--z:5"></i><i style="--z:6"></i><i style="--z:7"></i><i style="--z:8"></i><i style="--z:9"></i><i style="--z:10"></i><i style="--z:11"></i></div>
-      <div class="tel-espalda" aria-hidden="true"><img src="/img/dosdecimas-logo.png?v=cd061bc4" alt="" width="72" height="72"></div>
-      <div class="tel-frente"><div class="tel-pantalla"><img class="activa" data-p="pregunta" src="/img/app-pregunta.png?v=5094978d" alt="Una pregunta tipo test en la app, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" data-alt="Una pregunta tipo test en la app, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" width="780" height="1400" fetchpriority="high"><img class="" data-p="resultado" src="/img/app-resultado.png?v=cfd302d4" alt="" data-alt="Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, y cuántos puntos le ha sumado arriesgar en las que dudaba" aria-hidden="true" width="780" height="1496" loading="lazy"><img class="" data-p="cuaderno" src="/img/app-cuaderno.png?v=bda04a21" alt="" data-alt="Mi cuaderno: un test con su nota, 7 aciertos y 3 errores, y una pregunta fallada con la respuesta dada, la correcta y el porqué" aria-hidden="true" width="780" height="1496" loading="lazy"><img class="" data-p="temas" src="/img/app-temas.png?v=89b4cd99" alt="" data-alt="Pantalla «Cómo vas en cada tema»: cada tema con su porcentaje de acierto y su barra, del más flojo al más fuerte" aria-hidden="true" width="780" height="1496" loading="lazy"></div></div>
-      <div class="tel-notas" aria-hidden="true"><p class="tel-nota a activa" data-p="pregunta">Cronómetro y −0,5 por fallo, como el examen</p><p class="tel-nota b activa" data-p="pregunta">«Dudo»: marca las que no tienes claras</p><p class="tel-nota a" data-p="resultado">Sabes si arriesgar te suma o te resta</p><p class="tel-nota b" data-p="resultado">Un toque y repasas solo tus fallos</p><p class="tel-nota a" data-p="cuaderno">Cada fallo, con la buena y el porqué</p><p class="tel-nota b" data-p="cuaderno">Repite solo las que fallaste</p><p class="tel-nota a" data-p="temas">Del tema más flojo al más fuerte</p><p class="tel-nota b" data-p="temas">Tocas uno y lo practicas</p></div>
-    </div></div>
-    <div class="tel-botones" aria-label="Elige una pantalla"><button type="button" data-p="pregunta" aria-pressed="true">Pregunta</button><button type="button" data-p="resultado" aria-pressed="false">Resultado</button><button type="button" data-p="cuaderno" aria-pressed="false">Mi cuaderno</button><button type="button" data-p="temas" aria-pressed="false">Temas</button></div>
-    <p class="tel-pista" aria-hidden="true">Arrástralo para girarlo</p>
   </div>
 </div></section>
 
-<section class="sec campo-oscuro calc" id="decimas"><div class="in">
-  <div class="texto ent">
-    <h2>¿Cuánto te faltó a ti?</h2>
-    <p>Yo saqué un 6,85 y el corte fue un 7,05: con cuatro fallos menos, dejados en blanco, habría entrado. Mueve la barra con tu nota y mira qué te separó a ti.</p>
-  </div>
-  <div class="mando ent">
-    <label for="calc-nota">Tu nota en el último examen</label>
-    <p class="nota" id="calc-ver" aria-hidden="true">6,85<span>/ 10</span></p>
-    <input type="range" id="calc-nota" min="300" max="800" step="5" value="685">
-    <div class="marcas" aria-hidden="true"><span>3,00</span><span>Corte de 2026: 7,05</span><span>8,00</span></div>
-    <p class="salida" id="calc-salida" aria-live="polite">Te faltarían <b>0,20</b>. Eso son <b>2 aciertos más</b>, o <b>4 fallos</b> que tendrías que haber dejado en blanco.</p>
+<section class="sec vias" id="como"><div class="in">
+  <div class="cabeza-sec ent"><h2 class="titulo gira">Dónde se van <em>tus décimas</em></h2><p class="gira">Un banco de preguntas te dice que has fallado. Dos Décimas te dice por qué y no te deja fallar lo mismo otra vez.</p></div>
+  <div class="cuerpo">
+    <div>
+      <ul class="lista-vias"><li><button type="button" class="via" data-via="pregunta" aria-pressed="true"><span class="n">01</span><span class="que">Pregunta</span><span class="para">La lupa te marca los «NO» y los «salvo». Si no lo tienes claro, pulsas «Dudo».</span></button></li><li><button type="button" class="via" data-via="resultado" aria-pressed="false"><span class="n">02</span><span class="que">Resultado</span><span class="para">Tu nota con −0,5 por fallo y si arriesgar te ha sumado o restado.</span></button></li><li><button type="button" class="via" data-via="cuaderno" aria-pressed="false"><span class="n">03</span><span class="que">Mi cuaderno</span><span class="para">Cada fallo con la respuesta buena, el porqué y el artículo, y un botón para repetir solo esas.</span></button></li><li><button type="button" class="via" data-via="temas" aria-pressed="false"><span class="n">04</span><span class="que">Temas</span><span class="para">Del tema más flojo al más fuerte. Tocas uno y lo practicas.</span></button></li></ul>
+      <p class="ademas">Y además: <b>Mis trampas</b> (en qué tipo de pregunta caes), <b>repaso de 5 minutos</b> al día con tus fallos y <b>12 exámenes oficiales</b> desde 2015 con su corte.</p>
+    </div>
+    <div class="pantalla" aria-live="polite"><div class="vidrio"><img src="/img/app-pregunta.png?v=5094978d" data-via="pregunta" data-alt="Una pregunta tipo test en la app, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" alt="Una pregunta tipo test en la app, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" class="activa" width="780" height="1496" loading="lazy"><img src="/img/app-resultado.png?v=cfd302d4" data-via="resultado" data-alt="Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, y cuántos puntos le ha sumado arriesgar en las que dudaba" alt="" aria-hidden="true" class="" width="780" height="1496" loading="lazy"><img src="/img/app-cuaderno.png?v=bda04a21" data-via="cuaderno" data-alt="Mi cuaderno: un test con su nota, 7 aciertos y 3 errores, y una pregunta fallada con la respuesta dada, la correcta y el porqué" alt="" aria-hidden="true" class="" width="780" height="1496" loading="lazy"><img src="/img/app-temas.png?v=89b4cd99" data-via="temas" data-alt="Pantalla «Cómo vas en cada tema»: cada tema con su porcentaje de acierto y su barra, del más flojo al más fuerte" alt="" aria-hidden="true" class="" width="780" height="1496" loading="lazy"></div></div>
   </div>
 </div></section>
 
-<section class="sec compara"><div class="in">
-  <div class="ent"><h2>No es otro banco de preguntas</h2>
-    <p class="lead">Un banco de preguntas te dice si has fallado. Dos Décimas te dice por qué y no te deja volver a fallar lo mismo.</p></div>
-  <div class="tabla ent" role="table" aria-label="Un banco de preguntas frente a Dos Décimas">
-    <div class="fila cab-fila" role="row"><span role="columnheader">Un banco de preguntas</span><span role="columnheader">Dos Décimas</span></div>
-    <div class="fila" role="row"><span role="cell">Te dice que has fallado.</span><span role="cell"><b>Mis trampas</b> te dice en qué tipo de pregunta caes siempre: plazos, números, «podrá» o «deberá».</span></div>
-    <div class="fila" role="row"><span role="cell">Contestas o dejas en blanco a ojo.</span><span role="cell">Marcas <b>«Dudo»</b> y sabes si arriesgar te está sumando o restando.</span></div>
-    <div class="fila" role="row"><span role="cell">Te da la respuesta buena.</span><span role="cell">Te da <b>el porqué y el artículo de la ley</b>, comprobado con el BOE vigente.</span></div>
-    <div class="fila" role="row"><span role="cell">Repites tests al azar.</span><span role="cell"><b>Tus fallos vuelven</b> hasta que los aciertas, en un repaso de 5 minutos al día.</span></div>
-  </div>
+<section class="sec simu"><div class="in">
+  <div class="cabeza-sec ent"><h2 class="titulo gira">Un simulacro <em>cada fin de semana</em></h2><p class="gira">Como el día del examen: un intento y sin repetir.</p></div>
+  <ul class="salidas ent">
+    <li class="gira"><span class="hora"><span class="rotulo">VIE</span><span class="rotulo">14:00</span></span><span class="destino">Simulacro<small>100 preguntas y 50 minutos</small></span><span class="estado"><span class="rotulo cobre">Abre</span></span></li>
+    <li class="gira"><span class="hora"><span class="rotulo">DOM</span><span class="rotulo">21:00</span></span><span class="destino">Tu nota, la media y el corte<small>Al cerrar ves si habrías pasado</small></span><span class="estado"><span class="rotulo">Cierra</span></span></li>
+  </ul>
+  <div class="fisicas ent"><h3 class="gira">Y las físicas</h3><p class="gira">Apunta tus marcas del circuito, las dominadas o la suspensión y los 1.000 metros con el baremo oficial de hombres o de mujeres: tus puntos, si serías apto y cuánto te falta para el siguiente punto.</p></div>
 </div></section>
 
-<section class="sec func" id="como"><div class="in">
-  <div class="ent">
-    <h2>Cada pregunta te enseña algo</h2>
-    <ul class="lista">
-      <li><b>La lupa</b>Te resalta los «NO», «salvo» y «excepto» del enunciado, que es donde se escapan las décimas.</li>
-      <li><b>Cada corrección, con su ley</b>La respuesta buena, el porqué y lo que dice el artículo.</li>
-      <li><b>«Dudo»</b>Marca las que no tienes claras y la app te dice si arriesgar te suma o te resta.</li>
-      <li><b>Como el examen</b>Tres opciones, −0,5 por fallo y cronómetro.</li>
-    </ul>
-  </div>
-  <div class="movil ent"><img src="/img/app-resultado.png?v=cfd302d4" alt="Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, y cuántos puntos le ha sumado arriesgar en las que dudaba" width="780" height="1496" loading="lazy"></div>
+<section class="sec" id="planes"><div class="in">
+  <div class="cabeza-sec ent"><h2 class="titulo gira">Tarifas</h2><p class="gira">Todas incluyen lo mismo. Sin permanencia y con el IVA incluido.</p></div>
+  <ul class="tarifas"><li class="tarifa fundador"><span class="plan">Fundador</span><span class="precio">7,99 €<small>al mes</small></span>
+      <span class="det">Solo para las 30 primeras personas, para siempre mientras sigas suscrito. Después, 10,99 € al mes.</span>
+      <a class="btn" href="https://buy.stripe.com/3cIcN7bck9DibmO7Vx04801" rel="noopener">Quiero este precio</a></li><li class="tarifa"><span class="plan">Mensual</span><span class="precio">10,99 €<small>al mes</small></span>
+      <span class="det">Se renueva cada mes. Sin permanencia.</span><a class="btn btn-s" href="https://buy.stripe.com/cNi28tbckbLq9eGfnZ04800" rel="noopener">Elegir</a></li><li class="tarifa"><span class="plan">Trimestre</span><span class="precio">29,99 €<small>cada 3 meses</small></span>
+      <span class="det">Sale a 9,99 € al mes (<b>−9 %</b>). Se renueva cada 3 meses. Sin permanencia.</span><a class="btn btn-s" href="https://buy.stripe.com/aFafZjfsA4iY9eG0t504802" rel="noopener">Elegir</a></li><li class="tarifa"><span class="plan">Semestre</span><span class="precio">54,99 €<small>cada 6 meses</small></span>
+      <span class="det">Sale a 9,17 € al mes (<b>−17 %</b>). Se renueva cada 6 meses. Sin permanencia.</span><a class="btn btn-s" href="https://buy.stripe.com/28E14peowdTy2QicbN04804" rel="noopener">Elegir</a></li><li class="tarifa dest"><span class="plan">Curso completo</span><span class="precio">89,99 €<small>pago único</small></span>
+      <span class="det">Sale a 7,50 € al mes (<b>−32 %</b>). Hasta el 31 de octubre de 2027. No se renueva.</span><a class="btn btn-p" href="https://buy.stripe.com/28E9AV2FO16McqS1x904803" rel="noopener">Elegir</a></li></ul>
+  <p class="pie-tarifas">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Tienes 14 días para desistir y te devolvemos todo. Paga con el mismo email con el que pruebas la app.</p>
 </div></section>
 
-<section class="sec func inv campo-capa"><div class="in">
-  <div class="ent">
-    <h2>Tus fallos no se olvidan</h2>
-    <ul class="lista">
-      <li><b>Mis trampas</b>En qué tipo de pregunta caes más (plazos, números, quién es competente, «podrá» o «deberá») y un test solo de eso.</li>
-      <li><b>Mi cuaderno</b>Cada test con tu nota, lo que fallaste y por qué, y un botón para repetir solo esas.</li>
-      <li><b>Repaso de 5 minutos</b>Cada día, lo que fallaste o dudaste, justo cuando toca repasarlo.</li>
-      <li><b>12 exámenes oficiales</b>Desde 2015, con el corte de cada promoción: al acabar sabes si habrías entrado.</li>
-    </ul>
-  </div>
-  <div class="movil ent"><img src="/img/app-cuaderno.png?v=bda04a21" alt="Mi cuaderno: un test con su nota, 7 aciertos y 3 errores, y una pregunta fallada con la respuesta dada, la correcta y el porqué" width="780" height="1496" loading="lazy"></div>
-</div></section>
-
-<section class="sec func"><div class="in">
-  <div class="ent">
-    <h2>Qué tema llevas peor</h2>
-    <ul class="lista">
-      <li><b>Cómo vas en cada tema</b>Del más flojo al más fuerte: por repasar, casi o bien. Tocas uno y lo practicas.</li>
-      <li><b>Las más falladas</b>Las preguntas en las que más se cae dentro de la app, para que no te pillen a ti. Cuanta más gente la usa, más afinada está.</li>
-    </ul>
-  </div>
-  <div class="movil ent"><img src="/img/app-temas.png?v=89b4cd99" alt="Pantalla «Cómo vas en cada tema»: cada tema con su porcentaje de acierto y su barra, del más flojo al más fuerte" width="780" height="1496" loading="lazy"></div>
-</div></section>
-
-<section class="sec campo-oscuro simu"><div class="in">
-  <div class="ent"><h2>Un simulacro cada fin de semana</h2></div>
-  <div class="horario ent">
-    <div><strong>Vie 14:00</strong><span class="suave">Abre. 100 preguntas y 50 minutos.</span></div>
-    <div><strong>1 intento</strong><span class="suave">Como el día del examen, sin repetir.</span></div>
-    <div><strong>Dom 21:00</strong><span class="suave">Cierra y ves tu nota, la media y si pasarías el corte.</span></div>
-  </div>
-  <div class="fisicas ent">
-    <h3>Y las físicas</h3>
-    <p>Apunta tus marcas del circuito, las dominadas o la suspensión y los 1.000 metros, con el baremo oficial de hombres o de mujeres: tus puntos, si serías apto y cuánto te falta para el siguiente punto.</p>
-  </div>
-</div></section>
-
-<section class="sec video"><div class="in ent">
-  <h2>Dos Décimas en 40 segundos</h2>
-  <div>
-    <video class="v-ancho" controls playsinline preload="none" poster="/img/dosdecimas-horizontal.jpg?v=500008f0" width="1280" height="720" aria-label="Vídeo de Dos Décimas en horizontal"><source src="/video/dosdecimas-horizontal.mp4?v=2df35196" type="video/mp4"></video>
-    <video class="v-movil" controls playsinline preload="none" poster="/img/dosdecimas-vertical.jpg?v=227f1f8b" width="720" height="1280" aria-label="Vídeo de Dos Décimas en vertical"><source src="/video/dosdecimas-vertical.mp4?v=7c23d7ca" type="video/mp4"></video>
-  </div>
-</div></section>
-
-<section class="sec campo-oscuro prueba" id="prueba"><div class="in">
-  <div class="ent">
-    <h2>Pruébala 7 días gratis</h2>
-    <p class="lead">Deja tu email y normalmente entras al momento: tests, exámenes oficiales, simulacro, tus trampas y las físicas. Sin tarjeta y sin compromiso.</p>
-  </div>
-  <div class="ent"><form class="alta-form prueba-form" data-origen="web" novalidate>
+<section class="sec cierre simu" id="prueba"><div class="in">
+  <div class="cuerpo">
+    <div class="ent">
+      <h2 class="titulo gira">Pruébala <em>7 días gratis</em></h2>
+      <ol class="pasos">
+        <li><span>Deja tu nombre y tu email aquí.</span></li>
+        <li><span>Abre <a class="enlace" href="https://dosdecimas.ruvilab.es">dosdecimas.ruvilab.es</a> y pulsa «Primera vez».</span></li>
+        <li><span>Te llega un correo para crear tu contraseña. Ya estás dentro.</span></li>
+      </ol>
+    </div>
+    <div><form class="alta-form prueba-form" data-origen="web" novalidate>
     <label class="campo campo-nombre"><b>Tu nombre</b>
       <input type="text" name="nombre" required maxlength="40" autocomplete="given-name" autocapitalize="words" placeholder="Cómo te llamas"></label>
     <label class="campo"><b>Tu email</b>
@@ -153,56 +104,14 @@
     <p class="nota">7 días con todo, sin tarjeta. Usamos tu nombre y tu email solo para darte acceso y mandarte cómo entrar, como dice la <a href="https://dosdecimas.ruvilab.es/privacidad.html">política de privacidad</a>.</p>
     <div class="aviso" role="status" hidden></div>
   </form></div>
-</div></section>
-
-<section class="sec planes" id="planes"><div class="in">
-  <div class="ent">
-    <h2>Precios</h2>
-    <p class="lead">Todos los planes incluyen lo mismo. Sin permanencia y con el IVA incluido.</p>
   </div>
-  <div class="ent"><div class="fundador">
-    <div><p class="precio">7,99 € <small>al mes</small></p>
-      <p>Precio fundador, solo para las 30 primeras personas, para siempre mientras sigas suscrito.</p>
-      <p class="suave peq">Después, 10,99 € al mes. Si te das de baja y vuelves, pagas el precio de entonces.</p></div>
-    <a class="btn btn-p" href="https://buy.stripe.com/3cIcN7bck9DibmO7Vx04801" rel="noopener">Quiero el precio fundador</a>
-  </div>
-  <div class="tarifas"><div class="tarifa">
-      <h3>Mensual</h3>
-      <p class="precio">10,99 € <small>al mes</small></p>
-      <p class="peq suave">Se renueva cada mes. Sin permanencia.</p>
-      <a class="btn btn-s" href="https://buy.stripe.com/cNi28tbckbLq9eGfnZ04800" rel="noopener">Elegir mensual</a>
-    </div><div class="tarifa">
-      <h3>Trimestre</h3>
-      <p class="precio">29,99 € <small>cada 3 meses</small></p>
-      <p class="peq suave">Sale a 9,99 € al mes (<span class="ahorro">−9 %</span>). Se renueva cada 3 meses. Sin permanencia.</p>
-      <a class="btn btn-s" href="https://buy.stripe.com/aFafZjfsA4iY9eG0t504802" rel="noopener">Elegir trimestre</a>
-    </div><div class="tarifa">
-      <h3>Semestre</h3>
-      <p class="precio">54,99 € <small>cada 6 meses</small></p>
-      <p class="peq suave">Sale a 9,17 € al mes (<span class="ahorro">−17 %</span>). Se renueva cada 6 meses. Sin permanencia.</p>
-      <a class="btn btn-s" href="https://buy.stripe.com/28E14peowdTy2QicbN04804" rel="noopener">Elegir semestre</a>
-    </div><div class="tarifa dest">
-      <h3>Curso completo</h3>
-      <p class="precio">89,99 € <small>pago único</small></p>
-      <p class="peq">Sale a 7,50 € al mes (<span class="ahorro">−32 %</span>). Hasta el 31 de octubre de 2027. No se renueva.</p>
-      <a class="btn btn-p" href="https://buy.stripe.com/28E9AV2FO16McqS1x904803" rel="noopener">Elegir curso completo</a>
-    </div></div></div>
-  <p class="pie-planes suave">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Tienes 14 días para desistir y te devolvemos todo.</p>
-</div></section>
-
-<section class="sec campo-capa pasos" id="entrar"><div class="in">
-  <div class="ent"><h2>Empieza en tres pasos</h2></div>
-  <ol class="ent">
-    <li><h3>Pide tu semana gratis</h3><p><a class="enlace" href="#prueba">Deja tu email</a> y tienes 7 días con todo, sin pagar nada.</p></li>
-    <li><h3>Entra en la app</h3><p>Abre <a class="enlace" href="https://dosdecimas.ruvilab.es">dosdecimas.ruvilab.es</a>, pulsa «Primera vez» y escribe ese mismo email.</p></li>
-    <li><h3>Crea tu contraseña</h3><p>Te llega un correo con un enlace o un código: ábrelo, elige tu contraseña y ya estás dentro.</p></li>
-  </ol>
-  <p class="peq suave" style="margin-top:40px">¿Te convence? Elige tu <a href="#planes">plan</a> con el mismo email cuando acabe la semana, o antes. Si pagas sin haberla probado, empieza en el paso 2. ¿No te llega el correo? Mira en spam o escríbenos a <a href="mailto:dosdecimas@ruvilab.es">dosdecimas@ruvilab.es</a>.</p>
 </div></section>
 
 <section class="sec faq" id="faq"><div class="in">
-  <div class="ent"><h2>Preguntas frecuentes</h2></div>
-  <div class="ent"><div><details><summary>¿Puedo probarla antes de pagar?</summary><p>Sí: 7 días gratis, sin tarjeta. Deja tu email en «Pruébala 7 días gratis» y normalmente entras al momento.</p></details><details><summary>¿Cómo entro después de pagar?</summary><p>Entra en dosdecimas.ruvilab.es, pulsa «Primera vez» y escribe el mismo email con el que has pagado. Te llega un correo para crear tu contraseña y ya está.</p></details><details><summary>¿Están actualizadas a la ley vigente?</summary><p>Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos.</p></details><details><summary>¿Qué cubre y qué no?</summary><p>Cubre la prueba de conocimientos: tests de los 45 temas de la Escala Básica, 12 exámenes oficiales desde 2015 y un simulacro cada fin de semana. También te ayuda con las físicas, con el baremo oficial. No es un temario para estudiar desde cero: es para practicar lo que estudias. Tampoco incluye psicotécnicos ni la entrevista.</p></details><details><summary>¿Funciona en el móvil?</summary><p>Sí. Se abre en el navegador del móvil o del ordenador y puedes añadirla a la pantalla de inicio como una app, sin pasar por ninguna tienda.</p></details><details><summary>¿Puedo darme de baja cuando quiera?</summary><p>Sí, sin permanencia. Mantienes el acceso hasta el final de lo que ya pagaste. El curso completo es un pago único y no se renueva.</p></details><details><summary>¿Y si no me convence?</summary><p>Tienes 14 días para desistir y te devolvemos todo, aunque ya la hayas usado. Basta con escribir a dosdecimas@ruvilab.es.</p></details></div></div>
+  <div class="cuerpo">
+    <div class="ent"><h2 class="titulo gira">Preguntas</h2><p class="suave" style="margin-top:20px">¿Otra duda? Escribe a <a href="mailto:dosdecimas@ruvilab.es">dosdecimas@ruvilab.es</a>.</p></div>
+    <div><details><summary>¿Puedo probarla antes de pagar?</summary><p>Sí: 7 días gratis, sin tarjeta. Deja tu email en «Pruébala 7 días gratis» y normalmente entras al momento.</p></details><details><summary>¿Cómo entro después de pagar?</summary><p>Entra en dosdecimas.ruvilab.es, pulsa «Primera vez» y escribe el mismo email con el que has pagado. Te llega un correo para crear tu contraseña y ya está.</p></details><details><summary>¿Están actualizadas a la ley vigente?</summary><p>Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos.</p></details><details><summary>¿Qué cubre y qué no?</summary><p>Cubre la prueba de conocimientos: tests de los 45 temas de la Escala Básica, 12 exámenes oficiales desde 2015 y un simulacro cada fin de semana. También te ayuda con las físicas, con el baremo oficial. No es un temario para estudiar desde cero: es para practicar lo que estudias. Tampoco incluye psicotécnicos ni la entrevista.</p></details><details><summary>¿Funciona en el móvil?</summary><p>Sí. Se abre en el navegador del móvil o del ordenador y puedes añadirla a la pantalla de inicio como una app, sin pasar por ninguna tienda.</p></details><details><summary>¿Puedo darme de baja cuando quiera?</summary><p>Sí, sin permanencia. Mantienes el acceso hasta el final de lo que ya pagaste. El curso completo es un pago único y no se renueva.</p></details><details><summary>¿Y si no me convence?</summary><p>Tienes 14 días para desistir y te devolvemos todo, aunque ya la hayas usado. Basta con escribir a dosdecimas@ruvilab.es.</p></details></div>
+  </div>
 </div></section>
 </main>
 <footer class="pie"><div class="in">
@@ -239,63 +148,16 @@
 })();
 </script><script>
 (function(){
-  // Calculadora de décimas: con 100 preguntas, cada acierto suma 0,10 y cada fallo resta 0,05 (−0,5 sobre 10).
-  // Pasar un fallo a blanco recupera 0,05; contestar bien una que dejaste en blanco suma 0,10.
-  var r=document.getElementById("calc-nota"),n=document.getElementById("calc-ver"),s=document.getElementById("calc-salida");
-  if(r){var CORTE=7.05,coma=function(x){return x.toFixed(2).replace(".",",")},pl=function(k,a,b){return k+" "+(k===1?a:b)};
-    var pinta=function(){var v=r.value/100,d=Math.round((CORTE-v)*100)/100;n.firstChild.nodeValue=coma(v);r.setAttribute("aria-valuetext",coma(v));
-      if(d<=0){s.innerHTML="Con un <b>"+coma(v)+"</b> habrías superado el corte de 2026. Ahora, a no perder ni una décima.";return}
-      var ac=Math.ceil(d/0.1-1e-9),bl=Math.ceil(d/0.05-1e-9);
-      s.innerHTML="Te faltarían <b>"+coma(d)+"</b>. "+(ac===1?"Eso es":"Eso son")+" <b>"+pl(ac,"acierto","aciertos")+" más</b>, o <b>"+pl(bl,"fallo","fallos")+"</b> que tendrías que haber dejado en blanco."};
-    r.addEventListener("input",pinta);pinta()}
-  if(location.hash==="#precio")location.hash="#planes";
+  // Vías: cada fila elige qué pantalla de la app se ve
+  var bs=document.querySelectorAll(".via"),pant=document.querySelector(".pantalla");if(!bs.length||!pant)return;
+  bs.forEach(function(b){b.addEventListener("click",function(){
+    bs.forEach(function(o){o.setAttribute("aria-pressed",o===b)});
+    pant.classList.add("cambia");setTimeout(function(){pant.classList.remove("cambia")},260);
+    pant.querySelectorAll("img").forEach(function(i){var si=i.dataset.via===b.dataset.via;i.classList.toggle("activa",si);i.alt=si?i.dataset.alt:"";if(si){i.removeAttribute("aria-hidden");i.loading="eager"}else i.setAttribute("aria-hidden","true")});
+  })});
 })();
-</script><script>
-(function(){
-  // Móvil 3D: inclinación con el ratón, giro al arrastrar (con inercia que vuelve sola) y una vuelta entera al cambiar de pantalla.
-  var esc=document.querySelector(".escena");if(!esc)return;
-  var tel=esc.querySelector(".tel"),marco=esc.querySelector(".tel-marco"),botones=esc.querySelectorAll(".tel-botones button");
-  var quieto=matchMedia("(prefers-reduced-motion: reduce)").matches,orden=[].map.call(botones,function(b){return b.dataset.p});
-  var ry=-28,rx=8,vy=0,arrastre=null,inclX=0,inclY=0,giro=null,actual=orden[0],tocado=false,visible=true,t0=performance.now(),ultimo=t0;
-  var poner=function(p){actual=p;
-    esc.querySelectorAll("[data-p]").forEach(function(e){var si=e.dataset.p===p;
-      if(e.tagName==="BUTTON")e.setAttribute("aria-pressed",si);
-      else{e.classList.toggle("activa",si);if(e.tagName==="IMG"){e.alt=si?e.dataset.alt:"";if(si)e.removeAttribute("aria-hidden");else e.setAttribute("aria-hidden","true")}}})};
-  var cambiar=function(p){if(p===actual&&!giro)return;
-    if(quieto){poner(p);return}
-    giro={desde:ry,hasta:ry+360,t:performance.now(),p:p,hecho:false}};
-  botones.forEach(function(b){b.addEventListener("click",function(){tocado=true;cambiar(b.dataset.p)})});
-  esc.classList.add("vivo");
-  if(quieto){esc.classList.add("quieto");tel.style.transform="rotateY(-14deg) rotateX(4deg)";return}
-  // arrastrar: solo en horizontal, para que el dedo siga pudiendo bajar por la página
-  marco.addEventListener("pointerdown",function(e){if(giro)return;arrastre={x:e.clientX,ry:ry,t:e.timeStamp,ult:e.clientX};tocado=true;marco.setPointerCapture(e.pointerId);esc.classList.add("arrastrando")});
-  marco.addEventListener("pointermove",function(e){
-    var r=marco.getBoundingClientRect();inclX=((e.clientY-r.top)/r.height-.5)*-14;inclY=((e.clientX-r.left)/r.width-.5)*20;
-    if(!arrastre)return;var dt=Math.max(1,e.timeStamp-arrastre.t);vy=(e.clientX-arrastre.ult)/dt*16*.6;arrastre.ult=e.clientX;arrastre.t=e.timeStamp;ry=arrastre.ry+(e.clientX-arrastre.x)*.6});
-  var soltar=function(){if(!arrastre)return;arrastre=null;esc.classList.remove("arrastrando")};
-  marco.addEventListener("pointerup",soltar);marco.addEventListener("pointercancel",soltar);marco.addEventListener("lostpointercapture",soltar);
-  marco.addEventListener("pointerleave",function(){if(!arrastre){inclX=0;inclY=0}});
-  var cerca=function(a){return Math.round(a/360)*360};   // vuelve de frente por el camino más corto
-  var paso=function(ahora){
-    var dt=Math.min(48,ahora-ultimo);ultimo=ahora;
-    if(giro){var k=Math.min(1,(ahora-giro.t)/1100),e=1-Math.pow(1-k,4);ry=giro.desde+(giro.hasta-giro.desde)*e;
-      if(!giro.hecho&&e>.42){poner(giro.p);giro.hecho=true}
-      if(k>=1){ry=giro.hasta;giro=null}}
-    else if(!arrastre){
-      ry+=vy;vy*=Math.pow(.92,dt/16);
-      var reposo=cerca(ry)+(tocado?0:-14+Math.sin((ahora-t0)/1400)*7);   // de entrada, un vaivén suave hasta que alguien lo toca
-      if(Math.abs(vy)<.4)ry+=(reposo-ry)*(1-Math.pow(.9,dt/16))}
-    rx+=(inclX+4-rx)*(1-Math.pow(.88,dt/16));
-    tel.style.transform="rotateX("+rx.toFixed(2)+"deg) rotateY("+(ry+inclY).toFixed(2)+"deg)";
-    var dorso=((ry%360)+360)%360;esc.classList.toggle("de-espaldas",dorso>90&&dorso<270);
-    if(visible&&!document.hidden)requestAnimationFrame(paso);else bucle=false};
-  var bucle=false,arrancar=function(){if(!bucle&&visible){bucle=true;ultimo=performance.now();requestAnimationFrame(paso)}};
-  if("IntersectionObserver" in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;arrancar()}).observe(esc);
-  document.addEventListener("visibilitychange",arrancar);
-  // cada 5 s, la siguiente pantalla, hasta que alguien toca el móvil
-  setInterval(function(){if(!tocado&&visible&&!document.hidden&&!giro)cambiar(orden[(orden.indexOf(actual)+1)%orden.length])},5000);
-  arrancar();
-})();
+</script><script src="/dd-panel.js?v=d58f45af" defer></script><script>
+(function(){var m={"#precio":"#planes","#entrar":"#prueba","#decimas":"#empezar"};if(m[location.hash])location.replace(m[location.hash])})();
 </script><script>
 (function(){
   var ents=document.querySelectorAll(".ent"),ver=function(e){e.classList.add("visto")};

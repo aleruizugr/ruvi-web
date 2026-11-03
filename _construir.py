@@ -377,20 +377,6 @@ def dd_form(origen, boton="Pruébala 7 días gratis"):
 
 
 
-DD_JS = """<script>
-(function(){
-  // Calculadora de décimas: con 100 preguntas, cada acierto suma 0,10 y cada fallo resta 0,05 (−0,5 sobre 10).
-  // Pasar un fallo a blanco recupera 0,05; contestar bien una que dejaste en blanco suma 0,10.
-  var r=document.getElementById("calc-nota"),n=document.getElementById("calc-ver"),s=document.getElementById("calc-salida");
-  if(r){var CORTE=7.05,coma=function(x){return x.toFixed(2).replace(".",",")},pl=function(k,a,b){return k+" "+(k===1?a:b)};
-    var pinta=function(){var v=r.value/100,d=Math.round((CORTE-v)*100)/100;n.firstChild.nodeValue=coma(v);r.setAttribute("aria-valuetext",coma(v));
-      if(d<=0){s.innerHTML="Con un <b>"+coma(v)+"</b> habrías superado el corte de 2026. Ahora, a no perder ni una décima.";return}
-      var ac=Math.ceil(d/0.1-1e-9),bl=Math.ceil(d/0.05-1e-9);
-      s.innerHTML="Te faltarían <b>"+coma(d)+"</b>. "+(ac===1?"Eso es":"Eso son")+" <b>"+pl(ac,"acierto","aciertos")+" más</b>, o <b>"+pl(bl,"fallo","fallos")+"</b> que tendrías que haber dejado en blanco."};
-    r.addEventListener("input",pinta);pinta()}
-  if(location.hash==="#precio")location.hash="#planes";
-})();
-</script>"""
 
 def dd_tarifas():
     tarjetas = ""
@@ -417,220 +403,8 @@ def dd_tarifas():
 FAQ_DD_HTML = "".join(f'<details><summary>{q}</summary><p>{r}</p></details>' for q, r in FAQ_DD)
 
 
-# El móvil en 3D de la portada: las pantallas reales de la app, con dos notas que flotan delante.
-# Sin JS se ve la primera pantalla de frente; con JS gira al arrastrarlo y da una vuelta al cambiar de pantalla.
-TEL_PANTALLAS = [
-  ("pregunta", "Pregunta", "app-pregunta.png", 1400, "Una pregunta tipo test en la app, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco",
-   ("Cronómetro y −0,5 por fallo, como el examen", "«Dudo»: marca las que no tienes claras")),
-  ("resultado", "Resultado", "app-resultado.png", 1496, "Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, y cuántos puntos le ha sumado arriesgar en las que dudaba",
-   ("Sabes si arriesgar te suma o te resta", "Un toque y repasas solo tus fallos")),
-  ("cuaderno", "Mi cuaderno", "app-cuaderno.png", 1496, "Mi cuaderno: un test con su nota, 7 aciertos y 3 errores, y una pregunta fallada con la respuesta dada, la correcta y el porqué",
-   ("Cada fallo, con la buena y el porqué", "Repite solo las que fallaste")),
-  ("temas", "Temas", "app-temas.png", 1496, "Pantalla «Cómo vas en cada tema»: cada tema con su porcentaje de acierto y su barra, del más flojo al más fuerte",
-   ("Del tema más flojo al más fuerte", "Tocas uno y lo practicas")),
-]
-def _tel_html():
-    capas = "".join(f'<i style="--z:{k}"></i>' for k in range(1, 12))
-    imgs, notas, botones = [], [], []
-    for n, (clave, nombre, img, alto, alt, (n1, n2)) in enumerate(TEL_PANTALLAS):
-        primera = n == 0
-        carga = ' fetchpriority="high"' if primera else ' loading="lazy"'
-        oculto = "" if primera else ' aria-hidden="true"'
-        imgs.append(f'<img class="{"activa" if primera else ""}" data-p="{clave}" src="/img/{img}" alt="{alt if primera else ""}" data-alt="{alt}"{oculto} width="780" height="{alto}"{carga}>')
-        notas.append(f'<p class="tel-nota a{" activa" if primera else ""}" data-p="{clave}">{n1}</p><p class="tel-nota b{" activa" if primera else ""}" data-p="{clave}">{n2}</p>')
-        botones.append(f'<button type="button" data-p="{clave}" aria-pressed="{"true" if primera else "false"}">{nombre}</button>')
-    return f'''<div class="escena" role="group" aria-label="La app por dentro">
-    <div class="tel-marco"><div class="tel">
-      <div class="tel-canto" aria-hidden="true">{capas}</div>
-      <div class="tel-espalda" aria-hidden="true"><img src="/img/dosdecimas-logo.png" alt="" width="72" height="72"></div>
-      <div class="tel-frente"><div class="tel-pantalla">{"".join(imgs)}</div></div>
-      <div class="tel-notas" aria-hidden="true">{"".join(notas)}</div>
-    </div></div>
-    <div class="tel-botones" aria-label="Elige una pantalla">{"".join(botones)}</div>
-    <p class="tel-pista" aria-hidden="true">Arrástralo para girarlo</p>
-  </div>'''
-TEL_HTML = _tel_html()
 
-TEL_JS = """<script>
-(function(){
-  // Móvil 3D: inclinación con el ratón, giro al arrastrar (con inercia que vuelve sola) y una vuelta entera al cambiar de pantalla.
-  var esc=document.querySelector(".escena");if(!esc)return;
-  var tel=esc.querySelector(".tel"),marco=esc.querySelector(".tel-marco"),botones=esc.querySelectorAll(".tel-botones button");
-  var quieto=matchMedia("(prefers-reduced-motion: reduce)").matches,orden=[].map.call(botones,function(b){return b.dataset.p});
-  var ry=-28,rx=8,vy=0,arrastre=null,inclX=0,inclY=0,giro=null,actual=orden[0],tocado=false,visible=true,t0=performance.now(),ultimo=t0;
-  var poner=function(p){actual=p;
-    esc.querySelectorAll("[data-p]").forEach(function(e){var si=e.dataset.p===p;
-      if(e.tagName==="BUTTON")e.setAttribute("aria-pressed",si);
-      else{e.classList.toggle("activa",si);if(e.tagName==="IMG"){e.alt=si?e.dataset.alt:"";if(si)e.removeAttribute("aria-hidden");else e.setAttribute("aria-hidden","true")}}})};
-  var cambiar=function(p){if(p===actual&&!giro)return;
-    if(quieto){poner(p);return}
-    giro={desde:ry,hasta:ry+360,t:performance.now(),p:p,hecho:false}};
-  botones.forEach(function(b){b.addEventListener("click",function(){tocado=true;cambiar(b.dataset.p)})});
-  esc.classList.add("vivo");
-  if(quieto){esc.classList.add("quieto");tel.style.transform="rotateY(-14deg) rotateX(4deg)";return}
-  // arrastrar: solo en horizontal, para que el dedo siga pudiendo bajar por la página
-  marco.addEventListener("pointerdown",function(e){if(giro)return;arrastre={x:e.clientX,ry:ry,t:e.timeStamp,ult:e.clientX};tocado=true;marco.setPointerCapture(e.pointerId);esc.classList.add("arrastrando")});
-  marco.addEventListener("pointermove",function(e){
-    var r=marco.getBoundingClientRect();inclX=((e.clientY-r.top)/r.height-.5)*-14;inclY=((e.clientX-r.left)/r.width-.5)*20;
-    if(!arrastre)return;var dt=Math.max(1,e.timeStamp-arrastre.t);vy=(e.clientX-arrastre.ult)/dt*16*.6;arrastre.ult=e.clientX;arrastre.t=e.timeStamp;ry=arrastre.ry+(e.clientX-arrastre.x)*.6});
-  var soltar=function(){if(!arrastre)return;arrastre=null;esc.classList.remove("arrastrando")};
-  marco.addEventListener("pointerup",soltar);marco.addEventListener("pointercancel",soltar);marco.addEventListener("lostpointercapture",soltar);
-  marco.addEventListener("pointerleave",function(){if(!arrastre){inclX=0;inclY=0}});
-  var cerca=function(a){return Math.round(a/360)*360};   // vuelve de frente por el camino más corto
-  var paso=function(ahora){
-    var dt=Math.min(48,ahora-ultimo);ultimo=ahora;
-    if(giro){var k=Math.min(1,(ahora-giro.t)/1100),e=1-Math.pow(1-k,4);ry=giro.desde+(giro.hasta-giro.desde)*e;
-      if(!giro.hecho&&e>.42){poner(giro.p);giro.hecho=true}
-      if(k>=1){ry=giro.hasta;giro=null}}
-    else if(!arrastre){
-      ry+=vy;vy*=Math.pow(.92,dt/16);
-      var reposo=cerca(ry)+(tocado?0:-14+Math.sin((ahora-t0)/1400)*7);   // de entrada, un vaivén suave hasta que alguien lo toca
-      if(Math.abs(vy)<.4)ry+=(reposo-ry)*(1-Math.pow(.9,dt/16))}
-    rx+=(inclX+4-rx)*(1-Math.pow(.88,dt/16));
-    tel.style.transform="rotateX("+rx.toFixed(2)+"deg) rotateY("+(ry+inclY).toFixed(2)+"deg)";
-    var dorso=((ry%360)+360)%360;esc.classList.toggle("de-espaldas",dorso>90&&dorso<270);
-    if(visible&&!document.hidden)requestAnimationFrame(paso);else bucle=false};
-  var bucle=false,arrancar=function(){if(!bucle&&visible){bucle=true;ultimo=performance.now();requestAnimationFrame(paso)}};
-  if("IntersectionObserver" in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;arrancar()}).observe(esc);
-  document.addEventListener("visibilitychange",arrancar);
-  // cada 5 s, la siguiente pantalla, hasta que alguien toca el móvil
-  setInterval(function(){if(!tocado&&visible&&!document.hidden&&!giro)cambiar(orden[(orden.indexOf(actual)+1)%orden.length])},5000);
-  arrancar();
-})();
-</script>"""
-
-escribir("/dos-decimas/", cabeza("Dos Décimas · Tests de Policía Nacional",
-  "Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.", "/dos-decimas/", marca="dd")
-+ f"""
-<main>
-<section class="portada con-tel"><div class="in">
-  <div class="titulo"><h1>Me quedé fuera por dos décimas.</h1></div>
-  <div>
-    <p class="sub">Que a ti no te pase. Dos Décimas es la app de tests de Policía Nacional que te enseña dónde pierdes las tuyas: en un plazo, en un «NO» que no leíste o en una duda que arriesgaste.</p>
-    <div class="alta" id="empezar">{dd_form("web")}</div>
-    <p class="test">¿Primero quieres ver cómo vas? <a class="enlace" href="/dos-decimas/test-gratis/">Haz el test gratis de 20 preguntas</a></p>
-    <p class="test">¿Ya lo tienes claro? <a class="enlace" href="#planes">Mira los precios</a></p>
-  </div>
-  {TEL_HTML}
-</div></section>
-
-<section class="sec campo-oscuro calc" id="decimas"><div class="in">
-  <div class="texto ent">
-    <h2>¿Cuánto te faltó a ti?</h2>
-    <p>Yo saqué un 6,85 y el corte fue un {DD_CORTE}: con cuatro fallos menos, dejados en blanco, habría entrado. Mueve la barra con tu nota y mira qué te separó a ti.</p>
-  </div>
-  <div class="mando ent">
-    <label for="calc-nota">Tu nota en el último examen</label>
-    <p class="nota" id="calc-ver" aria-hidden="true">6,85<span>/ 10</span></p>
-    <input type="range" id="calc-nota" min="300" max="800" step="5" value="685">
-    <div class="marcas" aria-hidden="true"><span>3,00</span><span>Corte de 2026: {DD_CORTE}</span><span>8,00</span></div>
-    <p class="salida" id="calc-salida" aria-live="polite">Te faltarían <b>0,20</b>. Eso son <b>2 aciertos más</b>, o <b>4 fallos</b> que tendrías que haber dejado en blanco.</p>
-  </div>
-</div></section>
-
-<section class="sec compara"><div class="in">
-  <div class="ent"><h2>No es otro banco de preguntas</h2>
-    <p class="lead">Un banco de preguntas te dice si has fallado. Dos Décimas te dice por qué y no te deja volver a fallar lo mismo.</p></div>
-  <div class="tabla ent" role="table" aria-label="Un banco de preguntas frente a Dos Décimas">
-    <div class="fila cab-fila" role="row"><span role="columnheader">Un banco de preguntas</span><span role="columnheader">Dos Décimas</span></div>
-    <div class="fila" role="row"><span role="cell">Te dice que has fallado.</span><span role="cell"><b>Mis trampas</b> te dice en qué tipo de pregunta caes siempre: plazos, números, «podrá» o «deberá».</span></div>
-    <div class="fila" role="row"><span role="cell">Contestas o dejas en blanco a ojo.</span><span role="cell">Marcas <b>«Dudo»</b> y sabes si arriesgar te está sumando o restando.</span></div>
-    <div class="fila" role="row"><span role="cell">Te da la respuesta buena.</span><span role="cell">Te da <b>el porqué y el artículo de la ley</b>, comprobado con el BOE vigente.</span></div>
-    <div class="fila" role="row"><span role="cell">Repites tests al azar.</span><span role="cell"><b>Tus fallos vuelven</b> hasta que los aciertas, en un repaso de 5 minutos al día.</span></div>
-  </div>
-</div></section>
-
-<section class="sec func" id="como"><div class="in">
-  <div class="ent">
-    <h2>Cada pregunta te enseña algo</h2>
-    <ul class="lista">
-      <li><b>La lupa</b>Te resalta los «NO», «salvo» y «excepto» del enunciado, que es donde se escapan las décimas.</li>
-      <li><b>Cada corrección, con su ley</b>La respuesta buena, el porqué y lo que dice el artículo.</li>
-      <li><b>«Dudo»</b>Marca las que no tienes claras y la app te dice si arriesgar te suma o te resta.</li>
-      <li><b>Como el examen</b>Tres opciones, −0,5 por fallo y cronómetro.</li>
-    </ul>
-  </div>
-  <div class="movil ent"><img src="/img/app-resultado.png" alt="Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, y cuántos puntos le ha sumado arriesgar en las que dudaba" width="780" height="1496" loading="lazy"></div>
-</div></section>
-
-<section class="sec func inv campo-capa"><div class="in">
-  <div class="ent">
-    <h2>Tus fallos no se olvidan</h2>
-    <ul class="lista">
-      <li><b>Mis trampas</b>En qué tipo de pregunta caes más (plazos, números, quién es competente, «podrá» o «deberá») y un test solo de eso.</li>
-      <li><b>Mi cuaderno</b>Cada test con tu nota, lo que fallaste y por qué, y un botón para repetir solo esas.</li>
-      <li><b>Repaso de 5 minutos</b>Cada día, lo que fallaste o dudaste, justo cuando toca repasarlo.</li>
-      <li><b>12 exámenes oficiales</b>Desde 2015, con el corte de cada promoción: al acabar sabes si habrías entrado.</li>
-    </ul>
-  </div>
-  <div class="movil ent"><img src="/img/app-cuaderno.png" alt="Mi cuaderno: un test con su nota, 7 aciertos y 3 errores, y una pregunta fallada con la respuesta dada, la correcta y el porqué" width="780" height="1496" loading="lazy"></div>
-</div></section>
-
-<section class="sec func"><div class="in">
-  <div class="ent">
-    <h2>Qué tema llevas peor</h2>
-    <ul class="lista">
-      <li><b>Cómo vas en cada tema</b>Del más flojo al más fuerte: por repasar, casi o bien. Tocas uno y lo practicas.</li>
-      <li><b>Las más falladas</b>Las preguntas en las que más se cae dentro de la app, para que no te pillen a ti. Cuanta más gente la usa, más afinada está.</li>
-    </ul>
-  </div>
-  <div class="movil ent"><img src="/img/app-temas.png" alt="Pantalla «Cómo vas en cada tema»: cada tema con su porcentaje de acierto y su barra, del más flojo al más fuerte" width="780" height="1496" loading="lazy"></div>
-</div></section>
-
-<section class="sec campo-oscuro simu"><div class="in">
-  <div class="ent"><h2>Un simulacro cada fin de semana</h2></div>
-  <div class="horario ent">
-    <div><strong>Vie 14:00</strong><span class="suave">Abre. 100 preguntas y 50 minutos.</span></div>
-    <div><strong>1 intento</strong><span class="suave">Como el día del examen, sin repetir.</span></div>
-    <div><strong>Dom 21:00</strong><span class="suave">Cierra y ves tu nota, la media y si pasarías el corte.</span></div>
-  </div>
-  <div class="fisicas ent">
-    <h3>Y las físicas</h3>
-    <p>Apunta tus marcas del circuito, las dominadas o la suspensión y los 1.000 metros, con el baremo oficial de hombres o de mujeres: tus puntos, si serías apto y cuánto te falta para el siguiente punto.</p>
-  </div>
-</div></section>
-
-<section class="sec video"><div class="in ent">
-  <h2>Dos Décimas en 40 segundos</h2>
-  <div>
-    <video class="v-ancho" controls playsinline preload="none" poster="/img/dosdecimas-horizontal.jpg" width="1280" height="720" aria-label="Vídeo de Dos Décimas en horizontal"><source src="/video/dosdecimas-horizontal.mp4" type="video/mp4"></video>
-    <video class="v-movil" controls playsinline preload="none" poster="/img/dosdecimas-vertical.jpg" width="720" height="1280" aria-label="Vídeo de Dos Décimas en vertical"><source src="/video/dosdecimas-vertical.mp4" type="video/mp4"></video>
-  </div>
-</div></section>
-
-<section class="sec campo-oscuro prueba" id="prueba"><div class="in">
-  <div class="ent">
-    <h2>Pruébala 7 días gratis</h2>
-    <p class="lead">Deja tu email y normalmente entras al momento: tests, exámenes oficiales, simulacro, tus trampas y las físicas. Sin tarjeta y sin compromiso.</p>
-  </div>
-  <div class="ent">{dd_form("web", "Quiero mi semana gratis")}</div>
-</div></section>
-
-<section class="sec planes" id="planes"><div class="in">
-  <div class="ent">
-    <h2>Precios</h2>
-    <p class="lead">Todos los planes incluyen lo mismo. Sin permanencia y con el IVA incluido.</p>
-  </div>
-  <div class="ent">{dd_tarifas()}</div>
-  <p class="pie-planes suave">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Tienes 14 días para desistir y te devolvemos todo.</p>
-</div></section>
-
-<section class="sec campo-capa pasos" id="entrar"><div class="in">
-  <div class="ent"><h2>Empieza en tres pasos</h2></div>
-  <ol class="ent">
-    <li><h3>Pide tu semana gratis</h3><p><a class="enlace" href="#prueba">Deja tu email</a> y tienes 7 días con todo, sin pagar nada.</p></li>
-    <li><h3>Entra en la app</h3><p>Abre <a class="enlace" href="{DD_APP}">{DD_APP.replace('https://', '')}</a>, pulsa «Primera vez» y escribe ese mismo email.</p></li>
-    <li><h3>Crea tu contraseña</h3><p>Te llega un correo con un enlace o un código: ábrelo, elige tu contraseña y ya estás dentro.</p></li>
-  </ol>
-  <p class="peq suave" style="margin-top:40px">¿Te convence? Elige tu <a href="#planes">plan</a> con el mismo email cuando acabe la semana, o antes. Si pagas sin haberla probado, empieza en el paso 2. ¿No te llega el correo? Mira en spam o escríbenos a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p>
-</div></section>
-
-<section class="sec faq" id="faq"><div class="in">
-  <div class="ent"><h2>Preguntas frecuentes</h2></div>
-  <div class="ent"><div>{FAQ_DD_HTML}</div></div>
-</div></section>
-</main>
-""" + pie("dd", PRUEBA_JS, DD_JS, TEL_JS))
+# La página de venta antigua (web.css) se sustituyó el 03-11-2026 por la del panel de tablillas, más abajo.
 
 
 # ---------- Dos Décimas: test gratis «¿Llegarías al 7,05?» ----------
@@ -875,16 +649,26 @@ VIAS_JS = """<script>
 })();
 </script>"""
 
+# anclas de la página antigua (anuncios, mensajes, el test gratis) que ahora tienen otro nombre
+ANCLAS_JS = """<script>
+(function(){var m={"#precio":"#planes","#entrar":"#prueba","#decimas":"#empezar"};if(m[location.hash])location.replace(m[location.hash])})();
+</script>"""
+
 _cab_nueva = f'''<!doctype html>
 <html lang="es"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Dos Décimas · Tests de Policía Nacional</title>
 <meta name="description" content="Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.">
-<meta name="robots" content="noindex">
 <meta name="theme-color" content="#0A0A0A">
 <meta property="og:title" content="Dos Décimas · Tests de Policía Nacional">
+<meta property="og:description" content="Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ruvilab.es/dos-decimas/">
 <meta property="og:image" content="https://ruvilab.es/img/dosdecimas-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_ES">
 <link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
 <link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
 <link rel="preload" href="/fuentes/archivo.woff2" as="font" type="font/woff2" crossorigin>
@@ -893,10 +677,10 @@ _cab_nueva = f'''<!doctype html>
 </head><body>
 <header class="cab"><div class="in">
 <a class="marca" href="/dos-decimas/" aria-label="Dos Décimas, inicio"><img src="/img/dosdecimas-logo.png" alt="" width="34" height="34"><span class="nombre">Dos Décimas</span></a>
-<nav aria-label="Menú"><a class="volver opc" href="/" title="Volver a Ruvï">Ruvï</a><a class="opc" href="#vias">Cómo funciona</a><a href="#tarifas">Precios</a><a class="opc" href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="{DD_APP}">Entrar</a></nav>
+<nav aria-label="Menú"><a class="volver opc" href="/" title="Volver a Ruvï">Ruvï</a><a class="opc" href="#como">Cómo funciona</a><a href="#planes">Precios</a><a class="opc" href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="{DD_APP}">Entrar</a></nav>
 </div></header>'''
 
-escribir("/dos-decimas/nueva/", _cab_nueva + f"""
+escribir("/dos-decimas/", _cab_nueva + f"""
 <main>
 <section class="portada"><div class="in">
   <h1 class="solo-lector">Me quedé fuera por dos décimas.</h1>
@@ -911,13 +695,13 @@ escribir("/dos-decimas/nueva/", _cab_nueva + f"""
   <div class="entrada">
     <div>
       <p class="sub">Saqué un 6,85 y el corte fue un {DD_CORTE}. Dos Décimas te enseña <b>dónde pierdes las tuyas</b>, para que a ti no te pase.</p>
-      <p class="mas"><a class="enlace" href="/dos-decimas/test-gratis/">Haz el test gratis de 20 preguntas</a><a class="enlace" href="#tarifas">Mira los precios</a></p>
+      <p class="mas"><a class="enlace" href="/dos-decimas/test-gratis/">Haz el test gratis de 20 preguntas</a><a class="enlace" href="#planes">Mira los precios</a></p>
     </div>
     <div class="alta" id="empezar">{dd_form("web")}</div>
   </div>
 </div></section>
 
-<section class="sec vias" id="vias"><div class="in">
+<section class="sec vias" id="como"><div class="in">
   <div class="cabeza-sec ent"><h2 class="titulo gira">Dónde se van <em>tus décimas</em></h2><p class="gira">Un banco de preguntas te dice que has fallado. Dos Décimas te dice por qué y no te deja fallar lo mismo otra vez.</p></div>
   <div class="cuerpo">
     <div>
@@ -937,7 +721,7 @@ escribir("/dos-decimas/nueva/", _cab_nueva + f"""
   <div class="fisicas ent"><h3 class="gira">Y las físicas</h3><p class="gira">Apunta tus marcas del circuito, las dominadas o la suspensión y los 1.000 metros con el baremo oficial de hombres o de mujeres: tus puntos, si serías apto y cuánto te falta para el siguiente punto.</p></div>
 </div></section>
 
-<section class="sec" id="tarifas"><div class="in">
+<section class="sec" id="planes"><div class="in">
   <div class="cabeza-sec ent"><h2 class="titulo gira">Tarifas</h2><p class="gira">Todas incluyen lo mismo. Sin permanencia y con el IVA incluido.</p></div>
   <ul class="tarifas">{_tarifas_nueva()}</ul>
   <p class="pie-tarifas">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Tienes 14 días para desistir y te devolvemos todo. Paga con el mismo email con el que pruebas la app.</p>
@@ -964,4 +748,10 @@ escribir("/dos-decimas/nueva/", _cab_nueva + f"""
   </div>
 </div></section>
 </main>
-""" + pie("dd", PRUEBA_JS, VIAS_JS, f'<script src="/dd-panel.js?v={_huella("dd-panel.js")}" defer></script>'))
+""" + pie("dd", PRUEBA_JS, VIAS_JS, f'<script src="/dd-panel.js?v={_huella("dd-panel.js")}" defer></script>', ANCLAS_JS))
+
+# /dos-decimas/nueva/ fue la ruta de prueba: lleva a la de verdad
+escribir("/dos-decimas/nueva/", '''<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="robots" content="noindex"><link rel="canonical" href="https://ruvilab.es/dos-decimas/">
+<title>Dos Décimas</title><script>location.replace("/dos-decimas/"+location.hash)</script></head>
+<body><p><a href="/dos-decimas/">Ir a Dos Décimas</a></p></body></html>''')
