@@ -1,0 +1,196 @@
+/* Dos Décimas · la página es un panel de salidas de tablillas.
+   Carcasa negra, tablillas grafito con la raya en medio, caracteres crema y cobre para lo que importa.
+   Lo que se elige es una fila del panel. Sin sombras ni degradados decorativos. */
+@font-face{font-family:"Archivo";font-style:normal;font-display:swap;font-weight:100 900;font-stretch:62% 125%;src:url(/fuentes/archivo.woff2) format("woff2")}
+
+:root{
+  --negro:#0A0A0A; --carcasa:#121212; --tablilla:#1D1D1D; --tablilla-2:#2A2A2A; --raya:#050505;
+  --crema:#F2EADF; --crema-2:#B9AFA4; --cobre:#C98A5B; --cobre-2:#E0A77A; --sobre-cobre:#0A0A0A; --mal:#F0A08F;
+  --f:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --margen:clamp(16px,4vw,56px); --ancho:1360px; --hueco:clamp(88px,12vw,176px);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scrollbar-color:var(--tablilla-2) var(--negro)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;overflow-x:clip;background:var(--negro);color:var(--crema);font:400 1.1rem/1.5 var(--f);font-stretch:100%;-webkit-tap-highlight-color:transparent;caret-color:var(--cobre)}
+::selection{background:var(--cobre);color:var(--sobre-cobre)}
+img,video{max-width:100%;height:auto;display:block}
+a{color:inherit;text-underline-offset:3px;text-decoration-thickness:1px}
+p{margin:0;text-wrap:pretty}
+h1,h2,h3{margin:0;font-family:var(--f);font-weight:800;font-stretch:72%;text-transform:uppercase;letter-spacing:-.01em;line-height:.92;text-wrap:balance}
+:focus-visible{outline:3px solid var(--cobre);outline-offset:3px;border-radius:6px}
+[id]{scroll-margin-top:76px}
+.in{max-width:var(--ancho);margin:0 auto;padding:0 var(--margen)}
+.sec{padding:var(--hueco) 0}
+.solo-lector{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.suave{color:var(--crema-2)}
+.num{font-variant-numeric:tabular-nums}
+
+/* Una «tablilla» de texto: un rótulo sobre grafito con la raya del medio */
+.rotulo{display:inline-flex;align-items:center;position:relative;background:var(--tablilla);color:var(--crema);border-radius:4px;padding:.18em .42em .12em;font-weight:800;font-stretch:72%;text-transform:uppercase;letter-spacing:.02em;line-height:1}
+.rotulo::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--raya)}
+.rotulo.cobre{background:var(--cobre);color:var(--sobre-cobre)}
+
+/* Cabecera */
+.cab{position:sticky;top:0;z-index:20;background:var(--negro);border-bottom:1px solid var(--tablilla)}
+.cab .in{display:flex;align-items:center;gap:20px;height:64px}
+.marca{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none;font-weight:800;font-stretch:80%;text-transform:uppercase;font-size:1.15rem;letter-spacing:.01em}
+.marca img{width:34px;height:34px;border-radius:8px}
+.cab nav{display:flex;align-items:center;gap:22px;font-weight:600;font-size:.98rem}
+.cab nav a{text-decoration:none;white-space:nowrap}
+.cab nav a:hover{color:var(--cobre-2)}
+.cab nav .volver{color:var(--crema-2)}
+@media (max-width:760px){.cab nav .opc{display:none}.cab nav{gap:16px}.cab .in{gap:14px}}
+@media (max-width:420px){.marca .nombre{display:none}}
+
+/* Botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:6px;border:0;cursor:pointer;text-decoration:none;font:800 1.05rem var(--f);font-stretch:85%;text-transform:uppercase;letter-spacing:.02em;transition:background-color .15s,color .15s,transform .12s;touch-action:manipulation}
+.btn:active{transform:translateY(1px)}
+.btn-p,.btn.p{background:var(--cobre);color:var(--sobre-cobre)}
+.btn-p:hover,.btn.p:hover{background:var(--crema)}
+.btn-s,.btn.s{background:var(--tablilla);color:var(--crema)}
+.btn-s:hover,.btn.s:hover{background:var(--tablilla-2)}
+.cab .btn{min-height:40px;padding:0 16px;font-size:.95rem}
+.enlace{font-weight:700;color:var(--cobre-2);text-decoration:underline;text-decoration-thickness:2px}
+
+/* ---------- Portada: el panel ---------- */
+.portada{padding:clamp(16px,2.5vw,36px) 0 var(--hueco);overflow-x:clip}
+.panel,.mando{margin-left:auto;margin-right:auto;max-width:max(320px,calc((100svh - 430px) * 2.25))}
+.panel{position:relative}
+.panel-marco{position:relative;background:var(--carcasa);border-radius:10px;padding:clamp(10px,1.6vw,22px)}
+.panel-dom{display:grid;gap:clamp(4px,.9cqw,12px);container-type:inline-size}
+.fila-p{display:grid;grid-template-columns:repeat(16,minmax(0,1fr));gap:clamp(2px,.55cqw,7px)}
+.fila-p span{position:relative;aspect-ratio:1/1.44;display:grid;place-items:center;background:var(--tablilla);color:var(--crema);border-radius:clamp(2px,.4cqw,5px);font-weight:800;font-stretch:65%;font-size:calc(100cqw / 16 * 1.02);line-height:1;padding-top:.04em}
+.fila-p span::after{content:"";position:absolute;left:0;right:0;top:50%;height:max(1px,.18cqw);background:var(--raya)}
+.fila-p.cobre span{background:var(--cobre);color:var(--sobre-cobre)}
+.panel-3d{position:absolute;inset:0;pointer-events:none}
+.panel-3d canvas{display:block;width:100%;height:100%}
+/* con el 3D montado, el panel de HTML se queda solo para ocupar su sitio */
+.panel.gl .panel-marco{background:transparent}
+.panel.gl .panel-dom{visibility:hidden}
+
+.mando{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px 20px;margin-top:14px;padding:14px 18px;background:var(--carcasa);border-radius:10px}
+.mando label{font-weight:700;font-stretch:85%;text-transform:uppercase;letter-spacing:.03em;font-size:.95rem}
+.mando .ver{font-weight:800;font-stretch:65%;font-size:2.2rem;line-height:1;color:var(--cobre-2);min-width:3.2ch;text-align:right}
+.mando input[type=range]{width:100%;height:44px;margin:0;accent-color:var(--cobre);cursor:pointer;touch-action:pan-y}
+.mando .salida{grid-column:1/-1;font-size:1.1rem}
+.mando .salida b{color:var(--cobre-2)}
+.mando .sonido{grid-column:3;grid-row:1;justify-self:end;min-height:44px;padding:0 14px;border:0;border-radius:6px;background:var(--tablilla);color:var(--crema-2);font:700 .9rem var(--f);cursor:pointer}
+.mando .sonido[aria-pressed="true"]{background:var(--crema);color:var(--sobre-cobre)}
+.mando .ver-wrap{display:flex;align-items:baseline;gap:6px}
+@media (max-width:640px){.mando{grid-template-columns:minmax(0,1fr) auto}.mando input[type=range]{grid-column:1/-1;grid-row:2}.mando .sonido{grid-column:2;grid-row:1}.mando .ver-wrap{grid-column:1/-1;grid-row:3}}
+
+.entrada{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,5vw,80px);align-items:end;max-width:1180px;margin:clamp(28px,3.5vw,48px) auto 0}
+.entrada .sub{font-size:clamp(1.25rem,2vw,1.6rem);line-height:1.3;font-weight:500;max-width:26ch}
+.entrada .sub b{color:var(--cobre-2);font-weight:700}
+.entrada .mas{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:1rem}
+@media (max-width:900px){.entrada{grid-template-columns:1fr;align-items:start}}
+
+/* Formulario de la semana gratis */
+.alta-form{display:flex;flex-wrap:wrap;gap:10px}
+.alta-form .campo{flex:1 1 200px;display:flex;flex-direction:column;gap:6px}
+.alta-form .campo-nombre{flex:1 1 150px}
+.alta-form .campo b{font-weight:700;font-stretch:85%;text-transform:uppercase;letter-spacing:.03em;font-size:.88rem;color:var(--crema-2)}
+.alta-form input[type=text],.alta-form input[type=email]{font:inherit;color:var(--crema);background:var(--tablilla);border:2px solid transparent;border-radius:6px;min-height:52px;padding:0 16px;width:100%}
+.alta-form input::placeholder{color:#8F867D;opacity:1}
+.alta-form input:focus{border-color:var(--cobre);outline:none}
+.alta-form .btns{display:flex;align-items:flex-end;flex:1 1 100%}
+.alta-form .btns .btn{width:100%}
+.alta-form .nota{flex-basis:100%;font-size:.9rem;color:var(--crema-2)}
+.alta-form .aviso{flex-basis:100%;padding:16px 18px;border-radius:8px;font-weight:600;line-height:1.45}
+.alta-form .aviso.ok{background:var(--crema);color:var(--sobre-cobre)}
+.alta-form .aviso.mal{background:transparent;color:var(--mal);padding:4px 0}
+.alta-form .aviso .muted{display:block;margin-top:8px;font-weight:400;font-size:.92rem;color:#3B342F}
+.trampa{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* Títulos de sección */
+.titulo{font-size:clamp(2.6rem,7vw,6rem)}
+.titulo em{font-style:normal;color:var(--cobre-2)}
+.cabeza-sec{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:20px 48px;margin-bottom:clamp(36px,5vw,64px)}
+.cabeza-sec p{max-width:40ch;font-size:1.15rem;color:var(--crema-2)}
+
+/* ---------- Vías: las pantallas de la app como filas del panel ---------- */
+.vias .cuerpo{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:clamp(32px,6vw,96px);align-items:center}
+.lista-vias{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.via{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 20px;align-items:center;width:100%;text-align:left;padding:18px 20px;border:0;border-radius:8px;background:var(--carcasa);color:var(--crema);font:inherit;cursor:pointer;transition:background-color .2s}
+.via:hover{background:var(--tablilla)}
+.via .n{grid-row:1/span 2;font-weight:800;font-stretch:65%;font-size:2.6rem;line-height:1;color:var(--crema-2);font-variant-numeric:tabular-nums;min-width:2ch}
+.via .que{font-weight:800;font-stretch:72%;text-transform:uppercase;font-size:1.6rem;line-height:1;letter-spacing:.01em}
+.via .para{color:var(--crema-2);font-size:1.02rem}
+.via[aria-pressed="true"]{background:var(--cobre);color:var(--sobre-cobre)}
+.via[aria-pressed="true"] .n,.via[aria-pressed="true"] .para{color:var(--sobre-cobre)}
+.via .estado{grid-column:2;display:none}
+.ademas{margin-top:24px;font-size:1.02rem;color:var(--crema-2)}
+.ademas b{color:var(--crema);font-weight:700}
+.pantalla{justify-self:center;width:min(320px,100%);background:var(--carcasa);padding:10px;border-radius:38px;position:relative}
+.pantalla .vidrio{position:relative;aspect-ratio:780/1496;border-radius:29px;overflow:hidden;background:#fff}
+.pantalla img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transition:opacity .3s}
+.pantalla img.activa{opacity:1}
+@media (prefers-reduced-motion:no-preference){
+  .pantalla .vidrio{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+  .pantalla.cambia .vidrio{transform:perspective(900px) rotateX(-8deg) scale(.985)}
+}
+@media (max-width:900px){.vias .cuerpo{grid-template-columns:1fr}.pantalla{order:-1;width:min(260px,72vw)}}
+
+/* ---------- Simulacro: una salida con su hora ---------- */
+.simu{background:var(--carcasa)}
+.salidas{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.salidas li{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr) auto;gap:12px 28px;align-items:center;padding:20px 22px;background:var(--negro);border-radius:8px}
+.salidas .hora{display:flex;gap:6px}
+.salidas .hora .rotulo{font-size:clamp(1.9rem,4.4vw,3.6rem);font-variant-numeric:tabular-nums;padding:.12em .3em .06em}
+.salidas .destino{font-weight:800;font-stretch:72%;text-transform:uppercase;font-size:clamp(1.3rem,2.4vw,2rem);line-height:1.02}
+.salidas .destino small{display:block;margin-top:6px;font:400 1rem/1.4 var(--f);text-transform:none;color:var(--crema-2)}
+.salidas .estado .rotulo{font-size:1.2rem}
+@media (max-width:700px){.salidas li{grid-template-columns:1fr auto}.salidas .destino{grid-column:1/-1;grid-row:2}}
+.fisicas{margin-top:clamp(48px,6vw,80px);display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(20px,5vw,80px);align-items:start}
+.fisicas h3{font-size:clamp(1.9rem,3.6vw,3rem)}
+.fisicas p{font-size:1.15rem;color:var(--crema-2)}
+@media (max-width:800px){.fisicas{grid-template-columns:1fr}}
+
+/* ---------- Tarifas: el panel de precios ---------- */
+.tarifas{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.tarifa{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr) minmax(0,1fr) auto;gap:10px 28px;align-items:center;padding:20px 22px;background:var(--carcasa);border-radius:8px}
+.tarifa .plan{font-weight:800;font-stretch:72%;text-transform:uppercase;font-size:clamp(1.4rem,2.6vw,2.1rem);line-height:1}
+.tarifa .precio{font-weight:800;font-stretch:65%;font-size:clamp(2rem,4vw,3.2rem);line-height:1;font-variant-numeric:tabular-nums}
+.tarifa .precio small{font:600 .95rem var(--f);margin-left:6px;color:var(--crema-2)}
+.tarifa .det{font-size:.98rem;color:var(--crema-2)}
+.tarifa .det b{color:var(--cobre-2)}
+.tarifa.fundador{background:var(--cobre);color:var(--sobre-cobre)}
+.tarifa.fundador .precio small,.tarifa.fundador .det,.tarifa.fundador .det b{color:var(--sobre-cobre)}
+.tarifa.fundador .btn{background:var(--sobre-cobre);color:var(--crema)}
+.tarifa.fundador .btn:hover{background:var(--carcasa)}
+.tarifa.dest{outline:2px solid var(--cobre);outline-offset:-2px}
+@media (max-width:860px){.tarifa{grid-template-columns:minmax(0,1fr) auto}.tarifa .det{grid-column:1/-1}.tarifa .btn{grid-column:1/-1}}
+.pie-tarifas{margin-top:22px;font-size:1rem;color:var(--crema-2)}
+
+/* ---------- Cierre: la semana gratis ---------- */
+.cierre .cuerpo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:start}
+.pasos{margin:28px 0 0;padding:0;list-style:none;display:grid;gap:14px;counter-reset:p}
+.pasos li{counter-increment:p;display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center;font-size:1.08rem}
+.pasos li::before{content:counter(p);display:grid;place-items:center;width:44px;height:52px;background:var(--tablilla);border-radius:4px;font-weight:800;font-stretch:65%;font-size:1.8rem;color:var(--cobre-2);background-image:linear-gradient(var(--raya),var(--raya));background-size:100% 1px;background-position:0 50%;background-repeat:no-repeat}
+@media (max-width:900px){.cierre .cuerpo{grid-template-columns:1fr}}
+
+/* ---------- Preguntas ---------- */
+.faq .cuerpo{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px);align-items:start}
+.faq details{background:var(--carcasa);border-radius:8px;margin-bottom:8px}
+.faq summary{list-style:none;cursor:pointer;padding:20px 22px;font-weight:700;font-size:1.1rem;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-weight:800;font-size:1.5rem;line-height:1;color:var(--cobre-2);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 22px 22px;color:var(--crema-2)}
+@media (max-width:900px){.faq .cuerpo{grid-template-columns:1fr}}
+
+/* Pie */
+.pie{background:var(--carcasa);padding:clamp(64px,9vw,128px) 0 36px}
+.pie .grande{font-weight:800;font-stretch:62%;text-transform:uppercase;font-size:clamp(4rem,19vw,17rem);line-height:.8;letter-spacing:-.01em;margin:0;color:var(--crema)}
+.pie .fila{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px 32px;margin-top:40px;font-size:.98rem;color:var(--crema-2)}
+.pie .fila nav{display:flex;gap:22px;flex-wrap:wrap}
+
+/* Las tablillas de texto giran una vez al entrar en pantalla: el mismo movimiento del panel, en pequeño */
+@media (prefers-reduced-motion:no-preference){
+  .js .gira{transform-origin:50% 50%;transition:transform .6s cubic-bezier(.16,1,.3,1),opacity .25s}
+  .js .ent:not(.visto) .gira{transform:perspective(400px) rotateX(-88deg);opacity:0}
+  .js .ent.visto .gira:nth-child(2){transition-delay:.06s}
+  .js .ent.visto .gira:nth-child(3){transition-delay:.12s}
+}

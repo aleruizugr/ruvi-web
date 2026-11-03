@@ -818,3 +818,150 @@ t = ('<!doctype html>\n<html lang="es"><head>\n<meta charset="utf-8">\n<meta nam
      '<meta name="robots" content="noindex">\n<meta name="description" content="Tarifas de Plantilla de Repaso para academias, con calculadora de cuota.">\n'
      '<link rel="icon" type="image/png" href="/img/favicon.png">\n' + t.replace('</style>', 'body{margin:0}\n</style>\n</head><body>', 1) + '\n</body></html>')
 escribir("/tarifas/", t)
+
+# ---------------------------------------------------------------- Dos Décimas, página nueva (el panel de tablillas)
+# Mundo propio: dd.css y dd-panel.js, sin web.css. Se prueba en /dos-decimas/nueva/ (noindex) antes de cambiar la de venta.
+def _huella(ruta):
+    return hashlib.md5((R / ruta.lstrip("/")).read_bytes()).hexdigest()[:8]
+
+PANEL_FILAS = [("ME QUEDÉ FUERA", "crema"), ("POR DOS DÉCIMAS.", "crema"), ("TU NOTA     6,85", "crema"),
+               (f"CORTE 2026  {DD_CORTE}", "crema"), ("TE FALTAN   0,20", "cobre")]
+def _panel():
+    import json
+    filas = [(t.ljust(16)[:16], c) for t, c in PANEL_FILAS]
+    dom = "".join(f'<div class="fila-p{" cobre" if c == "cobre" else ""}">' + "".join(f'<span>{ch if ch != " " else "&nbsp;"}</span>' for ch in t) + '</div>' for t, c in filas)
+    datos = html.escape(json.dumps(filas, ensure_ascii=False))
+    return f'<div class="panel" data-filas="{datos}" aria-hidden="true"><div class="panel-marco"><div class="panel-dom">{dom}</div></div><div class="panel-3d"></div></div>'
+
+VIAS = [
+  ("pregunta", "Pregunta", "app-pregunta.png", "La lupa te marca los «NO» y los «salvo». Si no lo tienes claro, pulsas «Dudo».",
+   "Una pregunta tipo test en la app, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco"),
+  ("resultado", "Resultado", "app-resultado.png", "Tu nota con −0,5 por fallo y si arriesgar te ha sumado o restado.",
+   "Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, y cuántos puntos le ha sumado arriesgar en las que dudaba"),
+  ("cuaderno", "Mi cuaderno", "app-cuaderno.png", "Cada fallo con la respuesta buena, el porqué y el artículo, y un botón para repetir solo esas.",
+   "Mi cuaderno: un test con su nota, 7 aciertos y 3 errores, y una pregunta fallada con la respuesta dada, la correcta y el porqué"),
+  ("temas", "Temas", "app-temas.png", "Del tema más flojo al más fuerte. Tocas uno y lo practicas.",
+   "Pantalla «Cómo vas en cada tema»: cada tema con su porcentaje de acierto y su barra, del más flojo al más fuerte"),
+]
+def _vias():
+    botones = "".join(f'<li><button type="button" class="via" data-via="{k}" aria-pressed="{"true" if i == 0 else "false"}"><span class="n">{i + 1:02d}</span><span class="que">{n}</span><span class="para">{p}</span></button></li>' for i, (k, n, _, p, _a) in enumerate(VIAS))
+    oculto = ' aria-hidden="true"'
+    imgs = "".join(f'<img src="/img/{img}" data-via="{k}" data-alt="{a}" alt="{a if i == 0 else ""}"{"" if i == 0 else oculto} class="{"activa" if i == 0 else ""}" width="780" height="1496" loading="lazy">' for i, (k, _, img, _p, a) in enumerate(VIAS))
+    return botones, imgs
+_VIAS_BOTONES, _VIAS_IMGS = _vias()
+
+def _tarifas_nueva():
+    f = TARIFA_FUNDADOR
+    filas = [f'''<li class="tarifa fundador"><span class="plan">Fundador</span><span class="precio">{f["precio"]}<small>{f["periodo"]}</small></span>
+      <span class="det">Solo para las {f["plazas"]} primeras personas, para siempre mientras sigas suscrito. Después, 10,99 € al mes.</span>
+      <a class="btn" href="{f["enlace"]}" rel="noopener">Quiero este precio</a></li>''']
+    for t in TARIFAS_DD:
+        sale = f'Sale a {t["al_mes"]} al mes (<b>{t["ahorro"]}</b>). ' if t["al_mes"] else ""
+        clase = "tarifa dest" if t.get("destacada") else "tarifa"
+        boton = "btn btn-p" if t.get("destacada") else "btn btn-s"
+        filas.append(f'''<li class="{clase}"><span class="plan">{t["nombre"]}</span><span class="precio">{t["precio"]}<small>{t["periodo"]}</small></span>
+      <span class="det">{sale}{t["nota"]}</span><a class="{boton}" href="{t["enlace"]}" rel="noopener">Elegir</a></li>''')
+    return "".join(filas)
+
+VIAS_JS = """<script>
+(function(){
+  // Vías: cada fila elige qué pantalla de la app se ve
+  var bs=document.querySelectorAll(".via"),pant=document.querySelector(".pantalla");if(!bs.length||!pant)return;
+  bs.forEach(function(b){b.addEventListener("click",function(){
+    bs.forEach(function(o){o.setAttribute("aria-pressed",o===b)});
+    pant.classList.add("cambia");setTimeout(function(){pant.classList.remove("cambia")},260);
+    pant.querySelectorAll("img").forEach(function(i){var si=i.dataset.via===b.dataset.via;i.classList.toggle("activa",si);i.alt=si?i.dataset.alt:"";if(si){i.removeAttribute("aria-hidden");i.loading="eager"}else i.setAttribute("aria-hidden","true")});
+  })});
+})();
+</script>"""
+
+_cab_nueva = f'''<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dos Décimas · Tests de Policía Nacional</title>
+<meta name="description" content="Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0A0A0A">
+<meta property="og:title" content="Dos Décimas · Tests de Policía Nacional">
+<meta property="og:image" content="https://ruvilab.es/img/dosdecimas-og.jpg">
+<link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
+<link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
+<link rel="preload" href="/fuentes/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/dd.css?v={_huella("dd.css")}">
+<script>document.documentElement.classList.add("js")</script>
+</head><body>
+<header class="cab"><div class="in">
+<a class="marca" href="/dos-decimas/" aria-label="Dos Décimas, inicio"><img src="/img/dosdecimas-logo.png" alt="" width="34" height="34"><span class="nombre">Dos Décimas</span></a>
+<nav aria-label="Menú"><a class="volver opc" href="/" title="Volver a Ruvï">Ruvï</a><a class="opc" href="#vias">Cómo funciona</a><a href="#tarifas">Precios</a><a class="opc" href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="{DD_APP}">Entrar</a></nav>
+</div></header>'''
+
+escribir("/dos-decimas/nueva/", _cab_nueva + f"""
+<main>
+<section class="portada"><div class="in">
+  <h1 class="solo-lector">Me quedé fuera por dos décimas.</h1>
+  {_panel()}
+  <div class="mando">
+    <label for="nota">Mueve tu nota</label>
+    <input type="range" id="nota" min="300" max="800" step="5" value="685">
+    <button type="button" class="sonido" id="sonido" aria-pressed="false">Sonido: no</button>
+    <p class="ver-wrap solo-lector"><span>Tu nota:</span> <span class="ver num" id="nota-ver">6,85</span></p>
+    <p class="salida" id="salida" aria-live="polite">Te faltan <b>0,20</b>: 2 aciertos más o 4 fallos dejados en blanco.</p>
+  </div>
+  <div class="entrada">
+    <div>
+      <p class="sub">Saqué un 6,85 y el corte fue un {DD_CORTE}. Dos Décimas te enseña <b>dónde pierdes las tuyas</b>, para que a ti no te pase.</p>
+      <p class="mas"><a class="enlace" href="/dos-decimas/test-gratis/">Haz el test gratis de 20 preguntas</a><a class="enlace" href="#tarifas">Mira los precios</a></p>
+    </div>
+    <div class="alta" id="empezar">{dd_form("web")}</div>
+  </div>
+</div></section>
+
+<section class="sec vias" id="vias"><div class="in">
+  <div class="cabeza-sec ent"><h2 class="titulo gira">Dónde se van <em>tus décimas</em></h2><p class="gira">Un banco de preguntas te dice que has fallado. Dos Décimas te dice por qué y no te deja fallar lo mismo otra vez.</p></div>
+  <div class="cuerpo">
+    <div>
+      <ul class="lista-vias">{_VIAS_BOTONES}</ul>
+      <p class="ademas">Y además: <b>Mis trampas</b> (en qué tipo de pregunta caes), <b>repaso de 5 minutos</b> al día con tus fallos y <b>12 exámenes oficiales</b> desde 2015 con su corte.</p>
+    </div>
+    <div class="pantalla" aria-live="polite"><div class="vidrio">{_VIAS_IMGS}</div></div>
+  </div>
+</div></section>
+
+<section class="sec simu"><div class="in">
+  <div class="cabeza-sec ent"><h2 class="titulo gira">Un simulacro <em>cada fin de semana</em></h2><p class="gira">Como el día del examen: un intento y sin repetir.</p></div>
+  <ul class="salidas ent">
+    <li class="gira"><span class="hora"><span class="rotulo">VIE</span><span class="rotulo">14:00</span></span><span class="destino">Simulacro<small>100 preguntas y 50 minutos</small></span><span class="estado"><span class="rotulo cobre">Abre</span></span></li>
+    <li class="gira"><span class="hora"><span class="rotulo">DOM</span><span class="rotulo">21:00</span></span><span class="destino">Tu nota, la media y el corte<small>Al cerrar ves si habrías pasado</small></span><span class="estado"><span class="rotulo">Cierra</span></span></li>
+  </ul>
+  <div class="fisicas ent"><h3 class="gira">Y las físicas</h3><p class="gira">Apunta tus marcas del circuito, las dominadas o la suspensión y los 1.000 metros con el baremo oficial de hombres o de mujeres: tus puntos, si serías apto y cuánto te falta para el siguiente punto.</p></div>
+</div></section>
+
+<section class="sec" id="tarifas"><div class="in">
+  <div class="cabeza-sec ent"><h2 class="titulo gira">Tarifas</h2><p class="gira">Todas incluyen lo mismo. Sin permanencia y con el IVA incluido.</p></div>
+  <ul class="tarifas">{_tarifas_nueva()}</ul>
+  <p class="pie-tarifas">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Tienes 14 días para desistir y te devolvemos todo. Paga con el mismo email con el que pruebas la app.</p>
+</div></section>
+
+<section class="sec cierre simu" id="prueba"><div class="in">
+  <div class="cuerpo">
+    <div class="ent">
+      <h2 class="titulo gira">Pruébala <em>7 días gratis</em></h2>
+      <ol class="pasos">
+        <li><span>Deja tu nombre y tu email aquí.</span></li>
+        <li><span>Abre <a class="enlace" href="{DD_APP}">dosdecimas.ruvilab.es</a> y pulsa «Primera vez».</span></li>
+        <li><span>Te llega un correo para crear tu contraseña. Ya estás dentro.</span></li>
+      </ol>
+    </div>
+    <div>{dd_form("web", "Quiero mi semana gratis")}</div>
+  </div>
+</div></section>
+
+<section class="sec faq" id="faq"><div class="in">
+  <div class="cuerpo">
+    <div class="ent"><h2 class="titulo gira">Preguntas</h2><p class="suave" style="margin-top:20px">¿Otra duda? Escribe a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p></div>
+    <div>{FAQ_DD_HTML}</div>
+  </div>
+</div></section>
+</main>
+""" + pie("dd", PRUEBA_JS, VIAS_JS, f'<script src="/dd-panel.js?v={_huella("dd-panel.js")}" defer></script>'))
