@@ -81,7 +81,7 @@
       <input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="tu@email.com"></label>
     <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
     <div class="btns"><button class="btn btn-p" type="submit">Pruébala 7 días gratis</button></div>
-    <p class="nota">7 días con todo, sin tarjeta. Usamos tu nombre y tu email solo para darte acceso, como dice la <a href="https://dosdecimas.ruvilab.es/privacidad.html">política de privacidad</a>.</p>
+    <p class="nota">7 días con todo, sin tarjeta. Usamos tu nombre y tu email solo para darte acceso y mandarte cómo entrar, como dice la <a href="https://dosdecimas.ruvilab.es/privacidad.html">política de privacidad</a>.</p>
     <div class="aviso" role="status" hidden></div>
   </form></template><script>
 (function(){
@@ -99,6 +99,8 @@
       }).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(d){
         var esc=correo.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});
         if(d&&d.estado==="en_espera"){aviso("<b>Recibido.</b> Te damos de alta en unas horas y te escribimos a <b>"+esc+"</b>.",true);return}
+        // correo de bienvenida (función bienvenida-dos-decimas): solo sale si de verdad acaba de recibir el alta
+        try{fetch(URL.replace("/rest/v1/rpc/pedir_prueba","/functions/v1/bienvenida-dos-decimas"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({correo:correo}),keepalive:true}).catch(function(){})}catch(e){}
         Array.prototype.forEach.call(f.children,function(c){if(c!==m)c.style.display="none"});   // deja solo el aviso (con display: el CSS de .campo y .btns gana a hidden)
         var nomEsc=nombre.split(" ")[0].replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});
         aviso("<b>¡Hecho"+(nomEsc?", "+nomEsc:"")+"! Tienes 7 días gratis.</b><br>Entra en la app, pulsa <b>«Primera vez»</b> y escribe <b>"+esc+"</b>: te llega un correo para crear tu contraseña.<div class=\"btns\" style=\"margin-top:12px\"><a class=\"btn p\" href=\""+APPDD+"/?primera\">Entrar en Dos Décimas</a></div><span class=\"muted\" style=\"font-size:.9rem\">¿Ya la habías probado antes? Escríbenos a "+CORREO+".</span>",true);
