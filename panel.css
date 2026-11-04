@@ -146,10 +146,6 @@ h1,h2,h3{margin:0;font-family:var(--f);font-weight:800;font-stretch:72%;text-tra
 .salidas .destino small{display:block;margin-top:6px;font:400 1rem/1.4 var(--f);text-transform:none;color:var(--crema-2)}
 .salidas .estado .rotulo{font-size:1.2rem}
 @media (max-width:700px){.salidas li{grid-template-columns:1fr auto}.salidas .destino{grid-column:1/-1;grid-row:2}}
-.fisicas{margin-top:clamp(48px,6vw,80px);display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(20px,5vw,80px);align-items:start}
-.fisicas h3{font-size:clamp(1.9rem,3.6vw,3rem)}
-.fisicas p{font-size:1.15rem;color:var(--crema-2)}
-@media (max-width:800px){.fisicas{grid-template-columns:1fr}}
 
 /* ---------- Tarifas: el panel de precios ---------- */
 .tarifas{display:grid;gap:8px;margin:0;padding:0;list-style:none}
