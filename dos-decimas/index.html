@@ -17,28 +17,31 @@
 <link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
 <link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
 <link rel="preload" href="/fuentes/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/panel.css?v=b5b680e3">
+<link rel="stylesheet" href="/panel.css?v=ef87779b">
 <script>document.documentElement.classList.add("js")</script>
 </head><body>
 <header class="cab"><div class="in">
 <a class="marca" href="/dos-decimas/" aria-label="Dos Décimas, inicio"><img src="/img/dosdecimas-logo.png?v=cd061bc4" alt="" width="34" height="34"><span class="nombre">Dos Décimas</span></a>
-<nav aria-label="Menú"><a class="volver opc" href="/" title="Volver a Ruvï">Ruvï</a><a class="opc" href="/dos-decimas/#como">Cómo funciona</a><a href="/dos-decimas/#planes">Precios</a><a class="opc" href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="https://dosdecimas.ruvilab.es">Entrar</a></nav>
+<nav aria-label="Menú"><a class="opc" href="/dos-decimas/#como">Cómo funciona</a><a href="/dos-decimas/#planes">Tarifas</a><a class="opc" href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn-ruvi" href="/" title="Ir a la web de Ruvï"><img src="/img/ruvi-monograma.png?v=dad139e9" alt="" width="22" height="22">Ruvï</a><a class="btn btn-s" href="https://dosdecimas.ruvilab.es">Entrar</a></nav>
 </div></header>
 <main>
 <section class="portada"><div class="in">
-  <h1 class="solo-lector">Me quedé fuera por dos décimas.</h1>
-  <div class="panel" data-filas="[[&quot;ME QUEDÉ FUERA  &quot;, &quot;crema&quot;], [&quot;POR DOS DÉCIMAS.&quot;, &quot;crema&quot;], [&quot;TU NOTA     6,85&quot;, &quot;crema&quot;], [&quot;CORTE 2026  7,05&quot;, &quot;crema&quot;], [&quot;TE FALTAN   0,20&quot;, &quot;cobre&quot;]]" aria-hidden="true"><div class="panel-marco"><div class="panel-dom"><div class="fila-p"><span>M</span><span>E</span><span>&nbsp;</span><span>Q</span><span>U</span><span>E</span><span>D</span><span>É</span><span>&nbsp;</span><span>F</span><span>U</span><span>E</span><span>R</span><span>A</span><span>&nbsp;</span><span>&nbsp;</span></div><div class="fila-p"><span>P</span><span>O</span><span>R</span><span>&nbsp;</span><span>D</span><span>O</span><span>S</span><span>&nbsp;</span><span>D</span><span>É</span><span>C</span><span>I</span><span>M</span><span>A</span><span>S</span><span>.</span></div><div class="fila-p"><span>T</span><span>U</span><span>&nbsp;</span><span>N</span><span>O</span><span>T</span><span>A</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>6</span><span>,</span><span>8</span><span>5</span></div><div class="fila-p"><span>C</span><span>O</span><span>R</span><span>T</span><span>E</span><span>&nbsp;</span><span>2</span><span>0</span><span>2</span><span>6</span><span>&nbsp;</span><span>&nbsp;</span><span>7</span><span>,</span><span>0</span><span>5</span></div><div class="fila-p cobre"><span>T</span><span>E</span><span>&nbsp;</span><span>F</span><span>A</span><span>L</span><span>T</span><span>A</span><span>N</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>0</span><span>,</span><span>2</span><span>0</span></div></div></div><div class="panel-3d"></div></div>
-  <div class="mando">
-    <label for="nota">Mueve tu nota</label>
-    <input type="range" id="nota" min="300" max="800" step="5" value="685">
-    <button type="button" class="sonido" id="sonido" aria-pressed="false">Sonido: no</button>
-    <p class="ver-wrap solo-lector"><span>Tu nota:</span> <span class="ver num" id="nota-ver">6,85</span></p>
-    <p class="salida" id="salida" aria-live="polite">Te faltan <b>0,20</b>: 2 aciertos más o 4 fallos dejados en blanco.</p>
+  <div class="cabeza">
+    <div class="cabeza-txt">
+      <h1>Me quedé fuera por dos décimas.</h1>
+      <div class="mando">
+        <label for="nota">Mueve tu nota</label>
+        <p class="ver-wrap"><span class="ver num" id="nota-ver">6,85</span></p>
+        <input type="range" id="nota" min="300" max="800" step="5" value="685">
+        <p class="salida" id="salida" aria-live="polite">Te faltan <b>0,20</b>: 2 aciertos más o 4 fallos dejados en blanco.</p>
+      </div>
+    </div>
+    <div class="movil" data-pantallas="dd" data-alt="Pantalla de resultado de la app de Dos Décimas"><div class="movil-dom"><div class="movil-sin"><span>Resultado</span><b class="num">6,85</b><span>Fuera por 0,20</span><span>Corte de 2026: 7,05</span></div></div><div class="movil-3d"></div></div>
   </div>
   <div class="entrada">
     <div>
       <p class="sub">Saqué un 6,85 y el corte fue un 7,05. Dos Décimas te enseña <b>dónde pierdes las tuyas</b>, para que a ti no te pase.</p>
-      <p class="mas"><a class="enlace" href="/dos-decimas/test-gratis/">Haz el test gratis de 20 preguntas</a><a class="enlace" href="#planes">Mira los precios</a></p>
+      <p class="mas"><a class="enlace" href="/dos-decimas/test-gratis/">Haz el test gratis de 20 preguntas</a></p>
     </div>
     <div class="alta" id="empezar"><form class="alta-form prueba-form" data-origen="web" novalidate>
     <label class="campo campo-nombre"><b>Tu nombre</b>
@@ -57,10 +60,10 @@
   <div class="cabeza-sec ent"><h2 class="titulo gira">Dónde se van <em>tus décimas</em></h2><p class="gira">Un banco de preguntas te dice que has fallado. Dos Décimas te dice por qué y no te deja fallar lo mismo otra vez.</p></div>
   <div class="cuerpo">
     <div>
-      <ul class="lista-vias"><li><button type="button" class="via" data-via="pregunta" aria-pressed="true"><span class="n">01</span><span class="que">Pregunta</span><span class="para">La lupa te marca los «NO» y los «salvo». Si no lo tienes claro, pulsas «Dudo».</span></button></li><li><button type="button" class="via" data-via="resultado" aria-pressed="false"><span class="n">02</span><span class="que">Resultado</span><span class="para">Tu nota con −0,5 por fallo y si arriesgar te ha sumado o restado.</span></button></li><li><button type="button" class="via" data-via="cuaderno" aria-pressed="false"><span class="n">03</span><span class="que">Mi cuaderno</span><span class="para">Cada fallo con la respuesta buena, el porqué y el artículo, y un botón para repetir solo esas.</span></button></li><li><button type="button" class="via" data-via="temas" aria-pressed="false"><span class="n">04</span><span class="que">Temas</span><span class="para">Del tema más flojo al más fuerte. Tocas uno y lo practicas.</span></button></li></ul>
+      <ul class="lista-vias"><li><button type="button" class="via" data-via="pregunta" aria-pressed="true"><span class="n">01</span><span class="que">Pregunta</span><span class="para">La lupa te marca los «NO» y los «salvo». Si no lo tienes claro, pulsas «Dudo».</span></button></li><li><button type="button" class="via" data-via="resultado" aria-pressed="false"><span class="n">02</span><span class="que">Resultado</span><span class="para">Tu nota con −0,5 por fallo y si arriesgar te ha sumado o restado.</span></button></li><li><button type="button" class="via" data-via="cuaderno" aria-pressed="false"><span class="n">03</span><span class="que">Mi cuaderno</span><span class="para">Cada fallo con la respuesta buena, el porqué y el artículo, y un botón para repetir solo esas.</span></button></li><li><button type="button" class="via" data-via="temas" aria-pressed="false"><span class="n">04</span><span class="que">Temas</span><span class="para">Del tema más flojo al más fuerte. Tocas uno y lo practicas.</span></button></li><li><button type="button" class="via" data-via="fisicas" aria-pressed="false"><span class="n">05</span><span class="que">Físicas</span><span class="para">Metes tus marcas de circuito, dominadas (o barra, si eres mujer) y 1.000 m. Te da los puntos de cada prueba con el baremo de la convocatoria, tu media y lo que te falta, y te dibuja cómo mejoras.</span></button></li></ul>
       <p class="ademas">Y además: <b>Mis trampas</b> (en qué tipo de pregunta caes), <b>repaso de 5 minutos</b> al día con tus fallos y <b>12 exámenes oficiales</b> desde 2015 con su corte.</p>
     </div>
-    <div class="pantalla" aria-live="polite"><div class="vidrio"><img src="/img/app-pregunta.png?v=5094978d" data-via="pregunta" data-alt="Una pregunta tipo test en la app, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" alt="Una pregunta tipo test en la app, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" class="activa" width="780" height="1496" loading="lazy"><img src="/img/app-resultado.png?v=cfd302d4" data-via="resultado" data-alt="Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, y cuántos puntos le ha sumado arriesgar en las que dudaba" alt="" aria-hidden="true" class="" width="780" height="1496" loading="lazy"><img src="/img/app-cuaderno.png?v=bda04a21" data-via="cuaderno" data-alt="Mi cuaderno: un test con su nota, 7 aciertos y 3 errores, y una pregunta fallada con la respuesta dada, la correcta y el porqué" alt="" aria-hidden="true" class="" width="780" height="1496" loading="lazy"><img src="/img/app-temas.png?v=89b4cd99" data-via="temas" data-alt="Pantalla «Cómo vas en cada tema»: cada tema con su porcentaje de acierto y su barra, del más flojo al más fuerte" alt="" aria-hidden="true" class="" width="780" height="1496" loading="lazy"></div></div>
+    <div class="pantalla" aria-live="polite"><div class="vidrio"><img src="/img/app-pregunta-dd.png?v=5b63641e" data-via="pregunta" data-alt="Una pregunta tipo test en la app con la lupa activada: en el enunciado resalta «no», «ni» y «salvo»; debajo, tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" alt="Una pregunta tipo test en la app con la lupa activada: en el enunciado resalta «no», «ni» y «salvo»; debajo, tres opciones, el cronómetro y los botones Dudo y Dejar en blanco" class="activa" width="780" height="1496" loading="lazy"><img src="/img/app-resultado.png?v=cfd302d4" data-via="resultado" data-alt="Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, y cuántos puntos le ha sumado arriesgar en las que dudaba" alt="" aria-hidden="true" class="" width="780" height="1496" loading="lazy"><img src="/img/app-cuaderno.png?v=bda04a21" data-via="cuaderno" data-alt="Mi cuaderno: un test con su nota, 7 aciertos y 3 errores, y una pregunta fallada con la respuesta dada, la correcta y el porqué" alt="" aria-hidden="true" class="" width="780" height="1496" loading="lazy"><img src="/img/app-temas.png?v=89b4cd99" data-via="temas" data-alt="Pantalla «Cómo vas en cada tema»: cada tema con su porcentaje de acierto y su barra, del más flojo al más fuerte" alt="" aria-hidden="true" class="" width="780" height="1496" loading="lazy"><img src="/img/app-fisicas.png?v=e92a8dbe" data-via="fisicas" data-alt="Pantalla Físicas de la app: tu evolución de 5,00 a 8,00 de media en 63 días, un gráfico de barras con los puntos de antes y de ahora en circuito, dominadas y carrera, y cada prueba con lo que ha mejorado" alt="" aria-hidden="true" class="" width="780" height="1496" loading="lazy"></div></div>
   </div>
 </div></section>
 
@@ -70,11 +73,14 @@
     <li class="gira"><span class="hora"><span class="rotulo">VIE</span><span class="rotulo">14:00</span></span><span class="destino">Simulacro<small>100 preguntas y 50 minutos</small></span><span class="estado"><span class="rotulo cobre">Abre</span></span></li>
     <li class="gira"><span class="hora"><span class="rotulo">DOM</span><span class="rotulo">21:00</span></span><span class="destino">Tu nota, la media y el corte<small>Al cerrar ves si habrías pasado</small></span><span class="estado"><span class="rotulo">Cierra</span></span></li>
   </ul>
+  <p class="nota-sim ent"><span class="gira">¿Quieres la corrección pregunta a pregunta, con el porqué de cada una? Cuando cierre, pídela por Instagram a <a class="enlace" href="https://www.instagram.com/dosdecimas/" target="_blank" rel="noopener">@dosdecimas</a>.</span></p>
   <div class="fisicas ent"><h3 class="gira">Y las físicas</h3><p class="gira">Apunta tus marcas del circuito, las dominadas o la suspensión y los 1.000 metros con el baremo oficial de hombres o de mujeres: tus puntos, si serías apto y cuánto te falta para el siguiente punto.</p></div>
 </div></section>
 
 <section class="sec" id="planes"><div class="in">
   <div class="cabeza-sec ent"><h2 class="titulo gira">Tarifas</h2><p class="gira">Todas incluyen lo mismo. Sin permanencia y con el IVA incluido.</p></div>
+  <button type="button" class="ver-tarifas" id="ver-tarifas" aria-expanded="false" aria-controls="lista-tarifas"><span class="vt-txt">Ver tarifas</span><span class="vt-desde">Desde 7,99 € al mes</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"/></svg></button>
+  <div class="lista-tarifas" id="lista-tarifas"><div class="lt-in">
   <ul class="tarifas"><li class="tarifa fundador"><span class="plan">Fundador</span><span class="precio">7,99 €<small>al mes</small></span>
       <span class="det">Solo para las 30 primeras personas, para siempre mientras sigas suscrito. Después, 10,99 € al mes.</span>
       <a class="btn" href="https://buy.stripe.com/3cIcN7bck9DibmO7Vx04801" rel="noopener">Quiero este precio</a></li><li class="tarifa"><span class="plan">Mensual</span><span class="precio">10,99 €<small>al mes</small></span>
@@ -83,6 +89,7 @@
       <span class="det">Sale a 9,17 € al mes (<b>−17 %</b>). Se renueva cada 6 meses. Sin permanencia.</span><a class="btn btn-s" href="https://buy.stripe.com/28E14peowdTy2QicbN04804" rel="noopener">Elegir</a></li><li class="tarifa dest"><span class="plan">Curso completo</span><span class="precio">89,99 €<small>pago único</small></span>
       <span class="det">Sale a 7,50 € al mes (<b>−32 %</b>). Hasta el 31 de octubre de 2027. No se renueva.</span><a class="btn btn-p" href="https://buy.stripe.com/28E9AV2FO16McqS1x904803" rel="noopener">Elegir</a></li></ul>
   <p class="pie-tarifas">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Tienes 14 días para desistir y te devolvemos todo. Paga con el mismo email con el que pruebas la app.</p>
+  </div></div>
 </div></section>
 
 <section class="sec cierre simu" id="prueba"><div class="in">
@@ -155,9 +162,22 @@
     bs.forEach(function(o){o.setAttribute("aria-pressed",o===b)});
     pant.classList.add("cambia");setTimeout(function(){pant.classList.remove("cambia")},260);
     pant.querySelectorAll("img").forEach(function(i){var si=i.dataset.via===b.dataset.via;i.classList.toggle("activa",si);i.alt=si?i.dataset.alt:"";if(si){i.removeAttribute("aria-hidden");i.loading="eager"}else i.setAttribute("aria-hidden","true")});
+    // en el móvil la pantalla queda encima de la lista: si no se ve, se sube hasta ella
+    var r=pant.getBoundingClientRect();if(matchMedia("(max-width:900px)").matches&&(r.top<70||r.bottom>innerHeight))pant.scrollIntoView({block:"center",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
   })});
 })();
-</script><script src="/dd-panel.js?v=8cf1ede1" defer></script><script>
+</script><script src="/dd-movil.js?v=f9ad7c0f" defer></script><script>
+(function(){
+  var b=document.getElementById("ver-tarifas"),l=document.getElementById("lista-tarifas");if(!b||!l)return;
+  l.classList.add("plegada");
+  b.addEventListener("click",function(){
+    var abrir=b.getAttribute("aria-expanded")!=="true";
+    b.setAttribute("aria-expanded",abrir);b.querySelector(".vt-txt").textContent=abrir?"Ocultar tarifas":"Ver tarifas";
+    l.classList.toggle("plegada",!abrir);
+    if(abrir)setTimeout(function(){var r=l.getBoundingClientRect();if(r.bottom>innerHeight)scrollBy({top:Math.min(r.top-90,r.bottom-innerHeight+24),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})},380);
+  });
+})();
+</script><script>
 (function(){var m={"#precio":"#planes","#entrar":"#prueba","#decimas":"#empezar"};if(m[location.hash])location.replace(m[location.hash])})();
 </script><script>
 (function(){

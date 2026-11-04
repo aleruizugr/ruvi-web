@@ -17,21 +17,23 @@
 <link rel="icon" type="image/png" href="/img/favicon.png">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="preload" href="/fuentes/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/panel.css?v=b5b680e3">
+<link rel="stylesheet" href="/panel.css?v=ef87779b">
 <script>document.documentElement.classList.add("js")</script>
 </head><body>
 <header class="cab"><div class="in">
 <a class="marca" href="/" aria-label="Ruvï, inicio"><img src="/img/ruvi-monograma.png?v=dad139e9" alt="" width="34" height="34"><span class="nombre">Ruvï</span></a>
-<nav aria-label="Menú"><a class="opc" href="/plantilla-repaso/" aria-current="page">Plantilla de Repaso</a><a class="" href="/dos-decimas/">Dos Décimas</a><a class="opc" href="/#contacto">Contacto</a><a class="btn btn-s" href="https://plantilla-repaso.netlify.app">Entrar</a></nav>
+<nav aria-label="Menú"><a href="/plantilla-repaso/" aria-current="page">Plantilla<span class="larga"> de Repaso</span></a><a href="/dos-decimas/">Dos Décimas</a><a class="opc" href="/#contacto">Contacto</a><a class="btn btn-s" href="https://plantilla-repaso.netlify.app">Entrar</a></nav>
 </div></header>
 <main>
 <section class="portada"><div class="in">
-  <h1 class="solo-lector">Tu temario, convertido en examen.</h1>
-  <div class="panel corto" data-filas="[[&quot;TU TEMARIO      &quot;, &quot;crema&quot;], [&quot;CONVERTIDO EN   &quot;, &quot;crema&quot;], [&quot;EXAMEN.         &quot;, &quot;crema&quot;], [&quot;PRIMER MES   0 €&quot;, &quot;cobre&quot;]]" aria-hidden="true"><div class="panel-marco"><div class="panel-dom"><div class="fila-p"><span>T</span><span>U</span><span>&nbsp;</span><span>T</span><span>E</span><span>M</span><span>A</span><span>R</span><span>I</span><span>O</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span></div><div class="fila-p"><span>C</span><span>O</span><span>N</span><span>V</span><span>E</span><span>R</span><span>T</span><span>I</span><span>D</span><span>O</span><span>&nbsp;</span><span>E</span><span>N</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span></div><div class="fila-p"><span>E</span><span>X</span><span>A</span><span>M</span><span>E</span><span>N</span><span>.</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span></div><div class="fila-p cobre"><span>P</span><span>R</span><span>I</span><span>M</span><span>E</span><span>R</span><span>&nbsp;</span><span>M</span><span>E</span><span>S</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>0</span><span>&nbsp;</span><span>€</span></div></div></div><div class="panel-3d"></div></div>
-  <div class="entrada">
-    <p class="sub">Hacemos las preguntas de vuestros temas y vuestros alumnos practican en una app, como el día del examen. Nació para Policía Nacional y se adapta a <b>cualquier oposición tipo test</b>.</p>
-    <div><div class="btns accesos"><a class="btn btn-p" href="#contacto">Pruébala con tus temas</a><a class="btn btn-s" href="#demo">Ver la demo · 1 min</a></div>
-      <p class="suave" style="margin-top:14px">Primer mes gratis y sin permanencia.</p></div>
+  <div class="cabeza">
+    <div class="cabeza-txt">
+      <h1>Tu temario, convertido en examen.</h1>
+      <p class="sub">Hacemos las preguntas de vuestros temas y vuestros alumnos practican en una app, como el día del examen. Nació para Policía Nacional y se adapta a <b>cualquier oposición tipo test</b>.</p>
+      <div><div class="btns accesos"><a class="btn btn-p" href="#contacto">Pruébala con tus temas</a><a class="btn btn-s" href="#demo">Ver la demo · 1 min</a></div>
+        <p class="suave" style="margin-top:14px">Primer mes gratis y sin permanencia.</p></div>
+    </div>
+    <div class="movil" data-pantallas="/img/app-inicio.png?v=b61890ef" data-alt="Pantalla de inicio de Plantilla de Repaso: los fallos por repasar, la última nota y el tema para practicar"><div class="movil-dom"><img src="/img/app-inicio.png?v=b61890ef" alt="Pantalla de inicio de Plantilla de Repaso" width="780" height="1496"></div><div class="movil-3d"></div></div>
   </div>
 </div></section>
 
@@ -95,9 +97,11 @@
     bs.forEach(function(o){o.setAttribute("aria-pressed",o===b)});
     pant.classList.add("cambia");setTimeout(function(){pant.classList.remove("cambia")},260);
     pant.querySelectorAll("img").forEach(function(i){var si=i.dataset.via===b.dataset.via;i.classList.toggle("activa",si);i.alt=si?i.dataset.alt:"";if(si){i.removeAttribute("aria-hidden");i.loading="eager"}else i.setAttribute("aria-hidden","true")});
+    // en el móvil la pantalla queda encima de la lista: si no se ve, se sube hasta ella
+    var r=pant.getBoundingClientRect();if(matchMedia("(max-width:900px)").matches&&(r.top<70||r.bottom>innerHeight))pant.scrollIntoView({block:"center",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
   })});
 })();
-</script><script src="/dd-panel.js?v=8cf1ede1" defer></script><script>
+</script><script src="/dd-movil.js?v=f9ad7c0f" defer></script><script>
 (function(){
   var ents=document.querySelectorAll(".ent"),ver=function(e){e.classList.add("visto")};
   if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){ver(e.target);io.unobserve(e.target)}})},{rootMargin:"0px 0px -10% 0px"});ents.forEach(function(e){io.observe(e)})}

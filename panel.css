@@ -292,3 +292,62 @@ h1,h2,h3{margin:0;font-family:var(--f);font-weight:800;font-stretch:72%;text-tra
 .legal tr:nth-child(odd) td{background:var(--carcasa)}
 .legal a{color:var(--cobre-2)}
 .simu .tarifa{background:var(--negro)}
+
+/* ---------- Portada nueva: el móvil con la pantalla de resultado ---------- */
+.cabeza{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(16px,3vw,48px);align-items:center;max-width:1180px;margin:0 auto}
+.cabeza h1{font-size:clamp(2.6rem,5.4vw,5.6rem);font-stretch:62%;line-height:.88}
+.cabeza .mando{max-width:none;margin:clamp(28px,3.5vw,48px) 0 0;grid-template-columns:minmax(0,1fr) auto}
+.cabeza .mando .ver-wrap{grid-column:2;grid-row:1}
+.cabeza .mando input[type=range]{grid-column:1/-1;grid-row:2}
+.cabeza .mando .salida{grid-row:3}
+.movil{position:relative;aspect-ratio:4/5;max-height:calc(100svh - 120px);width:100%;justify-self:center}
+.movil-dom{position:absolute;inset:3% 0;display:grid;place-items:center}
+.js .movil:not(.plano) .movil-dom{visibility:hidden}
+.movil-dom canvas,.movil-sin{height:100%;width:auto;max-width:100%;aspect-ratio:9/19.5;border-radius:13% / 6%;border:clamp(6px,.9vw,11px) solid #1b1a19;background:#F4F1EC;box-sizing:border-box}
+.movil-sin{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;color:#2E2724;font-weight:700;text-align:center;padding:12px}
+.movil-sin b{font-size:3rem;font-stretch:72%;line-height:1}
+.movil-3d{position:absolute;inset:0;pointer-events:none}
+.movil-3d canvas{display:block;width:100%;height:100%}
+.movil.gl .movil-dom{visibility:hidden}
+@media (max-width:900px){
+  .cabeza{grid-template-columns:1fr}
+  .cabeza-txt{display:contents}
+  .cabeza h1{order:1}
+  .cabeza h1{max-width:none;font-size:clamp(2.6rem,11vw,4.4rem)}
+  .movil{order:2;aspect-ratio:1/1.08;max-height:none;max-width:520px;margin-top:-8px}
+  .cabeza .mando{order:3;margin-top:0}
+}
+/* Botón a la web de Ruvï */
+.btn-ruvi{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px 0 10px;border-radius:6px;background:var(--tablilla);color:var(--crema);font-weight:700}
+.btn-ruvi img{width:22px;height:22px;border-radius:5px}
+.btn-ruvi:hover{background:var(--tablilla-2);color:var(--crema)}
+/* Tarifas plegadas tras un botón grande */
+.ver-tarifas{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:4px 20px;width:100%;margin-top:clamp(28px,3vw,44px);padding:clamp(22px,2.6vw,34px) clamp(22px,3vw,40px);border:0;border-radius:10px;background:var(--cobre);color:var(--sobre-cobre);font-family:var(--f);text-align:left;cursor:pointer;transition:background-color .2s,transform .15s}
+.ver-tarifas:hover{background:var(--cobre-2)}
+.ver-tarifas:active{transform:scale(.99)}
+.vt-txt{font-weight:800;font-stretch:65%;text-transform:uppercase;font-size:clamp(2.2rem,5vw,4rem);line-height:.9}
+.vt-desde{grid-row:2;font-weight:600;font-size:1.05rem}
+.ver-tarifas svg{grid-row:1/3;grid-column:2;width:clamp(36px,4vw,52px);height:clamp(36px,4vw,52px);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.ver-tarifas[aria-expanded="true"] svg{transform:rotate(180deg)}
+.lista-tarifas{display:grid;grid-template-rows:1fr;transition:grid-template-rows .45s cubic-bezier(.2,.7,.2,1)}
+.lista-tarifas.plegada{grid-template-rows:0fr}
+.lt-in{min-height:0;overflow:hidden;padding-top:8px}
+.lista-tarifas .tarifa{transition:opacity .4s,transform .4s cubic-bezier(.2,.7,.2,1)}
+.lista-tarifas.plegada .tarifa{opacity:0;transform:translateY(-14px)}
+.lista-tarifas .tarifa:nth-child(2){transition-delay:.05s}.lista-tarifas .tarifa:nth-child(3){transition-delay:.1s}
+.lista-tarifas .tarifa:nth-child(4){transition-delay:.15s}.lista-tarifas .tarifa:nth-child(5){transition-delay:.2s}
+.lista-tarifas.plegada .tarifa{transition-delay:0s}
+.lista-tarifas.plegada .lt-in{visibility:hidden;transition:visibility 0s .45s}
+@media (prefers-reduced-motion:reduce){.lista-tarifas,.lista-tarifas .tarifa,.ver-tarifas svg{transition:none}}
+html:not(.js) .ver-tarifas{display:none}
+.nota-sim{margin-top:14px;font-size:.95rem;color:var(--crema-2)}
+/* Portadas de Ruvï y Plantilla: texto y botones en la columna del titular */
+.cabeza-txt .sub{margin-top:clamp(20px,2.4vw,32px);font-size:clamp(1.15rem,1.7vw,1.45rem);line-height:1.35;font-weight:500;max-width:34ch}
+.cabeza-txt .sub b{color:var(--cobre-2);font-weight:700}
+.cabeza-txt .btns{margin-top:clamp(22px,2.6vw,34px)}
+.cabeza-txt .accesos{justify-content:flex-start}
+.movil-dom img{height:100%;width:auto;max-width:100%;border-radius:13% / 6%;border:clamp(6px,.9vw,11px) solid #1b1a19;background:#F4F1EC}
+.movil.doble .movil-dom{display:flex;gap:4%;justify-content:center}
+.movil.doble .movil-dom canvas{height:auto;width:46%}
+@media (max-width:900px){.cabeza-txt>*:not(h1){order:3}}
+@media (max-width:480px){.cab nav .larga{display:none}.marca{flex:none}}

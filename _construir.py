@@ -268,11 +268,13 @@ def cabeza_panel(titulo, desc, ruta, marca="dd", og=None, noindex=False, actual=
     icono = "dosdecimas-" if dd else ""
     if dd:
         cab = f'''<a class="marca" href="/dos-decimas/" aria-label="Dos Décimas, inicio"><img src="/img/dosdecimas-logo.png" alt="" width="34" height="34"><span class="nombre">Dos Décimas</span></a>
-<nav aria-label="Menú"><a class="volver opc" href="/" title="Volver a Ruvï">Ruvï</a><a class="opc" href="/dos-decimas/#como">Cómo funciona</a><a href="/dos-decimas/#planes">Precios</a><a class="opc" href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn btn-s" href="{DD_APP}">Entrar</a></nav>'''
+<nav aria-label="Menú"><a class="opc" href="/dos-decimas/#como">Cómo funciona</a><a href="/dos-decimas/#planes">Tarifas</a><a class="opc" href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn-ruvi" href="/" title="Ir a la web de Ruvï"><img src="/img/ruvi-monograma.png" alt="" width="22" height="22">Ruvï</a><a class="btn btn-s" href="{DD_APP}">Entrar</a></nav>'''
     else:
-        enlaces = [("/plantilla-repaso/", "Plantilla de Repaso", "opc"), ("/dos-decimas/", "Dos Décimas", ""), ("/#contacto", "Contacto", "opc")]
+        # en el móvil «Plantilla de Repaso» se acorta a «Plantilla» para que quepa con el logo
+        enlaces = [("/plantilla-repaso/", 'Plantilla<span class="larga"> de Repaso</span>', ""), ("/dos-decimas/", "Dos Décimas", ""), ("/#contacto", "Contacto", "opc")]
         marcado = ' aria-current="page"'
-        links = "".join(f'<a class="{c}" href="{h}"{marcado if h == actual else ""}>{t}</a>' for h, t, c in enlaces)
+        clase = lambda c: f' class="{c}"' if c else ""
+        links = "".join(f'<a{clase(c)} href="{h}"{marcado if h == actual else ""}>{t}</a>' for h, t, c in enlaces)
         cab = f'''<a class="marca" href="/" aria-label="Ruvï, inicio"><img src="/img/ruvi-monograma.png" alt="" width="34" height="34"><span class="nombre">Ruvï</span></a>
 <nav aria-label="Menú">{links}<a class="btn btn-s" href="{APP}">Entrar</a></nav>'''
     return f'''<!doctype html>
@@ -482,26 +484,27 @@ t = ('<!doctype html>\n<html lang="es"><head>\n<meta charset="utf-8">\n<meta nam
      '<link rel="icon" type="image/png" href="/img/favicon.png">\n' + t.replace('</style>', 'body{margin:0}\n</style>\n</head><body>', 1) + '\n</body></html>')
 escribir("/tarifas/", t)
 
-# ---------------------------------------------------------------- Dos Décimas, página nueva (el panel de tablillas)
-# Estilos en panel.css y panel 3D en dd-panel.js (cabecera en cabeza_panel).
-PANEL_FILAS = [("ME QUEDÉ FUERA", "crema"), ("POR DOS DÉCIMAS.", "crema"), ("TU NOTA     6,85", "crema"),
-               (f"CORTE 2026  {DD_CORTE}", "crema"), ("TE FALTAN   0,20", "cobre")]
-def _panel(filas=None, corto=False):
-    import json
-    filas = [(t.ljust(16)[:16], c) for t, c in (filas or PANEL_FILAS)]
-    dom = "".join(f'<div class="fila-p{" cobre" if c == "cobre" else ""}">' + "".join(f'<span>{ch if ch != " " else "&nbsp;"}</span>' for ch in t) + '</div>' for t, c in filas)
-    datos = html.escape(json.dumps(filas, ensure_ascii=False))
-    return f'<div class="panel{" corto" if corto else ""}" data-filas="{datos}" aria-hidden="true"><div class="panel-marco"><div class="panel-dom">{dom}</div></div><div class="panel-3d"></div></div>'
+# ---------------------------------------------------------------- Dos Décimas (la portada con el móvil)
+# Estilos en panel.css y móviles 3D en dd-movil.js (cabecera en cabeza_panel).
+# _movil: uno o dos móviles; en pantallas, «dd» es la pantalla de resultado que dibuja dd-movil.js
+# (la que se mueve con la barra de la nota) y lo demás son capturas de /img/.
+def _movil(pantallas, alt, sin_js):
+    doble = " doble" if len(pantallas) > 1 else ""
+    datos = ",".join(p if p == "dd" else f"/img/{p}?v={_huella('/img/' + p)}" for p in pantallas)
+    return f'<div class="movil{doble}" data-pantallas="{datos}" data-alt="{alt}"><div class="movil-dom">{sin_js}</div><div class="movil-3d"></div></div>'
+_MOVIL_JS = f'<script src="/dd-movil.js?v={_huella("dd-movil.js")}" defer></script>'
 
 VIAS = [
-  ("pregunta", "Pregunta", "app-pregunta.png", "La lupa te marca los «NO» y los «salvo». Si no lo tienes claro, pulsas «Dudo».",
-   "Una pregunta tipo test en la app, con tres opciones, el cronómetro y los botones Dudo y Dejar en blanco"),
+  ("pregunta", "Pregunta", "app-pregunta-dd.png", "La lupa te marca los «NO» y los «salvo». Si no lo tienes claro, pulsas «Dudo».",
+   "Una pregunta tipo test en la app con la lupa activada: en el enunciado resalta «no», «ni» y «salvo»; debajo, tres opciones, el cronómetro y los botones Dudo y Dejar en blanco"),
   ("resultado", "Resultado", "app-resultado.png", "Tu nota con −0,5 por fallo y si arriesgar te ha sumado o restado.",
    "Resultado de un test: un 7 sobre 10, aciertos, errores y preguntas en blanco, y cuántos puntos le ha sumado arriesgar en las que dudaba"),
   ("cuaderno", "Mi cuaderno", "app-cuaderno.png", "Cada fallo con la respuesta buena, el porqué y el artículo, y un botón para repetir solo esas.",
    "Mi cuaderno: un test con su nota, 7 aciertos y 3 errores, y una pregunta fallada con la respuesta dada, la correcta y el porqué"),
   ("temas", "Temas", "app-temas.png", "Del tema más flojo al más fuerte. Tocas uno y lo practicas.",
    "Pantalla «Cómo vas en cada tema»: cada tema con su porcentaje de acierto y su barra, del más flojo al más fuerte"),
+  ("fisicas", "Físicas", "app-fisicas.png", "Metes tus marcas de circuito, dominadas (o barra, si eres mujer) y 1.000 m. Te da los puntos de cada prueba con el baremo de la convocatoria, tu media y lo que te falta, y te dibuja cómo mejoras.",
+   "Pantalla Físicas de la app: tu evolución de 5,00 a 8,00 de media en 63 días, un gráfico de barras con los puntos de antes y de ahora en circuito, dominadas y carrera, y cada prueba con lo que ha mejorado"),
 ]
 def _vias(vias=None):
     vias = vias or VIAS
@@ -532,7 +535,23 @@ VIAS_JS = """<script>
     bs.forEach(function(o){o.setAttribute("aria-pressed",o===b)});
     pant.classList.add("cambia");setTimeout(function(){pant.classList.remove("cambia")},260);
     pant.querySelectorAll("img").forEach(function(i){var si=i.dataset.via===b.dataset.via;i.classList.toggle("activa",si);i.alt=si?i.dataset.alt:"";if(si){i.removeAttribute("aria-hidden");i.loading="eager"}else i.setAttribute("aria-hidden","true")});
+    // en el móvil la pantalla queda encima de la lista: si no se ve, se sube hasta ella
+    var r=pant.getBoundingClientRect();if(matchMedia("(max-width:900px)").matches&&(r.top<70||r.bottom>innerHeight))pant.scrollIntoView({block:"center",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
   })});
+})();
+</script>"""
+
+# Tarifas plegadas: se abren con el botón grande «Ver tarifas» (sin JavaScript se ven abiertas)
+TARIFAS_JS = """<script>
+(function(){
+  var b=document.getElementById("ver-tarifas"),l=document.getElementById("lista-tarifas");if(!b||!l)return;
+  l.classList.add("plegada");
+  b.addEventListener("click",function(){
+    var abrir=b.getAttribute("aria-expanded")!=="true";
+    b.setAttribute("aria-expanded",abrir);b.querySelector(".vt-txt").textContent=abrir?"Ocultar tarifas":"Ver tarifas";
+    l.classList.toggle("plegada",!abrir);
+    if(abrir)setTimeout(function(){var r=l.getBoundingClientRect();if(r.bottom>innerHeight)scrollBy({top:Math.min(r.top-90,r.bottom-innerHeight+24),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})},380);
+  });
 })();
 </script>"""
 
@@ -547,19 +566,22 @@ _cab_nueva = cabeza_panel("Dos Décimas · Tests de Policía Nacional",
 escribir("/dos-decimas/", _cab_nueva + f"""
 <main>
 <section class="portada"><div class="in">
-  <h1 class="solo-lector">Me quedé fuera por dos décimas.</h1>
-  {_panel()}
-  <div class="mando">
-    <label for="nota">Mueve tu nota</label>
-    <input type="range" id="nota" min="300" max="800" step="5" value="685">
-    <button type="button" class="sonido" id="sonido" aria-pressed="false">Sonido: no</button>
-    <p class="ver-wrap solo-lector"><span>Tu nota:</span> <span class="ver num" id="nota-ver">6,85</span></p>
-    <p class="salida" id="salida" aria-live="polite">Te faltan <b>0,20</b>: 2 aciertos más o 4 fallos dejados en blanco.</p>
+  <div class="cabeza">
+    <div class="cabeza-txt">
+      <h1>Me quedé fuera por dos décimas.</h1>
+      <div class="mando">
+        <label for="nota">Mueve tu nota</label>
+        <p class="ver-wrap"><span class="ver num" id="nota-ver">6,85</span></p>
+        <input type="range" id="nota" min="300" max="800" step="5" value="685">
+        <p class="salida" id="salida" aria-live="polite">Te faltan <b>0,20</b>: 2 aciertos más o 4 fallos dejados en blanco.</p>
+      </div>
+    </div>
+    {_movil(["dd"], "Pantalla de resultado de la app de Dos Décimas", f'<div class="movil-sin"><span>Resultado</span><b class="num">6,85</b><span>Fuera por 0,20</span><span>Corte de 2026: {DD_CORTE}</span></div>')}
   </div>
   <div class="entrada">
     <div>
       <p class="sub">Saqué un 6,85 y el corte fue un {DD_CORTE}. Dos Décimas te enseña <b>dónde pierdes las tuyas</b>, para que a ti no te pase.</p>
-      <p class="mas"><a class="enlace" href="/dos-decimas/test-gratis/">Haz el test gratis de 20 preguntas</a><a class="enlace" href="#planes">Mira los precios</a></p>
+      <p class="mas"><a class="enlace" href="/dos-decimas/test-gratis/">Haz el test gratis de 20 preguntas</a></p>
     </div>
     <div class="alta" id="empezar">{dd_form("web")}</div>
   </div>
@@ -582,13 +604,17 @@ escribir("/dos-decimas/", _cab_nueva + f"""
     <li class="gira"><span class="hora"><span class="rotulo">VIE</span><span class="rotulo">14:00</span></span><span class="destino">Simulacro<small>100 preguntas y 50 minutos</small></span><span class="estado"><span class="rotulo cobre">Abre</span></span></li>
     <li class="gira"><span class="hora"><span class="rotulo">DOM</span><span class="rotulo">21:00</span></span><span class="destino">Tu nota, la media y el corte<small>Al cerrar ves si habrías pasado</small></span><span class="estado"><span class="rotulo">Cierra</span></span></li>
   </ul>
+  <p class="nota-sim ent"><span class="gira">¿Quieres la corrección pregunta a pregunta, con el porqué de cada una? Cuando cierre, pídela por Instagram a <a class="enlace" href="https://www.instagram.com/dosdecimas/" target="_blank" rel="noopener">@dosdecimas</a>.</span></p>
   <div class="fisicas ent"><h3 class="gira">Y las físicas</h3><p class="gira">Apunta tus marcas del circuito, las dominadas o la suspensión y los 1.000 metros con el baremo oficial de hombres o de mujeres: tus puntos, si serías apto y cuánto te falta para el siguiente punto.</p></div>
 </div></section>
 
 <section class="sec" id="planes"><div class="in">
   <div class="cabeza-sec ent"><h2 class="titulo gira">Tarifas</h2><p class="gira">Todas incluyen lo mismo. Sin permanencia y con el IVA incluido.</p></div>
+  <button type="button" class="ver-tarifas" id="ver-tarifas" aria-expanded="false" aria-controls="lista-tarifas"><span class="vt-txt">Ver tarifas</span><span class="vt-desde">Desde {TARIFA_FUNDADOR["precio"]} al mes</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"/></svg></button>
+  <div class="lista-tarifas" id="lista-tarifas"><div class="lt-in">
   <ul class="tarifas">{_tarifas_nueva()}</ul>
   <p class="pie-tarifas">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Tienes 14 días para desistir y te devolvemos todo. Paga con el mismo email con el que pruebas la app.</p>
+  </div></div>
 </div></section>
 
 <section class="sec cierre simu" id="prueba"><div class="in">
@@ -612,7 +638,7 @@ escribir("/dos-decimas/", _cab_nueva + f"""
   </div>
 </div></section>
 </main>
-""" + pie("dd", PRUEBA_JS, VIAS_JS, f'<script src="/dd-panel.js?v={_huella("dd-panel.js")}" defer></script>', ANCLAS_JS))
+""" + pie("dd", PRUEBA_JS, VIAS_JS, _MOVIL_JS, TARIFAS_JS, ANCLAS_JS))
 
 # /dos-decimas/nueva/ fue la ruta de prueba: lleva a la de verdad
 escribir("/dos-decimas/nueva/", '''<!doctype html>
@@ -621,19 +647,21 @@ escribir("/dos-decimas/nueva/", '''<!doctype html>
 <body><p><a href="/dos-decimas/">Ir a Dos Décimas</a></p></body></html>''')
 
 
-# ---------------------------------------------------------------- Ruvï y Plantilla de Repaso, con el panel
-_PANEL_JS = f'<script src="/dd-panel.js?v={_huella("dd-panel.js")}" defer></script>'
+# ---------------------------------------------------------------- Ruvï y Plantilla de Repaso, con el mismo móvil
+_INICIO_PR = f'<img src="/img/app-inicio.png" alt="Pantalla de inicio de Plantilla de Repaso" width="780" height="1496">'
 
 escribir("/", cabeza_panel("Ruvï · Herramientas para preparar oposiciones",
   "Ruvï crea herramientas para preparar oposiciones: Plantilla de Repaso, tests tipo examen para academias, y Dos Décimas, tests de Policía Nacional para opositores por libre.", "/", marca="ruvi", actual="/")
 + f'''
 <main>
 <section class="portada"><div class="in">
-  <h1 class="solo-lector">Herramientas para preparar oposiciones</h1>
-  {_panel([("HERRAMIENTAS", "crema"), ("PARA PREPARAR", "crema"), ("OPOSICIONES.", "cobre")], corto=True)}
-  <div class="entrada">
-    <p class="sub">Ruvï hace herramientas para preparar Policía Nacional: <b>una para academias</b> y otra para quien se prepara por su cuenta. Con preguntas como las del examen, corregidas con la ley.</p>
-    <div class="btns accesos"><a class="btn btn-s" href="/plantilla-repaso/">Tengo una academia</a><a class="btn btn-p" href="/dos-decimas/">Me preparo por mi cuenta</a></div>
+  <div class="cabeza">
+    <div class="cabeza-txt">
+      <h1>Herramientas para preparar oposiciones.</h1>
+      <p class="sub">Ruvï hace herramientas para preparar Policía Nacional: <b>una para academias</b> y otra para quien se prepara por su cuenta. Con preguntas como las del examen, corregidas con la ley.</p>
+      <div class="btns accesos"><a class="btn btn-s" href="/plantilla-repaso/">Tengo una academia</a><a class="btn btn-p" href="/dos-decimas/">Me preparo por mi cuenta</a></div>
+    </div>
+    {_movil(["app-inicio.png", "dd"], "Dos móviles: Plantilla de Repaso para academias y Dos Décimas para quien se prepara por su cuenta", _INICIO_PR)}
   </div>
 </div></section>
 
@@ -654,7 +682,7 @@ escribir("/", cabeza_panel("Ruvï · Herramientas para preparar oposiciones",
 
 {contacto("¿Tienes una academia?", "Te enseñamos la app con tus temas en una videollamada de 15 minutos. El primer mes es gratis.")}
 </main>
-''' + pie("ruvi", _PANEL_JS))
+''' + pie("ruvi", _MOVIL_JS))
 
 VIAS_PR = [
   ("inicio", "Inicio", "app-inicio.png", "El alumno ve sus fallos por repasar, su última nota y elige tema, número de preguntas y corrección.",
@@ -683,12 +711,14 @@ escribir("/plantilla-repaso/", cabeza_panel("Plantilla de Repaso · Tu temario, 
 + f'''
 <main>
 <section class="portada"><div class="in">
-  <h1 class="solo-lector">Tu temario, convertido en examen.</h1>
-  {_panel([("TU TEMARIO", "crema"), ("CONVERTIDO EN", "crema"), ("EXAMEN.", "crema"), ("PRIMER MES   0 €", "cobre")], corto=True)}
-  <div class="entrada">
-    <p class="sub">Hacemos las preguntas de vuestros temas y vuestros alumnos practican en una app, como el día del examen. Nació para Policía Nacional y se adapta a <b>cualquier oposición tipo test</b>.</p>
-    <div><div class="btns accesos"><a class="btn btn-p" href="#contacto">Pruébala con tus temas</a><a class="btn btn-s" href="#demo">Ver la demo · 1 min</a></div>
-      <p class="suave" style="margin-top:14px">Primer mes gratis y sin permanencia.</p></div>
+  <div class="cabeza">
+    <div class="cabeza-txt">
+      <h1>Tu temario, convertido en examen.</h1>
+      <p class="sub">Hacemos las preguntas de vuestros temas y vuestros alumnos practican en una app, como el día del examen. Nació para Policía Nacional y se adapta a <b>cualquier oposición tipo test</b>.</p>
+      <div><div class="btns accesos"><a class="btn btn-p" href="#contacto">Pruébala con tus temas</a><a class="btn btn-s" href="#demo">Ver la demo · 1 min</a></div>
+        <p class="suave" style="margin-top:14px">Primer mes gratis y sin permanencia.</p></div>
+    </div>
+    {_movil(["app-inicio.png"], "Pantalla de inicio de Plantilla de Repaso: los fallos por repasar, la última nota y el tema para practicar", _INICIO_PR)}
   </div>
 </div></section>
 
@@ -733,4 +763,4 @@ escribir("/plantilla-repaso/", cabeza_panel("Plantilla de Repaso · Tu temario, 
 
 {contacto("Pruébala un mes gratis", "Te la enseñamos con tus temas en una videollamada de 15 minutos.")}
 </main>
-''' + pie("ruvi", VIAS_JS, _PANEL_JS))
+''' + pie("ruvi", VIAS_JS, _MOVIL_JS))
