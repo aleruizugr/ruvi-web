@@ -658,6 +658,20 @@ escribir("/dos-decimas/nueva/", '''<!doctype html>
 <title>Dos Décimas</title><script>location.replace("/dos-decimas/"+location.hash)</script></head>
 <body><p><a href="/dos-decimas/">Ir a Dos Décimas</a></p></body></html>''')
 
+# Enlaces cortos para biografías y mensajes (ruvilab.es/ig): llevan a Dos Décimas con sus UTM, para saber de dónde
+# viene cada semana gratis (migración 020). Para una publicación nueva, añadir aquí su código (p. ej. "r08").
+ENLACES_CORTOS = {
+    "ig": "utm_source=instagram&utm_medium=bio&utm_campaign=perfil",
+    "tt": "utm_source=tiktok&utm_medium=bio&utm_campaign=perfil",
+}
+for _corto, _utm in ENLACES_CORTOS.items():
+    _destino = f"/dos-decimas/?{_utm}"
+    escribir(f"/{_corto}/", f'''<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="robots" content="noindex"><link rel="canonical" href="https://ruvilab.es/dos-decimas/">
+<meta http-equiv="refresh" content="0;url={_destino}">
+<title>Dos Décimas</title><script>location.replace("{_destino}"+location.hash)</script></head>
+<body><p><a href="{_destino}">Ir a Dos Décimas</a></p></body></html>''')
+
 
 # ---------------------------------------------------------------- Ruvï y Plantilla de Repaso, con el mismo móvil
 _INICIO_PR = f'<img src="/img/app-inicio.png" alt="Pantalla de inicio de Plantilla de Repaso" width="780" height="1496">'
