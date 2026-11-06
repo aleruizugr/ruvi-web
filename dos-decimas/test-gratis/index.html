@@ -66,7 +66,7 @@
     // la semana gratis, aquí mismo: el formulario viene en un <template> de la página y se copia al resultado
     var tpl=$("tg-plantilla");if(tpl&&window.activarPrueba){var pf=tpl.content.firstElementChild.cloneNode(true);caja.appendChild(el("h3",null,"Pruébala 7 días gratis"));caja.appendChild(el("p","muted","Deja tu email y normalmente entras al momento en Dos Décimas, con todos los tests, los exámenes oficiales y el simulacro."));caja.appendChild(pf);activarPrueba(pf)}
     var bt=el("div","btns");
-    var w=el("a","btn s","Reta a un compañero");w.href="https://wa.me/?text="+encodeURIComponent("He sacado un "+coma(nota)+" en este test con preguntas reales del examen de Policía Nacional de 2026. ¿Tú llegarías al 7,05? https://ruvilab.es/dos-decimas/test-gratis/?utm_source=whatsapp&utm_medium=reto&utm_campaign=test-gratis");w.target="_blank";w.rel="noopener";bt.appendChild(w);caja.appendChild(bt);
+    var w=el("a","btn s","Reta a un compañero");w.href="https://wa.me/?text="+encodeURIComponent("He sacado un "+coma(nota)+" en este test con preguntas reales del examen de Policía Nacional de 2026. ¿Tú llegarías al 7,05? https://ruvilab.es/dos-decimas/test-gratis/");w.target="_blank";w.rel="noopener";bt.appendChild(w);caja.appendChild(bt);
     var mal=P.map(function(q,k){return{q:q,r:res[k]}}).filter(function(x){return x.r!==x.q.a});
     if(mal.length){caja.appendChild(el("h3","tg-rev","Lo que has fallado o dejado en blanco"));mal.forEach(function(x){var c=el("div","tg-mal");c.appendChild(el("p","tg-mq",x.q.q));if(x.r!==null)c.appendChild(el("p","tg-no","Tu respuesta: "+"abc"[x.r]+") "+x.q.o[x.r]));c.appendChild(el("p","tg-si","Correcta: "+"abc"[x.q.a]+") "+x.q.o[x.q.a]));caja.appendChild(c)});
       caja.appendChild(el("p","muted","En la app, cada corrección trae además el porqué y lo que dice la ley."))}
@@ -88,12 +88,6 @@
   </form></template><script>
 (function(){
   var URL="https://lolqvimwnlikytbsnvsn.supabase.co/rest/v1/rpc/pedir_prueba",CLAVE="sb_publishable_JHbrAd6FUpp-js3O44kCjg_J6qPVFoL",APPDD="https://dosdecimas.ruvilab.es",CORREO="dosdecimas@ruvilab.es";
-  // De dónde llega: las UTM se leen de la URL al enviar (sin cookies ni nada guardado en el navegador) y van con la
-  // petición a pedir_prueba (migración 020), que las limpia. Para no perderlas al pasar de una página de Dos Décimas
-  // a otra, los enlaces internos las llevan consigo.
-  var ps=new URLSearchParams(location.search),utm=function(k){return (ps.get(k)||"").slice(0,100)||null};
-  var conUtm=["utm_source","utm_medium","utm_campaign","utm_content"].filter(function(k){return ps.get(k)}).map(function(k){return k+"="+encodeURIComponent(ps.get(k))}).join("&");
-  if(conUtm)document.querySelectorAll('a[href^="/dos-decimas/"]').forEach(function(a){var h=a.getAttribute("href"),i=h.indexOf("#");a.setAttribute("href",(i<0?h:h.slice(0,i))+(h.indexOf("?")<0?"?":"&")+conUtm+(i<0?"":h.slice(i)))});
   window.activarPrueba=function(f){if(!f||f.dataset.listo)return;f.dataset.listo=1;
     var b=f.querySelector("button[type=submit]"),m=f.querySelector(".aviso"),t=b.textContent;
     var aviso=function(html,ok){m.innerHTML=html;m.className="aviso "+(ok?"ok":"mal");m.hidden=false;m.focus&&m.setAttribute("tabindex","-1");m.focus()};
@@ -103,8 +97,7 @@
       var correo=f.email.value.trim().toLowerCase(),nombre=f.nombre?f.nombre.value.trim().replace(/\s+/g," "):"";
       b.disabled=true;b.textContent="Enviando…";
       fetch(URL,{method:"POST",headers:{"apikey":CLAVE,"Authorization":"Bearer "+CLAVE,"Content-Type":"application/json"},
-        body:JSON.stringify({correo:correo,origen:f.dataset.origen,nombre:nombre||null,como:f.como&&f.como.value||null,
-          utm_source:utm("utm_source"),utm_medium:utm("utm_medium"),utm_campaign:utm("utm_campaign"),utm_content:utm("utm_content")})
+        body:JSON.stringify({correo:correo,origen:f.dataset.origen,nombre:nombre||null,como:f.como&&f.como.value||null})   // como: «¿Dónde nos viste?» (migración 020)
       }).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(d){
         var esc=correo.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});
         if(d&&d.estado==="en_espera"){aviso("<b>Recibido.</b> Te damos de alta en unas horas y te escribimos a <b>"+esc+"</b>.",true);return}

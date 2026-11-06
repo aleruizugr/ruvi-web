@@ -126,12 +126,6 @@
 <script>
 (function(){
   var URL="https://lolqvimwnlikytbsnvsn.supabase.co/rest/v1/rpc/pedir_prueba",CLAVE="sb_publishable_JHbrAd6FUpp-js3O44kCjg_J6qPVFoL",APPDD="https://dosdecimas.ruvilab.es",CORREO="dosdecimas@ruvilab.es";
-  // De dónde llega: las UTM se leen de la URL al enviar (sin cookies ni nada guardado en el navegador) y van con la
-  // petición a pedir_prueba (migración 020), que las limpia. Para no perderlas al pasar de una página de Dos Décimas
-  // a otra, los enlaces internos las llevan consigo.
-  var ps=new URLSearchParams(location.search),utm=function(k){return (ps.get(k)||"").slice(0,100)||null};
-  var conUtm=["utm_source","utm_medium","utm_campaign","utm_content"].filter(function(k){return ps.get(k)}).map(function(k){return k+"="+encodeURIComponent(ps.get(k))}).join("&");
-  if(conUtm)document.querySelectorAll('a[href^="/dos-decimas/"]').forEach(function(a){var h=a.getAttribute("href"),i=h.indexOf("#");a.setAttribute("href",(i<0?h:h.slice(0,i))+(h.indexOf("?")<0?"?":"&")+conUtm+(i<0?"":h.slice(i)))});
   window.activarPrueba=function(f){if(!f||f.dataset.listo)return;f.dataset.listo=1;
     var b=f.querySelector("button[type=submit]"),m=f.querySelector(".aviso"),t=b.textContent;
     var aviso=function(html,ok){m.innerHTML=html;m.className="aviso "+(ok?"ok":"mal");m.hidden=false;m.focus&&m.setAttribute("tabindex","-1");m.focus()};
@@ -141,8 +135,7 @@
       var correo=f.email.value.trim().toLowerCase(),nombre=f.nombre?f.nombre.value.trim().replace(/\s+/g," "):"";
       b.disabled=true;b.textContent="Enviando…";
       fetch(URL,{method:"POST",headers:{"apikey":CLAVE,"Authorization":"Bearer "+CLAVE,"Content-Type":"application/json"},
-        body:JSON.stringify({correo:correo,origen:f.dataset.origen,nombre:nombre||null,como:f.como&&f.como.value||null,
-          utm_source:utm("utm_source"),utm_medium:utm("utm_medium"),utm_campaign:utm("utm_campaign"),utm_content:utm("utm_content")})
+        body:JSON.stringify({correo:correo,origen:f.dataset.origen,nombre:nombre||null,como:f.como&&f.como.value||null})   // como: «¿Dónde nos viste?» (migración 020)
       }).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(d){
         var esc=correo.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});
         if(d&&d.estado==="en_espera"){aviso("<b>Recibido.</b> Te damos de alta en unas horas y te escribimos a <b>"+esc+"</b>.",true);return}

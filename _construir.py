@@ -165,12 +165,6 @@ if any("/test_" in t["enlace"] for t in TARIFAS_DD + [TARIFA_FUNDADOR]):
 PRUEBA_JS = ("""<script>
 (function(){
   var URL="__URL__/rest/v1/rpc/pedir_prueba",CLAVE="__CLAVE__",APPDD="__APP__",CORREO="__CORREO__";
-  // De dónde llega: las UTM se leen de la URL al enviar (sin cookies ni nada guardado en el navegador) y van con la
-  // petición a pedir_prueba (migración 020), que las limpia. Para no perderlas al pasar de una página de Dos Décimas
-  // a otra, los enlaces internos las llevan consigo.
-  var ps=new URLSearchParams(location.search),utm=function(k){return (ps.get(k)||"").slice(0,100)||null};
-  var conUtm=["utm_source","utm_medium","utm_campaign","utm_content"].filter(function(k){return ps.get(k)}).map(function(k){return k+"="+encodeURIComponent(ps.get(k))}).join("&");
-  if(conUtm)document.querySelectorAll('a[href^="/dos-decimas/"]').forEach(function(a){var h=a.getAttribute("href"),i=h.indexOf("#");a.setAttribute("href",(i<0?h:h.slice(0,i))+(h.indexOf("?")<0?"?":"&")+conUtm+(i<0?"":h.slice(i)))});
   window.activarPrueba=function(f){if(!f||f.dataset.listo)return;f.dataset.listo=1;
     var b=f.querySelector("button[type=submit]"),m=f.querySelector(".aviso"),t=b.textContent;
     var aviso=function(html,ok){m.innerHTML=html;m.className="aviso "+(ok?"ok":"mal");m.hidden=false;m.focus&&m.setAttribute("tabindex","-1");m.focus()};
@@ -180,8 +174,7 @@ PRUEBA_JS = ("""<script>
       var correo=f.email.value.trim().toLowerCase(),nombre=f.nombre?f.nombre.value.trim().replace(/\\s+/g," "):"";
       b.disabled=true;b.textContent="Enviando…";
       fetch(URL,{method:"POST",headers:{"apikey":CLAVE,"Authorization":"Bearer "+CLAVE,"Content-Type":"application/json"},
-        body:JSON.stringify({correo:correo,origen:f.dataset.origen,nombre:nombre||null,como:f.como&&f.como.value||null,
-          utm_source:utm("utm_source"),utm_medium:utm("utm_medium"),utm_campaign:utm("utm_campaign"),utm_content:utm("utm_content")})
+        body:JSON.stringify({correo:correo,origen:f.dataset.origen,nombre:nombre||null,como:f.como&&f.como.value||null})   // como: «¿Dónde nos viste?» (migración 020)
       }).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(d){
         var esc=correo.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});
         if(d&&d.estado==="en_espera"){aviso("<b>Recibido.</b> Te damos de alta en unas horas y te escribimos a <b>"+esc+"</b>.",true);return}
@@ -340,7 +333,7 @@ _TG_JS = """<script>
     // la semana gratis, aquí mismo: el formulario viene en un <template> de la página y se copia al resultado
     var tpl=$("tg-plantilla");if(tpl&&window.activarPrueba){var pf=tpl.content.firstElementChild.cloneNode(true);caja.appendChild(el("h3",null,"Pruébala 7 días gratis"));caja.appendChild(el("p","muted","Deja tu email y normalmente entras al momento en Dos Décimas, con todos los tests, los exámenes oficiales y el simulacro."));caja.appendChild(pf);activarPrueba(pf)}
     var bt=el("div","btns");
-    var w=el("a","btn s","Reta a un compañero");w.href="https://wa.me/?text="+encodeURIComponent("He sacado un "+coma(nota)+" en este test con preguntas reales del examen de Policía Nacional de 2026. ¿Tú llegarías al 7,05? https://ruvilab.es/dos-decimas/test-gratis/?utm_source=whatsapp&utm_medium=reto&utm_campaign=test-gratis");w.target="_blank";w.rel="noopener";bt.appendChild(w);caja.appendChild(bt);
+    var w=el("a","btn s","Reta a un compañero");w.href="https://wa.me/?text="+encodeURIComponent("He sacado un "+coma(nota)+" en este test con preguntas reales del examen de Policía Nacional de 2026. ¿Tú llegarías al 7,05? https://ruvilab.es/dos-decimas/test-gratis/");w.target="_blank";w.rel="noopener";bt.appendChild(w);caja.appendChild(bt);
     var mal=P.map(function(q,k){return{q:q,r:res[k]}}).filter(function(x){return x.r!==x.q.a});
     if(mal.length){caja.appendChild(el("h3","tg-rev","Lo que has fallado o dejado en blanco"));mal.forEach(function(x){var c=el("div","tg-mal");c.appendChild(el("p","tg-mq",x.q.q));if(x.r!==null)c.appendChild(el("p","tg-no","Tu respuesta: "+"abc"[x.r]+") "+x.q.o[x.r]));c.appendChild(el("p","tg-si","Correcta: "+"abc"[x.q.a]+") "+x.q.o[x.q.a]));caja.appendChild(c)});
       caja.appendChild(el("p","muted","En la app, cada corrección trae además el porqué y lo que dice la ley."))}
@@ -434,7 +427,7 @@ escribir("/privacidad/", cabeza_panel("Privacidad y cookies · Ruvï", "Cómo tr
 <h2>Qué datos tratamos y para qué</h2>
 <ul>
 <li><b>Si nos escribes</b> a {CORREO}, por WhatsApp o nos llamas: tu nombre, tu email, el nombre de tu academia y lo que nos cuentes. Los usamos para contestarte y, si lo pides, para enseñarte la app y prepararte un presupuesto. Base legal: tu petición y las medidas previas a un contrato (artículo 6.1.b del RGPD).</li>
-<li><b>Si pides la semana gratis de Dos Décimas</b>: tu nombre y tu email, para darte acceso a la app durante 7 días, y de qué página lo pediste. Base legal: tu petición (artículo 6.1.b del RGPD). Además, para saber qué canales funcionan, guardamos los datos de campaña del enlace con el que llegaste, si los hay (los «utm_» de la dirección; por ejemplo, que venías de una publicación de Instagram), y tu respuesta a «¿Dónde nos viste?», si la contestas. Base legal: nuestro interés legítimo (artículo 6.1.f); no se usa para publicidad ni se cede a nadie. Desde ese momento tus datos se rigen por la <a href="{DD_APP}/privacidad.html">política de privacidad de Dos Décimas</a>.</li>
+<li><b>Si pides la semana gratis de Dos Décimas</b>: tu nombre y tu email, para darte acceso a la app durante 7 días, y de qué página lo pediste. Base legal: tu petición (artículo 6.1.b del RGPD). Además, para saber qué canales funcionan, guardamos tu respuesta a «¿Dónde nos viste?», si la contestas. Base legal: nuestro interés legítimo (artículo 6.1.f); no se usa para publicidad ni se cede a nadie. Desde ese momento tus datos se rigen por la <a href="{DD_APP}/privacidad.html">política de privacidad de Dos Décimas</a>.</li>
 <li><b>Al visitar la web</b>: el proveedor que la aloja registra datos técnicos, como tu dirección IP y la hora, para servirla y por seguridad. No los usamos para nada más.</li>
 </ul>
 <h2 id="lista-espera">Lista de espera de Dos Décimas</h2>
@@ -462,7 +455,7 @@ escribir("/privacidad/", cabeza_panel("Privacidad y cookies · Ruvï", "Cómo tr
 <h2>Tus derechos</h2>
 <p>Puedes pedir acceder a tus datos, corregirlos, borrarlos, limitar su uso, oponerte o llevártelos escribiendo a <a href="mailto:privacidad@ruvilab.es">privacidad@ruvilab.es</a>. Si crees que no los respetamos, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" rel="noopener">www.aepd.es</a>).</p>
 <h2>Cookies</h2>
-<p>Esta web no instala cookies ni usa herramientas de analítica o publicidad. Las letras y las imágenes se cargan desde la propia web, sin pedir nada a otros servicios. El formulario de la semana gratis solo se conecta con nuestra base de datos cuando lo envías, y tampoco usa cookies: si llegaste con un enlace de campaña, sus datos se leen de la propia dirección al enviarlo, sin guardar nada en tu navegador. Por eso no verás ningún aviso de cookies.</p>
+<p>Esta web no instala cookies ni usa herramientas de analítica o publicidad. Las letras y las imágenes se cargan desde la propia web, sin pedir nada a otros servicios. El formulario de la semana gratis solo se conecta con nuestra base de datos cuando lo envías, y tampoco usa cookies. Por eso no verás ningún aviso de cookies.</p>
 <h2>La app Plantilla de Repaso</h2>
 <p>Los datos de los alumnos dentro de la app se rigen por su propia <a href="{APP}/privacidad.html">política de privacidad</a>.</p>
 </div></div></section></main>''' + pie("ruvi"))
@@ -657,20 +650,6 @@ escribir("/dos-decimas/nueva/", '''<!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="robots" content="noindex"><link rel="canonical" href="https://ruvilab.es/dos-decimas/">
 <title>Dos Décimas</title><script>location.replace("/dos-decimas/"+location.hash)</script></head>
 <body><p><a href="/dos-decimas/">Ir a Dos Décimas</a></p></body></html>''')
-
-# Enlaces cortos para biografías y mensajes (ruvilab.es/ig): llevan a Dos Décimas con sus UTM, para saber de dónde
-# viene cada semana gratis (migración 020). Para una publicación nueva, añadir aquí su código (p. ej. "r08").
-ENLACES_CORTOS = {
-    "ig": "utm_source=instagram&utm_medium=bio&utm_campaign=perfil",
-    "tt": "utm_source=tiktok&utm_medium=bio&utm_campaign=perfil",
-}
-for _corto, _utm in ENLACES_CORTOS.items():
-    _destino = f"/dos-decimas/?{_utm}"
-    escribir(f"/{_corto}/", f'''<!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="robots" content="noindex"><link rel="canonical" href="https://ruvilab.es/dos-decimas/">
-<meta http-equiv="refresh" content="0;url={_destino}">
-<title>Dos Décimas</title><script>location.replace("{_destino}"+location.hash)</script></head>
-<body><p><a href="{_destino}">Ir a Dos Décimas</a></p></body></html>''')
 
 
 # ---------------------------------------------------------------- Ruvï y Plantilla de Repaso, con el mismo móvil
