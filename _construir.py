@@ -610,7 +610,7 @@ escribir("/dos-decimas/", _cab_nueva + f"""
     <li class="gira"><span class="hora"><span class="rotulo">VIE</span><span class="rotulo">14:00</span></span><span class="destino">Simulacro<small>100 preguntas y 50 minutos</small></span><span class="estado"><span class="rotulo cobre">Abre</span></span></li>
     <li class="gira"><span class="hora"><span class="rotulo">DOM</span><span class="rotulo">21:00</span></span><span class="destino">Tu nota, la media y el corte<small>Al cerrar ves si habrías pasado</small></span><span class="estado"><span class="rotulo">Cierra</span></span></li>
   </ul>
-  <p class="nota-sim ent"><span class="gira">¿Quieres la corrección pregunta a pregunta, con el porqué de cada una? Cuando cierre, pídela por Instagram a <a class="enlace" href="https://www.instagram.com/dosdecimas/" target="_blank" rel="noopener">@dosdecimas</a>.</span></p>
+  <p class="nota-sim ent"><span class="gira">Cuando cierre, tienes en la app la corrección de tus fallos y de las que dejaste en blanco, con el porqué de cada una.</span></p>
 </div></section>
 
 <section class="sec" id="planes"><div class="in">
