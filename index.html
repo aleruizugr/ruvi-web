@@ -26,13 +26,16 @@
 </div></header>
 <main>
 <section class="portada"><div class="in">
-  <div class="cabeza">
+  <div class="cabeza con-video">
     <div class="cabeza-txt">
       <h1>Herramientas para preparar oposiciones.</h1>
       <p class="sub">Ruvï hace herramientas para preparar Policía Nacional: <b>una para academias</b> y otra para quien se prepara por su cuenta. Con preguntas como las del examen, corregidas con la ley.</p>
       <div class="btns accesos"><a class="btn btn-s" href="/plantilla-repaso/">Tengo una academia</a><a class="btn btn-p" href="/dos-decimas/">Me preparo por mi cuenta</a></div>
     </div>
-    <div class="movil doble" data-pantallas="/img/app-inicio.png?v=b61890ef,dd" data-alt="Dos móviles: Plantilla de Repaso para academias y Dos Décimas para quien se prepara por su cuenta"><div class="movil-dom"><img src="/img/app-inicio.png?v=b61890ef" alt="Pantalla de inicio de Plantilla de Repaso" width="780" height="1496"></div><div class="movil-3d"></div></div>
+    <div class="portada-video">
+      <video id="pv" autoplay muted loop playsinline preload="metadata" poster="/img/dosdecimas-presentacion.jpg?v=e5a0155b" width="1920" height="1080" aria-label="Vídeo de presentación de Dos Décimas: la app en el móvil, Mis trampas, el Atestado del simulacro y los exámenes oficiales"><source src="/video/dosdecimas-presentacion.mp4?v=8f89afe2" type="video/mp4"></video>
+      <button class="pv-sonido" id="pv-sonido" type="button" aria-pressed="false">Activar sonido</button>
+    </div>
   </div>
 </div></section>
 
@@ -64,7 +67,12 @@
 <div class="fila"><span>Herramientas para preparar oposiciones · <a href="mailto:hola@ruvilab.es">hola@ruvilab.es</a></span>
 <nav aria-label="Legal"><a href="/plantilla-repaso/">Plantilla de Repaso</a><a href="/dos-decimas/">Dos Décimas</a><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a></nav></div>
 </div></footer>
-<script src="/dd-movil.js?v=f9ad7c0f" defer></script><script>
+<script>
+(function(){var v=document.getElementById("pv"),b=document.getElementById("pv-sonido");if(!v)return;
+if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches){v.removeAttribute("autoplay");v.pause();v.controls=true;}
+if(b)b.addEventListener("click",function(){v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.play();}b.setAttribute("aria-pressed",String(!v.muted));b.textContent=v.muted?"Activar sonido":"Quitar sonido";});
+})();
+</script><script>
 (function(){
   var ents=document.querySelectorAll(".ent"),ver=function(e){e.classList.add("visto")};
   if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){ver(e.target);io.unobserve(e.target)}})},{rootMargin:"0px 0px -10% 0px"});ents.forEach(function(e){io.observe(e)})}
