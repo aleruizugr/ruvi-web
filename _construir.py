@@ -540,7 +540,7 @@ def _vias(vias=None):
     oculto = ' aria-hidden="true"'
     imgs = "".join(f'<img src="/img/{img}" data-via="{k}" data-alt="{a}" alt="{a if i == 0 else ""}"{"" if i == 0 else oculto} class="{"activa" if i == 0 else ""}" width="780" height="1496" loading="lazy">' for i, (k, _, img, _p, a) in enumerate(vias))
     return botones, imgs
-_VIAS_BOTONES, _VIAS_IMGS = _vias()
+_VIAS_BOTONES, _VIAS_IMGS = _vias(VIAS[:3])   # Pregunta, Resultado y Mi cuaderno; Temas y Físicas quedan en el vídeo y en «Y además»
 
 def _tarifas_nueva():
     f = TARIFA_FUNDADOR
@@ -667,7 +667,7 @@ escribir("/dos-decimas/", _cab_nueva + f"""
   <div class="cuerpo">
     <div>
       <ul class="lista-vias">{_VIAS_BOTONES}</ul>
-      <p class="ademas">Y además: <b>Mis trampas</b> (en qué tipo de pregunta caes), <b>repaso de 5 minutos</b> al día con tus fallos y <b>12 exámenes oficiales</b> desde 2015 con su corte.</p>
+      <p class="ademas">Y además: <b>Mis trampas</b> (en qué tipo de pregunta caes), <b>repaso de 5 minutos</b> al día con tus fallos, <b>cómo vas en cada tema</b>, <b>12 exámenes oficiales</b> desde 2015 con su corte y <b>las físicas</b> con el baremo de la convocatoria.</p>
     </div>
     <div class="pantalla" aria-live="polite"><div class="vidrio">{_VIAS_IMGS}</div></div>
   </div>
