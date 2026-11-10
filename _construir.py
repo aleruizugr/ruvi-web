@@ -665,16 +665,13 @@ escribir("/", cabeza_panel("Ruvï · Herramientas para preparar oposiciones",
 + f'''
 <main>
 <section class="portada"><div class="in">
-  <div class="cabeza con-video">
+  <div class="cabeza">
     <div class="cabeza-txt">
       <h1>Herramientas para preparar oposiciones.</h1>
       <p class="sub">Ruvï hace herramientas para preparar Policía Nacional: <b>una para academias</b> y otra para quien se prepara por su cuenta. Con preguntas como las del examen, corregidas con la ley.</p>
       <div class="btns accesos"><a class="btn btn-s" href="/plantilla-repaso/">Tengo una academia</a><a class="btn btn-p" href="/dos-decimas/">Me preparo por mi cuenta</a></div>
     </div>
-    <div class="portada-video">
-      <video id="pv" autoplay muted loop playsinline preload="metadata" poster="/img/dosdecimas-presentacion.jpg" width="1920" height="1080" aria-label="Vídeo de presentación de Dos Décimas: la app en el móvil, Mis trampas, el Atestado del simulacro y los exámenes oficiales"><source src="/video/dosdecimas-presentacion.mp4" type="video/mp4"></video>
-      <button class="pv-sonido" id="pv-sonido" type="button" aria-pressed="false">Activar sonido</button>
-    </div>
+    {_movil(["app-inicio.png", "dd"], "Dos móviles: Plantilla de Repaso para academias y Dos Décimas para quien se prepara por su cuenta", _INICIO_PR)}
   </div>
 </div></section>
 
@@ -695,7 +692,7 @@ escribir("/", cabeza_panel("Ruvï · Herramientas para preparar oposiciones",
 
 {contacto("¿Tienes una academia?", "Te enseñamos la app con tus temas en una videollamada de 15 minutos. El primer mes es gratis.")}
 </main>
-''' + pie("ruvi", PV_JS))
+''' + pie("ruvi", _MOVIL_JS))
 
 VIAS_PR = [
   ("inicio", "Inicio", "app-inicio.png", "El alumno ve sus fallos por repasar, su última nota y elige tema, número de preguntas y corrección.",
