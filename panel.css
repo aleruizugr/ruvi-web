@@ -396,3 +396,10 @@ html:not(.js) .ver-tarifas{display:none}
   .barra-fija span{display:inline-flex;align-items:center;min-height:40px;padding:0 18px;border-radius:6px;background:var(--cobre);color:var(--sobre-cobre)}
 }
 @media (prefers-reduced-motion:reduce){.barra-fija{transition:none}}
+/* cuenta atrás del simulacro (viernes 14:00 – domingo 21:00) */
+.cuenta-sim{margin:2px 0 4px;padding:10px 14px;border-radius:6px;background:var(--tablilla);color:var(--crema);font-size:1rem;line-height:1.3}
+.cuenta-sim b{color:var(--cobre-2);font-weight:800;white-space:nowrap}
+.cuenta-sim.abierto{background:var(--cobre);color:var(--sobre-cobre)}.cuenta-sim.abierto b{color:var(--sobre-cobre)}
+.cuenta-sim[hidden]{display:none}
+.cuenta-sim.grande{margin:0 0 18px;padding:16px 20px;font-size:clamp(1.1rem,2vw,1.4rem);background:var(--negro)}
+.cuenta-sim.grande.abierto{background:var(--cobre)}

@@ -602,6 +602,27 @@ b.addEventListener("click",function(){setTimeout(function(){var i=document.query
 })();
 </script>"""
 
+# Cuenta atrás del simulacro: abre cada viernes a las 14:00 y cierra el domingo a las 21:00, hora de Madrid, todas las
+# semanas. Es un reloj fijo (no lee la base de datos): antes de abrir dice cuánto falta; abierto, cuánto queda para cerrar.
+# Se calcula con la hora de Madrid aunque el visitante esté en otro huso. (El fin de semana del cambio de hora puede
+# desviarse una hora.) Sin JavaScript no se ve: la sección del simulacro ya dice los horarios.
+CUENTA_SIM_JS = """<script>
+(function(){
+  var es=document.querySelectorAll(".cuenta-sim");if(!es.length||!window.Intl)return;
+  function madrid(){var o={};new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Madrid",hourCycle:"h23",year:"numeric",month:"numeric",day:"numeric",hour:"numeric",minute:"numeric",second:"numeric"}).formatToParts(new Date()).forEach(function(p){o[p.type]=+p.value});
+    return new Date(Date.UTC(o.year,o.month-1,o.day,o.hour,o.minute,o.second))}
+  window.ddSimulacro=function(a){   // a: la hora de Madrid puesta como si fuera UTC
+    var d=a.getUTCDay(),lunes=new Date(Date.UTC(a.getUTCFullYear(),a.getUTCMonth(),a.getUTCDate()-((d+6)%7)));
+    var abre=new Date(lunes.getTime()+4*864e5+14*36e5),cierra=new Date(lunes.getTime()+6*864e5+21*36e5);
+    if(a>=cierra)abre=new Date(abre.getTime()+7*864e5);
+    var abierto=a>=abre&&a<cierra,ms=(abierto?cierra:abre)-a,m=Math.max(1,Math.ceil(ms/6e4)),dd=Math.floor(m/1440),h=Math.floor(m%1440/60),mi=m%60;
+    var t=dd>0?dd+(dd===1?" día":" días")+(h?" y "+h+" h":""):h>0?h+" h"+(mi?" "+mi+" min":""):mi+" min";
+    return{abierto:abierto,texto:abierto?"El simulacro está abierto: cierra en ":"El próximo simulacro abre en ",tiempo:t}};
+  function pinta(){var r=ddSimulacro(madrid());es.forEach(function(e){e.innerHTML=r.texto+"<b>"+r.tiempo+"</b>";e.classList.toggle("abierto",r.abierto);e.hidden=false})}
+  pinta();setInterval(pinta,30000);
+})();
+</script>"""
+
 # anclas de la página antigua (anuncios, mensajes, el test gratis) que ahora tienen otro nombre
 ANCLAS_JS = """<script>
 (function(){var m={"#precio":"#planes","#entrar":"#prueba","#decimas":"#prueba","#empezar":"#prueba"};if(m[location.hash])location.replace(m[location.hash])})();
@@ -629,6 +650,7 @@ escribir("/dos-decimas/", _cab_nueva + f"""
     </div>
     <div class="alta alta-cta" id="prueba">
       <h2 class="ac-tit">Pruébala <em>7 días gratis</em></h2>
+      <p class="cuenta-sim" hidden></p>
       <ol class="pasos">
         <li><span>Deja tu nombre y tu email aquí.</span></li>
         <li><span>Te llega un correo: pulsa el botón.</span></li>
@@ -661,6 +683,7 @@ escribir("/dos-decimas/", _cab_nueva + f"""
 
 <section class="sec simu"><div class="in">
   <div class="cabeza-sec ent"><h2 class="titulo gira">Un simulacro <em>cada fin de semana</em></h2><p class="gira">Como el día del examen: un intento y sin repetir.</p></div>
+  <p class="cuenta-sim grande ent" hidden></p>
   <ul class="salidas ent">
     <li class="gira"><span class="hora"><span class="rotulo">VIE</span><span class="rotulo">14:00</span></span><span class="destino">Simulacro<small>100 preguntas y 50 minutos</small></span><span class="estado"><span class="rotulo cobre">Abre</span></span></li>
     <li class="gira"><span class="hora"><span class="rotulo">DOM</span><span class="rotulo">21:00</span></span><span class="destino">Tu nota, la media y el corte<small>Al cerrar ves si habrías pasado</small></span><span class="estado"><span class="rotulo">Cierra</span></span></li>
@@ -676,7 +699,7 @@ escribir("/dos-decimas/", _cab_nueva + f"""
 </div></section>
 </main>
 <a class="barra-fija" id="barra-fija" href="#prueba" hidden>7 días gratis<span>Empezar</span></a>
-""" + pie("dd", PRUEBA_JS, VIAS_JS, PV_JS, BARRA_JS, ANCLAS_JS))
+""" + pie("dd", PRUEBA_JS, VIAS_JS, PV_JS, BARRA_JS, CUENTA_SIM_JS, ANCLAS_JS))
 
 # /dos-decimas/nueva/ fue la ruta de prueba: lleva a la de verdad
 escribir("/dos-decimas/nueva/", '''<!doctype html>
