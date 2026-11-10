@@ -581,7 +581,7 @@ escribir("/dos-decimas/", _cab_nueva + f"""
       <h1>Me quedé fuera por dos décimas.</h1>
     </div>
     <div class="portada-video">
-      <video id="pv" autoplay muted loop playsinline preload="metadata" poster="/img/dosdecimas-presentacion.jpg" width="1920" height="1080" aria-label="Vídeo de presentación de Dos Décimas: la app en el móvil, Mis trampas, el Atestado del simulacro y los exámenes oficiales"><source src="/video/dosdecimas-presentacion.mp4" type="video/mp4"></video>
+      <video id="pv" autoplay muted loop playsinline preload="metadata" poster="/img/dosdecimas-presentacion.jpg" width="1920" height="1080" aria-label="Vídeo de Dos Décimas con todas las funciones de la app: tests por tema, lupa de negaciones, el porqué de cada fallo, repaso de 5 minutos, Mis trampas, el simulacro de fin de semana, El Atestado, los exámenes oficiales y las físicas"><source src="/video/dosdecimas-presentacion.mp4" type="video/mp4"></video>
       <button class="pv-sonido" id="pv-sonido" type="button" aria-pressed="false">Activar sonido</button>
     </div>
   </div>
