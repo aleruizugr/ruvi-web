@@ -17,7 +17,7 @@
 <link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
 <link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
 <link rel="preload" href="/fuentes/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/panel.css?v=ebebeb17">
+<link rel="stylesheet" href="/panel.css?v=9e065f4a">
 <script>document.documentElement.classList.add("js")</script>
 </head><body>
 <header class="cab"><div class="in">
@@ -26,7 +26,7 @@
 </div></header>
 <main>
 <section class="portada"><div class="in">
-  <div class="cabeza">
+  <div class="cabeza con-video">
     <div class="cabeza-txt">
       <h1>Me quedé fuera por dos décimas.</h1>
       <div class="mando">
@@ -36,7 +36,10 @@
         <p class="salida" id="salida" aria-live="polite">Te faltan <b>0,20</b>: 2 aciertos más o 4 fallos dejados en blanco.</p>
       </div>
     </div>
-    <div class="movil" data-pantallas="dd" data-alt="Pantalla de resultado de la app de Dos Décimas"><div class="movil-dom"><div class="movil-sin"><span>Resultado</span><b class="num">6,85</b><span>Fuera por 0,20</span><span>Corte de 2026: 7,05</span></div></div><div class="movil-3d"></div></div>
+    <div class="portada-video">
+      <video id="pv" autoplay muted loop playsinline preload="metadata" poster="/img/dosdecimas-presentacion.jpg?v=109bd3e5" width="1920" height="1080" aria-label="Vídeo de presentación de Dos Décimas: la app en el móvil, Mis trampas, el Atestado del simulacro y los exámenes oficiales"><source src="/video/dosdecimas-presentacion.mp4?v=3b6e8e68" type="video/mp4"></video>
+      <button class="pv-sonido" id="pv-sonido" type="button" aria-pressed="false">Activar sonido</button>
+    </div>
   </div>
   <div class="entrada">
     <div>
@@ -162,7 +165,12 @@
     var r=pant.getBoundingClientRect();if(matchMedia("(max-width:900px)").matches&&(r.top<70||r.bottom>innerHeight))pant.scrollIntoView({block:"center",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
   })});
 })();
-</script><script src="/dd-movil.js?v=f9ad7c0f" defer></script><script>
+</script><script>
+(function(){var v=document.getElementById("pv"),b=document.getElementById("pv-sonido");if(!v)return;
+if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches){v.removeAttribute("autoplay");v.pause();v.controls=true;}
+if(b)b.addEventListener("click",function(){v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.play();}b.setAttribute("aria-pressed",String(!v.muted));b.textContent=v.muted?"Activar sonido":"Quitar sonido";});
+})();
+</script><script>
 (function(){
   var b=document.getElementById("ver-tarifas"),l=document.getElementById("lista-tarifas");if(!b||!l)return;
   l.classList.add("plegada");

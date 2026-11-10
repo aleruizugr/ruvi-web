@@ -323,6 +323,13 @@ h1,h2,h3{margin:0;font-family:var(--f);font-weight:800;font-stretch:72%;text-tra
   .movil{order:2;aspect-ratio:1/1.08;max-height:none;max-width:520px;margin-top:-8px}
   .cabeza .mando{order:3;margin-top:0}
 }
+/* Portada de Dos Décimas con el vídeo de presentación en lugar del móvil */
+.cabeza.con-video{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
+.portada-video{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0D0B0A;box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 1px rgba(242,234,223,.08)}
+.portada-video video{display:block;width:100%;height:100%;object-fit:cover}
+.pv-sonido{position:absolute;right:12px;bottom:12px;min-height:40px;padding:0 14px;border:0;border-radius:999px;background:rgba(10,10,10,.72);color:var(--crema);font-family:inherit;font-weight:700;font-size:.9rem;line-height:1;cursor:pointer;backdrop-filter:blur(6px)}
+.pv-sonido:hover{background:rgba(10,10,10,.9)}
+@media (max-width:900px){.cabeza.con-video{grid-template-columns:1fr}.portada-video{order:2;margin-top:-8px}}
 /* Botón a la web de Ruvï */
 .btn-ruvi{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px 0 10px;border-radius:6px;background:var(--tablilla);color:var(--crema);font-weight:700}
 .btn-ruvi img{width:22px;height:22px;border-radius:5px}

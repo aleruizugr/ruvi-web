@@ -557,6 +557,14 @@ TARIFAS_JS = """<script>
 })();
 </script>"""
 
+# vídeo de la portada: sin sonido hasta que se pide; si el sistema pide menos movimiento, no arranca solo
+PV_JS = """<script>
+(function(){var v=document.getElementById("pv"),b=document.getElementById("pv-sonido");if(!v)return;
+if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches){v.removeAttribute("autoplay");v.pause();v.controls=true;}
+if(b)b.addEventListener("click",function(){v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.play();}b.setAttribute("aria-pressed",String(!v.muted));b.textContent=v.muted?"Activar sonido":"Quitar sonido";});
+})();
+</script>"""
+
 # anclas de la página antigua (anuncios, mensajes, el test gratis) que ahora tienen otro nombre
 ANCLAS_JS = """<script>
 (function(){var m={"#precio":"#planes","#entrar":"#prueba","#decimas":"#empezar"};if(m[location.hash])location.replace(m[location.hash])})();
@@ -568,7 +576,7 @@ _cab_nueva = cabeza_panel("Dos Décimas · Tests de Policía Nacional",
 escribir("/dos-decimas/", _cab_nueva + f"""
 <main>
 <section class="portada"><div class="in">
-  <div class="cabeza">
+  <div class="cabeza con-video">
     <div class="cabeza-txt">
       <h1>Me quedé fuera por dos décimas.</h1>
       <div class="mando">
@@ -578,7 +586,10 @@ escribir("/dos-decimas/", _cab_nueva + f"""
         <p class="salida" id="salida" aria-live="polite">Te faltan <b>0,20</b>: 2 aciertos más o 4 fallos dejados en blanco.</p>
       </div>
     </div>
-    {_movil(["dd"], "Pantalla de resultado de la app de Dos Décimas", f'<div class="movil-sin"><span>Resultado</span><b class="num">6,85</b><span>Fuera por 0,20</span><span>Corte de 2026: {DD_CORTE}</span></div>')}
+    <div class="portada-video">
+      <video id="pv" autoplay muted loop playsinline preload="metadata" poster="/img/dosdecimas-presentacion.jpg" width="1920" height="1080" aria-label="Vídeo de presentación de Dos Décimas: la app en el móvil, Mis trampas, el Atestado del simulacro y los exámenes oficiales"><source src="/video/dosdecimas-presentacion.mp4" type="video/mp4"></video>
+      <button class="pv-sonido" id="pv-sonido" type="button" aria-pressed="false">Activar sonido</button>
+    </div>
   </div>
   <div class="entrada">
     <div>
@@ -643,7 +654,7 @@ escribir("/dos-decimas/", _cab_nueva + f"""
   </div>
 </div></section>
 </main>
-""" + pie("dd", PRUEBA_JS, VIAS_JS, _MOVIL_JS, TARIFAS_JS, ANCLAS_JS))
+""" + pie("dd", PRUEBA_JS, VIAS_JS, PV_JS, TARIFAS_JS, ANCLAS_JS))
 
 # /dos-decimas/nueva/ fue la ruta de prueba: lleva a la de verdad
 escribir("/dos-decimas/nueva/", '''<!doctype html>
