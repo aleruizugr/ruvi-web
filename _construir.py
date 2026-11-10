@@ -598,13 +598,13 @@ BARRA_JS = """<script>
 var vis=new Set(),pinta=function(){b.classList.toggle("ver",!vis.size&&scrollY>200)};b.hidden=false;
 var io=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?vis.add(e.target):vis.delete(e.target)});pinta()},{rootMargin:"-60px 0px 0px 0px"});
 fs.forEach(function(f){io.observe(f)});addEventListener("scroll",pinta,{passive:true});
-b.addEventListener("click",function(){setTimeout(function(){var i=document.querySelector("#empezar input[name=nombre]");if(i)i.focus({preventScroll:true})},500)});
+b.addEventListener("click",function(){setTimeout(function(){var i=document.querySelector("#prueba input[name=nombre]");if(i)i.focus({preventScroll:true})},500)});
 })();
 </script>"""
 
 # anclas de la página antigua (anuncios, mensajes, el test gratis) que ahora tienen otro nombre
 ANCLAS_JS = """<script>
-(function(){var m={"#precio":"#planes","#entrar":"#prueba","#decimas":"#empezar"};if(m[location.hash])location.replace(m[location.hash])})();
+(function(){var m={"#precio":"#planes","#entrar":"#prueba","#decimas":"#prueba","#empezar":"#prueba"};if(m[location.hash])location.replace(m[location.hash])})();
 </script>"""
 
 _cab_nueva = cabeza_panel("Dos Décimas · Tests de Policía Nacional",
@@ -627,10 +627,14 @@ escribir("/dos-decimas/", _cab_nueva + f"""
       <p class="sub">Saqué un 6,85 y el corte fue un {DD_CORTE}. Dos Décimas te enseña <b>dónde pierdes las tuyas</b>, para que a ti no te pase.</p>
       <p class="mas"><a class="enlace" href="/dos-decimas/test-gratis/">Haz el test gratis de 20 preguntas</a></p>
     </div>
-    <div class="alta alta-cta" id="empezar">
-      <p class="ac-tit">Pruébala <em>7 días gratis</em></p>
-      <p class="ac-txt">Con todo incluido y sin tarjeta.</p>
-      {dd_form("web", "Quiero mi semana gratis", corto=True)}
+    <div class="alta alta-cta" id="prueba">
+      <h2 class="ac-tit">Pruébala <em>7 días gratis</em></h2>
+      <ol class="pasos">
+        <li><span>Deja tu nombre y tu email aquí.</span></li>
+        <li><span>Te llega un correo: pulsa el botón.</span></li>
+        <li><span>Elige tu contraseña. Ya estás dentro.</span></li>
+      </ol>
+      {dd_form("web", "Quiero mi semana gratis")}
       <p class="ac-compra">¿Lo tienes claro? <a href="#planes">Suscríbete desde {TARIFA_FUNDADOR["precio"]} al mes</a>, sin permanencia.</p>
     </div>
   </div>
@@ -664,20 +668,6 @@ escribir("/dos-decimas/", _cab_nueva + f"""
   <p class="nota-sim ent"><span class="gira">Cuando cierre, tienes en la app la corrección de tus fallos y de las que dejaste en blanco, con el porqué de cada una.</span></p>
 </div></section>
 
-<section class="sec cierre simu" id="prueba"><div class="in">
-  <div class="cuerpo">
-    <div class="ent">
-      <h2 class="titulo gira">Pruébala <em>7 días gratis</em></h2>
-      <ol class="pasos">
-        <li><span>Deja tu nombre y tu email aquí.</span></li>
-        <li><span>Te llega un correo: pulsa el botón.</span></li>
-        <li><span>Elige tu contraseña. Ya estás dentro.</span></li>
-      </ol>
-    </div>
-    <div>{dd_form("web", "Quiero mi semana gratis")}</div>
-  </div>
-</div></section>
-
 <section class="sec faq" id="faq"><div class="in">
   <div class="cuerpo">
     <div class="ent"><h2 class="titulo gira">Preguntas</h2><p class="suave" style="margin-top:20px">¿Otra duda? Escribe a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p></div>
@@ -685,7 +675,7 @@ escribir("/dos-decimas/", _cab_nueva + f"""
   </div>
 </div></section>
 </main>
-<a class="barra-fija" id="barra-fija" href="#empezar" hidden>7 días gratis<span>Empezar</span></a>
+<a class="barra-fija" id="barra-fija" href="#prueba" hidden>7 días gratis<span>Empezar</span></a>
 """ + pie("dd", PRUEBA_JS, VIAS_JS, PV_JS, BARRA_JS, ANCLAS_JS))
 
 # /dos-decimas/nueva/ fue la ruta de prueba: lleva a la de verdad

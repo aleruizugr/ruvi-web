@@ -17,7 +17,7 @@
 <link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
 <link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
 <link rel="preload" href="/fuentes/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/panel.css?v=5fc2e32f">
+<link rel="stylesheet" href="/panel.css?v=15bba2a8">
 <script>document.documentElement.classList.add("js")</script>
 </head><body>
 <header class="cab"><div class="in">
@@ -40,14 +40,20 @@
       <p class="sub">Saqué un 6,85 y el corte fue un 7,05. Dos Décimas te enseña <b>dónde pierdes las tuyas</b>, para que a ti no te pase.</p>
       <p class="mas"><a class="enlace" href="/dos-decimas/test-gratis/">Haz el test gratis de 20 preguntas</a></p>
     </div>
-    <div class="alta alta-cta" id="empezar">
-      <p class="ac-tit">Pruébala <em>7 días gratis</em></p>
-      <p class="ac-txt">Con todo incluido y sin tarjeta.</p>
+    <div class="alta alta-cta" id="prueba">
+      <h2 class="ac-tit">Pruébala <em>7 días gratis</em></h2>
+      <ol class="pasos">
+        <li><span>Deja tu nombre y tu email aquí.</span></li>
+        <li><span>Te llega un correo: pulsa el botón.</span></li>
+        <li><span>Elige tu contraseña. Ya estás dentro.</span></li>
+      </ol>
       <form class="alta-form prueba-form" data-origen="web" novalidate>
     <label class="campo campo-nombre"><b>Tu nombre</b>
       <input type="text" name="nombre" required maxlength="40" autocomplete="given-name" autocapitalize="words" placeholder="Cómo te llamas"></label>
     <label class="campo"><b>Tu email</b>
       <input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="tu@email.com"></label>
+    <label class="campo campo-como"><b>¿Dónde nos viste? <span class="opcional">(opcional)</span></b>
+      <select name="como"><option value="">Elige una opción</option><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="companero">Me lo pasó un compañero</option><option value="grupo">En un grupo de opositores</option><option value="creador">Un creador de contenido</option><option value="google">Google</option><option value="otro">Otro</option></select></label>
     <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
     <div class="btns"><button class="btn btn-p" type="submit">Quiero mi semana gratis</button></div>
     <p class="nota">7 días con todo, sin tarjeta. Usamos tu nombre y tu email solo para darte acceso y mandarte cómo entrar, como dice la <a href="https://dosdecimas.ruvilab.es/privacidad.html">política de privacidad</a>.</p>
@@ -92,31 +98,6 @@
   <p class="nota-sim ent"><span class="gira">Cuando cierre, tienes en la app la corrección de tus fallos y de las que dejaste en blanco, con el porqué de cada una.</span></p>
 </div></section>
 
-<section class="sec cierre simu" id="prueba"><div class="in">
-  <div class="cuerpo">
-    <div class="ent">
-      <h2 class="titulo gira">Pruébala <em>7 días gratis</em></h2>
-      <ol class="pasos">
-        <li><span>Deja tu nombre y tu email aquí.</span></li>
-        <li><span>Te llega un correo: pulsa el botón.</span></li>
-        <li><span>Elige tu contraseña. Ya estás dentro.</span></li>
-      </ol>
-    </div>
-    <div><form class="alta-form prueba-form" data-origen="web" novalidate>
-    <label class="campo campo-nombre"><b>Tu nombre</b>
-      <input type="text" name="nombre" required maxlength="40" autocomplete="given-name" autocapitalize="words" placeholder="Cómo te llamas"></label>
-    <label class="campo"><b>Tu email</b>
-      <input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="tu@email.com"></label>
-    <label class="campo campo-como"><b>¿Dónde nos viste? <span class="opcional">(opcional)</span></b>
-      <select name="como"><option value="">Elige una opción</option><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="companero">Me lo pasó un compañero</option><option value="grupo">En un grupo de opositores</option><option value="creador">Un creador de contenido</option><option value="google">Google</option><option value="otro">Otro</option></select></label>
-    <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
-    <div class="btns"><button class="btn btn-p" type="submit">Quiero mi semana gratis</button></div>
-    <p class="nota">7 días con todo, sin tarjeta. Usamos tu nombre y tu email solo para darte acceso y mandarte cómo entrar, como dice la <a href="https://dosdecimas.ruvilab.es/privacidad.html">política de privacidad</a>.</p>
-    <div class="aviso" role="status" hidden></div>
-  </form></div>
-  </div>
-</div></section>
-
 <section class="sec faq" id="faq"><div class="in">
   <div class="cuerpo">
     <div class="ent"><h2 class="titulo gira">Preguntas</h2><p class="suave" style="margin-top:20px">¿Otra duda? Escribe a <a href="mailto:dosdecimas@ruvilab.es">dosdecimas@ruvilab.es</a>.</p></div>
@@ -124,7 +105,7 @@
   </div>
 </div></section>
 </main>
-<a class="barra-fija" id="barra-fija" href="#empezar" hidden>7 días gratis<span>Empezar</span></a>
+<a class="barra-fija" id="barra-fija" href="#prueba" hidden>7 días gratis<span>Empezar</span></a>
 <footer class="pie"><div class="in">
 <p class="grande" translate="no">Dos Décimas</p>
 <div class="fila"><span>Tests de Policía Nacional, Escala Básica · Un proyecto de <a href="/">Ruvï</a> · <a href="mailto:dosdecimas@ruvilab.es">dosdecimas@ruvilab.es</a></span>
@@ -197,10 +178,10 @@ if(b)b.addEventListener("click",function(){v.muted=!v.muted;if(!v.muted){v.curre
 var vis=new Set(),pinta=function(){b.classList.toggle("ver",!vis.size&&scrollY>200)};b.hidden=false;
 var io=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?vis.add(e.target):vis.delete(e.target)});pinta()},{rootMargin:"-60px 0px 0px 0px"});
 fs.forEach(function(f){io.observe(f)});addEventListener("scroll",pinta,{passive:true});
-b.addEventListener("click",function(){setTimeout(function(){var i=document.querySelector("#empezar input[name=nombre]");if(i)i.focus({preventScroll:true})},500)});
+b.addEventListener("click",function(){setTimeout(function(){var i=document.querySelector("#prueba input[name=nombre]");if(i)i.focus({preventScroll:true})},500)});
 })();
 </script><script>
-(function(){var m={"#precio":"#planes","#entrar":"#prueba","#decimas":"#empezar"};if(m[location.hash])location.replace(m[location.hash])})();
+(function(){var m={"#precio":"#planes","#entrar":"#prueba","#decimas":"#prueba","#empezar":"#prueba"};if(m[location.hash])location.replace(m[location.hash])})();
 </script><script>
 (function(){
   var ents=document.querySelectorAll(".ent"),ver=function(e){e.classList.add("visto")};
