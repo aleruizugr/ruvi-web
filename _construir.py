@@ -33,7 +33,7 @@ CUENTA_JS = """<script>
   };
   ddCuenta("visita");
   document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var f=a.getAttribute("href");
-    if(/buy\\.stripe\\.com/.test(f))ddCuenta("clic_tarifa");else if(/#prueba$/.test(f))ddCuenta("clic_prueba");else if(/test-gratis/.test(f)&&pag!=="test-gratis")ddCuenta("clic_test")});
+    if(/buy\\.stripe\\.com/.test(f))ddCuenta("clic_tarifa");else if(/#(prueba|empezar)$/.test(f))ddCuenta("clic_prueba");else if(/#planes$/.test(f)&&a.closest(".alta-cta"))ddCuenta("clic_tarifa");else if(/test-gratis/.test(f)&&pag!=="test-gratis")ddCuenta("clic_test")});
 })();
 </script>"""
 
@@ -229,14 +229,16 @@ FAQ_DD = [
 # y, como pieza viva, la calculadora de décimas (tu nota → cuántas preguntas te faltaron para el 7,05).
 DD_CORTE = "7,05"
 
-def dd_form(origen, boton="Pruébala 7 días gratis"):
+def dd_form(origen, boton="Pruébala 7 días gratis", corto=False):
+    # corto: el de la primera pantalla, solo nombre y email (sin «¿Dónde nos viste?»), para que se rellene de un tirón
+    como = "" if corto else '''
+    <label class="campo campo-como"><b>¿Dónde nos viste? <span class="opcional">(opcional)</span></b>
+      <select name="como"><option value="">Elige una opción</option><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="companero">Me lo pasó un compañero</option><option value="grupo">En un grupo de opositores</option><option value="creador">Un creador de contenido</option><option value="google">Google</option><option value="otro">Otro</option></select></label>'''
     return f'''<form class="alta-form prueba-form" data-origen="{origen}" novalidate>
     <label class="campo campo-nombre"><b>Tu nombre</b>
       <input type="text" name="nombre" required maxlength="40" autocomplete="given-name" autocapitalize="words" placeholder="Cómo te llamas"></label>
     <label class="campo"><b>Tu email</b>
-      <input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="tu@email.com"></label>
-    <label class="campo campo-como"><b>¿Dónde nos viste? <span class="opcional">(opcional)</span></b>
-      <select name="como"><option value="">Elige una opción</option><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="companero">Me lo pasó un compañero</option><option value="grupo">En un grupo de opositores</option><option value="creador">Un creador de contenido</option><option value="google">Google</option><option value="otro">Otro</option></select></label>
+      <input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="tu@email.com"></label>{como}
     <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
     <div class="btns"><button class="btn btn-p" type="submit">{boton}</button></div>
     <p class="nota">7 días con todo, sin tarjeta. Usamos tu nombre y tu email solo para darte acceso y mandarte cómo entrar, como dice la <a href="{DD_APP}/privacidad.html">política de privacidad</a>.</p>
@@ -584,8 +586,19 @@ TARIFAS_JS = """<script>
 # vídeo de la portada: sin sonido hasta que se pide; si el sistema pide menos movimiento, no arranca solo
 PV_JS = """<script>
 (function(){var v=document.getElementById("pv"),b=document.getElementById("pv-sonido");if(!v)return;
+if(window.matchMedia&&matchMedia("(max-width: 700px)").matches)v.poster="/img/dosdecimas-presentacion-movil.jpg";
 if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches){v.removeAttribute("autoplay");v.pause();v.controls=true;}
 if(b)b.addEventListener("click",function(){v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.play();}b.setAttribute("aria-pressed",String(!v.muted));b.textContent=v.muted?"Activar sonido":"Quitar sonido";});
+})();
+</script>"""
+
+# botón fijo del móvil: aparece al bajar y se esconde mientras se ve un formulario de la prueba; al pulsarlo sube al de arriba
+BARRA_JS = """<script>
+(function(){var b=document.getElementById("barra-fija"),fs=document.querySelectorAll(".prueba-form");if(!b||!fs.length||!("IntersectionObserver" in window))return;
+var vis=new Set(),pinta=function(){b.classList.toggle("ver",!vis.size&&scrollY>200)};b.hidden=false;
+var io=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?vis.add(e.target):vis.delete(e.target)});pinta()},{rootMargin:"-60px 0px 0px 0px"});
+fs.forEach(function(f){io.observe(f)});addEventListener("scroll",pinta,{passive:true});
+b.addEventListener("click",function(){setTimeout(function(){var i=document.querySelector("#empezar input[name=nombre]");if(i)i.focus({preventScroll:true})},500)});
 })();
 </script>"""
 
@@ -599,7 +612,7 @@ _cab_nueva = cabeza_panel("Dos Décimas · Tests de Policía Nacional",
 
 escribir("/dos-decimas/", _cab_nueva + f"""
 <main>
-<section class="portada"><div class="in">
+<section class="portada venta"><div class="in">
   <div class="cabeza con-video">
     <div class="cabeza-txt">
       <h1>Me quedé fuera por dos décimas.</h1>
@@ -616,8 +629,9 @@ escribir("/dos-decimas/", _cab_nueva + f"""
     </div>
     <div class="alta alta-cta" id="empezar">
       <p class="ac-tit">Pruébala <em>7 días gratis</em></p>
-      <p class="ac-txt">Con todo incluido y sin tarjeta. Solo te pedimos tu nombre y tu email.</p>
-      <a class="btn btn-p" href="#prueba">Empezar mis 7 días gratis</a>
+      <p class="ac-txt">Con todo incluido y sin tarjeta.</p>
+      {dd_form("web", "Quiero mi semana gratis", corto=True)}
+      <p class="ac-compra">¿Lo tienes claro? <a href="#planes">Suscríbete desde {TARIFA_FUNDADOR["precio"]} al mes</a>, sin permanencia.</p>
     </div>
   </div>
 </div></section>
@@ -633,6 +647,14 @@ escribir("/dos-decimas/", _cab_nueva + f"""
   </div>
 </div></section>
 
+<section class="sec" id="planes"><div class="in">
+  <div class="cabeza-sec ent"><h2 class="titulo gira">Tarifas</h2><p class="gira">Todas incluyen lo mismo. Sin permanencia, con el IVA incluido y con 14 días para desistir.</p></div>
+  <div class="lista-tarifas" id="lista-tarifas"><div class="lt-in">
+  <ul class="tarifas">{_tarifas_nueva()}</ul>
+  <p class="pie-tarifas">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Tienes 14 días para desistir y te devolvemos todo. Paga con el mismo email con el que pruebas la app.</p>
+  </div></div>
+</div></section>
+
 <section class="sec simu"><div class="in">
   <div class="cabeza-sec ent"><h2 class="titulo gira">Un simulacro <em>cada fin de semana</em></h2><p class="gira">Como el día del examen: un intento y sin repetir.</p></div>
   <ul class="salidas ent">
@@ -640,15 +662,6 @@ escribir("/dos-decimas/", _cab_nueva + f"""
     <li class="gira"><span class="hora"><span class="rotulo">DOM</span><span class="rotulo">21:00</span></span><span class="destino">Tu nota, la media y el corte<small>Al cerrar ves si habrías pasado</small></span><span class="estado"><span class="rotulo">Cierra</span></span></li>
   </ul>
   <p class="nota-sim ent"><span class="gira">Cuando cierre, tienes en la app la corrección de tus fallos y de las que dejaste en blanco, con el porqué de cada una.</span></p>
-</div></section>
-
-<section class="sec" id="planes"><div class="in">
-  <div class="cabeza-sec ent"><h2 class="titulo gira">Tarifas</h2><p class="gira">Todas incluyen lo mismo. Sin permanencia y con el IVA incluido.</p></div>
-  <button type="button" class="ver-tarifas" id="ver-tarifas" aria-expanded="false" aria-controls="lista-tarifas"><span class="vt-txt">Ver tarifas</span><span class="vt-desde">Desde {TARIFA_FUNDADOR["precio"]} al mes</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"/></svg></button>
-  <div class="lista-tarifas" id="lista-tarifas"><div class="lt-in">
-  <ul class="tarifas">{_tarifas_nueva()}</ul>
-  <p class="pie-tarifas">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Tienes 14 días para desistir y te devolvemos todo. Paga con el mismo email con el que pruebas la app.</p>
-  </div></div>
 </div></section>
 
 <section class="sec cierre simu" id="prueba"><div class="in">
@@ -672,7 +685,8 @@ escribir("/dos-decimas/", _cab_nueva + f"""
   </div>
 </div></section>
 </main>
-""" + pie("dd", PRUEBA_JS, VIAS_JS, PV_JS, TARIFAS_JS, ANCLAS_JS))
+<a class="barra-fija" id="barra-fija" href="#empezar" hidden>7 días gratis<span>Empezar</span></a>
+""" + pie("dd", PRUEBA_JS, VIAS_JS, PV_JS, BARRA_JS, ANCLAS_JS))
 
 # /dos-decimas/nueva/ fue la ruta de prueba: lleva a la de verdad
 escribir("/dos-decimas/nueva/", '''<!doctype html>

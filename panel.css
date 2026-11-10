@@ -364,3 +364,31 @@ html:not(.js) .ver-tarifas{display:none}
 .movil.doble .movil-dom canvas{height:auto;width:46%}
 @media (max-width:900px){.cabeza-txt>*:not(h1){order:3}}
 @media (max-width:480px){.cab nav .larga{display:none}.marca{flex:none}}
+
+/* ---------- Portada de Dos Décimas pensada para vender (nov 2026): el formulario arriba, la compra a un toque ---------- */
+.alta-cta .alta-form{margin-top:4px}
+.alta-cta .alta-form .nota{font-size:.82rem}
+.alta-cta .ac-compra{margin:6px 0 0;padding-top:14px;border-top:1px solid var(--tablilla-2);font-size:1rem;color:var(--crema-2)}
+.alta-cta .ac-compra a{color:var(--cobre-2);font-weight:700}
+@media (max-width:760px){.cab nav .btn-ruvi{display:none}}
+/* en el móvil: titular, frase, formulario y, después, el vídeo (vertical) */
+@media (max-width:900px){
+  .portada.venta>.in{display:flex;flex-direction:column}
+  .portada.venta .cabeza.con-video,.portada.venta .entrada{display:contents}
+  .portada.venta .cabeza h1{order:1}
+  .portada.venta .entrada>div:first-child{order:2;margin-top:14px}
+  .portada.venta .entrada .sub{font-size:1.15rem;max-width:none}
+  .portada.venta .entrada .mas{margin-top:10px}
+  .portada.venta #empezar{order:3;margin-top:18px}
+  .portada.venta .portada-video{order:4;margin-top:22px}
+}
+@media (max-width:700px){.portada.venta .portada-video{aspect-ratio:4/5}}
+/* botón fijo abajo, solo en el móvil */
+.barra-fija{display:none}
+@media (max-width:900px){
+  .barra-fija{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:0 10px 0 20px;border-radius:10px;background:var(--crema);color:var(--sobre-cobre);font-weight:800;font-stretch:85%;text-transform:uppercase;letter-spacing:.02em;text-decoration:none;box-shadow:0 12px 40px rgba(0,0,0,.6);transform:translateY(140%);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+  .barra-fija[hidden]{display:none}
+  .barra-fija.ver{transform:none}
+  .barra-fija span{display:inline-flex;align-items:center;min-height:40px;padding:0 18px;border-radius:6px;background:var(--cobre);color:var(--sobre-cobre)}
+}
+@media (prefers-reduced-motion:reduce){.barra-fija{transition:none}}

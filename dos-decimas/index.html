@@ -17,7 +17,7 @@
 <link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
 <link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
 <link rel="preload" href="/fuentes/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/panel.css?v=9e065f4a">
+<link rel="stylesheet" href="/panel.css?v=5fc2e32f">
 <script>document.documentElement.classList.add("js")</script>
 </head><body>
 <header class="cab"><div class="in">
@@ -25,13 +25,13 @@
 <nav aria-label="Menú"><a class="opc" href="/dos-decimas/#como">Cómo funciona</a><a href="/dos-decimas/#planes">Tarifas</a><a class="opc" href="/dos-decimas/test-gratis/">Test gratis</a><a class="btn-ruvi" href="/" title="Ir a la web de Ruvï"><img src="/img/ruvi-monograma.png?v=dad139e9" alt="" width="22" height="22">Ruvï</a><a class="btn btn-s" href="https://dosdecimas.ruvilab.es">Entrar</a></nav>
 </div></header>
 <main>
-<section class="portada"><div class="in">
+<section class="portada venta"><div class="in">
   <div class="cabeza con-video">
     <div class="cabeza-txt">
       <h1>Me quedé fuera por dos décimas.</h1>
     </div>
     <div class="portada-video">
-      <video id="pv" autoplay muted loop playsinline preload="metadata" poster="/img/dosdecimas-presentacion.jpg?v=080f1e03" width="1920" height="1080" aria-label="Vídeo de Dos Décimas con todas las funciones de la app: tests por tema, lupa de negaciones, el porqué de cada fallo, repaso de 5 minutos, Mis trampas, el simulacro de fin de semana, El Atestado, los exámenes oficiales y las físicas"><source src="/video/dosdecimas-presentacion-movil.mp4?v=fe95e37e" type="video/mp4" media="(max-width: 700px)"><source src="/video/dosdecimas-presentacion.mp4?v=67125fda" type="video/mp4"></video>
+      <video id="pv" autoplay muted loop playsinline preload="metadata" poster="/img/dosdecimas-presentacion.jpg?v=080f1e03" width="1920" height="1080" aria-label="Vídeo de Dos Décimas con todas las funciones de la app: tests por tema, lupa de negaciones, el porqué de cada fallo, repaso de 5 minutos, Mis trampas, el simulacro de fin de semana, El Atestado, los exámenes oficiales y las físicas"><source src="/video/dosdecimas-presentacion-movil.mp4?v=b611e2f6" type="video/mp4" media="(max-width: 700px)"><source src="/video/dosdecimas-presentacion.mp4?v=67125fda" type="video/mp4"></video>
       <button class="pv-sonido" id="pv-sonido" type="button" aria-pressed="false">Activar sonido</button>
     </div>
   </div>
@@ -42,8 +42,18 @@
     </div>
     <div class="alta alta-cta" id="empezar">
       <p class="ac-tit">Pruébala <em>7 días gratis</em></p>
-      <p class="ac-txt">Con todo incluido y sin tarjeta. Solo te pedimos tu nombre y tu email.</p>
-      <a class="btn btn-p" href="#prueba">Empezar mis 7 días gratis</a>
+      <p class="ac-txt">Con todo incluido y sin tarjeta.</p>
+      <form class="alta-form prueba-form" data-origen="web" novalidate>
+    <label class="campo campo-nombre"><b>Tu nombre</b>
+      <input type="text" name="nombre" required maxlength="40" autocomplete="given-name" autocapitalize="words" placeholder="Cómo te llamas"></label>
+    <label class="campo"><b>Tu email</b>
+      <input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="tu@email.com"></label>
+    <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
+    <div class="btns"><button class="btn btn-p" type="submit">Quiero mi semana gratis</button></div>
+    <p class="nota">7 días con todo, sin tarjeta. Usamos tu nombre y tu email solo para darte acceso y mandarte cómo entrar, como dice la <a href="https://dosdecimas.ruvilab.es/privacidad.html">política de privacidad</a>.</p>
+    <div class="aviso" role="status" hidden></div>
+  </form>
+      <p class="ac-compra">¿Lo tienes claro? <a href="#planes">Suscríbete desde 7,99 € al mes</a>, sin permanencia.</p>
     </div>
   </div>
 </div></section>
@@ -59,18 +69,8 @@
   </div>
 </div></section>
 
-<section class="sec simu"><div class="in">
-  <div class="cabeza-sec ent"><h2 class="titulo gira">Un simulacro <em>cada fin de semana</em></h2><p class="gira">Como el día del examen: un intento y sin repetir.</p></div>
-  <ul class="salidas ent">
-    <li class="gira"><span class="hora"><span class="rotulo">VIE</span><span class="rotulo">14:00</span></span><span class="destino">Simulacro<small>100 preguntas y 50 minutos</small></span><span class="estado"><span class="rotulo cobre">Abre</span></span></li>
-    <li class="gira"><span class="hora"><span class="rotulo">DOM</span><span class="rotulo">21:00</span></span><span class="destino">Tu nota, la media y el corte<small>Al cerrar ves si habrías pasado</small></span><span class="estado"><span class="rotulo">Cierra</span></span></li>
-  </ul>
-  <p class="nota-sim ent"><span class="gira">Cuando cierre, tienes en la app la corrección de tus fallos y de las que dejaste en blanco, con el porqué de cada una.</span></p>
-</div></section>
-
 <section class="sec" id="planes"><div class="in">
-  <div class="cabeza-sec ent"><h2 class="titulo gira">Tarifas</h2><p class="gira">Todas incluyen lo mismo. Sin permanencia y con el IVA incluido.</p></div>
-  <button type="button" class="ver-tarifas" id="ver-tarifas" aria-expanded="false" aria-controls="lista-tarifas"><span class="vt-txt">Ver tarifas</span><span class="vt-desde">Desde 7,99 € al mes</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"/></svg></button>
+  <div class="cabeza-sec ent"><h2 class="titulo gira">Tarifas</h2><p class="gira">Todas incluyen lo mismo. Sin permanencia, con el IVA incluido y con 14 días para desistir.</p></div>
   <div class="lista-tarifas" id="lista-tarifas"><div class="lt-in">
   <ul class="tarifas"><li class="tarifa fundador"><span class="plan">Fundador</span><span class="precio">7,99 €<small>al mes</small></span>
       <span class="det">Solo para las 30 primeras personas, para siempre mientras sigas suscrito. Después, 10,99 € al mes.</span>
@@ -81,6 +81,15 @@
       <span class="det">Sale a 7,50 € al mes (<b>−32 %</b>). Hasta el 31 de octubre de 2027. No se renueva.</span><a class="btn btn-p" href="https://buy.stripe.com/28E9AV2FO16McqS1x904803" rel="noopener">Elegir</a></li></ul>
   <p class="pie-tarifas">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Tienes 14 días para desistir y te devolvemos todo. Paga con el mismo email con el que pruebas la app.</p>
   </div></div>
+</div></section>
+
+<section class="sec simu"><div class="in">
+  <div class="cabeza-sec ent"><h2 class="titulo gira">Un simulacro <em>cada fin de semana</em></h2><p class="gira">Como el día del examen: un intento y sin repetir.</p></div>
+  <ul class="salidas ent">
+    <li class="gira"><span class="hora"><span class="rotulo">VIE</span><span class="rotulo">14:00</span></span><span class="destino">Simulacro<small>100 preguntas y 50 minutos</small></span><span class="estado"><span class="rotulo cobre">Abre</span></span></li>
+    <li class="gira"><span class="hora"><span class="rotulo">DOM</span><span class="rotulo">21:00</span></span><span class="destino">Tu nota, la media y el corte<small>Al cerrar ves si habrías pasado</small></span><span class="estado"><span class="rotulo">Cierra</span></span></li>
+  </ul>
+  <p class="nota-sim ent"><span class="gira">Cuando cierre, tienes en la app la corrección de tus fallos y de las que dejaste en blanco, con el porqué de cada una.</span></p>
 </div></section>
 
 <section class="sec cierre simu" id="prueba"><div class="in">
@@ -115,6 +124,7 @@
   </div>
 </div></section>
 </main>
+<a class="barra-fija" id="barra-fija" href="#empezar" hidden>7 días gratis<span>Empezar</span></a>
 <footer class="pie"><div class="in">
 <p class="grande" translate="no">Dos Décimas</p>
 <div class="fila"><span>Tests de Policía Nacional, Escala Básica · Un proyecto de <a href="/">Ruvï</a> · <a href="mailto:dosdecimas@ruvilab.es">dosdecimas@ruvilab.es</a></span>
@@ -132,7 +142,7 @@
   };
   ddCuenta("visita");
   document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var f=a.getAttribute("href");
-    if(/buy\.stripe\.com/.test(f))ddCuenta("clic_tarifa");else if(/#prueba$/.test(f))ddCuenta("clic_prueba");else if(/test-gratis/.test(f)&&pag!=="test-gratis")ddCuenta("clic_test")});
+    if(/buy\.stripe\.com/.test(f))ddCuenta("clic_tarifa");else if(/#(prueba|empezar)$/.test(f))ddCuenta("clic_prueba");else if(/#planes$/.test(f)&&a.closest(".alta-cta"))ddCuenta("clic_tarifa");else if(/test-gratis/.test(f)&&pag!=="test-gratis")ddCuenta("clic_test")});
 })();
 </script><script>
 (function(){
@@ -178,19 +188,16 @@
 })();
 </script><script>
 (function(){var v=document.getElementById("pv"),b=document.getElementById("pv-sonido");if(!v)return;
+if(window.matchMedia&&matchMedia("(max-width: 700px)").matches)v.poster="/img/dosdecimas-presentacion-movil.jpg?v=6957d5cb";
 if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches){v.removeAttribute("autoplay");v.pause();v.controls=true;}
 if(b)b.addEventListener("click",function(){v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.play();}b.setAttribute("aria-pressed",String(!v.muted));b.textContent=v.muted?"Activar sonido":"Quitar sonido";});
 })();
 </script><script>
-(function(){
-  var b=document.getElementById("ver-tarifas"),l=document.getElementById("lista-tarifas");if(!b||!l)return;
-  l.classList.add("plegada");
-  b.addEventListener("click",function(){
-    var abrir=b.getAttribute("aria-expanded")!=="true";
-    b.setAttribute("aria-expanded",abrir);b.querySelector(".vt-txt").textContent=abrir?"Ocultar tarifas":"Ver tarifas";
-    l.classList.toggle("plegada",!abrir);
-    if(abrir)setTimeout(function(){var r=l.getBoundingClientRect();if(r.bottom>innerHeight)scrollBy({top:Math.min(r.top-90,r.bottom-innerHeight+24),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})},380);
-  });
+(function(){var b=document.getElementById("barra-fija"),fs=document.querySelectorAll(".prueba-form");if(!b||!fs.length||!("IntersectionObserver" in window))return;
+var vis=new Set(),pinta=function(){b.classList.toggle("ver",!vis.size&&scrollY>200)};b.hidden=false;
+var io=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?vis.add(e.target):vis.delete(e.target)});pinta()},{rootMargin:"-60px 0px 0px 0px"});
+fs.forEach(function(f){io.observe(f)});addEventListener("scroll",pinta,{passive:true});
+b.addEventListener("click",function(){setTimeout(function(){var i=document.querySelector("#empezar input[name=nombre]");if(i)i.focus({preventScroll:true})},500)});
 })();
 </script><script>
 (function(){var m={"#precio":"#planes","#entrar":"#prueba","#decimas":"#empezar"};if(m[location.hash])location.replace(m[location.hash])})();
