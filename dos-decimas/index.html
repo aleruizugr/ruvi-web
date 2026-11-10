@@ -149,9 +149,11 @@
         body:JSON.stringify({correo:correo,origen:f.dataset.origen,nombre:nombre||null,como:f.como&&f.como.value||null})   // como: «¿Dónde nos viste?» (migración 020)
       }).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(d){
         var esc=correo.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});
+        // función bienvenida-dos-decimas: manda la bienvenida si de verdad acaba de recibir el alta o, si se ha
+        // quedado en espera, avisa al dueño para que la dé a mano (migración 027)
+        var avisar=function(){try{fetch(URL.replace("/rest/v1/rpc/pedir_prueba","/functions/v1/bienvenida-dos-decimas"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({correo:correo}),keepalive:true}).catch(function(){})}catch(e){}};
+        avisar();
         if(d&&d.estado==="en_espera"){aviso("<b>Recibido.</b> Te damos de alta en unas horas y te escribimos a <b>"+esc+"</b>.",true);return}
-        // correo de bienvenida (función bienvenida-dos-decimas): solo sale si de verdad acaba de recibir el alta
-        try{fetch(URL.replace("/rest/v1/rpc/pedir_prueba","/functions/v1/bienvenida-dos-decimas"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({correo:correo}),keepalive:true}).catch(function(){})}catch(e){}
         window.ddCuenta&&ddCuenta("form_enviado");
         Array.prototype.forEach.call(f.children,function(c){if(c!==m)c.style.display="none"});   // deja solo el aviso (con display: el CSS de .campo y .btns gana a hidden)
         var nomEsc=nombre.split(" ")[0].replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});

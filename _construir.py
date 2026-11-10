@@ -197,9 +197,11 @@ PRUEBA_JS = ("""<script>
         body:JSON.stringify({correo:correo,origen:f.dataset.origen,nombre:nombre||null,como:f.como&&f.como.value||null})   // como: «¿Dónde nos viste?» (migración 020)
       }).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(d){
         var esc=correo.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});
+        // función bienvenida-dos-decimas: manda la bienvenida si de verdad acaba de recibir el alta o, si se ha
+        // quedado en espera, avisa al dueño para que la dé a mano (migración 027)
+        var avisar=function(){try{fetch(URL.replace("/rest/v1/rpc/pedir_prueba","/functions/v1/bienvenida-dos-decimas"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({correo:correo}),keepalive:true}).catch(function(){})}catch(e){}};
+        avisar();
         if(d&&d.estado==="en_espera"){aviso("<b>Recibido.</b> Te damos de alta en unas horas y te escribimos a <b>"+esc+"</b>.",true);return}
-        // correo de bienvenida (función bienvenida-dos-decimas): solo sale si de verdad acaba de recibir el alta
-        try{fetch(URL.replace("/rest/v1/rpc/pedir_prueba","/functions/v1/bienvenida-dos-decimas"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({correo:correo}),keepalive:true}).catch(function(){})}catch(e){}
         window.ddCuenta&&ddCuenta("form_enviado");
         Array.prototype.forEach.call(f.children,function(c){if(c!==m)c.style.display="none"});   // deja solo el aviso (con display: el CSS de .campo y .btns gana a hidden)
         var nomEsc=nombre.split(" ")[0].replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});
@@ -448,7 +450,7 @@ escribir("/privacidad/", cabeza_panel("Privacidad y cookies · Ruvï", "Cómo tr
 <h2>Qué datos tratamos y para qué</h2>
 <ul>
 <li><b>Si nos escribes</b> a {CORREO}, por WhatsApp o nos llamas: tu nombre, tu email, el nombre de tu academia y lo que nos cuentes. Los usamos para contestarte y, si lo pides, para enseñarte la app y prepararte un presupuesto. Base legal: tu petición y las medidas previas a un contrato (artículo 6.1.b del RGPD).</li>
-<li><b>Si pides la semana gratis de Dos Décimas</b>: tu nombre y tu email, para darte acceso a la app durante 7 días, y de qué página lo pediste. Base legal: tu petición (artículo 6.1.b del RGPD). Además, para saber qué canales funcionan, guardamos tu respuesta a «¿Dónde nos viste?», si la contestas. Base legal: nuestro interés legítimo (artículo 6.1.f); no se usa para publicidad ni se cede a nadie. Desde ese momento tus datos se rigen por la <a href="{DD_APP}/privacidad.html">política de privacidad de Dos Décimas</a>.</li>
+<li><b>Si pides la semana gratis de Dos Décimas</b>: tu nombre y tu email, para darte acceso a la app durante 7 días, y de qué página lo pediste. Base legal: tu petición (artículo 6.1.b del RGPD). Para evitar abusos del formulario guardamos durante dos días una huella irreversible de la conexión desde la que se pide (no la dirección IP) y, si tu solicitud se queda en espera, tu nombre y tu email hasta darte el alta o, como máximo, 30 días. Base legal: nuestro interés legítimo en proteger el servicio (artículo 6.1.f). Además, para saber qué canales funcionan, guardamos tu respuesta a «¿Dónde nos viste?», si la contestas. Base legal: nuestro interés legítimo (artículo 6.1.f); no se usa para publicidad ni se cede a nadie. Desde ese momento tus datos se rigen por la <a href="{DD_APP}/privacidad.html">política de privacidad de Dos Décimas</a>.</li>
 <li><b>Contador de visitas de Dos Décimas</b>: en las páginas de Dos Décimas sumamos 1 a un contador por día, página y acción (visita, test gratis empezado o terminado, formulario enviado, botón pulsado) y por procedencia general (Instagram, TikTok, Google, directo…). Es solo un número: no guarda tu dirección IP, no te identifica, no usa cookies ni deja nada en tu aparato. Lo usamos para saber qué páginas funcionan.</li>
 <li><b>Al visitar la web</b>: el proveedor que la aloja registra datos técnicos, como tu dirección IP y la hora, para servirla y por seguridad. No los usamos para nada más.</li>
 </ul>
