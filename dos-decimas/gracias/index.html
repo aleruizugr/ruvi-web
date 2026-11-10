@@ -44,6 +44,20 @@
 </div></footer>
 <script>
 (function(){
+  var U="https://lolqvimwnlikytbsnvsn.supabase.co/rest/v1/rpc/apuntar_web",K="sb_publishable_JHbrAd6FUpp-js3O44kCjg_J6qPVFoL",h=location.hostname;
+  var pag=/test-gratis/.test(location.pathname)?"test-gratis":/gracias/.test(location.pathname)?"gracias":"dos-decimas";
+  var ua=navigator.userAgent||"",r="";try{r=document.referrer?new URL(document.referrer).hostname:""}catch(e){}
+  var o=/Instagram/i.test(ua)||/instagram\./.test(r)?"instagram":/musical_ly|TikTok|Bytedance/i.test(ua)||/tiktok\./.test(r)?"tiktok":/FBAN|FBAV/.test(ua)||/facebook\.|(^|\.)fb\./.test(r)?"facebook":/google\./.test(r)?"google":/(^|\.)ruvilab\.es$/.test(r)?"interno":r?"otro":"directo";
+  window.ddCuenta=function(ev){
+    if(h!=="ruvilab.es"&&h!=="www.ruvilab.es")return;
+    try{fetch(U,{method:"POST",headers:{"apikey":K,"Authorization":"Bearer "+K,"Content-Type":"application/json"},body:JSON.stringify({pagina:pag,evento:ev,origen:o}),keepalive:true}).catch(function(){})}catch(e){}
+  };
+  ddCuenta("visita");
+  document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var f=a.getAttribute("href");
+    if(/buy\.stripe\.com/.test(f))ddCuenta("clic_tarifa");else if(/#prueba$/.test(f))ddCuenta("clic_prueba");else if(/test-gratis/.test(f)&&pag!=="test-gratis")ddCuenta("clic_test")});
+})();
+</script><script>
+(function(){
   var ents=document.querySelectorAll(".ent"),ver=function(e){e.classList.add("visto")};
   if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){ver(e.target);io.unobserve(e.target)}})},{rootMargin:"0px 0px -10% 0px"});ents.forEach(function(e){io.observe(e)})}
   else ents.forEach(ver);

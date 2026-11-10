@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /tarifas/
+Disallow: /dos-decimas/gracias/
+
+Sitemap: https://ruvilab.es/sitemap.xml
