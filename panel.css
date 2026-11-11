@@ -403,3 +403,22 @@ html:not(.js) .ver-tarifas{display:none}
 .cuenta-sim[hidden]{display:none}
 .cuenta-sim.grande{margin:0 0 18px;padding:16px 20px;font-size:clamp(1.1rem,2vw,1.4rem);background:var(--negro)}
 .cuenta-sim.grande.abierto{background:var(--cobre)}
+/* pregunta de portada (Dos Décimas): la 1.ª del test gratis, respondida de un toque */
+.p1{margin-top:22px;display:flex;flex-direction:column;gap:10px;max-width:560px}
+.p1-tit{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;font-weight:800;font-stretch:85%;text-transform:uppercase;letter-spacing:.02em;font-size:1.05rem;color:var(--cobre-2)}
+.p1-tit span{font-weight:600;text-transform:none;letter-spacing:0;font-stretch:100%;font-size:.92rem;color:var(--crema-2)}
+.p1-q{margin:0;font-weight:700;font-size:1.08rem;line-height:1.35}
+.p1-ops{display:flex;flex-direction:column;gap:8px}
+.p1 .tg-op{padding:10px 14px;gap:12px;font-size:1rem}
+.p1 .tg-op b{width:30px;height:36px;font-size:1.25rem}
+.p1 .tg-op:disabled{cursor:default}
+.p1 .tg-op:disabled:hover{background:var(--carcasa);border-color:transparent}
+.p1 .tg-op:disabled:hover b{background:var(--tablilla);color:var(--crema)}
+.p1 .tg-op:disabled:not(.bien):not(.mal){opacity:.5}
+.p1 .tg-op.bien,.p1 .tg-op.bien:hover{border-color:#8FD19E}
+.p1 .tg-op.bien b,.p1 .tg-op.bien:hover b{background:#8FD19E;color:var(--sobre-cobre)}
+.p1 .tg-op.mal,.p1 .tg-op.mal:hover{border-color:var(--mal)}
+.p1 .tg-op.mal b,.p1 .tg-op.mal:hover b{background:var(--mal);color:var(--sobre-cobre)}
+.p1-res p{margin:0 0 6px;font-size:1rem;line-height:1.45}
+.p1-res .porque{color:var(--crema-2);font-size:.95rem}
+.p1-res .btn{width:100%;margin-top:8px}

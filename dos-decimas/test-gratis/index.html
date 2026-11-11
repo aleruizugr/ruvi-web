@@ -17,7 +17,7 @@
 <link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
 <link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
 <link rel="preload" href="/fuentes/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/panel.css?v=aefed1fd">
+<link rel="stylesheet" href="/panel.css?v=ef48bd7e">
 <script>document.documentElement.classList.add("js")</script>
 </head><body>
 <header class="cab"><div class="in">
@@ -86,7 +86,9 @@
       caja.appendChild(el("p","muted","En la app, cada corrección trae además el porqué y lo que dice la ley."))}
     caja.scrollIntoView({block:"start"});
   }
-  $("tg-go").onclick=function(){window.ddCuenta&&ddCuenta("test_empezado");fin=Date.now()+SEG*1000;reloj=setInterval(tiempo,1000);pregunta()};
+  var go=function(){window.ddCuenta&&ddCuenta("test_empezado");fin=Date.now()+SEG*1000;reloj=setInterval(tiempo,1000);pregunta()};$("tg-go").onclick=go;
+  // viene de la pregunta de portada (?p1=0|1|2): la 1 ya está respondida, empieza directamente en la 2
+  var m=/[?&]p1=([0-2])(&|$)/.exec(location.search);if(m){res[0]=+m[1];i=1;go()}
 })();
 </script><template id="tg-plantilla"><form class="alta-form prueba-form" data-origen="test" novalidate>
     <label class="campo campo-nombre"><b>Tu nombre</b>

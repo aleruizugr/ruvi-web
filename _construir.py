@@ -364,7 +364,9 @@ _TG_JS = """<script>
       caja.appendChild(el("p","muted","En la app, cada corrección trae además el porqué y lo que dice la ley."))}
     caja.scrollIntoView({block:"start"});
   }
-  $("tg-go").onclick=function(){window.ddCuenta&&ddCuenta("test_empezado");fin=Date.now()+SEG*1000;reloj=setInterval(tiempo,1000);pregunta()};
+  var go=function(){window.ddCuenta&&ddCuenta("test_empezado");fin=Date.now()+SEG*1000;reloj=setInterval(tiempo,1000);pregunta()};$("tg-go").onclick=go;
+  // viene de la pregunta de portada (?p1=0|1|2): la 1 ya está respondida, empieza directamente en la 2
+  var m=/[?&]p1=([0-2])(&|$)/.exec(location.search);if(m){res[0]=+m[1];i=1;go()}
 })();
 </script>""".replace("__PREGUNTAS__", _TG)
 escribir("/dos-decimas/test-gratis/", cabeza_panel("¿Llegarías al 7,05? · Test gratis de Policía Nacional",
@@ -602,6 +604,35 @@ b.addEventListener("click",function(){setTimeout(function(){var i=document.query
 })();
 </script>"""
 
+# Pregunta de portada: la 1.ª del test gratis, para responder de un toque nada más llegar (quien viene de una historia
+# no rellena un formulario en frío, pero sí contesta una pregunta). Al responder se apunta «test_empezado» en la página
+# dos-decimas y se ofrece seguir con las 19 restantes: el test gratis las retoma desde la 2 con ?p1=<respuesta>.
+_P1 = _json.loads((R / "_fuentes" / "test-gratis.json").read_text(encoding="utf-8"))[0]
+_P1_PORQUE = "Art. 81.2 de la Constitución: las leyes orgánicas exigen mayoría absoluta del Congreso, en una votación final sobre el conjunto del proyecto. La «simple» es la trampa."
+def _pregunta_portada():
+    ops = "".join(f'<button class="tg-op" type="button" data-k="{k}"><b>{"abc"[k]}</b><span>{html.escape(o)}</span></button>' for k, o in enumerate(_P1["o"]))
+    return f'''<div class="p1" id="p1" data-a="{_P1["a"]}" data-porque="{html.escape(_P1_PORQUE)}">
+        <p class="p1-tit">¿Te la sabes? <span>Pregunta real del examen de 2026</span></p>
+        <p class="p1-q">{html.escape(_P1["q"])}</p>
+        <div class="p1-ops">{ops}</div>
+        <div class="p1-res" role="status" hidden></div>
+      </div>'''
+
+P1_JS = """<script>
+(function(){
+  var c=document.getElementById("p1");if(!c)return;var a=+c.dataset.a,hecho=0,bs=c.querySelectorAll(".p1-ops .tg-op");
+  Array.prototype.forEach.call(bs,function(b){b.addEventListener("click",function(){
+    if(hecho)return;hecho=1;var k=+b.dataset.k;window.ddCuenta&&ddCuenta("test_empezado");
+    Array.prototype.forEach.call(bs,function(x){var n=+x.dataset.k;x.disabled=true;if(n===a)x.classList.add("bien");else if(n===k)x.classList.add("mal")});
+    var r=c.querySelector(".p1-res"),p=document.createElement("p"),w=document.createElement("p"),ir=document.createElement("a");
+    p.innerHTML=k===a?"<b>¡Bien!</b> Esa era.":"<b>Era la "+"abc"[a]+".</b> Así se van las décimas.";
+    w.className="porque";w.textContent=c.dataset.porque;
+    ir.className="btn btn-p";ir.href="/dos-decimas/test-gratis/?p1="+k;ir.textContent="Sigue: quedan 19 del examen";
+    r.appendChild(p);r.appendChild(w);r.appendChild(ir);r.hidden=false;
+  })});
+})();
+</script>"""
+
 # Cuenta atrás del simulacro: abre cada viernes a las 14:00 y cierra el domingo a las 21:00, hora de Madrid, todas las
 # semanas. Es un reloj fijo (no lee la base de datos): antes de abrir dice cuánto falta; abierto, cuánto queda para cerrar.
 # Se calcula con la hora de Madrid aunque el visitante esté en otro huso. (El fin de semana del cambio de hora puede
@@ -646,7 +677,7 @@ escribir("/dos-decimas/", _cab_nueva + f"""
   <div class="entrada">
     <div>
       <p class="sub">Saqué un 6,85 y el corte fue un {DD_CORTE}. Dos Décimas te enseña <b>dónde pierdes las tuyas</b>, para que a ti no te pase.</p>
-      <p class="mas"><a class="enlace" href="/dos-decimas/test-gratis/">Haz el test gratis de 20 preguntas</a></p>
+      {_pregunta_portada()}
     </div>
     <div class="alta alta-cta" id="prueba">
       <h2 class="ac-tit">Pruébala <em>7 días gratis</em></h2>
@@ -699,7 +730,7 @@ escribir("/dos-decimas/", _cab_nueva + f"""
 </div></section>
 </main>
 <a class="barra-fija" id="barra-fija" href="#prueba" hidden>7 días gratis<span>Empezar</span></a>
-""" + pie("dd", PRUEBA_JS, VIAS_JS, PV_JS, BARRA_JS, CUENTA_SIM_JS, ANCLAS_JS))
+""" + pie("dd", PRUEBA_JS, P1_JS, VIAS_JS, PV_JS, BARRA_JS, CUENTA_SIM_JS, ANCLAS_JS))
 
 # /dos-decimas/nueva/ fue la ruta de prueba: lleva a la de verdad
 escribir("/dos-decimas/nueva/", '''<!doctype html>
