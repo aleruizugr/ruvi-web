@@ -864,10 +864,23 @@ escribir("/plantilla-repaso/", cabeza_panel("Plantilla de Repaso · Tu temario, 
 # Inspirada en el antes y después «Velde» que guardó Alejandro en TikTok (11-11-2026): fondo claro, palabra gigante,
 # cifras grandes, tarjetas con pie y un cierre oscuro con una frase enorme. Página de PRUEBA: noindex, fuera del menú,
 # del mapa del sitio y del contador. El formulario sí es el de verdad (pedir_prueba) y la pregunta, la del test gratis.
+FUNCIONES_V = [
+  ("estilo/tests.jpg", "Tests de cada tema", "10, 20, 50 o 100 preguntas, con corrección al momento o al final.", "La app con un tema elegido, 20 preguntas y corrección al momento"),
+  ("app-pregunta-dd.png", "Lupa de negaciones", "Te resalta los «NO», los «salvo» y los «excepto» para que no se te escapen.", "Una pregunta con la lupa activada: resalta «no», «ni» y «salvo»"),
+  ("estilo/dudo.jpg", "«Dudo» y «Dejar en blanco»", "Como en el examen: −0,5 por fallo. Marcas las que dudas y luego ves si te compensó.", "Una pregunta con los botones Dudo y Dejar en blanco"),
+  ("app-resultado.png", "Arriesgar o dejar en blanco", "Tu nota y si contestar dudando te ha sumado o te ha restado.", "Resultado de un test con lo que ha sumado arriesgar"),
+  ("app-cuaderno.png", "Cada fallo, con su porqué", "La respuesta buena, el porqué y lo que dice la ley. Y un botón para repetir solo esas.", "Mi cuaderno con una pregunta fallada, la correcta y el porqué"),
+  ("estilo/repaso.jpg", "Repaso de 5 minutos", "Tus fallos pendientes cada día, sin pensar qué toca, y tu racha.", "Pantalla Repasar con el repaso de 5 minutos y los fallos pendientes"),
+  ("estilo/trampas.jpg", "Mis trampas", "En qué tipo de pregunta te pillan: plazos, excepciones, «podrá»…", "Pantalla Mis trampas con el fallo por tipo de trampa"),
+  ("app-temas.png", "Cómo vas en cada tema", "Del más flojo al más fuerte. Tocas uno y lo practicas.", "Cómo vas en cada tema, con su porcentaje y su barra"),
+  ("estilo/simulacro.jpg", "Simulacro de fin de semana", "100 preguntas nuevas, con la media de todos y la nota de corte.", "Pantalla del simulacro de fin de semana"),
+  ("estilo/oficiales.jpg", "Exámenes oficiales", "Las últimas convocatorias, como el día del examen y con su nota de corte.", "Lista de exámenes oficiales por promoción con su nota de corte"),
+  ("app-fisicas.png", "Y las físicas", "Apuntas tus marcas y te da los puntos con el baremo de la convocatoria.", "Pantalla Físicas con la evolución de las marcas"),
+]
 _TARJETAS_V = "".join(f'''<li class="v-tarjeta rev">
-        <figure><img src="/img/{img}" alt="{a}" width="780" height="1496" loading="lazy"></figure>
+        <figure{' class="marco"' if img.endswith('.png') else ''}><img src="/img/{img}" alt="{a}" loading="lazy"></figure>
         <p class="v-pie"><span class="v-num">{i + 1:02d}</span><b>{n}</b>{p}</p>
-      </li>''' for i, (k, n, img, p, a) in enumerate(VIAS))
+      </li>''' for i, (img, n, p, a) in enumerate(FUNCIONES_V))
 
 _TARIFAS_V = "".join(f'''<li class="v-tarifa rev{' destacada' if t.get('destacada') else ''}">
         <span class="v-t-nom">{t["nombre"]}</span>
@@ -951,12 +964,22 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 /* tarjetas */
 .v-app{padding:clamp(70px,10vw,140px) 0;border-top:1px solid var(--raya)}
 .v-app .cab-sec{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
-.v-tarjetas{list-style:none;margin:48px 0 0;padding:0 var(--g);display:grid;grid-auto-flow:column;grid-auto-columns:clamp(240px,22vw,320px);gap:clamp(16px,2vw,28px);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;max-width:1320px;margin-inline:auto}
+.v-tarjetas{list-style:none;margin:48px 0 0;padding:0 var(--g);display:grid;grid-auto-flow:column;grid-auto-columns:clamp(240px,22vw,320px);gap:clamp(16px,2vw,28px);overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--g);scrollbar-width:none;max-width:1320px;margin-inline:auto}
 .v-tarjetas::-webkit-scrollbar{display:none}
 .v-tarjeta{scroll-snap-align:start}
-.v-tarjeta figure{margin:0;background:var(--papel-2);border-radius:18px;padding:22px 22px 0;overflow:hidden;aspect-ratio:4/5;display:flex;align-items:flex-end;justify-content:center}
-.v-tarjeta figure img{width:82%;border-radius:18px 18px 0 0;box-shadow:0 20px 40px rgba(26,22,20,.18);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-.v-tarjeta:hover figure img{transform:translateY(-8px)}
+.v-tarjeta figure{margin:0;border-radius:18px;overflow:hidden;aspect-ratio:3/5;background:radial-gradient(90% 60% at 50% 30%,#3a2618 0%,transparent 70%),var(--noche);display:flex;align-items:center;justify-content:center}
+.v-tarjeta figure img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.v-tarjeta figure.marco img{width:72%;height:auto;object-fit:contain;border:7px solid #050403;border-radius:26px;box-shadow:0 30px 60px rgba(0,0,0,.55),0 0 0 1px #2b241f}
+.v-tarjeta:hover figure img{transform:scale(1.03)}
+.v-ademas{margin:40px 0 0;max-width:70ch;color:var(--gris)}.v-ademas b{color:var(--tinta);font-weight:600}
+/* vídeo */
+.v-video{padding:clamp(40px,6vw,80px) 0 0}
+.v-video-cab{margin-bottom:32px}
+.v-video-caja{position:relative;border-radius:22px;overflow:hidden;background:var(--noche);aspect-ratio:16/9}
+.v-video-caja video{display:block;width:100%;height:100%;object-fit:cover}
+.v-sonido{position:absolute;right:16px;bottom:16px;min-height:44px;padding:0 18px;border:0;border-radius:999px;background:rgba(13,11,10,.75);color:var(--crema);font:600 .95rem var(--ft);cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.v-sonido[aria-pressed="true"]{background:var(--cobre);color:var(--tinta)}
+@media (max-width:700px){.v-video-caja{aspect-ratio:4/5}}
 .v-pie{margin:16px 0 0;font-size:1rem;color:var(--gris)}
 .v-pie b{display:block;color:var(--tinta);font:700 1.15rem var(--fd);letter-spacing:-.02em;margin-bottom:4px}
 .v-num{float:right;font:500 .85rem var(--ft);color:var(--gris)}
@@ -1033,6 +1056,9 @@ VELDE_JS = """<script>
   var g=document.querySelector(".v-gigante");setTimeout(function(){g.classList.add("ver")},80);
   var io="IntersectionObserver" in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("ver");io.unobserve(e.target)}})},{rootMargin:"0px 0px -8% 0px"}):null;
   document.querySelectorAll(".rev").forEach(function(el){io?io.observe(el):el.classList.add("ver")});
+  var vv=document.getElementById("vv"),vs=document.getElementById("vv-sonido");
+  if(vv&&"IntersectionObserver" in window){new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var p=vv.play();p&&p.catch&&p.catch(function(){})}else vv.pause()})},{threshold:.35}).observe(vv)}
+  if(vs)vs.addEventListener("click",function(){vv.muted=!vv.muted;if(!vv.muted){vv.currentTime=0;vv.play()}vs.setAttribute("aria-pressed",String(!vv.muted));vs.textContent=vv.muted?"Activar sonido":"Quitar sonido"});
   // cifras que cuentan al aparecer
   var red=matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.querySelectorAll("[data-cuenta]").forEach(function(b){
@@ -1078,9 +1104,17 @@ escribir("/dos-decimas/estilo/", f'''<!doctype html>
 <div class="in"><ul class="v-cifras rev">
   <li><b data-cuenta="6.85">6,85</b><span>mi nota en el examen</span></li>
   <li><b class="cobre" data-cuenta="7.05">7,05</b><span>la nota de corte</span></li>
-  <li><b data-cuenta="45">45</b><span>temas de la Escala Básica</span></li>
-  <li><b data-cuenta="12">12</b><span>exámenes oficiales desde 2015</span></li>
+  <li><b data-cuenta="0.20">0,20</b><span>lo que me faltó</span></li>
+  <li><b data-cuenta="2">2</b><span>aciertos más y habría llegado al corte</span></li>
 </ul></div>
+
+<section class="v-video"><div class="in">
+  <div class="v-video-cab rev"><span class="eti">La app en 50 segundos</span><h2 class="v-tit">Míralo antes de <em>probarla.</em></h2></div>
+  <div class="v-video-caja rev">
+    <video id="vv" muted loop playsinline preload="none" poster="/img/dosdecimas-presentacion.jpg" aria-label="Vídeo de Dos Décimas con todas las funciones de la app"><source src="/video/dosdecimas-presentacion-movil.mp4" type="video/mp4" media="(max-width: 700px)"><source src="/video/dosdecimas-presentacion.mp4" type="video/mp4"></video>
+    <button class="v-sonido" id="vv-sonido" type="button" aria-pressed="false">Activar sonido</button>
+  </div>
+</div></section>
 
 <section class="v-preg" id="pregunta"><div class="in">
   <div class="rev"><span class="eti">Pregunta real del examen de 2026</span><h2 class="v-tit">¿Te la <em>sabes</em>?</h2><p class="v-sub">Un toque y lo ves. Si fallas, te decimos por qué, como en la app.</p></div>
@@ -1088,8 +1122,9 @@ escribir("/dos-decimas/estilo/", f'''<!doctype html>
 </div></section>
 
 <section class="v-app" id="app">
-  <div class="in"><div class="cab-sec rev"><div><span class="eti">Dónde se van tus décimas</span><h2 class="v-tit">Te dice por qué fallas.<br><em>Y no te deja repetirlo.</em></h2></div><span class="v-desliza">Desliza →</span></div></div>
+  <div class="in"><div class="cab-sec rev"><div><span class="eti">La app, por dentro</span><h2 class="v-tit">Dónde se van <em>tus décimas.</em></h2></div><span class="v-desliza">Desliza →</span></div></div>
   <ul class="v-tarjetas">{_TARJETAS_V}</ul>
+  <div class="in"><p class="v-ademas rev">Y además: <b>El Atestado</b> de cada simulacro (dónde se te fueron los puntos), <b>tu evolución</b> simulacro a simulacro, <b>las más falladas</b> por todos, tu <b>primera intuición</b>, un <b>cuaderno de apuntes</b> y <b>modo claro y oscuro</b>.</p></div>
 </section>
 
 <section class="v-sim" id="simulacro"><div class="in">
