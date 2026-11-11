@@ -882,7 +882,7 @@ _TARJETAS_V = "".join(f'''<li class="v-tarjeta rev">
         <p class="v-pie"><span class="v-num">{i + 1:02d}</span><b>{n}</b>{p}</p>
       </li>''' for i, (img, n, p, a) in enumerate(FUNCIONES_V))
 
-_TARIFAS_V = "".join(f'''<li class="v-tarifa rev{' destacada' if t.get('destacada') else ''}">
+_TARIFAS_V = "".join(f'''<li class="v-tarifa rev{' destacada' if t.get('destacada') else ''}{' recomendada' if t['nombre'] == 'Semestre' else ''}">
         <span class="v-t-nom">{t["nombre"]}</span>
         <span class="v-t-precio">{t["precio"]}<small>{t["periodo"]}</small></span>
         <span class="v-t-nota">{(t["al_mes"] + " al mes · ") if t.get("al_mes") else ""}{t["nota"]}</span>
@@ -1009,6 +1009,11 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-t-nota{color:var(--gris);font-size:.98rem}
 .v-t-ir{display:inline-flex;gap:8px;font-weight:700;text-decoration:none;border-bottom:1.5px solid currentColor;padding-bottom:2px;justify-self:end}
 .v-tarifa.destacada .v-t-nom::after{content:"La que más ahorra";display:block;margin-top:6px;font:600 .75rem var(--ft);letter-spacing:.12em;text-transform:uppercase;color:var(--cobre-t)}
+.v-tarifa.recomendada{position:relative;margin:14px calc(var(--g) * -.5);padding:30px calc(var(--g) * .5);border:0;border-radius:18px;background:var(--tinta);color:var(--papel);box-shadow:0 24px 50px rgba(26,22,20,.22)}
+.v-tarifa.recomendada .v-t-nom::before{content:"Recomendada";display:block;width:max-content;margin-bottom:10px;padding:5px 12px;border-radius:999px;background:var(--cobre);color:var(--tinta);font:700 .75rem var(--ft);letter-spacing:.1em;text-transform:uppercase}
+.v-tarifa.recomendada .v-t-precio small,.v-tarifa.recomendada .v-t-nota{color:var(--crema-2)}
+.v-tarifa.recomendada .v-t-ir{background:var(--cobre);color:var(--tinta);border:0;padding:12px 22px;border-radius:999px}
+.v-tarifa.recomendada .v-t-ir:hover{background:var(--crema)}
 .v-pie-t{margin-top:22px;color:var(--gris);font-size:.95rem;max-width:70ch}
 @media (max-width:760px){.v-tarifa{grid-template-columns:1fr auto;gap:8px 16px}.v-t-precio{grid-row:1/3;grid-column:2;text-align:right}.v-t-nota{grid-column:1}.v-t-ir{grid-column:1/-1;justify-self:start;margin-top:6px}}
 /* alta */
@@ -1106,7 +1111,7 @@ escribir("/dos-decimas/estilo/", f'''<!doctype html>
 </div></section>
 
 <section class="v-frase"><div class="in">
-  <p class="rev">Me quedé fuera por dos décimas. <span>Saqué un 6,85 y el corte fue un {DD_CORTE}. Esta app te enseña dónde pierdes las tuyas.</span></p>
+  <p class="rev">Me quedé fuera de la Policía Nacional por dos décimas. <span>Saqué un 6,85 y el corte fue un {DD_CORTE}. Esta app te enseña dónde pierdes las tuyas.</span></p>
   <a class="v-enl rev" href="#pregunta">Compruébalo con una pregunta <span aria-hidden="true">↓</span></a>
 </div></section>
 
