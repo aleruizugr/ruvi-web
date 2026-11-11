@@ -651,12 +651,12 @@ escribir("/dos-decimas/", _cab_nueva + f"""
     <div class="alta alta-cta" id="prueba">
       <h2 class="ac-tit">Pruébala <em>7 días gratis</em></h2>
       <p class="cuenta-sim" hidden></p>
+      {dd_form("web", "Quiero mi semana gratis")}
       <ol class="pasos">
         <li><span>Deja tu nombre y tu email aquí.</span></li>
         <li><span>Te llega un correo: pulsa el botón.</span></li>
         <li><span>Elige tu contraseña. Ya estás dentro.</span></li>
       </ol>
-      {dd_form("web", "Quiero mi semana gratis")}
       <p class="ac-compra">¿Lo tienes claro? <a href="#planes">Suscríbete desde {TARIFA_FUNDADOR["precio"]} al mes</a>, sin permanencia.</p>
     </div>
   </div>

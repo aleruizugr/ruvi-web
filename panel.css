@@ -368,7 +368,7 @@ html:not(.js) .ver-tarifas{display:none}
 /* ---------- Portada de Dos Décimas pensada para vender (nov 2026): el formulario arriba, la compra a un toque ---------- */
 .alta-cta .alta-form{margin-top:4px}
 .alta-cta h2.ac-tit{font-family:inherit}
-.alta-cta .pasos{margin:6px 0 10px;gap:8px}
+.alta-cta .pasos{margin:10px 0 4px;padding-top:14px;border-top:1px solid var(--tablilla-2);gap:8px}
 .alta-cta .pasos li{gap:12px;font-size:1rem}
 .alta-cta .pasos li::before{width:34px;height:40px;font-size:1.4rem}
 .alta-cta .alta-form .nota{font-size:.82rem}
