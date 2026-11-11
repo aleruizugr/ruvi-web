@@ -875,12 +875,12 @@ FUNCIONES_V = [
   ("estilo/trampas.jpg", "Mis trampas", "En qué tipo de pregunta te pillan: plazos, excepciones, «podrá»…", "Pantalla Mis trampas con el fallo por tipo de trampa"),
   ("app-temas.png", "Cómo vas en cada tema", "Del más flojo al más fuerte. Tocas uno y lo practicas.", "Cómo vas en cada tema, con su porcentaje y su barra"),
   ("estilo/simulacro.jpg", "Simulacro de fin de semana", "100 preguntas nuevas, con la media de todos y la nota de corte.", "Pantalla del simulacro de fin de semana"),
-  ("estilo/atestado.mp4", "El Atestado", "Al cerrar el simulacro: dónde se te han ido los puntos, qué temas te han quitado más y tu siguiente objetivo.", "El Atestado de un simulacro: tu nota, lo que restan los fallos y los blancos, los temas que más te han quitado y tu siguiente objetivo"),
+  ("estilo/atestado.png", "El Atestado", "Al cerrar el simulacro: dónde se te han ido los puntos, qué temas te han quitado más y tu siguiente objetivo.", "El Atestado de un simulacro: tu nota, lo que restan los fallos y los blancos, los temas que más te han quitado y tu siguiente objetivo"),
   ("estilo/oficiales.jpg", "Exámenes oficiales", "Las últimas convocatorias, como el día del examen y con su nota de corte.", "Lista de exámenes oficiales por promoción con su nota de corte"),
   ("app-fisicas.png", "Y las físicas", "Apuntas tus marcas y te da los puntos con el baremo de la convocatoria.", "Pantalla Físicas con la evolución de las marcas"),
 ]
 _TARJETAS_V = "".join(f'''<li class="v-tarjeta rev">
-        <figure{' class="marco"' if not img.endswith('.jpg') else ''}>{f'<video src="/video/{img}" autoplay muted loop playsinline preload="metadata" poster="/img/estilo/atestado-poster.jpg" aria-label="{a}"></video>' if img.endswith('.mp4') else f'<img src="/img/{img}" alt="{a}" loading="lazy">'}</figure>
+        <figure{' class="marco"' if img.endswith('.png') else ''}><img src="/img/{img}" alt="{a}" loading="lazy"></figure>
         <p class="v-pie"><span class="v-num">{i + 1:02d}</span><b>{n}</b>{p}</p>
       </li>''' for i, (img, n, p, a) in enumerate(FUNCIONES_V))
 
@@ -981,7 +981,6 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-tarjeta{scroll-snap-align:start}
 .v-tarjeta figure{margin:0;border-radius:18px;overflow:hidden;aspect-ratio:3/5;background:radial-gradient(90% 60% at 50% 30%,#3a2618 0%,transparent 70%),var(--noche);display:flex;align-items:center;justify-content:center}
 .v-tarjeta figure img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
-.v-tarjeta figure.marco video{width:72%;aspect-ratio:9/16;height:auto;object-fit:cover;object-position:top;background:#F5F3F0;border:7px solid #050403;border-radius:26px;box-shadow:0 30px 60px rgba(0,0,0,.55),0 0 0 1px #2b241f}
 .v-tarjeta figure.marco img{width:72%;height:auto;object-fit:contain;border:7px solid #050403;border-radius:26px;box-shadow:0 30px 60px rgba(0,0,0,.55),0 0 0 1px #2b241f}
 .v-tarjeta:hover figure img{transform:scale(1.03)}
 .v-ademas{margin:40px 0 0;max-width:70ch;color:var(--gris)}.v-ademas b{color:var(--tinta);font-weight:600}
