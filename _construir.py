@@ -868,7 +868,7 @@ FUNCIONES_V = [
   ("estilo/tests.jpg", "Tests de cada tema", "10, 20, 50 o 100 preguntas, con corrección al momento o al final.", "La app con un tema elegido, 20 preguntas y corrección al momento"),
   ("app-pregunta-dd.png", "Lupa de negaciones", "Te resalta los «NO», los «salvo» y los «excepto» para que no se te escapen.", "Una pregunta con la lupa activada: resalta «no», «ni» y «salvo»"),
   ("estilo/dudo.jpg", "«Dudo» y «Dejar en blanco»", "Como en el examen: −0,5 por fallo. Marcas las que dudas y luego ves si te compensó.", "Una pregunta con los botones Dudo y Dejar en blanco"),
-  ("app-resultado.png", "Arriesgar o dejar en blanco", "Tu nota y si contestar dudando te ha sumado o te ha restado.", "Resultado de un test con lo que ha sumado arriesgar"),
+  ("app-resultado.png", "¿Te compensa arriesgar?", "Tu nota con −0,5 por fallo y si contestar las que dudabas te ha sumado o te ha restado.", "Resultado de un test con lo que ha sumado arriesgar"),
   ("app-cuaderno.png", "Cada fallo, con su porqué", "La respuesta buena, el porqué y lo que dice la ley. Y un botón para repetir solo esas.", "Mi cuaderno con una pregunta fallada, la correcta y el porqué"),
   ("estilo/repaso.jpg", "Repaso de 5 minutos", "Tus fallos pendientes cada día, sin pensar qué toca, y tu racha.", "Pantalla Repasar con el repaso de 5 minutos y los fallos pendientes"),
   ("estilo/trampas.jpg", "Mis trampas", "En qué tipo de pregunta te pillan: plazos, excepciones, «podrá»…", "Pantalla Mis trampas con el fallo por tipo de trampa"),
@@ -917,12 +917,18 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-intro{align-self:start;max-width:30ch;font:400 clamp(1.15rem,1.8vw,1.45rem)/1.4 var(--ft);color:var(--crema-2)}
 .v-intro b{color:var(--crema);font-weight:600}
 .v-intro .v-btn{margin-top:22px}
-.v-movil{grid-row:1/3;grid-column:2;align-self:end;width:clamp(200px,24vw,330px);margin-bottom:-12%;border-radius:34px;border:9px solid #050403;box-shadow:0 40px 90px rgba(0,0,0,.6),0 0 0 1px #2b241f;transform:rotate(4deg);overflow:hidden;background:#050403}
+.v-movil-caja{grid-row:1/3;grid-column:2;align-self:end;width:min(clamp(210px,24vw,330px),calc((100svh - 200px) * .5));margin-bottom:-10%;position:relative;transform:rotate(4deg)}
+.v-movil{border-radius:34px;border:9px solid #050403;box-shadow:0 40px 90px rgba(0,0,0,.6),0 0 0 1px #2b241f;overflow:hidden;background:#F5F3F0;aspect-ratio:9/16}
+.v-movil video{display:block;width:100%;height:100%;object-fit:cover}
+.v-movil-eti{position:absolute;left:-46%;top:18%;z-index:3;max-width:220px;margin:0;padding:12px 16px;border-radius:14px;background:rgba(242,234,223,.96);color:var(--tinta);font:400 .92rem/1.35 var(--ft);box-shadow:0 18px 40px rgba(0,0,0,.45);transform:rotate(-4deg)}
+.v-movil-eti b{display:block;font:700 1rem var(--fd);color:var(--cobre-t)}
 .v-gigante{grid-column:1/-1;position:relative;z-index:2;margin:0 0 -.12em;font:800 clamp(4.2rem,17.5vw,17rem)/.82 var(--fd);letter-spacing:-.055em;white-space:nowrap;color:var(--crema)}
 .v-gigante em{font-style:normal;color:var(--cobre)}
 @media (max-width:760px){
   .v-portada .in{grid-template-columns:1fr;grid-template-rows:1fr auto;padding-top:96px;padding-bottom:4px}
-  .v-movil{position:absolute;right:-6vw;bottom:30vw;width:50vw;margin:0;border-width:7px;border-radius:26px;z-index:1}
+  .v-movil-caja{position:absolute;right:-4vw;bottom:30vw;width:48vw;margin:0;z-index:1}
+  .v-movil{border-width:7px;border-radius:26px}
+  .v-movil-eti{left:-62%;top:auto;bottom:22%;max-width:180px;font-size:.85rem;padding:10px 12px}
   .v-intro{position:relative;z-index:2}
   .v-gigante{grid-row:2;font-size:21vw;white-space:normal;line-height:.86;margin-bottom:0}
 }
@@ -1092,7 +1098,10 @@ escribir("/dos-decimas/estilo/", f'''<!doctype html>
 <main>
 <section class="v-portada"><div class="in">
   <p class="v-intro">La app para preparar <b>Policía Nacional</b>. Tests a nivel de examen, comprobados con la ley vigente del BOE.<br><a class="v-btn" href="#prueba">Empieza tus 7 días gratis</a></p>
-  <img class="v-movil" src="/img/app-pregunta-dd.png" alt="Una pregunta en la app de Dos Décimas, con la lupa que resalta los «no» y los «salvo»" width="780" height="1496">
+  <div class="v-movil-caja">
+    <div class="v-movil"><video autoplay muted loop playsinline preload="auto" poster="/img/estilo/atestado-poster.jpg" width="540" height="960" aria-label="El Atestado de un simulacro en la app: tu nota, lo que te han quitado los fallos y las preguntas en blanco, los temas que más te han quitado y tu siguiente objetivo"><source src="/video/estilo/atestado.mp4" type="video/mp4"></video></div>
+    <p class="v-movil-eti"><b>El Atestado</b> de tu simulacro: dónde se te han ido los puntos</p>
+  </div>
   <h1 class="v-gigante" aria-label="Dos Décimas"><span class="l">Dos</span> <em class="l">Décimas</em></h1>
 </div></section>
 
