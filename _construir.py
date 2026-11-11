@@ -875,7 +875,7 @@ FUNCIONES_V = [
   ("estilo/trampas.jpg", "Mis trampas", "En qué tipo de pregunta te pillan: plazos, excepciones, «podrá»…", "Pantalla Mis trampas con el fallo por tipo de trampa"),
   ("app-temas.png", "Cómo vas en cada tema", "Del más flojo al más fuerte. Tocas uno y lo practicas.", "Cómo vas en cada tema, con su porcentaje y su barra"),
   ("estilo/simulacro.jpg", "Simulacro de fin de semana", "100 preguntas nuevas, con la media de todos y la nota de corte.", "Pantalla del simulacro de fin de semana"),
-  ("estilo/atestado.png", "El Atestado", "Al cerrar el simulacro: dónde se te han ido los puntos, qué temas te han quitado más y tu siguiente objetivo.", "El Atestado de un simulacro: tu nota, lo que restan los fallos y los blancos, los temas que más te han quitado y tu siguiente objetivo"),
+  ("estilo/atestado.jpg", "El Atestado", "Al cerrar el simulacro: dónde se te han ido los puntos, qué temas te han quitado más y tu siguiente objetivo.", "El Atestado de un simulacro: tu nota, lo que restan los fallos y los blancos, los temas que más te han quitado y tu siguiente objetivo"),
   ("estilo/oficiales.jpg", "Exámenes oficiales", "Las últimas convocatorias, como el día del examen y con su nota de corte.", "Lista de exámenes oficiales por promoción con su nota de corte"),
   ("app-fisicas.png", "Y las físicas", "Apuntas tus marcas y te da los puntos con el baremo de la convocatoria.", "Pantalla Físicas con la evolución de las marcas"),
 ]
