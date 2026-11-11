@@ -660,9 +660,10 @@ ANCLAS_JS = """<script>
 </script>"""
 
 _cab_nueva = cabeza_panel("Dos Décimas · Tests de Policía Nacional",
-  "Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.", "/dos-decimas/")
+  "Dos Décimas: tests de Policía Nacional (Escala Básica) a nivel de examen, comprobados con la ley vigente del BOE. Hechos por un opositor que se quedó a dos décimas del corte.", "/dos-decimas/anterior/", noindex=True)
 
-escribir("/dos-decimas/", _cab_nueva + f"""
+# Portada anterior (panel de tablillas), sustituida el 12-11-2026 por la editorial; se guarda sin indexar por si hay que volver
+escribir("/dos-decimas/anterior/", _cab_nueva + f"""
 <main>
 <section class="portada venta"><div class="in">
   <div class="cabeza con-video">
@@ -860,10 +861,10 @@ escribir("/plantilla-repaso/", cabeza_panel("Plantilla de Repaso · Tu temario, 
 
 # ---------------------------------------------------------------- Mapa del sitio y robots (para Google)
 # Solo las páginas públicas que queremos que salgan en buscadores.
-# ---------------------------------------------------------------- Dos Décimas: prueba de estilo «editorial» (/dos-decimas/estilo/)
+# ---------------------------------------------------------------- Dos Décimas: portada editorial (/dos-decimas/), desde el 12-11-2026
 # Inspirada en el antes y después «Velde» que guardó Alejandro en TikTok (11-11-2026): fondo claro, palabra gigante,
-# cifras grandes, tarjetas con pie y un cierre oscuro con una frase enorme. Página de PRUEBA: noindex, fuera del menú,
-# del mapa del sitio y del contador. El formulario sí es el de verdad (pedir_prueba) y la pregunta, la del test gratis.
+# cifras grandes, tarjetas con pie y un cierre oscuro con una frase enorme. Lleva el contador anónimo (CUENTA_JS), el
+# formulario de verdad (pedir_prueba), la pregunta de portada y las anclas antiguas (#precio, #entrar…).
 FUNCIONES_V = [
   ("estilo/tests.jpg", "Tests de cada tema", "10, 20, 50 o 100 preguntas, con corrección al momento o al final.", "La app con un tema elegido, 20 preguntas y corrección al momento"),
   ("app-pregunta-dd.png", "Lupa de negaciones", "Te resalta los «NO», los «salvo» y los «excepto» para que no se te escapen.", "Una pregunta con la lupa activada: resalta «no», «ni» y «salvo»"),
@@ -874,11 +875,12 @@ FUNCIONES_V = [
   ("estilo/trampas.jpg", "Mis trampas", "En qué tipo de pregunta te pillan: plazos, excepciones, «podrá»…", "Pantalla Mis trampas con el fallo por tipo de trampa"),
   ("app-temas.png", "Cómo vas en cada tema", "Del más flojo al más fuerte. Tocas uno y lo practicas.", "Cómo vas en cada tema, con su porcentaje y su barra"),
   ("estilo/simulacro.jpg", "Simulacro de fin de semana", "100 preguntas nuevas, con la media de todos y la nota de corte.", "Pantalla del simulacro de fin de semana"),
+  ("estilo/atestado.mp4", "El Atestado", "Al cerrar el simulacro: dónde se te han ido los puntos, qué temas te han quitado más y tu siguiente objetivo.", "El Atestado de un simulacro: tu nota, lo que restan los fallos y los blancos, los temas que más te han quitado y tu siguiente objetivo"),
   ("estilo/oficiales.jpg", "Exámenes oficiales", "Las últimas convocatorias, como el día del examen y con su nota de corte.", "Lista de exámenes oficiales por promoción con su nota de corte"),
   ("app-fisicas.png", "Y las físicas", "Apuntas tus marcas y te da los puntos con el baremo de la convocatoria.", "Pantalla Físicas con la evolución de las marcas"),
 ]
 _TARJETAS_V = "".join(f'''<li class="v-tarjeta rev">
-        <figure{' class="marco"' if img.endswith('.png') else ''}><img src="/img/{img}" alt="{a}" loading="lazy"></figure>
+        <figure{' class="marco"' if not img.endswith('.jpg') else ''}>{f'<video src="/video/{img}" autoplay muted loop playsinline preload="metadata" poster="/img/estilo/atestado-poster.jpg" aria-label="{a}"></video>' if img.endswith('.mp4') else f'<img src="/img/{img}" alt="{a}" loading="lazy">'}</figure>
         <p class="v-pie"><span class="v-num">{i + 1:02d}</span><b>{n}</b>{p}</p>
       </li>''' for i, (img, n, p, a) in enumerate(FUNCIONES_V))
 
@@ -910,6 +912,10 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-btn:hover{background:var(--crema)}.v-btn:active{transform:translateY(1px)}
 .v-btn.oscuro{background:var(--tinta);color:var(--papel)}.v-btn.oscuro:hover{background:var(--cobre-t)}
 .v-cab .v-btn{min-height:42px;padding:0 18px;opacity:1;white-space:nowrap}
+.v-cab nav a.v-entrar{display:inline-flex;align-items:center;min-height:42px;padding:0 18px;border:1.5px solid currentColor;border-radius:999px;font-weight:700;opacity:1;white-space:nowrap;transition:background-color .15s,color .15s}
+.v-cab nav a.v-entrar:hover{background:var(--crema);color:var(--tinta);border-color:var(--crema)}
+.v-cab.claro nav a.v-entrar:hover{background:var(--tinta);color:var(--papel);border-color:var(--tinta)}
+@media (max-width:420px){.v-cab .in{gap:10px}.v-cab nav{gap:8px}.v-cab nav a.v-entrar,.v-cab .v-btn{padding:0 13px;min-height:40px;font-size:.92rem}.v-marca{font-size:1rem;gap:8px}.v-marca img{width:28px;height:28px}}
 @media (max-width:760px){.v-cab nav a.opc{display:none}.v-cab nav{gap:16px}}
 /* portada */
 .v-portada{position:relative;min-height:100svh;background:radial-gradient(80% 60% at 75% 35%,#3a2618 0%,transparent 60%),radial-gradient(60% 50% at 10% 90%,#2a1c13 0%,transparent 60%),var(--noche);color:var(--crema);overflow:hidden;display:flex;flex-direction:column}
@@ -919,7 +925,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-intro .v-btn{margin-top:22px}
 .v-movil-caja{grid-row:1/3;grid-column:2;align-self:end;width:min(clamp(210px,24vw,330px),calc((100svh - 200px) * .5));margin-bottom:-10%;position:relative;transform:rotate(4deg)}
 .v-movil{border-radius:34px;border:9px solid #050403;box-shadow:0 40px 90px rgba(0,0,0,.6),0 0 0 1px #2b241f;overflow:hidden;background:#F5F3F0;aspect-ratio:9/16}
-.v-movil video{display:block;width:100%;height:100%;object-fit:cover}
+.v-movil video,.v-movil img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
 .v-movil-eti{position:absolute;left:-46%;top:18%;z-index:3;max-width:220px;margin:0;padding:12px 16px;border-radius:14px;background:rgba(242,234,223,.96);color:var(--tinta);font:400 .92rem/1.35 var(--ft);box-shadow:0 18px 40px rgba(0,0,0,.45);transform:rotate(-4deg)}
 .v-movil-eti b{display:block;font:700 1rem var(--fd);color:var(--cobre-t)}
 .v-gigante{grid-column:1/-1;position:relative;z-index:2;margin:0 0 -.12em;font:800 clamp(4.2rem,17.5vw,17rem)/.82 var(--fd);letter-spacing:-.055em;white-space:nowrap;color:var(--crema)}
@@ -975,6 +981,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-tarjeta{scroll-snap-align:start}
 .v-tarjeta figure{margin:0;border-radius:18px;overflow:hidden;aspect-ratio:3/5;background:radial-gradient(90% 60% at 50% 30%,#3a2618 0%,transparent 70%),var(--noche);display:flex;align-items:center;justify-content:center}
 .v-tarjeta figure img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.v-tarjeta figure.marco video{width:72%;aspect-ratio:9/16;height:auto;object-fit:cover;object-position:top;background:#F5F3F0;border:7px solid #050403;border-radius:26px;box-shadow:0 30px 60px rgba(0,0,0,.55),0 0 0 1px #2b241f}
 .v-tarjeta figure.marco img{width:72%;height:auto;object-fit:contain;border:7px solid #050403;border-radius:26px;box-shadow:0 30px 60px rgba(0,0,0,.55),0 0 0 1px #2b241f}
 .v-tarjeta:hover figure img{transform:scale(1.03)}
 .v-ademas{margin:40px 0 0;max-width:70ch;color:var(--gris)}.v-ademas b{color:var(--tinta);font-weight:600}
@@ -1077,14 +1084,24 @@ VELDE_JS = """<script>
 </script>"""
 
 
-escribir("/dos-decimas/estilo/", f'''<!doctype html>
+_DD_DESC = "Dos Décimas: la app para preparar Policía Nacional (Escala Básica). Tests a nivel de examen, comprobados con la ley vigente del BOE. Hecha por un opositor que se quedó a dos décimas del corte."
+escribir("/dos-decimas/", f'''<!doctype html>
 <html lang="es"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Dos Décimas · La app para preparar Policía Nacional</title>
-<meta name="description" content="Prueba de estilo de la web de Dos Décimas.">
-<meta name="robots" content="noindex">
+<meta name="description" content="{html.escape(_DD_DESC)}">
 <meta name="theme-color" content="#0D0B0A">
+<meta property="og:title" content="Dos Décimas · La app para preparar Policía Nacional">
+<meta property="og:description" content="{html.escape(_DD_DESC)}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ruvilab.es/dos-decimas/">
+<meta property="og:image" content="https://ruvilab.es/img/dosdecimas-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_ES">
+<link rel="canonical" href="https://ruvilab.es/dos-decimas/">
+<link rel="apple-touch-icon" href="/img/dosdecimas-apple-touch-icon.png">
 <link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600;700&display=swap">
@@ -1092,16 +1109,15 @@ escribir("/dos-decimas/estilo/", f'''<!doctype html>
 {VELDE_CSS}
 </head><body>
 <header class="v-cab"><div class="in">
-  <a class="v-marca" href="/dos-decimas/estilo/"><img src="/img/dosdecimas-logo.png" alt="" width="30" height="30">Dos Décimas</a>
-  <nav aria-label="Menú"><a class="opc" href="#app">La app</a><a class="opc" href="#simulacro">Simulacro</a><a class="opc" href="#planes">Tarifas</a><a href="{DD_APP}">Entrar</a><a class="v-btn" href="#prueba">7 días gratis</a></nav>
+  <a class="v-marca" href="/dos-decimas/"><img src="/img/dosdecimas-logo.png" alt="" width="30" height="30">Dos Décimas</a>
+  <nav aria-label="Menú"><a class="opc" href="#app">La app</a><a class="opc" href="#simulacro">Simulacro</a><a class="opc" href="#planes">Tarifas</a><a class="v-entrar" href="{DD_APP}">Entrar</a><a class="v-btn" href="#prueba">7 días gratis</a></nav>
 </div></header>
 
 <main>
 <section class="v-portada"><div class="in">
   <p class="v-intro">La app para preparar <b>Policía Nacional</b>. Tests a nivel de examen, comprobados con la ley vigente del BOE.<br><a class="v-btn" href="#prueba">Empieza tus 7 días gratis</a></p>
   <div class="v-movil-caja">
-    <div class="v-movil"><video autoplay muted loop playsinline preload="auto" poster="/img/estilo/atestado-poster.jpg" width="540" height="960" aria-label="El Atestado de un simulacro en la app: tu nota, lo que te han quitado los fallos y las preguntas en blanco, los temas que más te han quitado y tu siguiente objetivo"><source src="/video/estilo/atestado.mp4" type="video/mp4"></video></div>
-    <p class="v-movil-eti"><b>El Atestado</b> de tu simulacro: dónde se te han ido los puntos</p>
+    <div class="v-movil"><img src="/img/estilo/inicio.jpg" alt="La pantalla de inicio de Dos Décimas: «¿Qué practicamos hoy?», con la última nota, los fallos por repasar y el botón para empezar un test" width="780" height="1800"></div>
   </div>
   <h1 class="v-gigante" aria-label="Dos Décimas"><span class="l">Dos</span> <em class="l">Décimas</em></h1>
 </div></section>
@@ -1134,7 +1150,7 @@ escribir("/dos-decimas/estilo/", f'''<!doctype html>
 <section class="v-app" id="app">
   <div class="in"><div class="cab-sec rev"><div><span class="eti">La app, por dentro</span><h2 class="v-tit">Dónde se van <em>tus décimas.</em></h2></div><span class="v-desliza">Desliza →</span></div></div>
   <ul class="v-tarjetas">{_TARJETAS_V}</ul>
-  <div class="in"><p class="v-ademas rev">Y además: <b>El Atestado</b> de cada simulacro (dónde se te fueron los puntos), <b>tu evolución</b> simulacro a simulacro, <b>las más falladas</b> por todos, tu <b>primera intuición</b>, un <b>cuaderno de apuntes</b> y <b>modo claro y oscuro</b>.</p></div>
+  <div class="in"><p class="v-ademas rev">Y además: <b>tu evolución</b> simulacro a simulacro, <b>las más falladas</b> por todos, tu <b>primera intuición</b>, un <b>cuaderno de apuntes</b> y <b>modo claro y oscuro</b>.</p></div>
 </section>
 
 <section class="v-sim" id="simulacro"><div class="in">
@@ -1164,9 +1180,9 @@ escribir("/dos-decimas/estilo/", f'''<!doctype html>
 <footer class="v-cierre"><div class="in">
   <h2 class="rev">La plaza se decide por <em>dos décimas.</em></h2>
   <a class="v-btn rev" href="#prueba">Empieza tus 7 días gratis</a>
-  <div class="v-pie-web"><span>Dos Décimas · un producto de Ruvï</span><nav><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="mailto:{DD_CORREO}">{DD_CORREO}</a></nav></div>
+  <div class="v-pie-web"><span>Dos Décimas · un proyecto de <a href="/">Ruvï</a></span><nav><a href="{DD_APP}">Entrar en la app</a><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="mailto:{DD_CORREO}">{DD_CORREO}</a></nav></div>
 </div></footer>
-{PRUEBA_JS}{P1_JS}{CUENTA_SIM_JS}{VELDE_JS}
+{CUENTA_JS.replace("__URL__", SUPABASE_URL).replace("__CLAVE__", SUPABASE_CLAVE)}{PRUEBA_JS}{P1_JS}{CUENTA_SIM_JS}{ANCLAS_JS}{VELDE_JS}
 </body></html>''')
 
 
