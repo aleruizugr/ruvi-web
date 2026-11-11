@@ -51,7 +51,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-intro{align-self:start;max-width:30ch;font:400 clamp(1.15rem,1.8vw,1.45rem)/1.4 var(--ft);color:var(--crema-2)}
 .v-intro b{color:var(--crema);font-weight:600}
 .v-intro .v-btn{margin-top:22px}
-.v-movil-caja{grid-row:1/3;grid-column:2;align-self:end;width:min(clamp(200px,24vw,320px),calc((100svh - 300px) * .5));margin-bottom:-10%;position:relative;transform:rotate(4deg)}
+.v-movil-caja{grid-row:1/3;grid-column:2;align-self:end;width:min(clamp(250px,29vw,400px),calc((100svh - 190px) * .52));margin-bottom:-10%;position:relative;transform:rotate(4deg)}
 .v-movil{border-radius:34px;border:9px solid #050403;box-shadow:0 40px 90px rgba(0,0,0,.6),0 0 0 1px #2b241f;overflow:hidden;background:#F5F3F0;aspect-ratio:9/16}
 .v-movil video,.v-movil img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
 .v-movil-eti{position:absolute;left:-46%;top:18%;z-index:3;max-width:220px;margin:0;padding:12px 16px;border-radius:14px;background:rgba(242,234,223,.96);color:var(--tinta);font:400 .92rem/1.35 var(--ft);box-shadow:0 18px 40px rgba(0,0,0,.45);transform:rotate(-4deg)}
@@ -60,7 +60,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-gigante em{font-style:normal;color:var(--cobre)}
 @media (max-width:760px){
   .v-portada .in{grid-template-columns:1fr;grid-template-rows:1fr auto;padding-top:96px;padding-bottom:4px}
-  .v-movil-caja{position:absolute;right:-4vw;bottom:min(30vw,190px);width:min(48vw,calc((100svh - 330px) * .5));margin:0;z-index:1}
+  .v-movil-caja{position:absolute;right:-6vw;bottom:min(26vw,170px);width:min(60vw,calc((100svh - 280px) * .56));margin:0;z-index:1}
   .v-movil{border-width:7px;border-radius:26px}
   .v-movil-eti{left:-62%;top:auto;bottom:22%;max-width:180px;font-size:.85rem;padding:10px 12px}
   .v-intro{position:relative;z-index:2}
@@ -224,16 +224,6 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
   </div>
 </div></section>
 
-<section class="v-preg" id="pregunta"><div class="in">
-  <div class="rev"><span class="eti">Pregunta real del examen de 2026</span><h2 class="v-tit">¿Te la <em>sabes</em>?</h2><p class="v-sub">Un toque y lo ves. Si fallas, te decimos por qué, como en la app.</p></div>
-  <div class="rev"><div class="p1" id="p1" data-a="0" data-porque="Art. 81.2 de la Constitución: las leyes orgánicas exigen mayoría absoluta del Congreso, en una votación final sobre el conjunto del proyecto. La «simple» es la trampa.">
-        <p class="p1-tit">¿Te la sabes? <span>Pregunta real del examen de 2026</span></p>
-        <p class="p1-q">Según el artículo 81.2 de la Constitución Española, las Leyes Orgánicas para su aprobación exigirá:</p>
-        <div class="p1-ops"><button class="tg-op" type="button" data-k="0"><b>a</b><span>La mayoría absoluta del Congreso, en una votación final sobre el conjunto del proyecto.</span></button><button class="tg-op" type="button" data-k="1"><b>b</b><span>La mayoría simple del Congreso, en una votación final sobre el conjunto del proyecto.</span></button><button class="tg-op" type="button" data-k="2"><b>c</b><span>Respectivamente la aprobación por los Plenos de ambas Cámaras.</span></button></div>
-        <div class="p1-res" role="status" hidden></div>
-      </div></div>
-</div></section>
-
 <section class="v-app" id="app">
   <div class="in"><div class="cab-sec rev"><div><span class="eti">La app, por dentro</span><h2 class="v-tit">Dónde se van <em>tus décimas.</em></h2></div><span class="v-desliza">Desliza →</span></div></div>
   <ul class="v-tarjetas"><li class="v-tarjeta rev">
@@ -275,6 +265,16 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
       </li></ul>
   <div class="in"><p class="v-ademas rev">Y además: <b>tu evolución</b> simulacro a simulacro, <b>las más falladas</b> por todos, tu <b>primera intuición</b>, un <b>cuaderno de apuntes</b> y <b>modo claro y oscuro</b>.</p></div>
 </section>
+
+<section class="v-preg" id="pregunta"><div class="in">
+  <div class="rev"><span class="eti">Pregunta real del examen de 2026</span><h2 class="v-tit">¿Te la <em>sabes</em>?</h2><p class="v-sub">Un toque y lo ves. Si fallas, te decimos por qué, como en la app.</p></div>
+  <div class="rev"><div class="p1" id="p1" data-a="0" data-porque="Art. 81.2 de la Constitución: las leyes orgánicas exigen mayoría absoluta del Congreso, en una votación final sobre el conjunto del proyecto. La «simple» es la trampa.">
+        <p class="p1-tit">¿Te la sabes? <span>Pregunta real del examen de 2026</span></p>
+        <p class="p1-q">Según el artículo 81.2 de la Constitución Española, las Leyes Orgánicas para su aprobación exigirá:</p>
+        <div class="p1-ops"><button class="tg-op" type="button" data-k="0"><b>a</b><span>La mayoría absoluta del Congreso, en una votación final sobre el conjunto del proyecto.</span></button><button class="tg-op" type="button" data-k="1"><b>b</b><span>La mayoría simple del Congreso, en una votación final sobre el conjunto del proyecto.</span></button><button class="tg-op" type="button" data-k="2"><b>c</b><span>Respectivamente la aprobación por los Plenos de ambas Cámaras.</span></button></div>
+        <div class="p1-res" role="status" hidden></div>
+      </div></div>
+</div></section>
 
 <section class="v-sim" id="simulacro"><div class="in">
   <div class="rev"><span class="eti">Cada fin de semana</span><h2 class="v-tit">Un simulacro, <em>como el día del examen.</em></h2><p class="v-sub">100 preguntas, 50 minutos, un intento y sin repetir. Al cerrar ves tu nota, la media y si habrías pasado el corte.</p></div>
