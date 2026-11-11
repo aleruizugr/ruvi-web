@@ -860,6 +860,271 @@ escribir("/plantilla-repaso/", cabeza_panel("Plantilla de Repaso · Tu temario, 
 
 # ---------------------------------------------------------------- Mapa del sitio y robots (para Google)
 # Solo las páginas públicas que queremos que salgan en buscadores.
+# ---------------------------------------------------------------- Dos Décimas: prueba de estilo «editorial» (/dos-decimas/estilo/)
+# Inspirada en el antes y después «Velde» que guardó Alejandro en TikTok (11-11-2026): fondo claro, palabra gigante,
+# cifras grandes, tarjetas con pie y un cierre oscuro con una frase enorme. Página de PRUEBA: noindex, fuera del menú,
+# del mapa del sitio y del contador. El formulario sí es el de verdad (pedir_prueba) y la pregunta, la del test gratis.
+_TARJETAS_V = "".join(f'''<li class="v-tarjeta rev">
+        <figure><img src="/img/{img}" alt="{a}" width="780" height="1496" loading="lazy"></figure>
+        <p class="v-pie"><span class="v-num">{i + 1:02d}</span><b>{n}</b>{p}</p>
+      </li>''' for i, (k, n, img, p, a) in enumerate(VIAS))
+
+_TARIFAS_V = "".join(f'''<li class="v-tarifa rev{' destacada' if t.get('destacada') else ''}">
+        <span class="v-t-nom">{t["nombre"]}</span>
+        <span class="v-t-precio">{t["precio"]}<small>{t["periodo"]}</small></span>
+        <span class="v-t-nota">{(t["al_mes"] + " al mes · ") if t.get("al_mes") else ""}{t["nota"]}</span>
+        <a class="v-t-ir" href="{t["enlace"]}" rel="noopener">Elegir<span aria-hidden="true">→</span></a>
+      </li>''' for t in [dict(TARIFA_FUNDADOR, nota=f"Solo para las {TARIFA_FUNDADOR['plazas']} primeras personas, para siempre mientras sigas suscrito. Después, 10,99 € al mes.")] + TARIFAS_DD)
+
+VELDE_CSS = """<style>
+:root{--papel:#F5F3F0;--papel-2:#ECE7E1;--tinta:#1A1614;--gris:#6E655E;--raya:#D9D2CA;--cobre:#D9A276;--cobre-t:#9A5B38;--noche:#0D0B0A;--crema:#F2EADF;--crema-2:#A89C93;--bien:#1F9D55;--mal:#E5484D;
+  --fd:"Bricolage Grotesque",system-ui,sans-serif;--ft:"Source Sans 3",system-ui,sans-serif;--g:clamp(16px,4vw,48px)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--papel);color:var(--tinta);font:400 1.1rem/1.5 var(--ft);overflow-x:clip}
+img{display:block;max-width:100%;height:auto}a{color:inherit}
+:focus-visible{outline:3px solid var(--cobre);outline-offset:3px;border-radius:4px}
+.in{max-width:1320px;margin:0 auto;padding:0 var(--g)}
+.eti{font:600 .8rem/1.2 var(--ft);letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+/* cabecera */
+.v-cab{position:fixed;inset:0 0 auto;z-index:20;transition:background-color .3s,color .3s,box-shadow .3s;color:var(--crema)}
+.v-cab .in{display:flex;align-items:center;gap:20px;min-height:68px}
+.v-cab.claro{background:rgba(245,243,240,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--tinta);box-shadow:0 1px 0 var(--raya)}
+.v-marca{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 1.1rem var(--fd);letter-spacing:-.02em;white-space:nowrap}
+.v-marca img{width:30px;height:30px;border-radius:7px}
+.v-cab nav{margin-left:auto;display:flex;align-items:center;gap:26px;font-size:.98rem}
+.v-cab nav a{text-decoration:none;opacity:.85}.v-cab nav a:hover{opacity:1}
+.v-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:999px;border:0;cursor:pointer;text-decoration:none;font:700 1rem var(--ft);background:var(--cobre);color:var(--tinta);transition:transform .15s,background-color .15s;touch-action:manipulation}
+.v-btn:hover{background:var(--crema)}.v-btn:active{transform:translateY(1px)}
+.v-btn.oscuro{background:var(--tinta);color:var(--papel)}.v-btn.oscuro:hover{background:var(--cobre-t)}
+.v-cab .v-btn{min-height:42px;padding:0 18px;opacity:1;white-space:nowrap}
+@media (max-width:760px){.v-cab nav a.opc{display:none}.v-cab nav{gap:16px}}
+/* portada */
+.v-portada{position:relative;min-height:100svh;background:radial-gradient(80% 60% at 75% 35%,#3a2618 0%,transparent 60%),radial-gradient(60% 50% at 10% 90%,#2a1c13 0%,transparent 60%),var(--noche);color:var(--crema);overflow:hidden;display:flex;flex-direction:column}
+.v-portada .in{width:100%;flex:1;display:grid;grid-template-columns:1fr auto;grid-template-rows:1fr auto;padding-top:110px;gap:24px}
+.v-intro{align-self:start;max-width:30ch;font:400 clamp(1.15rem,1.8vw,1.45rem)/1.4 var(--ft);color:var(--crema-2)}
+.v-intro b{color:var(--crema);font-weight:600}
+.v-intro .v-btn{margin-top:22px}
+.v-movil{grid-row:1/3;grid-column:2;align-self:end;width:clamp(200px,24vw,330px);margin-bottom:-12%;border-radius:34px;border:9px solid #050403;box-shadow:0 40px 90px rgba(0,0,0,.6),0 0 0 1px #2b241f;transform:rotate(4deg);overflow:hidden;background:#050403}
+.v-gigante{grid-column:1/-1;position:relative;z-index:2;margin:0 0 -.12em;font:800 clamp(4.2rem,17.5vw,17rem)/.82 var(--fd);letter-spacing:-.055em;white-space:nowrap;color:var(--crema)}
+.v-gigante em{font-style:normal;color:var(--cobre)}
+@media (max-width:760px){
+  .v-portada .in{grid-template-columns:1fr;grid-template-rows:1fr auto;padding-top:96px;padding-bottom:4px}
+  .v-movil{position:absolute;right:-6vw;bottom:30vw;width:50vw;margin:0;border-width:7px;border-radius:26px;z-index:1}
+  .v-intro{position:relative;z-index:2}
+  .v-gigante{grid-row:2;font-size:21vw;white-space:normal;line-height:.86;margin-bottom:0}
+}
+/* frase */
+.v-frase{padding:clamp(80px,12vw,170px) 0 clamp(50px,7vw,90px)}
+.v-frase p{margin:0;max-width:22ch;font:500 clamp(2rem,4.6vw,4.2rem)/1.08 var(--fd);letter-spacing:-.035em}
+.v-frase p span{color:var(--gris)}
+.v-frase .v-enl{display:inline-flex;gap:10px;margin-top:34px;font-weight:600;text-decoration:none;border-bottom:1.5px solid var(--tinta);padding-bottom:3px}
+/* cifras */
+.v-cifras{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--raya);margin:0;padding:0;list-style:none}
+.v-cifras li{padding:28px 20px 40px 0;border-right:1px solid var(--raya)}
+.v-cifras li:last-child{border-right:0}
+.v-cifras li+li{padding-left:20px}
+.v-cifras b{display:block;font:300 clamp(3rem,6.5vw,6rem)/1 var(--fd);letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.v-cifras b.cobre{color:var(--cobre-t);font-weight:500}
+.v-cifras span{display:block;margin-top:14px;color:var(--gris);font-size:.98rem;max-width:18ch}
+@media (max-width:760px){.v-cifras{grid-template-columns:1fr 1fr}.v-cifras li:nth-child(2){border-right:0}.v-cifras li:nth-child(3){padding-left:0;border-top:1px solid var(--raya)}.v-cifras li:nth-child(4){border-top:1px solid var(--raya)}}
+/* pregunta */
+.v-preg{padding:clamp(70px,10vw,140px) 0}
+.v-preg .in{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(30px,6vw,100px);align-items:start}
+.v-tit{margin:14px 0 0;font:700 clamp(2.2rem,4.4vw,3.8rem)/1 var(--fd);letter-spacing:-.04em}
+.v-tit em{font-style:normal;color:var(--cobre-t)}
+.v-sub{margin:18px 0 0;color:var(--gris);max-width:36ch}
+@media (max-width:860px){.v-preg .in{grid-template-columns:1fr}}
+.p1{display:flex;flex-direction:column;gap:12px}
+.p1-tit{display:none}
+.p1-q{margin:0;font:600 1.25rem/1.4 var(--ft)}
+.p1-ops{display:flex;flex-direction:column;gap:10px}
+.p1 .tg-op{display:flex;gap:16px;align-items:center;width:100%;text-align:left;font:400 1.05rem/1.4 var(--ft);color:var(--tinta);background:#fff;border:1.5px solid var(--raya);border-radius:14px;padding:14px 18px;cursor:pointer;transition:border-color .15s,background-color .15s;touch-action:manipulation}
+.p1 .tg-op:hover:not(:disabled){border-color:var(--tinta)}
+.p1 .tg-op b{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--papel-2);font:700 1rem var(--fd);text-transform:uppercase}
+.p1 .tg-op:disabled{cursor:default}
+.p1 .tg-op:disabled:not(.bien):not(.mal){opacity:.45}
+.p1 .tg-op.bien{border-color:var(--bien)}.p1 .tg-op.bien b{background:var(--bien);color:#fff}
+.p1 .tg-op.mal{border-color:var(--mal)}.p1 .tg-op.mal b{background:var(--mal);color:#fff}
+.p1-res p{margin:4px 0 8px}.p1-res .porque{color:var(--gris);font-size:1rem}
+.p1-res .btn{display:flex;align-items:center;justify-content:center;min-height:52px;margin-top:10px;border-radius:999px;background:var(--tinta);color:var(--papel);text-decoration:none;font:700 1rem var(--ft)}
+.p1-res .btn:hover{background:var(--cobre-t)}
+/* tarjetas */
+.v-app{padding:clamp(70px,10vw,140px) 0;border-top:1px solid var(--raya)}
+.v-app .cab-sec{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.v-tarjetas{list-style:none;margin:48px 0 0;padding:0 var(--g);display:grid;grid-auto-flow:column;grid-auto-columns:clamp(240px,22vw,320px);gap:clamp(16px,2vw,28px);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;max-width:1320px;margin-inline:auto}
+.v-tarjetas::-webkit-scrollbar{display:none}
+.v-tarjeta{scroll-snap-align:start}
+.v-tarjeta figure{margin:0;background:var(--papel-2);border-radius:18px;padding:22px 22px 0;overflow:hidden;aspect-ratio:4/5;display:flex;align-items:flex-end;justify-content:center}
+.v-tarjeta figure img{width:82%;border-radius:18px 18px 0 0;box-shadow:0 20px 40px rgba(26,22,20,.18);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.v-tarjeta:hover figure img{transform:translateY(-8px)}
+.v-pie{margin:16px 0 0;font-size:1rem;color:var(--gris)}
+.v-pie b{display:block;color:var(--tinta);font:700 1.15rem var(--fd);letter-spacing:-.02em;margin-bottom:4px}
+.v-num{float:right;font:500 .85rem var(--ft);color:var(--gris)}
+.v-desliza{color:var(--gris);font-size:.95rem}
+/* simulacro */
+.v-sim{background:var(--noche);color:var(--crema);padding:clamp(70px,10vw,140px) 0}
+.v-sim .eti{color:var(--crema-2)}
+.v-sim .v-tit em{color:var(--cobre)}
+.v-sim .v-sub{color:var(--crema-2)}
+.v-horas{display:grid;grid-template-columns:1fr 1fr;margin-top:56px;border-top:1px solid #3A322D}
+.v-horas div{padding:28px 0 0}.v-horas div+div{padding-left:24px;border-left:1px solid #3A322D}
+.v-horas b{display:block;font:300 clamp(3rem,8vw,7rem)/1 var(--fd);letter-spacing:-.05em}
+.v-horas span{color:var(--crema-2)}
+.cuenta-sim{margin:40px 0 0;font-size:1.15rem;color:var(--crema-2)}.cuenta-sim b{color:var(--cobre);font-weight:600}
+/* tarifas */
+.v-planes{padding:clamp(70px,10vw,140px) 0}
+.v-lista-t{list-style:none;margin:48px 0 0;padding:0;border-top:1px solid var(--tinta)}
+.v-tarifa{display:grid;grid-template-columns:1.1fr 1fr 2fr auto;gap:20px;align-items:center;padding:26px 0;border-bottom:1px solid var(--raya)}
+.v-t-nom{font:700 1.3rem var(--fd);letter-spacing:-.02em}
+.v-t-precio{font:400 2rem/1 var(--fd);letter-spacing:-.04em}.v-t-precio small{display:block;margin-top:6px;font:400 .9rem var(--ft);letter-spacing:0;color:var(--gris)}
+.v-t-nota{color:var(--gris);font-size:.98rem}
+.v-t-ir{display:inline-flex;gap:8px;font-weight:700;text-decoration:none;border-bottom:1.5px solid currentColor;padding-bottom:2px;justify-self:end}
+.v-tarifa.destacada .v-t-nom::after{content:"La que más ahorra";display:block;margin-top:6px;font:600 .75rem var(--ft);letter-spacing:.12em;text-transform:uppercase;color:var(--cobre-t)}
+.v-pie-t{margin-top:22px;color:var(--gris);font-size:.95rem;max-width:70ch}
+@media (max-width:760px){.v-tarifa{grid-template-columns:1fr auto;gap:8px 16px}.v-t-precio{grid-row:1/3;grid-column:2;text-align:right}.v-t-nota{grid-column:1}.v-t-ir{grid-column:1/-1;justify-self:start;margin-top:6px}}
+/* alta */
+.v-alta{padding:clamp(70px,10vw,140px) 0;background:var(--papel-2)}
+.v-alta .in{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,100px)}
+@media (max-width:860px){.v-alta .in{grid-template-columns:1fr}}
+.v-pasos{list-style:none;margin:36px 0 0;padding:0;counter-reset:p}
+.v-pasos li{counter-increment:p;display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--raya)}
+.v-pasos li::before{content:"0" counter(p);font:500 .9rem var(--ft);color:var(--cobre-t);min-width:2ch;padding-top:3px}
+.alta-form{display:flex;flex-direction:column;gap:16px}
+.alta-form .campo{display:flex;flex-direction:column;gap:8px}
+.alta-form .campo b{font:600 .8rem var(--ft);letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+.alta-form input,.alta-form select{font:inherit;color:var(--tinta);background:#fff;border:1.5px solid var(--raya);border-radius:12px;min-height:54px;padding:0 16px;width:100%;appearance:none;-webkit-appearance:none}
+.alta-form input:focus,.alta-form select:focus{border-color:var(--tinta);outline:none}
+.alta-form .opcional{text-transform:none;letter-spacing:0;font-weight:400}
+.alta-form .trampa{position:absolute;left:-9999px}
+.alta-form .btns .btn{width:100%;min-height:56px;border-radius:999px;border:0;cursor:pointer;background:var(--tinta);color:var(--papel);font:700 1.05rem var(--ft)}
+.alta-form .btns .btn:hover{background:var(--cobre-t)}
+.alta-form .nota{margin:0;color:var(--gris);font-size:.9rem}
+.aviso{padding:16px;border-radius:12px;background:#fff}.aviso.mal{border:1.5px solid var(--mal)}.aviso .muted{color:var(--gris)}
+/* preguntas */
+.v-faq{padding:clamp(70px,10vw,140px) 0}
+.v-faq .in{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,6vw,100px)}
+@media (max-width:860px){.v-faq .in{grid-template-columns:1fr}}
+.v-faq details{border-top:1px solid var(--raya)}.v-faq details:last-child{border-bottom:1px solid var(--raya)}
+.v-faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;padding:22px 0;font:600 1.15rem var(--ft)}
+.v-faq summary::-webkit-details-marker{display:none}
+.v-faq summary .mas{flex:none;width:18px;height:18px;margin-top:4px;transition:transform .25s}
+.v-faq details[open] summary .mas{transform:rotate(45deg)}
+.v-faq details p{margin:0 0 22px;color:var(--gris);max-width:62ch}
+/* cierre */
+.v-cierre{background:var(--noche);color:var(--crema);padding:clamp(80px,12vw,160px) 0 32px}
+.v-cierre h2{margin:0;font:700 clamp(2.8rem,8.5vw,8.5rem)/.92 var(--fd);letter-spacing:-.05em;max-width:12ch}
+.v-cierre h2 em{font-style:normal;color:var(--cobre)}
+.v-cierre .v-btn{margin-top:44px}
+.v-pie-web{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;margin-top:clamp(80px,10vw,140px);padding-top:24px;border-top:1px solid #3A322D;color:var(--crema-2);font-size:.92rem}
+.v-pie-web nav{display:flex;gap:22px;flex-wrap:wrap}.v-pie-web a{text-decoration:none}.v-pie-web a:hover{color:var(--crema)}
+/* entrada al bajar */
+.js .rev{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .rev.ver{opacity:1;transform:none}
+.js .v-gigante .l{display:inline-block;opacity:0;transform:translateY(35%);transition:opacity 1s,transform 1.1s cubic-bezier(.2,.8,.2,1)}.js .v-gigante em.l{transition-delay:.12s}
+.js .v-gigante.ver .l{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js .rev,.js .v-gigante .l{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>"""
+
+VELDE_JS = """<script>
+(function(){
+  var cab=document.querySelector(".v-cab"),por=document.querySelector(".v-portada");
+  function pinta(){cab.classList.toggle("claro",por.getBoundingClientRect().bottom<70)}
+  addEventListener("scroll",pinta,{passive:true});pinta();
+  var g=document.querySelector(".v-gigante");setTimeout(function(){g.classList.add("ver")},80);
+  var io="IntersectionObserver" in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("ver");io.unobserve(e.target)}})},{rootMargin:"0px 0px -8% 0px"}):null;
+  document.querySelectorAll(".rev").forEach(function(el){io?io.observe(el):el.classList.add("ver")});
+  // cifras que cuentan al aparecer
+  var red=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll("[data-cuenta]").forEach(function(b){
+    var fin=parseFloat(b.dataset.cuenta),dec=(b.dataset.cuenta.split(".")[1]||"").length,pon=function(v){b.textContent=v.toFixed(dec).replace(".",",")};
+    if(red||!window.IntersectionObserver){pon(fin);return}pon(0);
+    var o=new IntersectionObserver(function(es){if(!es[0].isIntersecting)return;o.disconnect();var t0=performance.now();
+      (function paso(t){var k=Math.min(1,(t-t0)/1400),e=1-Math.pow(1-k,3);pon(fin*e);if(k<1)requestAnimationFrame(paso)})(t0)},{threshold:.6});o.observe(b)});
+})();
+</script>"""
+
+
+escribir("/dos-decimas/estilo/", f'''<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dos Décimas · La app para preparar Policía Nacional</title>
+<meta name="description" content="Prueba de estilo de la web de Dos Décimas.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0D0B0A">
+<link rel="icon" type="image/png" href="/img/dosdecimas-favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<script>document.documentElement.classList.add("js")</script>
+{VELDE_CSS}
+</head><body>
+<header class="v-cab"><div class="in">
+  <a class="v-marca" href="/dos-decimas/estilo/"><img src="/img/dosdecimas-logo.png" alt="" width="30" height="30">Dos Décimas</a>
+  <nav aria-label="Menú"><a class="opc" href="#app">La app</a><a class="opc" href="#simulacro">Simulacro</a><a class="opc" href="#planes">Tarifas</a><a href="{DD_APP}">Entrar</a><a class="v-btn" href="#prueba">7 días gratis</a></nav>
+</div></header>
+
+<main>
+<section class="v-portada"><div class="in">
+  <p class="v-intro">La app para preparar <b>Policía Nacional</b>. Tests a nivel de examen, comprobados con la ley vigente del BOE.<br><a class="v-btn" href="#prueba">Empieza tus 7 días gratis</a></p>
+  <img class="v-movil" src="/img/app-pregunta-dd.png" alt="Una pregunta en la app de Dos Décimas, con la lupa que resalta los «no» y los «salvo»" width="780" height="1496">
+  <h1 class="v-gigante" aria-label="Dos Décimas"><span class="l">Dos</span> <em class="l">Décimas</em></h1>
+</div></section>
+
+<section class="v-frase"><div class="in">
+  <p class="rev">Me quedé fuera por dos décimas. <span>Saqué un 6,85 y el corte fue un {DD_CORTE}. Esta app te enseña dónde pierdes las tuyas.</span></p>
+  <a class="v-enl rev" href="#pregunta">Compruébalo con una pregunta <span aria-hidden="true">↓</span></a>
+</div></section>
+
+<div class="in"><ul class="v-cifras rev">
+  <li><b data-cuenta="6.85">6,85</b><span>mi nota en el examen</span></li>
+  <li><b class="cobre" data-cuenta="7.05">7,05</b><span>la nota de corte</span></li>
+  <li><b data-cuenta="45">45</b><span>temas de la Escala Básica</span></li>
+  <li><b data-cuenta="12">12</b><span>exámenes oficiales desde 2015</span></li>
+</ul></div>
+
+<section class="v-preg" id="pregunta"><div class="in">
+  <div class="rev"><span class="eti">Pregunta real del examen de 2026</span><h2 class="v-tit">¿Te la <em>sabes</em>?</h2><p class="v-sub">Un toque y lo ves. Si fallas, te decimos por qué, como en la app.</p></div>
+  <div class="rev">{_pregunta_portada()}</div>
+</div></section>
+
+<section class="v-app" id="app">
+  <div class="in"><div class="cab-sec rev"><div><span class="eti">Dónde se van tus décimas</span><h2 class="v-tit">Te dice por qué fallas.<br><em>Y no te deja repetirlo.</em></h2></div><span class="v-desliza">Desliza →</span></div></div>
+  <ul class="v-tarjetas">{_TARJETAS_V}</ul>
+</section>
+
+<section class="v-sim" id="simulacro"><div class="in">
+  <div class="rev"><span class="eti">Cada fin de semana</span><h2 class="v-tit">Un simulacro, <em>como el día del examen.</em></h2><p class="v-sub">100 preguntas, 50 minutos, un intento y sin repetir. Al cerrar ves tu nota, la media y si habrías pasado el corte.</p></div>
+  <div class="v-horas rev"><div><b>Vie 14:00</b><span>Abre</span></div><div><b>Dom 21:00</b><span>Cierra</span></div></div>
+  <p class="cuenta-sim rev" hidden></p>
+</div></section>
+
+<section class="v-planes" id="planes"><div class="in">
+  <div class="rev"><span class="eti">Tarifas</span><h2 class="v-tit">Todas incluyen <em>lo mismo.</em></h2><p class="v-sub">Sin permanencia, con el IVA incluido y con 14 días para desistir.</p></div>
+  <ul class="v-lista-t">{_TARIFAS_V}</ul>
+  <p class="v-pie-t">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Paga con el mismo email con el que pruebas la app.</p>
+</div></section>
+
+<section class="v-alta" id="prueba"><div class="in">
+  <div class="rev"><span class="eti">7 días gratis, sin tarjeta</span><h2 class="v-tit">Pruébala <em>esta semana.</em></h2>
+    <ol class="v-pasos"><li>Deja tu nombre y tu email.</li><li>Te llega un correo: pulsa el botón.</li><li>Elige tu contraseña. Ya estás dentro.</li></ol></div>
+  <div class="rev">{dd_form("web", "Empieza tus 7 días gratis")}</div>
+</div></section>
+
+<section class="v-faq"><div class="in">
+  <div class="rev"><span class="eti">Preguntas</span><h2 class="v-tit">Antes de <em>empezar.</em></h2><p class="v-sub">¿Otra duda? Escribe a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p></div>
+  <div class="rev">{FAQ_DD_HTML}</div>
+</div></section>
+</main>
+
+<footer class="v-cierre"><div class="in">
+  <h2 class="rev">La plaza se decide por <em>dos décimas.</em></h2>
+  <a class="v-btn rev" href="#prueba">Empieza tus 7 días gratis</a>
+  <div class="v-pie-web"><span>Dos Décimas · un producto de Ruvï</span><nav><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="mailto:{DD_CORREO}">{DD_CORREO}</a></nav></div>
+</div></footer>
+{PRUEBA_JS}{P1_JS}{CUENTA_SIM_JS}{VELDE_JS}
+</body></html>''')
+
+
 _MAPA = ["/", "/dos-decimas/", "/dos-decimas/test-gratis/", "/plantilla-repaso/", "/aviso-legal/", "/privacidad/"]
 (R / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
   + "".join(f"  <url><loc>https://ruvilab.es{u}</loc></url>\n" for u in _MAPA) + "</urlset>\n", encoding="utf-8")
