@@ -66,6 +66,24 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
   .v-intro{position:relative;z-index:2}
   .v-gigante{grid-row:2;font-size:21vw;white-space:normal;line-height:.86;margin-bottom:0}
 }
+/* formulario en la portada: quien llega de un anuncio se apunta sin bajar */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.v-arriba{align-self:start;max-width:30rem;position:relative;z-index:2}
+.v-gancho{margin:0 0 14px;font:800 clamp(2.4rem,4.6vw,3.8rem)/.98 var(--fd);letter-spacing:-.045em;color:var(--crema)}
+.v-gancho em{font-style:normal;color:var(--cobre)}
+.v-arriba .v-intro{margin:0 0 22px;font-size:clamp(1.02rem,1.5vw,1.2rem)}
+.portada-form{gap:10px;padding:16px;border-radius:20px;background:rgba(242,234,223,.06);border:1px solid #3A322D;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.alta-form.portada-form input{min-height:52px;border:0}
+.alta-form.portada-form .btns .btn{background:var(--cobre);color:var(--tinta)}
+.alta-form.portada-form .btns .btn:hover{background:var(--crema)}
+.alta-form.portada-form .nota{color:var(--crema-2);font-size:.85rem;line-height:1.4}
+.portada-form .aviso{color:var(--tinta)}
+@media (max-width:760px){
+  .v-portada{min-height:0}
+  .v-portada .in{padding-top:92px}
+  .v-movil-caja{grid-column:1;grid-row:2;position:relative;right:auto;bottom:auto;width:64vw;margin:34px 0 -30vw auto;transform:rotate(4deg)}
+  .v-gigante{grid-row:3}
+}
 /* frase */
 .v-frase{padding:clamp(80px,12vw,170px) 0 clamp(50px,7vw,90px)}
 .v-frase p{margin:0;max-width:22ch;font:500 clamp(2rem,4.6vw,4.2rem)/1.08 var(--fd);letter-spacing:-.035em}
@@ -196,7 +214,18 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 
 <main>
 <section class="v-portada"><div class="in">
-  <p class="v-intro">La app para preparar <b>Policía Nacional</b>. Tests a nivel de examen, comprobados con la ley vigente del BOE.<br><a class="v-btn" href="#prueba">Empieza tus 7 días gratis</a></p>
+  <div class="v-arriba">
+    <p class="v-gancho">Me quedé fuera por <em>dos décimas.</em></p>
+    <p class="v-intro">Esta app te enseña dónde pierdes las tuyas. Tests de <b>Policía Nacional</b> a nivel de examen, comprobados con la ley vigente del BOE.</p>
+    <form class="alta-form prueba-form portada-form" id="empieza" data-origen="web" novalidate>
+      <label class="campo"><span class="sr">Tu nombre</span><input type="text" name="nombre" required maxlength="40" autocomplete="given-name" autocapitalize="words" placeholder="Tu nombre"></label>
+      <label class="campo"><span class="sr">Tu email</span><input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="Tu email"></label>
+      <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
+      <div class="btns"><button class="btn btn-p" type="submit">Empieza tus 7 días gratis</button></div>
+      <p class="nota">Sin tarjeta. Te llega un correo, eliges contraseña y entras. <a href="https://dosdecimas.ruvilab.es/privacidad.html">Privacidad</a></p>
+      <div class="aviso" role="status" hidden></div>
+    </form>
+  </div>
   <div class="v-movil-caja">
     <div class="v-movil"><img src="/img/estilo/inicio.jpg?v=ed834854" alt="La pantalla de inicio de Dos Décimas: «¿Qué practicamos hoy?», con la última nota, los fallos por repasar y el botón para empezar un test" width="780" height="1800"></div>
   </div>
@@ -204,7 +233,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 </div></section>
 
 <section class="v-frase"><div class="in">
-  <p class="rev">Me quedé fuera de la Policía Nacional por dos décimas. <span>Saqué un 6,85 y el corte fue un 7,05. Esta app te enseña dónde pierdes las tuyas.</span></p>
+  <p class="rev">Saqué un 6,85 y el corte fue un 7,05. <span>Me faltaron dos décimas. Por eso hice esta app: para que tú sepas dónde pierdes las tuyas.</span></p>
   <a class="v-enl rev" href="#pregunta">Compruébalo con una pregunta <span aria-hidden="true">↓</span></a>
 </div></section>
 
