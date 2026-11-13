@@ -73,7 +73,10 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-gancho em{font-style:normal;color:var(--cobre)}
 .v-arriba .v-intro{margin:0 0 22px;font-size:clamp(1.02rem,1.5vw,1.2rem)}
 .portada-form{gap:10px;padding:16px;border-radius:20px;background:rgba(242,234,223,.06);border:1px solid #3A322D;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.alta-form.portada-form input{min-height:52px;border:0}
+.alta-form.portada-form input,.alta-form.portada-form select{min-height:52px;border:0}
+.alta-form.portada-form select{color:var(--gris);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236E655E' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 16px center;padding-right:40px}
+.alta-form.portada-form select.elegido{color:var(--tinta)}
+.portada-form{scroll-margin-top:84px}
 .alta-form.portada-form .btns .btn{background:var(--cobre);color:var(--tinta)}
 .alta-form.portada-form .btns .btn:hover{background:var(--crema)}
 .alta-form.portada-form .nota{color:var(--crema-2);font-size:.85rem;line-height:1.4}
@@ -165,12 +168,6 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-pie-t{margin-top:22px;color:var(--gris);font-size:.95rem;max-width:70ch}
 @media (max-width:760px){.v-tarifa{grid-template-columns:1fr auto;gap:8px 16px}.v-t-precio{grid-row:1/3;grid-column:2;text-align:right}.v-t-nota{grid-column:1}.v-t-ir{grid-column:1/-1;justify-self:start;margin-top:6px}}
 /* alta */
-.v-alta{padding:clamp(70px,10vw,140px) 0;background:var(--papel-2)}
-.v-alta .in{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,100px)}
-@media (max-width:860px){.v-alta .in{grid-template-columns:1fr}}
-.v-pasos{list-style:none;margin:36px 0 0;padding:0;counter-reset:p}
-.v-pasos li{counter-increment:p;display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--raya)}
-.v-pasos li::before{content:"0" counter(p);font:500 .9rem var(--ft);color:var(--cobre-t);min-width:2ch;padding-top:3px}
 .alta-form{display:flex;flex-direction:column;gap:16px}
 .alta-form .campo{display:flex;flex-direction:column;gap:8px}
 .alta-form .campo b{font:600 .8rem var(--ft);letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
@@ -217,9 +214,11 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
   <div class="v-arriba">
     <p class="v-gancho">Me quedé fuera por <em>dos décimas.</em></p>
     <p class="v-intro">Esta app te enseña dónde pierdes las tuyas. Tests de <b>Policía Nacional</b> a nivel de examen, comprobados con la ley vigente del BOE.</p>
-    <form class="alta-form prueba-form portada-form" id="empieza" data-origen="web" novalidate>
+    <form class="alta-form prueba-form portada-form" id="prueba" data-origen="web" novalidate>
       <label class="campo"><span class="sr">Tu nombre</span><input type="text" name="nombre" required maxlength="40" autocomplete="given-name" autocapitalize="words" placeholder="Tu nombre"></label>
       <label class="campo"><span class="sr">Tu email</span><input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="Tu email"></label>
+      <label class="campo"><span class="sr">¿Dónde nos viste? (opcional)</span>
+        <select name="como"><option value="">¿Dónde nos viste? (opcional)</option><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="companero">Me lo pasó un compañero</option><option value="grupo">En un grupo de opositores</option><option value="creador">Un creador de contenido</option><option value="google">Google</option><option value="otro">Otro</option></select></label>
       <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
       <div class="btns"><button class="btn btn-p" type="submit">Empieza tus 7 días gratis</button></div>
       <p class="nota">Sin tarjeta. Te llega un correo, eliges contraseña y entras. <a href="https://dosdecimas.ruvilab.es/privacidad.html">Privacidad</a></p>
@@ -341,23 +340,6 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
   <p class="v-pie-t">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Paga con el mismo email con el que pruebas la app.</p>
 </div></section>
 
-<section class="v-alta" id="prueba"><div class="in">
-  <div class="rev"><span class="eti">7 días gratis, sin tarjeta</span><h2 class="v-tit">Pruébala <em>esta semana.</em></h2>
-    <ol class="v-pasos"><li>Deja tu nombre y tu email.</li><li>Te llega un correo: pulsa el botón.</li><li>Elige tu contraseña. Ya estás dentro.</li></ol></div>
-  <div class="rev"><form class="alta-form prueba-form" data-origen="web" novalidate>
-    <label class="campo campo-nombre"><b>Tu nombre</b>
-      <input type="text" name="nombre" required maxlength="40" autocomplete="given-name" autocapitalize="words" placeholder="Cómo te llamas"></label>
-    <label class="campo"><b>Tu email</b>
-      <input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="tu@email.com"></label>
-    <label class="campo campo-como"><b>¿Dónde nos viste? <span class="opcional">(opcional)</span></b>
-      <select name="como"><option value="">Elige una opción</option><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="companero">Me lo pasó un compañero</option><option value="grupo">En un grupo de opositores</option><option value="creador">Un creador de contenido</option><option value="google">Google</option><option value="otro">Otro</option></select></label>
-    <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
-    <div class="btns"><button class="btn btn-p" type="submit">Empieza tus 7 días gratis</button></div>
-    <p class="nota">7 días con todo, sin tarjeta. Usamos tu nombre y tu email solo para darte acceso y mandarte cómo entrar, como dice la <a href="https://dosdecimas.ruvilab.es/privacidad.html">política de privacidad</a>.</p>
-    <div class="aviso" role="status" hidden></div>
-  </form></div>
-</div></section>
-
 <section class="v-faq"><div class="in">
   <div class="rev"><span class="eti">Preguntas</span><h2 class="v-tit">Antes de <em>empezar.</em></h2><p class="v-sub">¿Otra duda? Escribe a <a href="mailto:dosdecimas@ruvilab.es">dosdecimas@ruvilab.es</a>.</p></div>
   <div class="rev"><details><summary>¿Puedo probarla antes de pagar?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Sí: 7 días gratis, sin tarjeta. Deja tu email en «Pruébala 7 días gratis» y normalmente entras al momento.</p></details><details><summary>¿Cómo entro después de pagar?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Entra en dosdecimas.ruvilab.es, pulsa «Primera vez» y escribe el mismo email con el que has pagado. Te llega un correo para crear tu contraseña y ya está.</p></details><details><summary>¿Están actualizadas a la ley vigente?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos.</p></details><details><summary>¿Qué cubre y qué no?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Cubre la prueba de conocimientos: tests de los 45 temas de la Escala Básica, 12 exámenes oficiales desde 2015 y un simulacro cada fin de semana. También te ayuda con las físicas, con el baremo oficial. No es un temario para estudiar desde cero: es para practicar lo que estudias. Tampoco incluye psicotécnicos ni la entrevista.</p></details><details><summary>¿Funciona en el móvil?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Sí. Se abre en el navegador del móvil o del ordenador y puedes añadirla a la pantalla de inicio como una app, sin pasar por ninguna tienda.</p></details><details><summary>¿Puedo darme de baja cuando quiera?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Sí, sin permanencia. Mantienes el acceso hasta el final de lo que ya pagaste. El curso completo es un pago único y no se renueva.</p></details><details><summary>¿Y si no me convence?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Tienes 14 días para desistir y te devolvemos todo, aunque ya la hayas usado. Basta con escribir a dosdecimas@ruvilab.es.</p></details></div>
@@ -412,6 +394,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
     });
   };
   document.querySelectorAll(".prueba-form").forEach(activarPrueba);
+  document.querySelectorAll(".portada-form select").forEach(function(x){x.addEventListener("change",function(){x.classList.toggle("elegido",!!x.value)})});
 })();
 </script><script>
 (function(){
