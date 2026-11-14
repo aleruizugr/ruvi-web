@@ -864,6 +864,10 @@ escribir("/plantilla-repaso/", cabeza_panel("Plantilla de Repaso · Tu temario, 
 
 # ---------------------------------------------------------------- Mapa del sitio y robots (para Google)
 # Solo las páginas públicas que queremos que salgan en buscadores.
+# La portada lleva el formulario arriba (13-11-2026): su «¿Dónde nos viste?» cambia de color al elegir
+PRUEBA_JS_PORTADA = PRUEBA_JS.replace('  document.querySelectorAll(".prueba-form").forEach(activarPrueba);\n',
+  '  document.querySelectorAll(".prueba-form").forEach(activarPrueba);\n  document.querySelectorAll(".portada-form select").forEach(function(x){x.addEventListener("change",function(){x.classList.toggle("elegido",!!x.value)})});\n', 1)
+
 # ---------------------------------------------------------------- Dos Décimas: portada editorial (/dos-decimas/), desde el 12-11-2026
 # Inspirada en el antes y después «Velde» que guardó Alejandro en TikTok (11-11-2026): fondo claro, palabra gigante,
 # cifras grandes, tarjetas con pie y un cierre oscuro con una frase enorme. Lleva el contador anónimo (CUENTA_JS), el
@@ -940,6 +944,27 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
   .v-movil-eti{left:-62%;top:auto;bottom:22%;max-width:180px;font-size:.85rem;padding:10px 12px}
   .v-intro{position:relative;z-index:2}
   .v-gigante{grid-row:2;font-size:21vw;white-space:normal;line-height:.86;margin-bottom:0}
+}
+/* formulario en la portada: quien llega de un anuncio se apunta sin bajar */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.v-arriba{align-self:start;max-width:30rem;position:relative;z-index:2}
+.v-gancho{margin:0 0 14px;font:800 clamp(2.4rem,4.6vw,3.8rem)/.98 var(--fd);letter-spacing:-.045em;color:var(--crema)}
+.v-gancho em{font-style:normal;color:var(--cobre)}
+.v-arriba .v-intro{margin:0 0 22px;font-size:clamp(1.02rem,1.5vw,1.2rem)}
+.portada-form{gap:10px;padding:16px;border-radius:20px;background:rgba(242,234,223,.06);border:1px solid #3A322D;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.alta-form.portada-form input,.alta-form.portada-form select{min-height:52px;border:0}
+.alta-form.portada-form select{color:var(--gris);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236E655E' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 16px center;padding-right:40px}
+.alta-form.portada-form select.elegido{color:var(--tinta)}
+.portada-form{scroll-margin-top:84px}
+.alta-form.portada-form .btns .btn{background:var(--cobre);color:var(--tinta)}
+.alta-form.portada-form .btns .btn:hover{background:var(--crema)}
+.alta-form.portada-form .nota{color:var(--crema-2);font-size:.85rem;line-height:1.4}
+.portada-form .aviso{color:var(--tinta)}
+@media (max-width:760px){
+  .v-portada{min-height:0}
+  .v-portada .in{padding-top:92px}
+  .v-movil-caja{grid-column:1;grid-row:2;position:relative;right:auto;bottom:auto;width:64vw;margin:34px 0 -30vw auto;transform:rotate(4deg)}
+  .v-gigante{grid-row:3}
 }
 /* frase */
 .v-frase{padding:clamp(80px,12vw,170px) 0 clamp(50px,7vw,90px)}
@@ -1022,12 +1047,6 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-pie-t{margin-top:22px;color:var(--gris);font-size:.95rem;max-width:70ch}
 @media (max-width:760px){.v-tarifa{grid-template-columns:1fr auto;gap:8px 16px}.v-t-precio{grid-row:1/3;grid-column:2;text-align:right}.v-t-nota{grid-column:1}.v-t-ir{grid-column:1/-1;justify-self:start;margin-top:6px}}
 /* alta */
-.v-alta{padding:clamp(70px,10vw,140px) 0;background:var(--papel-2)}
-.v-alta .in{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,100px)}
-@media (max-width:860px){.v-alta .in{grid-template-columns:1fr}}
-.v-pasos{list-style:none;margin:36px 0 0;padding:0;counter-reset:p}
-.v-pasos li{counter-increment:p;display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--raya)}
-.v-pasos li::before{content:"0" counter(p);font:500 .9rem var(--ft);color:var(--cobre-t);min-width:2ch;padding-top:3px}
 .alta-form{display:flex;flex-direction:column;gap:16px}
 .alta-form .campo{display:flex;flex-direction:column;gap:8px}
 .alta-form .campo b{font:600 .8rem var(--ft);letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
@@ -1117,7 +1136,20 @@ escribir("/dos-decimas/", f'''<!doctype html>
 
 <main>
 <section class="v-portada"><div class="in">
-  <p class="v-intro">La app para preparar <b>Policía Nacional</b>. Tests a nivel de examen, comprobados con la ley vigente del BOE.<br><a class="v-btn" href="#prueba">Empieza tus 7 días gratis</a></p>
+  <div class="v-arriba">
+    <p class="v-gancho">Me quedé fuera por <em>dos décimas.</em></p>
+    <p class="v-intro">Esta app te enseña dónde pierdes las tuyas. Tests de <b>Policía Nacional</b> a nivel de examen, comprobados con la ley vigente del BOE.</p>
+    <form class="alta-form prueba-form portada-form" id="prueba" data-origen="web" novalidate>
+      <label class="campo"><span class="sr">Tu nombre</span><input type="text" name="nombre" required maxlength="40" autocomplete="given-name" autocapitalize="words" placeholder="Tu nombre"></label>
+      <label class="campo"><span class="sr">Tu email</span><input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="Tu email"></label>
+      <label class="campo"><span class="sr">¿Dónde nos viste? (opcional)</span>
+        <select name="como"><option value="">¿Dónde nos viste? (opcional)</option><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="companero">Me lo pasó un compañero</option><option value="grupo">En un grupo de opositores</option><option value="creador">Un creador de contenido</option><option value="google">Google</option><option value="otro">Otro</option></select></label>
+      <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
+      <div class="btns"><button class="btn btn-p" type="submit">Empieza tus 7 días gratis</button></div>
+      <p class="nota">Sin tarjeta. Te llega un correo, eliges contraseña y entras. <a href="https://dosdecimas.ruvilab.es/privacidad.html">Privacidad</a></p>
+      <div class="aviso" role="status" hidden></div>
+    </form>
+  </div>
   <div class="v-movil-caja">
     <div class="v-movil"><img src="/img/estilo/inicio.jpg" alt="La pantalla de inicio de Dos Décimas: «¿Qué practicamos hoy?», con la última nota, los fallos por repasar y el botón para empezar un test" width="780" height="1800"></div>
   </div>
@@ -1125,7 +1157,7 @@ escribir("/dos-decimas/", f'''<!doctype html>
 </div></section>
 
 <section class="v-frase"><div class="in">
-  <p class="rev">Me quedé fuera de la Policía Nacional por dos décimas. <span>Saqué un 6,85 y el corte fue un {DD_CORTE}. Esta app te enseña dónde pierdes las tuyas.</span></p>
+  <p class="rev">Saqué un 6,85 y el corte fue un {DD_CORTE}. <span>Me faltaron dos décimas. Por eso hice esta app: para que tú sepas dónde pierdes las tuyas.</span></p>
   <a class="v-enl rev" href="#pregunta">Compruébalo con una pregunta <span aria-hidden="true">↓</span></a>
 </div></section>
 
@@ -1167,12 +1199,6 @@ escribir("/dos-decimas/", f'''<!doctype html>
   <p class="v-pie-t">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Paga con el mismo email con el que pruebas la app.</p>
 </div></section>
 
-<section class="v-alta" id="prueba"><div class="in">
-  <div class="rev"><span class="eti">7 días gratis, sin tarjeta</span><h2 class="v-tit">Pruébala <em>esta semana.</em></h2>
-    <ol class="v-pasos"><li>Deja tu nombre y tu email.</li><li>Te llega un correo: pulsa el botón.</li><li>Elige tu contraseña. Ya estás dentro.</li></ol></div>
-  <div class="rev">{dd_form("web", "Empieza tus 7 días gratis")}</div>
-</div></section>
-
 <section class="v-faq"><div class="in">
   <div class="rev"><span class="eti">Preguntas</span><h2 class="v-tit">Antes de <em>empezar.</em></h2><p class="v-sub">¿Otra duda? Escribe a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p></div>
   <div class="rev">{FAQ_DD_HTML}</div>
@@ -1184,7 +1210,7 @@ escribir("/dos-decimas/", f'''<!doctype html>
   <a class="v-btn rev" href="#prueba">Empieza tus 7 días gratis</a>
   <div class="v-pie-web"><span>Dos Décimas · un proyecto de <a href="/">Ruvï</a></span><nav><a href="{DD_APP}">Entrar en la app</a><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="mailto:{DD_CORREO}">{DD_CORREO}</a></nav></div>
 </div></footer>
-{CUENTA_JS.replace("__URL__", SUPABASE_URL).replace("__CLAVE__", SUPABASE_CLAVE)}{PRUEBA_JS}{P1_JS}{CUENTA_SIM_JS}{ANCLAS_JS}{VELDE_JS}
+{CUENTA_JS.replace("__URL__", SUPABASE_URL).replace("__CLAVE__", SUPABASE_CLAVE)}{PRUEBA_JS_PORTADA}{P1_JS}{CUENTA_SIM_JS}{ANCLAS_JS}{VELDE_JS}
 </body></html>''')
 
 
