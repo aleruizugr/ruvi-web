@@ -20,6 +20,7 @@ ENTRADAS_JS = """<script>
 # Contador de visitas de Dos Décimas, anónimo: suma 1 a un número por día, página, acción y procedencia
 # (función apuntar_web() de la migración 026 de plantilla-repaso). No usa cookies, no guarda nada en el aparato
 # y no manda ningún dato de la persona: solo «instagram», «tiktok», «google»… según de dónde llega.
+# Si llega desde uno de nuestros anuncios (enlace con ?a=letra), la procedencia es «anuncio-a»… «anuncio-h» (migración 028).
 # Solo cuenta en ruvilab.es (no en local). La clave es la pública de siempre.
 CUENTA_JS = """<script>
 (function(){
@@ -27,6 +28,8 @@ CUENTA_JS = """<script>
   var pag=/test-gratis/.test(location.pathname)?"test-gratis":/gracias/.test(location.pathname)?"gracias":"dos-decimas";
   var ua=navigator.userAgent||"",r="";try{r=document.referrer?new URL(document.referrer).hostname:""}catch(e){}
   var o=/Instagram/i.test(ua)||/instagram\\./.test(r)?"instagram":/musical_ly|TikTok|Bytedance/i.test(ua)||/tiktok\\./.test(r)?"tiktok":/FBAN|FBAV/.test(ua)||/facebook\\.|(^|\\.)fb\\./.test(r)?"facebook":/google\\./.test(r)?"google":/(^|\\.)ruvilab\\.es$/.test(r)?"interno":r?"otro":"directo";
+  // Anuncios: el enlace de cada anuncio lleva ?a= y una letra (a…h) y se cuenta como «anuncio-a»… (una letra, nada de la persona)
+  var an=/[?&]a=([a-h])(?:&|$)/.exec(location.search);if(an)o="anuncio-"+an[1];
   window.ddCuenta=function(ev){
     if(h!=="ruvilab.es"&&h!=="www.ruvilab.es")return;
     try{fetch(U,{method:"POST",headers:{"apikey":K,"Authorization":"Bearer "+K,"Content-Type":"application/json"},body:JSON.stringify({pagina:pag,evento:ev,origen:o}),keepalive:true}).catch(function(){})}catch(e){}
@@ -455,7 +458,7 @@ escribir("/privacidad/", cabeza_panel("Privacidad y cookies · Ruvï", "Cómo tr
 <ul>
 <li><b>Si nos escribes</b> a {CORREO}, por WhatsApp o nos llamas: tu nombre, tu email, el nombre de tu academia y lo que nos cuentes. Los usamos para contestarte y, si lo pides, para enseñarte la app y prepararte un presupuesto. Base legal: tu petición y las medidas previas a un contrato (artículo 6.1.b del RGPD).</li>
 <li><b>Si pides la semana gratis de Dos Décimas</b>: tu nombre y tu email, para darte acceso a la app durante 7 días, y de qué página lo pediste. Base legal: tu petición (artículo 6.1.b del RGPD). Para evitar abusos del formulario guardamos durante dos días una huella irreversible de la conexión desde la que se pide (no la dirección IP) y, si tu solicitud se queda en espera, tu nombre y tu email hasta darte el alta o, como máximo, 30 días. Base legal: nuestro interés legítimo en proteger el servicio (artículo 6.1.f). Además, para saber qué canales funcionan, guardamos tu respuesta a «¿Dónde nos viste?», si la contestas. Base legal: nuestro interés legítimo (artículo 6.1.f); no se usa para publicidad ni se cede a nadie. Desde ese momento tus datos se rigen por la <a href="{DD_APP}/privacidad.html">política de privacidad de Dos Décimas</a>.</li>
-<li><b>Contador de visitas de Dos Décimas</b>: en las páginas de Dos Décimas sumamos 1 a un contador por día, página y acción (visita, test gratis empezado o terminado, formulario enviado, botón pulsado) y por procedencia general (Instagram, TikTok, Google, directo…). Es solo un número: no guarda tu dirección IP, no te identifica, no usa cookies ni deja nada en tu aparato. Lo usamos para saber qué páginas funcionan.</li>
+<li><b>Contador de visitas de Dos Décimas</b>: en las páginas de Dos Décimas sumamos 1 a un contador por día, página y acción (visita, test gratis empezado o terminado, formulario enviado, botón pulsado) y por procedencia general (Instagram, TikTok, Google, directo… o cuál de nuestros anuncios te ha traído). Es solo un número: no guarda tu dirección IP, no te identifica, no usa cookies ni deja nada en tu aparato. Lo usamos para saber qué páginas funcionan.</li>
 <li><b>Al visitar la web</b>: el proveedor que la aloja registra datos técnicos, como tu dirección IP y la hora, para servirla y por seguridad. No los usamos para nada más.</li>
 </ul>
 <h2 id="lista-espera">Lista de espera de Dos Décimas</h2>

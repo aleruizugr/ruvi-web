@@ -357,6 +357,8 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
   var pag=/test-gratis/.test(location.pathname)?"test-gratis":/gracias/.test(location.pathname)?"gracias":"dos-decimas";
   var ua=navigator.userAgent||"",r="";try{r=document.referrer?new URL(document.referrer).hostname:""}catch(e){}
   var o=/Instagram/i.test(ua)||/instagram\./.test(r)?"instagram":/musical_ly|TikTok|Bytedance/i.test(ua)||/tiktok\./.test(r)?"tiktok":/FBAN|FBAV/.test(ua)||/facebook\.|(^|\.)fb\./.test(r)?"facebook":/google\./.test(r)?"google":/(^|\.)ruvilab\.es$/.test(r)?"interno":r?"otro":"directo";
+  // Anuncios: el enlace de cada anuncio lleva ?a= y una letra (a…h) y se cuenta como «anuncio-a»… (una letra, nada de la persona)
+  var an=/[?&]a=([a-h])(?:&|$)/.exec(location.search);if(an)o="anuncio-"+an[1];
   window.ddCuenta=function(ev){
     if(h!=="ruvilab.es"&&h!=="www.ruvilab.es")return;
     try{fetch(U,{method:"POST",headers:{"apikey":K,"Authorization":"Bearer "+K,"Content-Type":"application/json"},body:JSON.stringify({pagina:pag,evento:ev,origen:o}),keepalive:true}).catch(function(){})}catch(e){}
