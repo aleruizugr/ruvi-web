@@ -223,6 +223,7 @@ FAQ_DD = [
   ("¿Están actualizadas a la ley vigente?", "Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos."),
   ("¿Qué cubre y qué no?", "Cubre la prueba de conocimientos: tests de los 45 temas de la Escala Básica, 12 exámenes oficiales desde 2015 y un simulacro cada fin de semana. También te ayuda con las físicas, con el baremo oficial. No es un temario para estudiar desde cero: es para practicar lo que estudias. Tampoco incluye psicotécnicos ni la entrevista."),
   ("¿Funciona en el móvil?", "Sí. Se abre en el navegador del móvil o del ordenador y puedes añadirla a la pantalla de inicio como una app, sin pasar por ninguna tienda."),
+  ("¿Por qué pagar si quien la hace también es opositor?", "Porque no pagas por mi experiencia, sino por una herramienta que hay que mantener y mejorar cada semana: tests por temas con el porqué de cada respuesta, un simulacro cada fin de semana con El Atestado, exámenes oficiales y la Comunidad. Que yo también esté opositando es justo lo que me hace saber qué hace falta. Y puedes probarla 7 días gratis, sin tarjeta, antes de decidir."),
   ("¿Puedo darme de baja cuando quiera?", "Sí, sin permanencia. Mantienes el acceso hasta el final de lo que ya pagaste. El curso completo es un pago único y no se renueva."),
   ("¿Y si no me convence?", f"Tienes 14 días para desistir y te devolvemos todo, aunque ya la hayas usado. Basta con escribir a {DD_CORREO}."),
 ]
@@ -878,6 +879,7 @@ FUNCIONES_V = [
   ("estilo/dudo.jpg", "«Dudo» y «Dejar en blanco»", "Como en el examen: −0,5 por fallo. Marcas las que dudas y luego ves si te compensó.", "Una pregunta con los botones Dudo y Dejar en blanco"),
   ("app-resultado.png", "¿Te compensa arriesgar?", "Tu nota con −0,5 por fallo y si contestar las que dudabas te ha sumado o te ha restado.", "Resultado de un test con lo que ha sumado arriesgar"),
   ("app-cuaderno.png", "Cada fallo, con su porqué", "La respuesta buena, el porqué y lo que dice la ley. Y un botón para repetir solo esas.", "Mi cuaderno con una pregunta fallada, la correcta y el porqué"),
+  ("estilo/comunidad.jpg", "La Comunidad", "Un chat semanal con otros opositores: preguntas tus dudas, echas una mano y lees los avisos. Empieza de cero cada domingo a las 23:00.", "La Comunidad: una pregunta fallada del test y la respuesta de Alejandro con la etiqueta DOS DÉCIMAS"),
   ("estilo/repaso.jpg", "Repaso de 5 minutos", "Tus fallos pendientes cada día, sin pensar qué toca, y tu racha.", "Pantalla Repasar con el repaso de 5 minutos y los fallos pendientes"),
   ("estilo/trampas.jpg", "Mis trampas", "En qué tipo de pregunta te pillan: plazos, excepciones, «podrá»…", "Pantalla Mis trampas con el fallo por tipo de trampa"),
   ("app-temas.png", "Cómo vas en cada tema", "Del más flojo al más fuerte. Tocas uno y lo practicas.", "Cómo vas en cada tema, con su porcentaje y su barra"),
