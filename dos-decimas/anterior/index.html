@@ -100,7 +100,7 @@
   <p class="cuenta-sim grande ent" hidden></p>
   <ul class="salidas ent">
     <li class="gira"><span class="hora"><span class="rotulo">VIE</span><span class="rotulo">14:00</span></span><span class="destino">Simulacro<small>100 preguntas y 50 minutos</small></span><span class="estado"><span class="rotulo cobre">Abre</span></span></li>
-    <li class="gira"><span class="hora"><span class="rotulo">DOM</span><span class="rotulo">21:00</span></span><span class="destino">Tu nota, la media y el corte<small>Al cerrar ves si habrías pasado</small></span><span class="estado"><span class="rotulo">Cierra</span></span></li>
+    <li class="gira"><span class="hora"><span class="rotulo">DOM</span><span class="rotulo">21:00</span></span><span class="destino">Tu nota y el corte<small>Al cerrar ves si habrías pasado</small></span><span class="estado"><span class="rotulo">Cierra</span></span></li>
   </ul>
   <p class="nota-sim ent"><span class="gira">Cuando cierre, tienes en la app la corrección de tus fallos y de las que dejaste en blanco, con el porqué de cada una.</span></p>
 </div></section>
@@ -131,6 +131,7 @@
     try{fetch(U,{method:"POST",headers:{"apikey":K,"Authorization":"Bearer "+K,"Content-Type":"application/json"},body:JSON.stringify({pagina:pag,evento:ev,origen:o}),keepalive:true}).catch(function(){})}catch(e){}
   };
   ddCuenta("visita");
+  document.addEventListener("focusin",function(e){var t=e.target,f=t&&t.closest&&t.closest(".prueba-form");if(!f||f.dataset.empezado||!/^(nombre|email)$/.test(t.name||""))return;f.dataset.empezado="1";ddCuenta("form_empezado")});
   document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var f=a.getAttribute("href");
     if(/buy\.stripe\.com/.test(f))ddCuenta("clic_tarifa");else if(/#(prueba|empezar)$/.test(f))ddCuenta("clic_prueba");else if(/#planes$/.test(f)&&a.closest(".alta-cta"))ddCuenta("clic_tarifa");else if(/test-gratis/.test(f)&&pag!=="test-gratis")ddCuenta("clic_test")});
 })();

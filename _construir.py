@@ -35,6 +35,7 @@ CUENTA_JS = """<script>
     try{fetch(U,{method:"POST",headers:{"apikey":K,"Authorization":"Bearer "+K,"Content-Type":"application/json"},body:JSON.stringify({pagina:pag,evento:ev,origen:o}),keepalive:true}).catch(function(){})}catch(e){}
   };
   ddCuenta("visita");
+  document.addEventListener("focusin",function(e){var t=e.target,f=t&&t.closest&&t.closest(".prueba-form");if(!f||f.dataset.empezado||!/^(nombre|email)$/.test(t.name||""))return;f.dataset.empezado="1";ddCuenta("form_empezado")});
   document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var f=a.getAttribute("href");
     if(/buy\\.stripe\\.com/.test(f))ddCuenta("clic_tarifa");else if(/#(prueba|empezar)$/.test(f))ddCuenta("clic_prueba");else if(/#planes$/.test(f)&&a.closest(".alta-cta"))ddCuenta("clic_tarifa");else if(/test-gratis/.test(f)&&pag!=="test-gratis")ddCuenta("clic_test")});
 })();
@@ -722,7 +723,7 @@ escribir("/dos-decimas/anterior/", _cab_nueva + f"""
   <p class="cuenta-sim grande ent" hidden></p>
   <ul class="salidas ent">
     <li class="gira"><span class="hora"><span class="rotulo">VIE</span><span class="rotulo">14:00</span></span><span class="destino">Simulacro<small>100 preguntas y 50 minutos</small></span><span class="estado"><span class="rotulo cobre">Abre</span></span></li>
-    <li class="gira"><span class="hora"><span class="rotulo">DOM</span><span class="rotulo">21:00</span></span><span class="destino">Tu nota, la media y el corte<small>Al cerrar ves si habrías pasado</small></span><span class="estado"><span class="rotulo">Cierra</span></span></li>
+    <li class="gira"><span class="hora"><span class="rotulo">DOM</span><span class="rotulo">21:00</span></span><span class="destino">Tu nota y el corte<small>Al cerrar ves si habrías pasado</small></span><span class="estado"><span class="rotulo">Cierra</span></span></li>
   </ul>
   <p class="nota-sim ent"><span class="gira">Cuando cierre, tienes en la app la corrección de tus fallos y de las que dejaste en blanco, con el porqué de cada una.</span></p>
 </div></section>
@@ -875,28 +876,27 @@ PRUEBA_JS_PORTADA = PRUEBA_JS.replace('  document.querySelectorAll(".prueba-form
 # formulario de verdad (pedir_prueba), la pregunta de portada y las anclas antiguas (#precio, #entrar…).
 FUNCIONES_V = [
   ("estilo/tests.jpg", "Tests de cada tema", "10, 20, 50 o 100 preguntas, con corrección al momento o al final.", "La app con un tema elegido, 20 preguntas y corrección al momento"),
-  ("app-pregunta-dd.png", "Lupa de negaciones", "Te resalta los «NO», los «salvo» y los «excepto» para que no se te escapen.", "Una pregunta con la lupa activada: resalta «no», «ni» y «salvo»"),
-  ("estilo/dudo.jpg", "«Dudo» y «Dejar en blanco»", "Como en el examen: −0,5 por fallo. Marcas las que dudas y luego ves si te compensó.", "Una pregunta con los botones Dudo y Dejar en blanco"),
-  ("app-resultado.png", "¿Te compensa arriesgar?", "Tu nota con −0,5 por fallo y si contestar las que dudabas te ha sumado o te ha restado.", "Resultado de un test con lo que ha sumado arriesgar"),
   ("app-cuaderno.png", "Cada fallo, con su porqué", "La respuesta buena, el porqué y lo que dice la ley. Y un botón para repetir solo esas.", "Mi cuaderno con una pregunta fallada, la correcta y el porqué"),
+  ("estilo/dudo.jpg", "«Dudo» y «Dejar en blanco»", "Como en el examen: −0,5 por fallo. Marcas las que dudas y luego ves si te compensó.", "Una pregunta con los botones Dudo y Dejar en blanco"),
+  ("app-pregunta-dd.png", "Lupa de negaciones", "Te resalta los «NO», los «salvo» y los «excepto» para que no se te escapen.", "Una pregunta con la lupa activada: resalta «no», «ni» y «salvo»"),
   ("estilo/repaso.jpg", "Repaso de 5 minutos", "Tus fallos pendientes cada día, sin pensar qué toca, y tu racha.", "Pantalla Repasar con el repaso de 5 minutos y los fallos pendientes"),
-  ("estilo/trampas.jpg", "Mis trampas", "En qué tipo de pregunta te pillan: plazos, excepciones, «podrá»…", "Pantalla Mis trampas con el fallo por tipo de trampa"),
-  ("app-temas.png", "Cómo vas en cada tema", "Del más flojo al más fuerte. Tocas uno y lo practicas.", "Cómo vas en cada tema, con su porcentaje y su barra"),
-  ("estilo/simulacro.jpg", "Simulacro de fin de semana", "100 preguntas nuevas, con la media de todos y la nota de corte.", "Pantalla del simulacro de fin de semana"),
-  ("estilo/oficiales.jpg", "Exámenes oficiales", "Las últimas convocatorias, como el día del examen y con su nota de corte.", "Lista de exámenes oficiales por promoción con su nota de corte"),
-  ("app-fisicas.png", "Y las físicas", "Apuntas tus marcas y te da los puntos con el baremo de la convocatoria.", "Pantalla Físicas con la evolución de las marcas"),
 ]
 _TARJETAS_V = "".join(f'''<li class="v-tarjeta rev">
         <figure{' class="marco"' if img.endswith('.png') else ''}><img src="/img/{img}" alt="{a}" loading="lazy"></figure>
         <p class="v-pie"><span class="v-num">{i + 1:02d}</span><b>{n}</b>{p}</p>
       </li>''' for i, (img, n, p, a) in enumerate(FUNCIONES_V))
 
-_TARIFAS_V = "".join(f'''<li class="v-tarifa rev{' destacada' if t.get('destacada') else ''}">
+_F = TARIFA_FUNDADOR
+_TARIFA_FUND_V = f'''<div class="v-fund rev">
+    <div><span class="v-f-eti">Solo para las {_F["plazas"]} primeras personas</span><span class="v-t-nom">{_F["nombre"]}</span><p class="v-t-nota">Te quedas con este precio para siempre, mientras sigas suscrito. Cuando se acaben las plazas, la mensual cuesta 10,99 €.</p></div>
+    <div class="v-f-der"><span class="v-t-precio">{_F["precio"]}<small>{_F["periodo"]}</small></span><a class="v-f-ir" href="{_F["enlace"]}" rel="noopener">Quiero ser Fundador</a></div>
+  </div>'''
+_TARIFAS_V = "".join(f'''<li class="v-tarifa rev">
         <span class="v-t-nom">{t["nombre"]}</span>
         <span class="v-t-precio">{t["precio"]}<small>{t["periodo"]}</small></span>
         <span class="v-t-nota">{(t["al_mes"] + " al mes · ") if t.get("al_mes") else ""}{t["nota"]}</span>
         <a class="v-t-ir" href="{t["enlace"]}" rel="noopener">Elegir<span aria-hidden="true">→</span></a>
-      </li>''' for t in [dict(TARIFA_FUNDADOR, nota=f"Solo para las {TARIFA_FUNDADOR['plazas']} primeras personas, para siempre mientras sigas suscrito. Después, 10,99 € al mes.")] + TARIFAS_DD)
+      </li>''' for t in TARIFAS_DD)
 
 VELDE_CSS = """<style>
 :root{--papel:#F5F3F0;--papel-2:#ECE7E1;--tinta:#1A1614;--gris:#6E655E;--raya:#D9D2CA;--cobre:#D9A276;--cobre-t:#9A5B38;--noche:#0D0B0A;--crema:#F2EADF;--crema-2:#A89C93;--bien:#1F9D55;--mal:#E5484D;
@@ -1044,6 +1044,38 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-comu{padding:clamp(70px,10vw,140px) 0;background:var(--papel-2)}
 .v-comu .in{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:clamp(30px,6vw,100px);align-items:center}
 @media (max-width:860px){.v-sim .in,.v-comu .in{grid-template-columns:1fr}.v-sim-movil,.v-comu-movil{width:min(70vw,300px)}.v-comu-movil{order:2}}
+/* primera pantalla: tres líneas y «¿Dónde nos viste?» plegado */
+.v-tres{list-style:none;margin:0 0 20px;padding:0;display:flex;flex-direction:column;gap:7px;color:var(--crema);font-size:1rem;line-height:1.35}
+.v-tres li{display:flex;gap:10px}.v-tres li::before{content:"";flex:none;width:7px;height:7px;margin-top:.5em;border-radius:50%;background:var(--cobre)}
+.v-como summary{list-style:none;cursor:pointer;color:var(--crema-2);font-size:.88rem;padding:2px 4px;width:max-content}
+.v-como summary::-webkit-details-marker{display:none}.v-como summary span{opacity:.7}
+.v-como summary::after{content:" ▾"}.v-como[open] summary::after{content:" ▴"}.v-como[open] summary{margin-bottom:8px}
+/* beneficios */
+.v-app{padding:clamp(70px,10vw,140px) 0}
+.v-benef{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px)}
+.v-benef li{padding:28px 0 0;border-top:1.5px solid var(--tinta)}
+.v-benef .n{display:block;font:300 clamp(2.4rem,4.5vw,3.6rem)/1 var(--fd);letter-spacing:-.04em;color:var(--cobre-t)}
+.v-benef b{display:block;margin:16px 0 10px;font:700 clamp(1.3rem,1.8vw,1.55rem)/1.15 var(--fd);letter-spacing:-.02em}
+.v-benef p{margin:0;color:var(--gris)}
+.v-benef li.dest{background:var(--noche);color:var(--crema);border:0;border-radius:18px;padding:28px}
+.v-benef li.dest .n{color:var(--cobre)}.v-benef li.dest p{color:var(--crema-2)}
+.v-benef .v-enl{display:inline-flex;gap:8px;margin-top:18px;font-weight:600;color:var(--cobre);text-decoration:none;border-bottom:1.5px solid currentColor;padding-bottom:2px}
+.v-func-cab{margin-top:clamp(56px,7vw,90px);display:flex;justify-content:space-between;align-items:baseline}
+@media (max-width:860px){.v-benef{grid-template-columns:1fr}}
+/* tarifas: Fundador */
+.v-fund{margin-top:48px;display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:center;padding:clamp(24px,3.4vw,44px);border-radius:20px;background:var(--noche);color:var(--crema)}
+.v-fund .v-t-nom{display:block;font-size:clamp(1.8rem,3vw,2.4rem)}
+.v-f-eti{display:block;margin-bottom:8px;font:600 .78rem var(--ft);letter-spacing:.12em;text-transform:uppercase;color:var(--cobre)}
+.v-fund .v-t-nota{margin:10px 0 0;color:var(--crema-2);max-width:40ch}
+.v-f-der{display:flex;flex-direction:column;align-items:flex-end;gap:18px}
+.v-fund .v-t-precio{font-size:clamp(2.8rem,5vw,4rem);text-align:right}.v-fund .v-t-precio small{color:var(--crema-2)}
+.v-f-ir{display:inline-flex;align-items:center;min-height:52px;padding:0 26px;border-radius:999px;background:var(--cobre);color:var(--tinta);font-weight:700;text-decoration:none}
+.v-f-ir:hover{background:var(--crema)}
+.v-otras{margin:40px 0 0;font:600 .8rem var(--ft);letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+.v-planes .v-lista-t{margin-top:14px;gap:10px}
+.v-planes .v-tarifa{border:1px solid var(--raya);padding:16px clamp(16px,2vw,26px)}
+.v-planes .v-tarifa .v-t-nom{font-size:1.1rem}.v-planes .v-tarifa .v-t-precio{font-size:1.45rem}
+@media (max-width:760px){.v-fund{grid-template-columns:1fr}.v-f-der{align-items:flex-start}.v-fund .v-t-precio{text-align:left}.v-f-ir{width:100%;justify-content:center}}
 /* tarifas */
 .v-planes{padding:clamp(70px,10vw,140px) 0}
 .v-lista-t{list-style:none;margin:48px 0 0;padding:0;display:flex;flex-direction:column;gap:14px}
@@ -1148,15 +1180,16 @@ escribir("/dos-decimas/", f'''<!doctype html>
 <section class="v-portada"><div class="in">
   <div class="v-arriba">
     <p class="v-gancho">Me quedé fuera por <em>dos décimas.</em></p>
-    <p class="v-intro">Y decidí construir una app para preparar <b>Policía Nacional</b> de otra manera. <span class="v-da">Tests por temas, un simulacro cada semana y un informe que te dice dónde pierdes puntos.</span></p>
+    <p class="v-intro">Una app para preparar el test de <b>Policía Nacional</b>: practicas como en el examen y descubres dónde estás perdiendo puntos.</p>
+    <ul class="v-tres"><li>Tests de los 45 temas, con el porqué de cada fallo</li><li>Un simulacro cada fin de semana y El Atestado</li><li>Repasas justo lo que necesitas mejorar</li></ul>
     <form class="alta-form prueba-form portada-form" id="prueba" data-origen="web" novalidate>
       <label class="campo"><span class="sr">Tu nombre</span><input type="text" name="nombre" required maxlength="40" autocomplete="given-name" autocapitalize="words" placeholder="Tu nombre"></label>
       <label class="campo"><span class="sr">Tu email</span><input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="Tu email"></label>
-      <label class="campo"><span class="sr">¿Dónde nos viste? (opcional)</span>
-        <select name="como"><option value="">¿Dónde nos viste? (opcional)</option><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="companero">Me lo pasó un compañero</option><option value="grupo">En un grupo de opositores</option><option value="creador">Un creador de contenido</option><option value="google">Google</option><option value="otro">Otro</option></select></label>
+      <details class="v-como"><summary>¿Dónde nos viste? <span>(opcional)</span></summary><label class="campo"><span class="sr">¿Dónde nos viste? (opcional)</span>
+        <select name="como"><option value="">¿Dónde nos viste? (opcional)</option><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="companero">Me lo pasó un compañero</option><option value="grupo">En un grupo de opositores</option><option value="creador">Un creador de contenido</option><option value="google">Google</option><option value="otro">Otro</option></select></label></details>
       <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
-      <div class="btns"><button class="btn btn-p" type="submit">Empieza tus 7 días gratis</button></div>
-      <p class="nota"><b>7 días gratis · Sin tarjeta.</b> Solo tu nombre y tu email: te llega un correo, eliges contraseña y entras. <a href="https://dosdecimas.ruvilab.es/privacidad.html">Privacidad</a></p>
+      <div class="btns"><button class="btn btn-p" type="submit">Probar Dos Décimas gratis</button></div>
+      <p class="nota"><b>7 días gratis · Sin tarjeta · Sin compromiso</b> · En el móvil o el ordenador. <a href="https://dosdecimas.ruvilab.es/privacidad.html">Privacidad</a></p>
       <div class="aviso" role="status" hidden></div>
     </form>
   </div>
@@ -1166,6 +1199,19 @@ escribir("/dos-decimas/", f'''<!doctype html>
   <h1 class="v-gigante" aria-label="Dos Décimas"><span class="l">Dos</span> <em class="l">Décimas</em></h1>
 </div></section>
 
+<section class="v-app" id="app">
+  <div class="in">
+    <div class="rev"><span class="eti">Qué te da</span><h2 class="v-tit">Tres cosas, <em>hechas en serio.</em></h2></div>
+    <ol class="v-benef">
+      <li class="rev"><span class="n">01</span><b>Practicas los 45 temas a nivel de examen</b><p>Tests de cada tema comprobados con la ley vigente del BOE, y los exámenes oficiales de las últimas convocatorias.</p></li>
+      <li class="rev"><span class="n">02</span><b>Sabes por qué fallas y qué repasar</b><p>Cada fallo trae la respuesta buena, el porqué y lo que dice la ley. La app guarda tus pendientes y te dice qué tema flojea.</p></li>
+      <li class="rev dest"><span class="n">03</span><b>Un simulacro cada semana, con El Atestado</b><p>100 preguntas como el día del examen y, al cerrar, El Atestado: dónde se te han ido los puntos y tu siguiente objetivo.</p><a class="v-enl" href="#simulacro">Ver El Atestado <span aria-hidden="true">↓</span></a></li>
+    </ol>
+    <div class="cab-sec v-func-cab rev"><span class="eti">Cinco funciones que lo hacen posible</span><span class="v-desliza">Desliza →</span></div>
+  </div>
+  <ul class="v-tarjetas">{_TARJETAS_V}</ul>
+</section>
+
 <section class="v-video"><div class="in">
   <div class="v-video-cab rev"><span class="eti">La app en 50 segundos</span><h2 class="v-tit">Míralo antes de <em>probarla.</em></h2></div>
   <div class="v-video-caja rev">
@@ -1174,12 +1220,6 @@ escribir("/dos-decimas/", f'''<!doctype html>
   </div>
 </div></section>
 
-<section class="v-app" id="app">
-  <div class="in"><div class="cab-sec rev"><div><span class="eti">La app, por dentro</span><h2 class="v-tit">Dónde se van <em>tus décimas.</em></h2></div><span class="v-desliza">Desliza →</span></div></div>
-  <ul class="v-tarjetas">{_TARJETAS_V}</ul>
-  <div class="in"><p class="v-ademas rev">Y además: <b>tu evolución</b> simulacro a simulacro, <b>las más falladas</b> por todos, tu <b>primera intuición</b>, un <b>cuaderno de apuntes</b> y <b>modo claro y oscuro</b>.</p></div>
-</section>
-
 <section class="v-preg" id="pregunta"><div class="in">
   <div class="rev"><span class="eti">Pregunta real del examen de 2026</span><h2 class="v-tit">¿Te la <em>sabes</em>?</h2><p class="v-sub">Un toque y lo ves. Si fallas, te decimos por qué, como en la app.</p></div>
   <div class="rev">{_pregunta_portada()}</div>
@@ -1187,7 +1227,7 @@ escribir("/dos-decimas/", f'''<!doctype html>
 
 <section class="v-sim" id="simulacro"><div class="in">
   <div class="v-sim-txt">
-    <div class="rev"><span class="eti">Cada fin de semana</span><h2 class="v-tit">Un simulacro, <em>como el día del examen.</em></h2><p class="v-sub">100 preguntas, 50 minutos, un intento y sin repetir. Al cerrar te llega <b>El Atestado</b>: tu nota, la media de todos, si habrías pasado el corte y dónde se te han ido los puntos.</p></div>
+    <div class="rev"><span class="eti">Simulacro de fin de semana</span><h2 class="v-tit">El Atestado: <em>dónde se te van los puntos.</em></h2><p class="v-sub">Cada fin de semana, 100 preguntas en 50 minutos, un intento y sin repetir, como el día del examen. Al cerrar te llega <b>El Atestado</b>: tu nota, si habrías pasado el corte, los temas que más te han quitado y tu siguiente objetivo.</p></div>
     <div class="v-horas rev"><div><b>Vie 14:00</b><span>Abre</span></div><div><b>Dom 21:00</b><span>Cierra y llega El Atestado</span></div></div>
     <p class="cuenta-sim rev" hidden></p>
   </div>
@@ -1216,7 +1256,9 @@ escribir("/dos-decimas/", f'''<!doctype html>
   <div class="rev">{FAQ_DD_HTML}</div>
 </div></section>
 <section class="v-planes" id="planes"><div class="in">
-  <div class="rev"><span class="eti">Tarifas</span><h2 class="v-tit">Todas incluyen <em>lo mismo.</em></h2><p class="v-sub">Sin permanencia, con el IVA incluido y con 14 días para desistir.</p></div>
+  <div class="rev"><span class="eti">Tarifas</span><h2 class="v-tit">Pruébala gratis. <em>Sigue como Fundador.</em></h2><p class="v-sub">Sin permanencia, con el IVA incluido y con 14 días para desistir. Todas dan acceso a la app completa.</p></div>
+  {_TARIFA_FUND_V}
+  <p class="v-otras rev">Otras opciones</p>
   <ul class="v-lista-t">{_TARIFAS_V}</ul>
   <p class="v-pie-t">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Paga con el mismo email con el que pruebas la app.</p>
 </div></section>
