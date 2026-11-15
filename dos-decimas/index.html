@@ -183,6 +183,9 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-benef .v-enl{display:inline-flex;gap:8px;margin-top:18px;font-weight:600;color:var(--cobre);text-decoration:none;border-bottom:1.5px solid currentColor;padding-bottom:2px}
 .v-func-cab{margin-top:clamp(56px,7vw,90px);display:flex;justify-content:space-between;align-items:baseline}
 @media (max-width:860px){.v-benef{grid-template-columns:1fr}}
+.v-comu-puntos{list-style:none;margin:24px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.v-comu-puntos li{display:flex;gap:12px;font-weight:600}.v-comu-puntos li::before{content:"";flex:none;width:8px;height:8px;margin-top:.5em;border-radius:50%;background:var(--cobre-t)}
+.v-comu-nota{margin:22px 0 0;color:var(--gris);font-size:.92rem}
 /* tarifas: Fundador */
 .v-fund{margin-top:48px;display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:center;padding:clamp(24px,3.4vw,44px);border-radius:20px;background:var(--noche);color:var(--crema)}
 .v-fund .v-t-nom{display:block;font-size:clamp(1.8rem,3vw,2.4rem)}
@@ -331,7 +334,9 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 
 <section class="v-comu" id="comunidad"><div class="in">
   <figure class="v-comu-movil rev"><img src="/img/estilo/comunidad.jpg?v=faf3e3c2" alt="La Comunidad: una pregunta fallada del test y la respuesta con la etiqueta DOS DÉCIMAS" loading="lazy"></figure>
-  <div class="rev"><span class="eti">La Comunidad</span><h2 class="v-tit">No lo preparas <em>solo.</em></h2><p class="v-sub">Un chat semanal dentro de la app con otros opositores: preguntas tus dudas, echas una mano y lees los avisos. Empieza de cero cada domingo a las 23:00.</p></div>
+  <div class="rev"><span class="eti">La Comunidad</span><h2 class="v-tit">Un fallo no tiene por qué <em>quedarse sin respuesta.</em></h2><p class="v-sub">Desde cualquier pregunta fallada, la compartes en la Comunidad con un toque. Te ayudan otros opositores y también Alejandro, para que entiendas por qué has fallado.</p>
+    <ul class="v-comu-puntos"><li>Preguntas directamente desde el test</li><li>Te avisa en el móvil cuando te responden</li><li>Participas con un alias, sin mostrar tu correo</li></ul>
+    <p class="v-comu-nota">Un chat semanal dentro de la app: empieza de cero cada domingo a las 23:00.</p></div>
 </div></section>
 
 <section class="v-frase"><div class="in">
