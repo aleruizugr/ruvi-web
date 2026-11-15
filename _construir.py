@@ -1239,7 +1239,7 @@ escribir("/dos-decimas/", f'''<!doctype html>
 
 <section class="v-comu" id="comunidad"><div class="in">
   <figure class="v-comu-movil rev"><img src="/img/estilo/comunidad.jpg" alt="La Comunidad: una pregunta fallada del test y la respuesta con la etiqueta DOS DÉCIMAS" loading="lazy"></figure>
-  <div class="rev"><span class="eti">La Comunidad</span><h2 class="v-tit">Un fallo no tiene por qué <em>quedarse sin respuesta.</em></h2><p class="v-sub">Desde cualquier pregunta fallada, la compartes en la Comunidad con un toque. Te ayudan otros opositores y también Alejandro, para que entiendas por qué has fallado.</p>
+  <div class="rev"><span class="eti">La Comunidad</span><h2 class="v-tit">Un fallo no tiene por qué <em>quedarse sin respuesta.</em></h2><p class="v-sub">Desde cualquier pregunta fallada, la compartes en la Comunidad con un toque. Te ayudan otros opositores y Dos Décimas también contesta, para que entiendas por qué has fallado.</p>
     <ul class="v-comu-puntos"><li>Preguntas directamente desde el test</li><li>Te avisa en el móvil cuando te responden</li><li>Participas con un alias, sin mostrar tu correo</li></ul>
     <p class="v-comu-nota">Un chat semanal dentro de la app: empieza de cero cada domingo a las 23:00.</p></div>
 </div></section>
