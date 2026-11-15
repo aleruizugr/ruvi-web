@@ -1179,9 +1179,9 @@ escribir("/dos-decimas/", f'''<!doctype html>
 <main>
 <section class="v-portada"><div class="in">
   <div class="v-arriba">
-    <p class="v-gancho">Me quedé fuera por <em>dos décimas.</em></p>
-    <p class="v-intro">Una app para preparar el test de <b>Policía Nacional</b>: practicas como en el examen y descubres dónde estás perdiendo puntos.</p>
-    <ul class="v-tres"><li>Tests de los 45 temas, con el porqué de cada fallo</li><li>Un simulacro cada fin de semana y El Atestado</li><li>Repasas justo lo que necesitas mejorar</li></ul>
+    <p class="v-gancho">Que no te dejen fuera por <em>dos décimas.</em></p>
+    <p class="v-intro"><b>Cada fallo tiene un porqué.</b> Descúbrelo, aprende en qué preguntas sueles caer y entrena con cabeza para ir a por tu plaza.</p>
+    <ul class="v-tres"><li>Tests de los 45 temas, comprobados con la ley vigente del BOE</li><li>Un simulacro cada fin de semana y El Atestado</li><li>Repasas justo lo que necesitas mejorar</li></ul>
     <form class="alta-form prueba-form portada-form" id="prueba" data-origen="web" novalidate>
       <label class="campo"><span class="sr">Tu nombre</span><input type="text" name="nombre" required maxlength="40" autocomplete="given-name" autocapitalize="words" placeholder="Tu nombre"></label>
       <label class="campo"><span class="sr">Tu email</span><input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="Tu email"></label>
