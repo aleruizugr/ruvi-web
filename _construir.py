@@ -994,21 +994,6 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
   .v-intro{position:relative;z-index:2}
   .v-gigante{grid-row:2;font-size:21vw;white-space:normal;line-height:.86;margin-bottom:0}
 }
-.v-ya{display:none}
-@media (max-width:760px){
-  .v-arriba{display:flex;flex-direction:column;min-width:0;max-width:100%}
-  .v-para{order:1;margin-bottom:8px;font-size:.68rem;letter-spacing:.1em}
-  .v-gancho{order:2;margin-bottom:0;font-size:2.15rem}
-  .v-citas{order:3;min-width:0;align-items:flex-start;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:16px -16px 0;padding:0 16px;scroll-padding:0 16px}
-  .v-citas::-webkit-scrollbar{display:none}
-  .v-citas .v-cita{flex:0 0 86%;scroll-snap-align:start;margin:0;max-width:none;padding:10px 12px;border:0;border-left:2px solid var(--cobre);border-radius:0 12px 12px 0;background:rgba(242,234,223,.07)}
-  .v-citas .v-cita+.v-cita{margin-top:0}
-  .v-ya{order:4;display:flex;width:100%;margin-top:14px;min-height:52px;font-size:1.05rem}
-  .v-quiz{order:5;margin-top:22px}
-  .q-saltar{order:6}
-  .v-intro{order:7;margin-top:20px}
-  .v-tres{order:8}
-}
 /* formulario en la portada: quien llega de un anuncio se apunta sin bajar */
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .v-arriba{align-self:start;max-width:30rem;position:relative;z-index:2}
@@ -1211,6 +1196,25 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .alta-form .nota{margin:0;color:var(--gris);font-size:.9rem}
 .aviso{padding:16px;border-radius:12px;background:#fff}.aviso.mal{border:1.5px solid var(--mal)}.aviso .muted{color:var(--gris)}
 /* preguntas */
+/* portada en el móvil: cuestionario arriba y frases de opiniones debajo */
+@media (max-width:760px){
+  .v-portada .in{padding-top:80px}
+  .v-arriba{display:flex;flex-direction:column;min-width:0;max-width:100%}
+  .v-para{order:1;margin-bottom:6px;font-size:.62rem;letter-spacing:.08em}
+  .v-gancho{order:2;margin-bottom:0;font-size:2rem}
+  .v-quiz{order:3;margin-top:14px;padding:14px 16px}
+  .q-cab{gap:8px;margin-bottom:10px}.q-tit{font-size:.7rem}
+  .q-n{font-size:.78rem;margin-bottom:2px}
+  .q-preg{font-size:1.2rem;margin-bottom:10px}
+  .q-ops{gap:7px}.q-ops button{min-height:44px;padding:9px 14px;font-size:.98rem}
+  .q-saltar{order:4;margin-top:8px;font-size:.88rem}
+  .v-citas{order:5;min-width:0;align-items:flex-start;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:14px -16px 0;padding:0 16px;scroll-padding:0 16px}
+  .v-citas::-webkit-scrollbar{display:none}
+  .v-citas .v-cita{flex:0 0 86%;scroll-snap-align:start;margin:0;max-width:none;padding:10px 12px;border:0;border-left:2px solid var(--cobre);border-radius:0 12px 12px 0;background:rgba(242,234,223,.07)}
+  .v-citas .v-cita+.v-cita{margin-top:0}
+  .v-intro{order:6;margin-top:22px}
+  .v-tres{order:7}
+}
 /* opiniones: tarjetas que se deslizan (móvil y ordenador) */
 .v-opi{padding:clamp(56px,8vw,110px) 0;background:var(--papel-2)}
 .v-opi .in{display:grid;grid-template-columns:1fr;gap:clamp(22px,3vw,36px)}
@@ -1343,7 +1347,6 @@ escribir("/dos-decimas/", f'''<!doctype html>
     <figure class="v-cita"><blockquote><p>«{DD_CITA_2}»</p></blockquote><figcaption>{DD_CITA_2_FIRMA}</figcaption></figure>
     <figure class="v-cita"><blockquote><p>«{DD_CITA_3}»</p></blockquote><figcaption>{DD_CITA_3_FIRMA} · <a href="#opiniones">Leer las opiniones completas ↓</a></figcaption></figure>
     </div>
-    <a class="v-btn v-ya" href="#prueba">Empezar mis 7 días gratis</a>
   </div>
   <div class="v-movil-caja">
     <div class="v-movil"><img src="/img/estilo/inicio.jpg" alt="La pantalla de inicio de Dos Décimas: «¿Qué practicamos hoy?», con la última nota, los fallos por repasar y el botón para empezar un test" width="780" height="1800"></div>
