@@ -282,6 +282,13 @@ FAQ_DD_HTML = "".join(f'<details><summary>{q}{_MAS}</summary><p>{r}</p></details
 # Trozo literal de su texto, solo con tildes. No retocar ni inventar.
 DD_CITA = "Lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué."
 DD_CITA_FIRMA = "Raúl I. · Fundador · Opositor a Policía Nacional"
+# Apartado de opiniones: cada una es (párrafos, nombre, descripción). Solo reales y con permiso escrito.
+OPINIONES_DD = [
+    (["En general todo muy bien, preguntas en su mayoría con nivel parecido a examen, plataforma muy intuitiva y <em>lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.</em>",
+      "Veo muy bien lo de hacer un simulacro semanal general para todos los integrantes, sacar una nota de corte… Eso nos dará una experiencia que se plasmará en el día del examen de forma positiva para todos."],
+     "Raúl I.", "Fundador · Opositor a Policía Nacional"),
+]
+OPINIONES_DD_HTML = "".join('<li><figure><blockquote>' + "".join(f'<p>{"«" if i == 0 else ""}{t}{"»" if i == len(ps) - 1 else ""}</p>' for i, t in enumerate(ps)) + f'</blockquote><figcaption><b>{n}</b><span>{d}</span></figcaption></figure></li>' for ps, n, d in OPINIONES_DD)
 
 
 
@@ -1116,6 +1123,19 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .alta-form .nota{margin:0;color:var(--gris);font-size:.9rem}
 .aviso{padding:16px;border-radius:12px;background:#fff}.aviso.mal{border:1.5px solid var(--mal)}.aviso .muted{color:var(--gris)}
 /* preguntas */
+/* opiniones */
+.v-opi{padding:clamp(70px,10vw,140px) 0;background:var(--papel-2)}
+.v-opi .in{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:clamp(30px,6vw,100px);align-items:start}
+@media (max-width:860px){.v-opi .in{grid-template-columns:1fr}}
+.v-opis{list-style:none;margin:0;padding:0;display:grid;gap:clamp(40px,6vw,70px)}
+.v-opis figure,.v-opis blockquote{margin:0}
+.v-opis blockquote p{margin:0 0 .7em;font:500 clamp(1.35rem,2.4vw,2.05rem)/1.22 var(--fd);letter-spacing:-.025em}
+.v-opis blockquote p+p{font-size:clamp(1.15rem,1.8vw,1.5rem);color:var(--gris)}
+.v-opis blockquote em{font-style:normal;color:var(--cobre-t)}
+.v-opis figcaption{margin-top:14px;padding-top:18px;border-top:1px solid var(--raya);display:flex;flex-direction:column;gap:2px}
+.v-opis figcaption b{font:700 1.05rem var(--ft)}
+.v-opis figcaption span{color:var(--gris);font-size:.98rem}
+.v-cita figcaption a{color:var(--crema);text-underline-offset:3px}
 .v-faq{padding:clamp(70px,10vw,140px) 0}
 .v-faq .in{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,6vw,100px)}
 @media (max-width:860px){.v-faq .in{grid-template-columns:1fr}}
@@ -1188,7 +1208,7 @@ escribir("/dos-decimas/", f'''<!doctype html>
 </head><body>
 <header class="v-cab"><div class="in">
   <a class="v-marca" href="/dos-decimas/"><img src="/img/dosdecimas-logo.png" alt="" width="30" height="30">Dos Décimas</a>
-  <nav aria-label="Menú"><a class="opc" href="#app">La app</a><a class="opc" href="#simulacro">Simulacro</a><a class="opc" href="#comunidad">Comunidad</a><a class="opc" href="#planes">Tarifas</a><a class="v-entrar" href="{DD_APP}">Entrar</a><a class="v-btn" href="#prueba">7 días gratis</a></nav>
+  <nav aria-label="Menú"><a class="opc" href="#app">La app</a><a class="opc" href="#simulacro">Simulacro</a><a class="opc" href="#comunidad">Comunidad</a><a class="opc" href="#opiniones">Opiniones</a><a class="opc" href="#planes">Tarifas</a><a class="v-entrar" href="{DD_APP}">Entrar</a><a class="v-btn" href="#prueba">7 días gratis</a></nav>
 </div></header>
 
 <main>
@@ -1208,7 +1228,7 @@ escribir("/dos-decimas/", f'''<!doctype html>
       <p class="nota"><b>7 días gratis · Sin tarjeta · Sin compromiso</b> · En el móvil o el ordenador. <a href="https://dosdecimas.ruvilab.es/privacidad.html">Privacidad</a></p>
       <div class="aviso" role="status" hidden></div>
     </form>
-    <figure class="v-cita"><blockquote><p>«{DD_CITA}»</p></blockquote><figcaption>{DD_CITA_FIRMA}</figcaption></figure>
+    <figure class="v-cita"><blockquote><p>«{DD_CITA}»</p></blockquote><figcaption>{DD_CITA_FIRMA} · <a href="#opiniones">Leer la opinión completa ↓</a></figcaption></figure>
   </div>
   <div class="v-movil-caja">
     <div class="v-movil"><img src="/img/estilo/inicio.jpg" alt="La pantalla de inicio de Dos Décimas: «¿Qué practicamos hoy?», con la última nota, los fallos por repasar y el botón para empezar un test" width="780" height="1800"></div>
@@ -1273,6 +1293,10 @@ escribir("/dos-decimas/", f'''<!doctype html>
 <section class="v-faq"><div class="in">
   <div class="rev"><span class="eti">Preguntas</span><h2 class="v-tit">Antes de <em>empezar.</em></h2><p class="v-sub">¿Otra duda? Escribe a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p></div>
   <div class="rev">{FAQ_DD_HTML}</div>
+</div></section>
+<section class="v-opi" id="opiniones"><div class="in">
+  <div class="v-opi-cab rev"><span class="eti">Opiniones reales</span><h2 class="v-tit">Quienes ya confían en <em>Dos Décimas.</em></h2><p class="v-sub">Opiniones compartidas por usuarios reales, con su autorización.</p></div>
+  <ul class="v-opis rev">{OPINIONES_DD_HTML}</ul>
 </div></section>
 <section class="v-planes" id="planes"><div class="in">
   <div class="rev"><span class="eti">Tarifas</span><h2 class="v-tit">Pruébala gratis. <em>Sigue como Fundador.</em></h2><p class="v-sub">Sin permanencia, con el IVA incluido y con 14 días para desistir. Todas dan acceso a la app completa.</p></div>
