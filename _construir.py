@@ -1212,7 +1212,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
   .v-citas::-webkit-scrollbar{display:none}
   .v-citas .v-cita{flex:0 0 86%;scroll-snap-align:start;margin:0;max-width:none;padding:10px 12px;border:0;border-left:2px solid var(--cobre);border-radius:0 12px 12px 0;background:rgba(242,234,223,.07)}
   .v-citas .v-cita+.v-cita{margin-top:0}
-  .v-intro{order:6;margin-top:22px}
+  .v-arriba .v-intro{order:6;margin-top:34px}
   .v-tres{order:7}
 }
 /* opiniones: tarjetas que se deslizan (móvil y ordenador) */
@@ -1340,7 +1340,7 @@ escribir("/dos-decimas/", f'''<!doctype html>
       </div>
       <button type="button" class="q-atras" hidden>← Atrás</button>
     </div>
-    <p class="q-saltar"><a href="#prueba" data-directo>¿Lo tienes claro? Apúntate directamente</a></p>
+    <p class="q-saltar"><a href="#planes">¿Lo tienes claro? Apúntate directamente</a></p>
     <ul class="v-tres"><li>Tests de los 45 temas, comprobados con la ley vigente del BOE</li><li>Un simulacro cada fin de semana y El Atestado</li><li>Repasas justo lo que necesitas mejorar</li></ul>
     <div class="v-citas">
     <figure class="v-cita"><blockquote><p>«{DD_CITA}»</p></blockquote><figcaption>{DD_CITA_FIRMA}</figcaption></figure>
