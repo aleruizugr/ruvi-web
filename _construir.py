@@ -232,14 +232,14 @@ FAQ_DD = [
 QUIZ_JS = r'''<script>
 (function(){var q=document.getElementById("prueba");if(!q||!q.classList.contains("v-quiz"))return;
 var c=function(e){window.ddCuenta&&ddCuenta(e)},R={},emp=0,dir=0,rayas=q.querySelectorAll(".q-rayas i"),atras=q.querySelector(".q-atras"),res=q.querySelector(".q-res");
-var T3={porque:["entender cada fallo.","Cada pregunta que fallas trae su explicación con el artículo de la ley, y la app te dice en qué temas y tipos de pregunta caes."],
-repasar:["que tus fallos vuelvan a ti.","Las preguntas que fallas se guardan en tu cuaderno de fallos y el repaso te las vuelve a poner, sin que tengas que buscarlas."],
-medirme:["medirte cada semana.","Cada fin de semana hay un simulacro general para todos. El domingo te llega tu nota y El Atestado: el informe de dónde se te van los puntos."],
-solo:["no estudiar solo.","En la Comunidad compartes tus fallos desde el test y resuelves dudas con otros opositores, con un alias y sin enseñar tu correo."]};
+var T3={porque:["entender cada fallo.","Cada fallo trae su explicación con el artículo de la ley, y ves en qué temas caes."],
+repasar:["que tus fallos vuelvan a ti.","Se guardan solos en tu cuaderno de fallos y el repaso te los vuelve a poner."],
+medirme:["medirte cada semana.","Simulacro general cada fin de semana y, el domingo, tu nota con El Atestado."],
+solo:["no estudiar solo.","En la Comunidad compartes tus fallos y resuelves dudas con otros opositores."]};
 var T2={leyes:"Y para leyes, plazos y excepciones: cada pregunta está comprobada con la ley vigente del BOE.",trampa:"Y para las preguntas trampa: la explicación de cada respuesta te enseña dónde estaba.",dudo:"Y para las que dudas: las marcas con «Dudo» y luego ves si te compensó arriesgar.",nose:"Y si no sabes dónde fallas: la app te lo enseña por temas desde tu primer test."};
-function ir(n,mover){q.dataset.paso=n;if(mover){var y=q.getBoundingClientRect().top;if(y<70||y>innerHeight*.5)scrollTo({top:scrollY+y-90,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})}for(var i=0;i<rayas.length;i++)rayas[i].classList.toggle("on",i<n);atras.hidden=dir||n<2}
-function pintar(){var t=T3[R.p3];q.querySelector(".q-res-t").textContent="Tu punto de partida: "+t[0];q.querySelector(".q-res-x").textContent=t[1]+" "+(T2[R.p2]||"");
-var u=q.querySelector(".q-res-1");u.hidden=R.p1!=="corte";u.textContent="Sabemos lo que es quedarse fuera por dos décimas.";res.hidden=false;q.classList.add("con-res")}
+function ir(n,mover){q.dataset.paso=n;if(mover){var y=q.getBoundingClientRect().top;if(y<70||y>innerHeight*.5)scrollTo({top:scrollY+y-90,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})}for(var i=0;i<rayas.length;i++)rayas[i].classList.toggle("on",i<n||n>3);atras.hidden=dir||n<2}
+function pintar(){var t=T3[R.p3];q.querySelector(".q-res-t").textContent="Tu punto de partida: "+t[0];q.querySelector(".q-res-x").textContent=t[1];
+res.hidden=false;q.classList.add("con-res")}
 function directo(){dir=1;res.hidden=true;q.classList.remove("con-res");ir(4);c("quiz_directo")}
 q.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("button[data-v]");if(!b)return;var p=+b.closest(".q-pant").dataset.p;
 R["p"+p]=b.dataset.v;b.parentNode.querySelectorAll("button").forEach(function(x){x.classList.toggle("elegida",x===b)});
@@ -303,12 +303,12 @@ FAQ_DD_HTML = "".join(f'<details><summary>{q}{_MAS}</summary><p>{r}</p></details
 # Opinión real de un cliente, con su permiso por escrito (hilo «Re: ¿Me ayudas con una cosa, Raúl?», 15-11).
 # Trozo literal de su texto, solo con tildes. No retocar ni inventar.
 DD_CITA = "Lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué."
-DD_CITA_FIRMA = "Raúl I. · Fundador · Opositor a Policía Nacional"
+DD_CITA_FIRMA = "Raúl I. · Cliente fundador · Opositor a Policía Nacional"
 # Apartado de opiniones: cada una es (párrafos, nombre, descripción). Solo reales y con permiso escrito.
 OPINIONES_DD = [
     (["En general todo muy bien, preguntas en su mayoría con nivel parecido a examen, plataforma muy intuitiva y <em>lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.</em>",
       "Veo muy bien lo de hacer un simulacro semanal general para todos los integrantes, sacar una nota de corte… Eso nos dará una experiencia que se plasmará en el día del examen de forma positiva para todos."],
-     "Raúl I.", "Fundador · Opositor a Policía Nacional"),
+     "Raúl I.", "Cliente fundador · Opositor a Policía Nacional"),
 ]
 OPINIONES_DD_HTML = "".join('<li><figure><blockquote>' + "".join(f'<p>{"«" if i == 0 else ""}{t}{"»" if i == len(ps) - 1 else ""}</p>' for i, t in enumerate(ps)) + f'</blockquote><figcaption><b>{n}</b><span>{d}</span></figcaption></figure></li>' for ps, n, d in OPINIONES_DD)
 
@@ -944,6 +944,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 /* cabecera */
 .v-cab{position:fixed;inset:0 0 auto;z-index:20;transition:background-color .3s,color .3s,box-shadow .3s;color:var(--crema)}
 .v-cab .in{display:flex;align-items:center;gap:20px;min-height:68px}
+.v-cab.oscuro{background:rgba(13,11,10,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(242,234,223,.08)}
 .v-cab.claro{background:rgba(245,243,240,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--tinta);box-shadow:0 1px 0 var(--raya)}
 .v-marca{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 1.1rem var(--fd);letter-spacing:-.02em;white-space:nowrap}
 .v-marca img{width:30px;height:30px;border-radius:7px}
@@ -964,7 +965,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-intro{align-self:start;max-width:30ch;font:400 clamp(1.15rem,1.8vw,1.45rem)/1.4 var(--ft);color:var(--crema-2)}
 .v-intro b{color:var(--crema);font-weight:600}
 .v-intro .v-btn{margin-top:22px}
-.v-movil-caja{grid-row:1/3;grid-column:2;align-self:end;width:min(clamp(250px,29vw,400px),calc((100svh - 190px) * .52));margin-bottom:-10%;position:relative;transform:rotate(4deg)}
+.v-movil-caja{grid-row:1/3;grid-column:2;align-self:center;width:min(clamp(250px,29vw,400px),calc((100svh - 190px) * .52));margin-bottom:-10%;position:relative;transform:rotate(4deg)}
 .v-movil{border-radius:34px;border:9px solid #050403;box-shadow:0 40px 90px rgba(0,0,0,.6),0 0 0 1px #2b241f;overflow:hidden;background:#F5F3F0;aspect-ratio:9/16}
 .v-movil video,.v-movil img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
 .v-movil-eti{position:absolute;left:-46%;top:18%;z-index:3;max-width:220px;margin:0;padding:12px 16px;border-radius:14px;background:rgba(242,234,223,.96);color:var(--tinta);font:400 .92rem/1.35 var(--ft);box-shadow:0 18px 40px rgba(0,0,0,.45);transform:rotate(-4deg)}
@@ -988,7 +989,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-quiz{margin-top:6px;padding:clamp(18px,3vw,26px);border:1px solid rgba(242,234,223,.16);border-radius:22px;background:rgba(13,11,10,.55);max-width:520px}
 .q-cab{display:flex;flex-direction:column;gap:12px;margin-bottom:18px}
 .q-tit{margin:0;font:600 .8rem/1.3 var(--ft);letter-spacing:.12em;text-transform:uppercase;color:var(--cobre)}
-.q-rayas{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.q-rayas{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .q-rayas i{height:3px;border-radius:3px;background:rgba(242,234,223,.18);transition:background-color .25s}
 .q-rayas i.on{background:var(--cobre)}
 .q-pant{display:none}
@@ -1008,6 +1009,9 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .q-res-x{margin:0;color:var(--crema-2);line-height:1.45}
 .q-directo-t{margin:0 0 16px;font:700 clamp(1.35rem,2.4vw,1.6rem)/1.15 var(--fd);color:var(--crema)}
 .v-quiz.con-res .q-directo-t{display:none}
+.v-quiz:not(.con-res) .q-ultimo-n{display:none}
+.v-quiz .campo .sr{position:static;width:auto;height:auto;overflow:visible;clip:auto;font:600 .85rem var(--ft);color:var(--crema)}
+.v-quiz .v-como .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .v-quiz .portada-form{padding:0;border:0;background:none;box-shadow:none}
 .q-saltar{margin:12px 0 0;font-size:.95rem}
 .q-saltar a{color:var(--crema);text-underline-offset:3px}
@@ -1213,7 +1217,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 VELDE_JS = """<script>
 (function(){
   var cab=document.querySelector(".v-cab"),por=document.querySelector(".v-portada");
-  function pinta(){cab.classList.toggle("claro",por.getBoundingClientRect().bottom<70)}
+  function pinta(){var c=por.getBoundingClientRect().bottom<70;cab.classList.toggle("claro",c);cab.classList.toggle("oscuro",!c&&scrollY>30)}
   addEventListener("scroll",pinta,{passive:true});pinta();
   var g=document.querySelector(".v-gigante");setTimeout(function(){g.classList.add("ver")},80);
   var io="IntersectionObserver" in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("ver");io.unobserve(e.target)}})},{rootMargin:"0px 0px -8% 0px"}):null;
@@ -1268,12 +1272,12 @@ escribir("/dos-decimas/", f'''<!doctype html>
     <p class="v-gancho">Que no te dejen fuera por <em>dos décimas.</em></p>
     <p class="v-intro"><b>Cada fallo tiene un porqué.</b> Descúbrelo, aprende en qué preguntas sueles caer y entrena con cabeza para ir a por tu plaza.</p>
     <div class="v-quiz" id="prueba" data-paso="4">
-      <div class="q-cab"><p class="q-tit">3 toques y te decimos por dónde empezar</p><div class="q-rayas" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>
+      <div class="q-cab"><p class="q-tit">3 toques y te decimos por dónde empezar</p><div class="q-rayas" aria-hidden="true"><i></i><i></i><i></i></div></div>
       <div class="q-pant" data-p="1"><p class="q-n">Pregunta 1 de 3</p><p class="q-preg">¿Cuántas veces te has presentado?</p><div class="q-ops"><button type="button" data-v="primera">Es mi primera vez</button><button type="button" data-v="una">Una</button><button type="button" data-v="varias">Dos o más</button><button type="button" data-v="corte">Me quedé a poco de conseguir plaza</button></div></div>
       <div class="q-pant" data-p="2"><p class="q-n">Pregunta 2 de 3</p><p class="q-preg">¿Dónde se te van los puntos?</p><div class="q-ops"><button type="button" data-v="leyes">Leyes, plazos y excepciones</button><button type="button" data-v="trampa">Preguntas trampa</button><button type="button" data-v="dudo">Las que dudo y arriesgo</button><button type="button" data-v="nose">No sé dónde fallo</button></div></div>
       <div class="q-pant" data-p="3"><p class="q-n">Pregunta 3 de 3</p><p class="q-preg">¿Qué te falta para estudiar mejor?</p><div class="q-ops"><button type="button" data-v="porque">Saber por qué fallo</button><button type="button" data-v="repasar">Repasar mis fallos sin buscarlos</button><button type="button" data-v="medirme">Medirme cada semana con otros</button><button type="button" data-v="solo">No estudiar solo</button></div></div>
       <div class="q-pant q-ultimo" data-p="4">
-        <p class="q-n">Último paso · Tu punto de partida</p>
+        <p class="q-n q-ultimo-n">Último paso · Tu punto de partida</p>
         <div class="q-res" hidden><p class="q-res-1" hidden></p><p class="q-res-t"></p><p class="q-res-x"></p></div>
         <p class="q-directo-t">Empieza tus 7 días gratis</p>
     <form class="alta-form prueba-form portada-form" data-origen="web" novalidate>
@@ -1358,7 +1362,7 @@ escribir("/dos-decimas/", f'''<!doctype html>
   <div class="rev">{FAQ_DD_HTML}</div>
 </div></section>
 <section class="v-opi" id="opiniones"><div class="in">
-  <div class="v-opi-cab rev"><span class="eti">Opiniones reales</span><h2 class="v-tit">Quienes ya confían en <em>Dos Décimas.</em></h2><p class="v-sub">Lo que cuentan opositores que ya usan la app.</p></div>
+  <div class="v-opi-cab rev"><span class="eti">Opiniones reales</span><h2 class="v-tit">Lo que dice quien <em>ya la usa.</em></h2><p class="v-sub">Opiniones de opositores que usan la app.</p></div>
   <ul class="v-opis rev">{OPINIONES_DD_HTML}</ul>
 </div></section>
 <section class="v-planes" id="planes"><div class="in">
