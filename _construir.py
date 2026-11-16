@@ -309,6 +309,10 @@ OPINIONES_DD = [
     (["En general todo muy bien, preguntas en su mayoría con nivel parecido a examen, plataforma muy intuitiva y <em>lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.</em>",
       "Veo muy bien lo de hacer un simulacro semanal general para todos los integrantes, sacar una nota de corte… Eso nos dará una experiencia que se plasmará en el día del examen de forma positiva para todos."],
      "Raúl I.", "Cliente fundador · Opositor a Policía Nacional"),
+    # Alejandro L., permiso escrito el 16-11 (respuesta a «¿Me ayudas con una cosa, Alejandro?»). Solo tildes.
+    # Se quita, con «[…]», la frase que compara con otra app (regla: ninguna comparación con otras apps).
+    (["La app la veo bastante bien […] <em>el tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto.</em>"],
+     "Alejandro L.", "Cliente fundador · Opositor a Policía Nacional"),
 ]
 OPINIONES_DD_HTML = "".join('<li><figure><blockquote>' + "".join(f'<p>{"«" if i == 0 else ""}{t}{"»" if i == len(ps) - 1 else ""}</p>' for i, t in enumerate(ps)) + f'</blockquote><figcaption><b>{n}</b><span>{d}</span></figcaption></figure></li>' for ps, n, d in OPINIONES_DD)
 
