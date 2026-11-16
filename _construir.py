@@ -1295,7 +1295,7 @@ escribir("/dos-decimas/", f'''<!doctype html>
   <div class="rev">{FAQ_DD_HTML}</div>
 </div></section>
 <section class="v-opi" id="opiniones"><div class="in">
-  <div class="v-opi-cab rev"><span class="eti">Opiniones reales</span><h2 class="v-tit">Quienes ya confían en <em>Dos Décimas.</em></h2><p class="v-sub">Opiniones compartidas por usuarios reales, con su autorización.</p></div>
+  <div class="v-opi-cab rev"><span class="eti">Opiniones reales</span><h2 class="v-tit">Quienes ya confían en <em>Dos Décimas.</em></h2><p class="v-sub">Lo que cuentan opositores que ya usan la app.</p></div>
   <ul class="v-opis rev">{OPINIONES_DD_HTML}</ul>
 </div></section>
 <section class="v-planes" id="planes"><div class="in">
