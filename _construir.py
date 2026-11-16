@@ -307,6 +307,8 @@ DD_CITA_FIRMA = "Raúl I. · Cliente fundador · Opositor a Policía Nacional"
 # Segunda frase corta arriba: Alejandro L. (permiso escrito 16-11), trozo literal, solo tildes y mayúscula inicial.
 DD_CITA_2 = "El tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto."
 DD_CITA_2_FIRMA = "Alejandro L. · Cliente fundador · Opositor a Policía Nacional"
+DD_CITA_3 = "Te da a elegir el formato de preguntas, ya sean 10, 20, y me ayuda mucho cuando tengo ratos libres trabajando o en el bus…"
+DD_CITA_3_FIRMA = "Cris L. · Opositora a Policía Nacional"
 # Apartado de opiniones: cada una es (párrafos, nombre, descripción). Solo reales y con permiso escrito.
 OPINIONES_DD = [
     (["En general todo muy bien, preguntas en su mayoría con nivel parecido a examen, plataforma muy intuitiva y <em>lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.</em>",
@@ -1190,32 +1192,27 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .alta-form .nota{margin:0;color:var(--gris);font-size:.9rem}
 .aviso{padding:16px;border-radius:12px;background:#fff}.aviso.mal{border:1.5px solid var(--mal)}.aviso .muted{color:var(--gris)}
 /* preguntas */
-/* opiniones */
-.v-opi{padding:clamp(70px,10vw,140px) 0;background:var(--papel-2)}
-.v-opi .in{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:clamp(30px,6vw,100px);align-items:start}
-@media (max-width:860px){.v-opi .in{grid-template-columns:1fr}}
-.v-opis{list-style:none;margin:0;padding:0;display:grid;gap:clamp(40px,6vw,70px)}
-.v-opis figure,.v-opis blockquote{margin:0}
-.v-opis blockquote p{margin:0 0 .7em;font:500 clamp(1.35rem,2.4vw,2.05rem)/1.22 var(--fd);letter-spacing:-.025em}
-.v-opis blockquote p+p{font-size:clamp(1.15rem,1.8vw,1.5rem);color:var(--gris)}
-.v-opis blockquote em{font-style:normal;color:var(--cobre-t)}
-.v-opis figcaption{margin-top:14px;padding-top:18px;border-top:1px solid var(--raya);display:flex;flex-direction:column;gap:2px}
-.v-opis figcaption b{font:700 1.05rem var(--ft)}
-.v-opis figcaption span{color:var(--gris);font-size:.98rem}
-.v-opi-desliza{display:none}
-@media (max-width:760px){
-.v-opi{padding:56px 0}.v-opi .in{gap:22px}
-.v-opis{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:0 16px 4px;scroll-padding:0 16px}
+/* opiniones: tarjetas que se deslizan (móvil y ordenador) */
+.v-opi{padding:clamp(56px,8vw,110px) 0;background:var(--papel-2)}
+.v-opi .in{display:grid;grid-template-columns:1fr;gap:clamp(22px,3vw,36px)}
+.v-opis{list-style:none;margin:0 -16px;padding:0 16px 4px;display:flex;gap:clamp(12px,1.5vw,18px);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-padding:0 16px}
 .v-opis::-webkit-scrollbar{display:none}
-.v-opis li{flex:0 0 84%;scroll-snap-align:start;padding:18px 18px 16px;background:var(--papel);border-radius:14px;display:flex}
+.v-opis li{flex:0 0 min(84%,440px);scroll-snap-align:start;padding:clamp(18px,2vw,28px) clamp(18px,2vw,28px) clamp(16px,1.8vw,22px);background:var(--papel);border-radius:14px;display:flex}
+.v-opis figure,.v-opis blockquote{margin:0}
 .v-opis li figure{display:flex;flex-direction:column;justify-content:space-between;width:100%}
-.v-opi-desliza{display:block;margin-top:10px;color:var(--gris);font-size:.85rem}
-.v-opis blockquote p{font-size:1.08rem;line-height:1.3;letter-spacing:-.01em;margin-bottom:.55em}
-.v-opis blockquote p+p{font-size:.95rem;line-height:1.4}
+.v-opis blockquote p{margin:0 0 .55em;font:500 clamp(1.08rem,1.4vw,1.25rem)/1.3 var(--fd);letter-spacing:-.01em}
+.v-opis blockquote p+p{font-size:clamp(.95rem,1.1vw,1.02rem);line-height:1.4;color:var(--gris)}
 .v-opis blockquote p:last-child{margin-bottom:0}
-.v-opis figcaption{margin-top:12px;padding-top:10px;flex-direction:row;flex-wrap:wrap;gap:0 6px;align-items:baseline}
-.v-opis figcaption b{font-size:.95rem}.v-opis figcaption span{font-size:.85rem}
-}
+.v-opis blockquote em{font-style:normal;color:var(--cobre-t)}
+.v-opis figcaption{margin-top:12px;padding-top:10px;border-top:1px solid var(--raya);display:flex;flex-wrap:wrap;gap:0 6px;align-items:baseline}
+.v-opis figcaption b{font:700 .95rem var(--ft)}
+.v-opis figcaption span{color:var(--gris);font-size:.85rem}
+.v-opi-nav{display:flex;align-items:center;gap:10px;margin-top:-6px}
+.v-opi-desliza{color:var(--gris);font-size:.85rem}
+.v-opi-nav button{display:none;width:44px;height:44px;border-radius:999px;border:1px solid var(--raya);background:var(--papel);color:var(--tinta);font:600 1.1rem var(--ft);cursor:pointer}
+.v-opi-nav button:hover{border-color:var(--tinta)}
+@media (hover:hover) and (pointer:fine){.v-opi-desliza{display:none}.v-opi-nav button{display:inline-grid;place-items:center}}
+.v-planes+.v-faq{border-top:1px solid var(--raya)}
 .v-cita figcaption a{color:var(--crema);text-underline-offset:3px}
 .v-faq{padding:clamp(70px,10vw,140px) 0}
 .v-faq .in{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,6vw,100px)}
@@ -1323,7 +1320,8 @@ escribir("/dos-decimas/", f'''<!doctype html>
     <p class="q-saltar"><a href="#prueba" data-directo>¿Lo tienes claro? Apúntate directamente</a></p>
     <ul class="v-tres"><li>Tests de los 45 temas, comprobados con la ley vigente del BOE</li><li>Un simulacro cada fin de semana y El Atestado</li><li>Repasas justo lo que necesitas mejorar</li></ul>
     <figure class="v-cita"><blockquote><p>«{DD_CITA}»</p></blockquote><figcaption>{DD_CITA_FIRMA}</figcaption></figure>
-    <figure class="v-cita"><blockquote><p>«{DD_CITA_2}»</p></blockquote><figcaption>{DD_CITA_2_FIRMA} · <a href="#opiniones">Leer las opiniones completas ↓</a></figcaption></figure>
+    <figure class="v-cita"><blockquote><p>«{DD_CITA_2}»</p></blockquote><figcaption>{DD_CITA_2_FIRMA}</figcaption></figure>
+    <figure class="v-cita"><blockquote><p>«{DD_CITA_3}»</p></blockquote><figcaption>{DD_CITA_3_FIRMA} · <a href="#opiniones">Leer las opiniones completas ↓</a></figcaption></figure>
   </div>
   <div class="v-movil-caja">
     <div class="v-movil"><img src="/img/estilo/inicio.jpg" alt="La pantalla de inicio de Dos Décimas: «¿Qué practicamos hoy?», con la última nota, los fallos por repasar y el botón para empezar un test" width="780" height="1800"></div>
@@ -1385,14 +1383,10 @@ escribir("/dos-decimas/", f'''<!doctype html>
   <li><b data-cuenta="2">2</b><span>aciertos más y habría llegado al corte</span></li>
 </ul></div>
 
-<section class="v-faq"><div class="in">
-  <div class="rev"><span class="eti">Preguntas</span><h2 class="v-tit">Antes de <em>empezar.</em></h2><p class="v-sub">¿Otra duda? Escribe a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p></div>
-  <div class="rev">{FAQ_DD_HTML}</div>
-</div></section>
 <section class="v-opi" id="opiniones"><div class="in">
   <div class="v-opi-cab rev"><span class="eti">Opiniones reales</span><h2 class="v-tit">Lo que dice quien <em>ya la usa.</em></h2><p class="v-sub">Opiniones de opositores que usan la app.</p></div>
   <ul class="v-opis rev">{OPINIONES_DD_HTML}</ul>
-  <span class="v-opi-desliza">Desliza para ver más →</span>
+  <div class="v-opi-nav"><span class="v-opi-desliza">Desliza para ver más →</span><button type="button" aria-label="Opinión anterior" onclick="this.closest('.in').querySelector('.v-opis').scrollBy({{left:-460,behavior:'smooth'}})">←</button><button type="button" aria-label="Opinión siguiente" onclick="this.closest('.in').querySelector('.v-opis').scrollBy({{left:460,behavior:'smooth'}})">→</button></div>
 </div></section>
 <section class="v-planes" id="planes"><div class="in">
   <div class="rev"><span class="eti">Tarifas</span><h2 class="v-tit">Pruébala gratis. <em>Sigue como Fundador.</em></h2><p class="v-sub">Sin permanencia, con el IVA incluido y con 14 días para desistir. Todas dan acceso a la app completa.</p></div>
@@ -1400,6 +1394,10 @@ escribir("/dos-decimas/", f'''<!doctype html>
   <p class="v-otras rev">Otras opciones</p>
   <ul class="v-lista-t">{_TARIFAS_V}</ul>
   <p class="v-pie-t">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Paga con el mismo email con el que pruebas la app.</p>
+</div></section>
+<section class="v-faq"><div class="in">
+  <div class="rev"><span class="eti">Preguntas</span><h2 class="v-tit">Antes de <em>empezar.</em></h2><p class="v-sub">¿Otra duda? Escribe a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p></div>
+  <div class="rev">{FAQ_DD_HTML}</div>
 </div></section>
 </main>
 
