@@ -994,6 +994,21 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
   .v-intro{position:relative;z-index:2}
   .v-gigante{grid-row:2;font-size:21vw;white-space:normal;line-height:.86;margin-bottom:0}
 }
+.v-ya{display:none}
+@media (max-width:760px){
+  .v-arriba{display:flex;flex-direction:column;min-width:0;max-width:100%}
+  .v-para{order:1;margin-bottom:8px;font-size:.68rem;letter-spacing:.1em}
+  .v-gancho{order:2;margin-bottom:0;font-size:2.15rem}
+  .v-citas{order:3;min-width:0;align-items:flex-start;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:16px -16px 0;padding:0 16px;scroll-padding:0 16px}
+  .v-citas::-webkit-scrollbar{display:none}
+  .v-citas .v-cita{flex:0 0 86%;scroll-snap-align:start;margin:0;max-width:none;padding:10px 12px;border:0;border-left:2px solid var(--cobre);border-radius:0 12px 12px 0;background:rgba(242,234,223,.07)}
+  .v-citas .v-cita+.v-cita{margin-top:0}
+  .v-ya{order:4;display:flex;width:100%;margin-top:14px;min-height:52px;font-size:1.05rem}
+  .v-quiz{order:5;margin-top:22px}
+  .q-saltar{order:6}
+  .v-intro{order:7;margin-top:20px}
+  .v-tres{order:8}
+}
 /* formulario en la portada: quien llega de un anuncio se apunta sin bajar */
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .v-arriba{align-self:start;max-width:30rem;position:relative;z-index:2}
@@ -1323,9 +1338,12 @@ escribir("/dos-decimas/", f'''<!doctype html>
     </div>
     <p class="q-saltar"><a href="#prueba" data-directo>¿Lo tienes claro? Apúntate directamente</a></p>
     <ul class="v-tres"><li>Tests de los 45 temas, comprobados con la ley vigente del BOE</li><li>Un simulacro cada fin de semana y El Atestado</li><li>Repasas justo lo que necesitas mejorar</li></ul>
+    <div class="v-citas">
     <figure class="v-cita"><blockquote><p>«{DD_CITA}»</p></blockquote><figcaption>{DD_CITA_FIRMA}</figcaption></figure>
     <figure class="v-cita"><blockquote><p>«{DD_CITA_2}»</p></blockquote><figcaption>{DD_CITA_2_FIRMA}</figcaption></figure>
     <figure class="v-cita"><blockquote><p>«{DD_CITA_3}»</p></blockquote><figcaption>{DD_CITA_3_FIRMA} · <a href="#opiniones">Leer las opiniones completas ↓</a></figcaption></figure>
+    </div>
+    <a class="v-btn v-ya" href="#prueba">Empezar mis 7 días gratis</a>
   </div>
   <div class="v-movil-caja">
     <div class="v-movil"><img src="/img/estilo/inicio.jpg" alt="La pantalla de inicio de Dos Décimas: «¿Qué practicamos hoy?», con la última nota, los fallos por repasar y el botón para empezar un test" width="780" height="1800"></div>
