@@ -304,6 +304,9 @@ FAQ_DD_HTML = "".join(f'<details><summary>{q}{_MAS}</summary><p>{r}</p></details
 # Trozo literal de su texto, solo con tildes. No retocar ni inventar.
 DD_CITA = "Lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué."
 DD_CITA_FIRMA = "Raúl I. · Cliente fundador · Opositor a Policía Nacional"
+# Segunda frase corta arriba: Alejandro L. (permiso escrito 16-11), trozo literal, solo tildes y mayúscula inicial.
+DD_CITA_2 = "El tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto."
+DD_CITA_2_FIRMA = "Alejandro L. · Cliente fundador · Opositor a Policía Nacional"
 # Apartado de opiniones: cada una es (párrafos, nombre, descripción). Solo reales y con permiso escrito.
 OPINIONES_DD = [
     (["En general todo muy bien, preguntas en su mayoría con nivel parecido a examen, plataforma muy intuitiva y <em>lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.</em>",
@@ -1024,6 +1027,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-para{margin:0 0 14px;font:600 .8rem/1.3 var(--ft);letter-spacing:.14em;text-transform:uppercase;color:var(--cobre)}
 .v-cita{margin:22px 0 0;padding-left:16px;border-left:2px solid var(--cobre);max-width:46ch}
 .v-cita blockquote{margin:0}
+.v-cita+.v-cita{margin-top:14px}
 .v-cita p{margin:0;font:400 1rem/1.45 var(--ft);color:var(--crema)}
 .v-cita figcaption{margin-top:6px;font-size:.85rem;color:var(--crema-2)}
 .v-arriba .v-intro{margin:0 0 22px;font-size:clamp(1.02rem,1.5vw,1.2rem)}
@@ -1300,7 +1304,8 @@ escribir("/dos-decimas/", f'''<!doctype html>
     </div>
     <p class="q-saltar"><a href="#prueba" data-directo>¿Lo tienes claro? Apúntate directamente</a></p>
     <ul class="v-tres"><li>Tests de los 45 temas, comprobados con la ley vigente del BOE</li><li>Un simulacro cada fin de semana y El Atestado</li><li>Repasas justo lo que necesitas mejorar</li></ul>
-    <figure class="v-cita"><blockquote><p>«{DD_CITA}»</p></blockquote><figcaption>{DD_CITA_FIRMA} · <a href="#opiniones">Leer la opinión completa ↓</a></figcaption></figure>
+    <figure class="v-cita"><blockquote><p>«{DD_CITA}»</p></blockquote><figcaption>{DD_CITA_FIRMA}</figcaption></figure>
+    <figure class="v-cita"><blockquote><p>«{DD_CITA_2}»</p></blockquote><figcaption>{DD_CITA_2_FIRMA} · <a href="#opiniones">Leer las opiniones completas ↓</a></figcaption></figure>
   </div>
   <div class="v-movil-caja">
     <div class="v-movil"><img src="/img/estilo/inicio.jpg" alt="La pantalla de inicio de Dos Décimas: «¿Qué practicamos hoy?», con la última nota, los fallos por repasar y el botón para empezar un test" width="780" height="1800"></div>
