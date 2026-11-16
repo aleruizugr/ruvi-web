@@ -311,7 +311,8 @@ OPINIONES_DD = [
      "Raúl I.", "Cliente fundador · Opositor a Policía Nacional"),
     # Alejandro L., permiso escrito el 16-11 (respuesta a «¿Me ayudas con una cosa, Alejandro?»). Solo tildes.
     # Se quita, con «[…]», la frase que compara con otra app (regla: ninguna comparación con otras apps).
-    (["La app la veo bastante bien […] <em>el tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto.</em>"],
+    (["La app la veo bastante bien […] <em>el tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto.</em>",
+      "De momento no creo que necesite mucho más la app porque en sí como te he dicho antes está muy bien."],
      "Alejandro L.", "Cliente fundador · Opositor a Policía Nacional"),
 ]
 OPINIONES_DD_HTML = "".join('<li><figure><blockquote>' + "".join(f'<p>{"«" if i == 0 else ""}{t}{"»" if i == len(ps) - 1 else ""}</p>' for i, t in enumerate(ps)) + f'</blockquote><figcaption><b>{n}</b><span>{d}</span></figcaption></figure></li>' for ps, n, d in OPINIONES_DD)
