@@ -1202,6 +1202,20 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-opis figcaption{margin-top:14px;padding-top:18px;border-top:1px solid var(--raya);display:flex;flex-direction:column;gap:2px}
 .v-opis figcaption b{font:700 1.05rem var(--ft)}
 .v-opis figcaption span{color:var(--gris);font-size:.98rem}
+.v-opi-desliza{display:none}
+@media (max-width:760px){
+.v-opi{padding:56px 0}.v-opi .in{gap:22px}
+.v-opis{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:0 16px 4px;scroll-padding:0 16px}
+.v-opis::-webkit-scrollbar{display:none}
+.v-opis li{flex:0 0 84%;scroll-snap-align:start;padding:18px 18px 16px;background:var(--papel);border-radius:14px;display:flex}
+.v-opis li figure{display:flex;flex-direction:column;justify-content:space-between;width:100%}
+.v-opi-desliza{display:block;margin-top:10px;color:var(--gris);font-size:.85rem}
+.v-opis blockquote p{font-size:1.08rem;line-height:1.3;letter-spacing:-.01em;margin-bottom:.55em}
+.v-opis blockquote p+p{font-size:.95rem;line-height:1.4}
+.v-opis blockquote p:last-child{margin-bottom:0}
+.v-opis figcaption{margin-top:12px;padding-top:10px;flex-direction:row;flex-wrap:wrap;gap:0 6px;align-items:baseline}
+.v-opis figcaption b{font-size:.95rem}.v-opis figcaption span{font-size:.85rem}
+}
 .v-cita figcaption a{color:var(--crema);text-underline-offset:3px}
 .v-faq{padding:clamp(70px,10vw,140px) 0}
 .v-faq .in{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,6vw,100px)}
@@ -1378,6 +1392,7 @@ escribir("/dos-decimas/", f'''<!doctype html>
 <section class="v-opi" id="opiniones"><div class="in">
   <div class="v-opi-cab rev"><span class="eti">Opiniones reales</span><h2 class="v-tit">Lo que dice quien <em>ya la usa.</em></h2><p class="v-sub">Opiniones de opositores que usan la app.</p></div>
   <ul class="v-opis rev">{OPINIONES_DD_HTML}</ul>
+  <span class="v-opi-desliza">Desliza para ver más →</span>
 </div></section>
 <section class="v-planes" id="planes"><div class="in">
   <div class="rev"><span class="eti">Tarifas</span><h2 class="v-tit">Pruébala gratis. <em>Sigue como Fundador.</em></h2><p class="v-sub">Sin permanencia, con el IVA incluido y con 14 días para desistir. Todas dan acceso a la app completa.</p></div>
