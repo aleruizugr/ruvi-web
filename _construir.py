@@ -229,6 +229,28 @@ FAQ_DD = [
   ("¿Y si no me convence?", f"Tienes 14 días para desistir y te devolvemos todo, aunque ya la hayas usado. Basta con escribir a {DD_CORREO}."),
 ]
 
+QUIZ_JS = r'''<script>
+(function(){var q=document.getElementById("prueba");if(!q||!q.classList.contains("v-quiz"))return;
+var c=function(e){window.ddCuenta&&ddCuenta(e)},R={},emp=0,dir=0,rayas=q.querySelectorAll(".q-rayas i"),atras=q.querySelector(".q-atras"),res=q.querySelector(".q-res");
+var T3={porque:["entender cada fallo.","Cada pregunta que fallas trae su explicación con el artículo de la ley, y la app te dice en qué temas y tipos de pregunta caes."],
+repasar:["que tus fallos vuelvan a ti.","Las preguntas que fallas se guardan en tu cuaderno de fallos y el repaso te las vuelve a poner, sin que tengas que buscarlas."],
+medirme:["medirte cada semana.","Cada fin de semana hay un simulacro general para todos. El domingo te llega tu nota y El Atestado: el informe de dónde se te van los puntos."],
+solo:["no estudiar solo.","En la Comunidad compartes tus fallos desde el test y resuelves dudas con otros opositores, con un alias y sin enseñar tu correo."]};
+var T2={leyes:"Y para leyes, plazos y excepciones: cada pregunta está comprobada con la ley vigente del BOE.",trampa:"Y para las preguntas trampa: la explicación de cada respuesta te enseña dónde estaba.",dudo:"Y para las que dudas: las marcas con «Dudo» y luego ves si te compensó arriesgar.",nose:"Y si no sabes dónde fallas: la app te lo enseña por temas desde tu primer test."};
+function ir(n,mover){q.dataset.paso=n;if(mover){var y=q.getBoundingClientRect().top;if(y<70||y>innerHeight*.5)scrollTo({top:scrollY+y-90,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})}for(var i=0;i<rayas.length;i++)rayas[i].classList.toggle("on",i<n);atras.hidden=dir||n<2}
+function pintar(){var t=T3[R.p3];q.querySelector(".q-res-t").textContent="Tu punto de partida: "+t[0];q.querySelector(".q-res-x").textContent=t[1]+" "+(T2[R.p2]||"");
+var u=q.querySelector(".q-res-1");u.hidden=R.p1!=="corte";u.textContent="Sabemos lo que es quedarse fuera por dos décimas.";res.hidden=false;q.classList.add("con-res")}
+function directo(){dir=1;res.hidden=true;q.classList.remove("con-res");ir(4);c("quiz_directo")}
+q.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("button[data-v]");if(!b)return;var p=+b.closest(".q-pant").dataset.p;
+R["p"+p]=b.dataset.v;b.parentNode.querySelectorAll("button").forEach(function(x){x.classList.toggle("elegida",x===b)});
+if(!emp){emp=1;c("quiz_empezado")}c("q"+p+"_"+b.dataset.v);
+setTimeout(function(){if(p<3)ir(p+1,1);else{pintar();ir(4,1);c("quiz_terminado")}},220)});
+atras.addEventListener("click",function(){var n=+q.dataset.paso;if(n>1)ir(n-1,1)});
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href="#prueba"]');if(a&&+q.dataset.paso<4)directo()});
+if(location.hash==="#prueba")directo();else ir(1);
+})();
+</script>'''
+
 # ---------- Dos Décimas: página de venta (ruvilab.es/dos-decimas/) ----------
 # Cabecera y pie de Dos Décimas (marca="dd"), campos oscuros para los momentos fuertes
 # y, como pieza viva, la calculadora de décimas (tu nota → cuántas preguntas te faltaron para el 7,05).
@@ -962,6 +984,34 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-arriba{align-self:start;max-width:30rem;position:relative;z-index:2}
 .v-gancho{margin:0 0 14px;font:800 clamp(2.4rem,4.6vw,3.8rem)/.98 var(--fd);letter-spacing:-.045em;color:var(--crema)}
 .v-gancho em{font-style:normal;color:var(--cobre)}
+/* cuestionario de la portada */
+.v-quiz{margin-top:6px;padding:clamp(18px,3vw,26px);border:1px solid rgba(242,234,223,.16);border-radius:22px;background:rgba(13,11,10,.55);max-width:520px}
+.q-cab{display:flex;flex-direction:column;gap:12px;margin-bottom:18px}
+.q-tit{margin:0;font:600 .8rem/1.3 var(--ft);letter-spacing:.12em;text-transform:uppercase;color:var(--cobre)}
+.q-rayas{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.q-rayas i{height:3px;border-radius:3px;background:rgba(242,234,223,.18);transition:background-color .25s}
+.q-rayas i.on{background:var(--cobre)}
+.q-pant{display:none}
+.v-quiz[data-paso="1"] [data-p="1"],.v-quiz[data-paso="2"] [data-p="2"],.v-quiz[data-paso="3"] [data-p="3"],.v-quiz[data-paso="4"] [data-p="4"]{display:block;animation:qEntra .28s ease}
+@keyframes qEntra{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.v-quiz .q-pant{animation:none!important}}
+.q-n{margin:0 0 6px;font-size:.85rem;color:var(--crema-2)}
+.q-preg{margin:0 0 16px;font:700 clamp(1.35rem,2.4vw,1.6rem)/1.15 var(--fd);letter-spacing:-.02em;color:var(--crema)}
+.q-ops{display:flex;flex-direction:column;gap:10px}
+.q-ops button{display:block;width:100%;min-height:54px;padding:12px 18px;text-align:left;border-radius:14px;border:1px solid rgba(242,234,223,.2);background:rgba(242,234,223,.05);color:var(--crema);font:500 1.05rem/1.25 var(--ft);cursor:pointer;touch-action:manipulation;transition:background-color .15s,border-color .15s,color .15s}
+.q-ops button:hover{border-color:var(--cobre)}
+.q-ops button.elegida{background:var(--cobre);border-color:var(--cobre);color:var(--tinta);font-weight:700}
+.q-atras{margin-top:14px;padding:6px 0;background:none;border:0;color:var(--crema-2);font:500 .95rem var(--ft);cursor:pointer}
+.q-res{margin:0 0 16px}
+.q-res-1{margin:0 0 8px;color:var(--cobre);font-weight:600}
+.q-res-t{margin:0 0 8px;font:700 clamp(1.35rem,2.4vw,1.6rem)/1.15 var(--fd);letter-spacing:-.02em;color:var(--crema)}
+.q-res-x{margin:0;color:var(--crema-2);line-height:1.45}
+.q-directo-t{margin:0 0 16px;font:700 clamp(1.35rem,2.4vw,1.6rem)/1.15 var(--fd);color:var(--crema)}
+.v-quiz.con-res .q-directo-t{display:none}
+.v-quiz .portada-form{padding:0;border:0;background:none;box-shadow:none}
+.q-saltar{margin:12px 0 0;font-size:.95rem}
+.q-saltar a{color:var(--crema);text-underline-offset:3px}
+.v-quiz[data-paso="4"]+.q-saltar{display:none}
 .v-para{margin:0 0 14px;font:600 .8rem/1.3 var(--ft);letter-spacing:.14em;text-transform:uppercase;color:var(--cobre)}
 .v-cita{margin:22px 0 0;padding-left:16px;border-left:2px solid var(--cobre);max-width:46ch}
 .v-cita blockquote{margin:0}
@@ -1217,17 +1267,30 @@ escribir("/dos-decimas/", f'''<!doctype html>
     <p class="v-para">Para opositores a Policía Nacional · Escala Básica</p>
     <p class="v-gancho">Que no te dejen fuera por <em>dos décimas.</em></p>
     <p class="v-intro"><b>Cada fallo tiene un porqué.</b> Descúbrelo, aprende en qué preguntas sueles caer y entrena con cabeza para ir a por tu plaza.</p>
-    <ul class="v-tres"><li>Tests de los 45 temas, comprobados con la ley vigente del BOE</li><li>Un simulacro cada fin de semana y El Atestado</li><li>Repasas justo lo que necesitas mejorar</li></ul>
-    <form class="alta-form prueba-form portada-form" id="prueba" data-origen="web" novalidate>
-      <label class="campo"><span class="sr">Tu nombre</span><input type="text" name="nombre" required maxlength="40" autocomplete="given-name" autocapitalize="words" placeholder="Tu nombre"></label>
-      <label class="campo"><span class="sr">Tu email</span><input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="Tu email"></label>
+    <div class="v-quiz" id="prueba" data-paso="4">
+      <div class="q-cab"><p class="q-tit">3 toques y te decimos por dónde empezar</p><div class="q-rayas" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>
+      <div class="q-pant" data-p="1"><p class="q-n">Pregunta 1 de 3</p><p class="q-preg">¿Cuántas veces te has presentado?</p><div class="q-ops"><button type="button" data-v="primera">Es mi primera vez</button><button type="button" data-v="una">Una</button><button type="button" data-v="varias">Dos o más</button><button type="button" data-v="corte">Me quedé a poco de conseguir plaza</button></div></div>
+      <div class="q-pant" data-p="2"><p class="q-n">Pregunta 2 de 3</p><p class="q-preg">¿Dónde se te van los puntos?</p><div class="q-ops"><button type="button" data-v="leyes">Leyes, plazos y excepciones</button><button type="button" data-v="trampa">Preguntas trampa</button><button type="button" data-v="dudo">Las que dudo y arriesgo</button><button type="button" data-v="nose">No sé dónde fallo</button></div></div>
+      <div class="q-pant" data-p="3"><p class="q-n">Pregunta 3 de 3</p><p class="q-preg">¿Qué te falta para estudiar mejor?</p><div class="q-ops"><button type="button" data-v="porque">Saber por qué fallo</button><button type="button" data-v="repasar">Repasar mis fallos sin buscarlos</button><button type="button" data-v="medirme">Medirme cada semana con otros</button><button type="button" data-v="solo">No estudiar solo</button></div></div>
+      <div class="q-pant q-ultimo" data-p="4">
+        <p class="q-n">Último paso · Tu punto de partida</p>
+        <div class="q-res" hidden><p class="q-res-1" hidden></p><p class="q-res-t"></p><p class="q-res-x"></p></div>
+        <p class="q-directo-t">Empieza tus 7 días gratis</p>
+    <form class="alta-form prueba-form portada-form" data-origen="web" novalidate>
+      <label class="campo"><span class="sr">Tu nombre</span><input type="text" name="nombre" required maxlength="40" autocomplete="given-name" autocapitalize="words" placeholder="El de la lista de aprobados"></label>
+      <label class="campo"><span class="sr">Tu email</span><input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" placeholder="Donde te llegará El Atestado"></label>
       <details class="v-como"><summary>¿Dónde nos viste? <span>(opcional)</span></summary><label class="campo"><span class="sr">¿Dónde nos viste? (opcional)</span>
         <select name="como"><option value="">¿Dónde nos viste? (opcional)</option><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="companero">Me lo pasó un compañero</option><option value="grupo">En un grupo de opositores</option><option value="creador">Un creador de contenido</option><option value="google">Google</option><option value="otro">Otro</option></select></label></details>
       <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
-      <div class="btns"><button class="btn btn-p" type="submit">Probar Dos Décimas gratis</button></div>
+      <div class="btns"><button class="btn btn-p" type="submit">Empezar mis 7 días gratis</button></div>
       <p class="nota"><b>7 días gratis · Sin tarjeta · Sin compromiso</b> · En el móvil o el ordenador. <a href="https://dosdecimas.ruvilab.es/privacidad.html">Privacidad</a></p>
       <div class="aviso" role="status" hidden></div>
     </form>
+      </div>
+      <button type="button" class="q-atras" hidden>← Atrás</button>
+    </div>
+    <p class="q-saltar"><a href="#prueba" data-directo>¿Lo tienes claro? Apúntate directamente</a></p>
+    <ul class="v-tres"><li>Tests de los 45 temas, comprobados con la ley vigente del BOE</li><li>Un simulacro cada fin de semana y El Atestado</li><li>Repasas justo lo que necesitas mejorar</li></ul>
     <figure class="v-cita"><blockquote><p>«{DD_CITA}»</p></blockquote><figcaption>{DD_CITA_FIRMA} · <a href="#opiniones">Leer la opinión completa ↓</a></figcaption></figure>
   </div>
   <div class="v-movil-caja">
@@ -1312,7 +1375,7 @@ escribir("/dos-decimas/", f'''<!doctype html>
   <a class="v-btn rev" href="#prueba">Empieza tus 7 días gratis</a>
   <div class="v-pie-web"><span>Dos Décimas · un proyecto de <a href="/">Ruvï</a></span><nav><a href="{DD_APP}">Entrar en la app</a><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="mailto:{DD_CORREO}">{DD_CORREO}</a></nav></div>
 </div></footer>
-{CUENTA_JS.replace("__URL__", SUPABASE_URL).replace("__CLAVE__", SUPABASE_CLAVE)}{PRUEBA_JS_PORTADA}{P1_JS}{CUENTA_SIM_JS}{ANCLAS_JS}{VELDE_JS}
+{CUENTA_JS.replace("__URL__", SUPABASE_URL).replace("__CLAVE__", SUPABASE_CLAVE)}{PRUEBA_JS_PORTADA}{QUIZ_JS}{P1_JS}{CUENTA_SIM_JS}{ANCLAS_JS}{VELDE_JS}
 </body></html>''')
 
 
