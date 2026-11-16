@@ -278,6 +278,14 @@ def dd_tarifas():
 _MAS = '<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg>'
 FAQ_DD_HTML = "".join(f'<details><summary>{q}{_MAS}</summary><p>{r}</p></details>' for q, r in FAQ_DD)
 
+# Opiniones reales, con permiso por escrito de cada persona. Texto literal: no retocar ni inventar.
+# Para añadir una, otra tupla (texto con <em> en lo destacado, nombre, descripción).
+OPINIONES_DD = [
+    ("En general todo muy bien, preguntas en su mayoría con nivel parecido a examen, plataforma muy intuitiva y <em>lo mejor es como la app analiza tus tests para decirte por dónde vas más flojo y el por qué.</em> La relación calidad/precio es de las mejores.",
+     "Raúl I.", "Opositor a Policía Nacional · Fundador"),
+]
+OPINIONES_DD_HTML = "".join(f'<li><figure><blockquote><p>«{t}»</p></blockquote><figcaption><b>{n}</b><span>{d}</span></figcaption></figure></li>' for t, n, d in OPINIONES_DD)
+
 
 
 # La página de venta de Dos Décimas (el panel de tablillas) se escribe más abajo.
@@ -1106,6 +1114,18 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .alta-form .nota{margin:0;color:var(--gris);font-size:.9rem}
 .aviso{padding:16px;border-radius:12px;background:#fff}.aviso.mal{border:1.5px solid var(--mal)}.aviso .muted{color:var(--gris)}
 /* preguntas */
+/* opiniones */
+.v-opi{padding:clamp(70px,10vw,140px) 0;background:var(--papel-2)}
+.v-opis{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(30px,5vw,70px)}
+.v-opis figure{margin:0;display:flex;flex-direction:column;gap:26px;height:100%}
+.v-opis blockquote{margin:0}
+.v-opis blockquote p{margin:0;font:500 clamp(1.35rem,2.2vw,1.8rem)/1.3 var(--fd);letter-spacing:-.02em}
+.v-opis li:only-child blockquote p{font-size:clamp(1.6rem,3.6vw,3.1rem);line-height:1.15;letter-spacing:-.03em;max-width:30ch}
+.v-opis blockquote em{font-style:normal;color:var(--cobre-t)}
+.v-opis figcaption{margin-top:auto;padding-top:20px;border-top:1px solid var(--raya);display:flex;flex-direction:column;gap:2px}
+.v-opis li:only-child figcaption{max-width:30ch}
+.v-opis figcaption b{font:700 1.05rem var(--ft)}
+.v-opis figcaption span{color:var(--gris);font-size:.98rem}
 .v-faq{padding:clamp(70px,10vw,140px) 0}
 .v-faq .in{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,6vw,100px)}
 @media (max-width:860px){.v-faq .in{grid-template-columns:1fr}}
@@ -1261,6 +1281,10 @@ escribir("/dos-decimas/", f'''<!doctype html>
 <section class="v-faq"><div class="in">
   <div class="rev"><span class="eti">Preguntas</span><h2 class="v-tit">Antes de <em>empezar.</em></h2><p class="v-sub">¿Otra duda? Escribe a <a href="mailto:{DD_CORREO}">{DD_CORREO}</a>.</p></div>
   <div class="rev">{FAQ_DD_HTML}</div>
+</div></section>
+<section class="v-opi" id="opiniones"><div class="in">
+  <span class="eti rev">Lo que dicen quienes ya la usan</span>
+  <ul class="v-opis rev">{OPINIONES_DD_HTML}</ul>
 </div></section>
 <section class="v-planes" id="planes"><div class="in">
   <div class="rev"><span class="eti">Tarifas</span><h2 class="v-tit">Pruébala gratis. <em>Sigue como Fundador.</em></h2><p class="v-sub">Sin permanencia, con el IVA incluido y con 14 días para desistir. Todas dan acceso a la app completa.</p></div>
