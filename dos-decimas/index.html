@@ -332,11 +332,52 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .js .v-gigante .l{display:inline-block;opacity:0;transform:translateY(35%);transition:opacity 1s,transform 1.1s cubic-bezier(.2,.8,.2,1)}.js .v-gigante em.l{transition-delay:.12s}
 .js .v-gigante.ver .l{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.js .rev,.js .v-gigante .l{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* Instalar la app (18-11) */
+.v-ins{padding:clamp(70px,10vw,140px) 0;background:var(--papel-2)}
+.v-ins .in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(30px,6vw,100px);align-items:center}
+.v-ins-tabs{display:inline-flex;gap:4px;margin-top:30px;padding:4px;border-radius:999px;background:var(--papel);border:1px solid var(--raya)}
+.v-ins-tabs button{appearance:none;border:0;background:none;font:600 .95rem var(--ft);color:var(--gris);padding:10px 18px;border-radius:999px;cursor:pointer;min-height:44px}
+.v-ins-tabs button[aria-selected=true]{background:var(--tinta);color:var(--crema)}
+.v-ins-pasos{list-style:none;counter-reset:p;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:14px;max-width:46ch}
+.v-ins-pasos li{counter-increment:p;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
+.v-ins-pasos li::before{content:counter(p);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--tinta);color:var(--crema);font:700 .9rem var(--fd)}
+.v-ins-pasos b{font-weight:700}
+.v-ins-pasos code{font:600 .95em var(--ft);color:var(--cobre-t)}
+.v-ins-aviso{margin:26px 0 0;padding:16px 18px;border-radius:14px;background:var(--papel);border:1px solid var(--raya);font-size:.95rem;max-width:52ch}
+.v-ins-aviso>b:first-child{display:block;margin-bottom:4px}
+.v-ins-ir{display:inline-flex;align-items:center;gap:8px;margin-top:26px;min-height:48px;padding:0 24px;border-radius:999px;background:var(--tinta);color:var(--crema);font-weight:600;text-decoration:none}
+.v-ins-panel[hidden],.v-ins-tel [hidden]{display:none}
+/* el móvil dibujado */
+.v-ins-tel{justify-self:center;width:min(100%,290px);aspect-ratio:9/18.5;border:9px solid #050403;border-radius:38px;background:var(--papel);box-shadow:0 30px 60px rgba(26,22,20,.22);transform:rotate(3deg);overflow:hidden;position:relative;font-family:var(--ft)}
+.v-ins-tel.pc{aspect-ratio:16/11;width:min(100%,420px);border-radius:14px;border-width:7px;transform:rotate(-2deg)}
+.t-barra{display:flex;align-items:center;gap:6px;padding:12px 10px 8px;background:#fff;border-bottom:1px solid var(--raya);font-size:.72rem;color:var(--gris)}
+.t-url{flex:1;padding:6px 10px;border-radius:9px;background:var(--papel);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t-app{padding:16px 14px;opacity:.55}
+.t-app i{display:block;height:10px;border-radius:5px;background:var(--raya);margin:9px 0}.t-app i.c{width:60%;height:16px;background:var(--tinta);opacity:.6}.t-app i.b{height:42px;border-radius:12px;background:var(--cobre);opacity:.7}
+.t-hoja{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:18px 18px 0 0;box-shadow:0 -10px 30px rgba(0,0,0,.18);padding:10px 10px 16px}
+.t-hoja::before{content:"";display:block;width:36px;height:4px;border-radius:2px;background:var(--raya);margin:0 auto 10px}
+.t-fila{display:flex;align-items:center;justify-content:space-between;padding:10px 10px;border-radius:10px;font-size:.78rem;color:var(--tinta)}
+.t-fila+.t-fila{border-top:1px solid var(--papel-2)}
+.t-fila.si{outline:2.5px solid var(--cobre);outline-offset:-2px;background:#FBF4EC;font-weight:700}
+.t-ico{width:16px;height:16px;border:1.6px solid currentColor;border-radius:4px;opacity:.7}
+.t-menu{position:absolute;top:44px;right:8px;width:62%;background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:4px}
+.t-menu .t-fila{padding:9px 10px}
+.t-tres{font-weight:800;letter-spacing:-1px;padding:0 4px}
+.t-tres.si,.t-inst.si{outline:2.5px solid var(--cobre);outline-offset:2px;border-radius:6px}
+.t-inst{display:inline-grid;place-items:center;width:20px;height:16px;border:1.6px solid var(--tinta);border-radius:3px;font-size:.6rem;line-height:1}
+.t-dialogo{position:absolute;top:46px;right:14px;width:58%;background:#fff;border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.2);padding:12px;font-size:.75rem}
+.t-dialogo p{margin:0 0 10px}.t-dialogo span{display:inline-block;padding:6px 12px;border-radius:999px;background:var(--tinta);color:#fff;font-weight:700}
+.t-dialogo span.si{outline:2.5px solid var(--cobre);outline-offset:2px}
+@media (max-width:860px){.v-ins .in{grid-template-columns:1fr}.v-ins-tel{width:min(62vw,230px);aspect-ratio:9/13}.v-ins-tel.pc{width:min(88vw,380px)}}
+@media (max-width:420px){.v-ins-tabs button{padding:10px 14px;font-size:.9rem}}
+.v-mas-t summary{list-style:none;cursor:pointer;display:flex;gap:10px;align-items:center}.v-mas-t summary::-webkit-details-marker{display:none}
+.v-mas-t[open] summary span{transform:rotate(45deg)}.v-mas-t summary span{display:inline-block;font-size:1.1rem;transition:transform .2s}
 </style>
 </head><body>
 <header class="v-cab"><div class="in">
   <a class="v-marca" href="/dos-decimas/"><img src="/img/dosdecimas-logo.png?v=cd061bc4" alt="" width="30" height="30">Dos Décimas</a>
-  <nav aria-label="Menú"><a class="opc" href="#app">La app</a><a class="opc" href="#simulacro">Simulacro</a><a class="opc" href="#comunidad">Comunidad</a><a class="opc" href="#opiniones">Opiniones</a><a class="opc" href="#planes">Tarifas</a><a class="v-entrar" href="https://dosdecimas.ruvilab.es">Entrar</a><a class="v-btn" href="#prueba">7 días gratis</a></nav>
+  <nav aria-label="Menú"><a class="opc" href="#app">La app</a><a class="opc" href="#simulacro">Simulacro</a><a class="opc" href="#instalar">Instalar</a><a class="opc" href="#opiniones">Opiniones</a><a class="opc" href="#planes">Tarifas</a><a class="v-entrar" href="https://dosdecimas.ruvilab.es">Entrar</a><a class="v-btn" href="#prueba">7 días gratis</a></nav>
 </div></header>
 
 <main>
@@ -368,12 +409,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
       <button type="button" class="q-atras" hidden>← Atrás</button>
     </div>
     <p class="q-saltar"><a href="#planes">¿Lo tienes claro? Apúntate directamente</a></p>
-    <ul class="v-tres"><li>Tests de los 45 temas, comprobados con la ley vigente del BOE</li><li>Un simulacro cada fin de semana y El Atestado</li><li>Repasas justo lo que necesitas mejorar</li></ul>
-    <div class="v-citas">
-    <figure class="v-cita"><blockquote><p>«Lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.»</p></blockquote><figcaption>Raúl I. · Cliente fundador · Opositor a Policía Nacional</figcaption></figure>
-    <figure class="v-cita"><blockquote><p>«El tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto.»</p></blockquote><figcaption>Alejandro L. · Cliente fundador · Opositor a Policía Nacional</figcaption></figure>
-    <figure class="v-cita"><blockquote><p>«Te da a elegir el formato de preguntas, ya sean 10, 20, y me ayuda mucho cuando tengo ratos libres trabajando o en el bus…»</p></blockquote><figcaption>Cris L. · Opositora a Policía Nacional · <a href="#opiniones">Leer las opiniones completas ↓</a></figcaption></figure>
-    </div>
+    <ul class="v-tres"><li>Tests de los 45 temas, comprobados con la ley vigente del BOE</li><li>Un simulacro cada fin de semana y El Atestado</li><li>Repasas justo lo que necesitas mejorar</li><li>Una Comunidad para no opositar solo</li></ul>
   </div>
   <div class="v-movil-caja">
     <div class="v-movil"><img src="/img/estilo/inicio.jpg?v=ed834854" alt="La pantalla de inicio de Dos Décimas: «¿Qué practicamos hoy?», con la última nota, los fallos por repasar y el botón para empezar un test" width="780" height="1800"></div>
@@ -389,43 +425,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
       <li class="rev"><span class="n">02</span><b>Sabes por qué fallas y qué repasar</b><p>Cada fallo trae la respuesta buena, el porqué y lo que dice la ley. La app guarda tus pendientes y te dice qué tema flojea.</p></li>
       <li class="rev dest"><span class="n">03</span><b>Un simulacro cada semana, con El Atestado</b><p>100 preguntas como el día del examen y, al cerrar, El Atestado: dónde se te han ido los puntos y tu siguiente objetivo.</p><a class="v-enl" href="#simulacro">Ver El Atestado <span aria-hidden="true">↓</span></a></li>
     </ol>
-    <div class="cab-sec v-func-cab rev"><span class="eti">Cinco funciones que lo hacen posible</span><span class="v-desliza">Desliza →</span></div>
-  </div>
-  <ul class="v-tarjetas"><li class="v-tarjeta rev">
-        <figure><img src="/img/estilo/tests.jpg?v=27141db5" alt="La app con un tema elegido, 20 preguntas y corrección al momento" loading="lazy"></figure>
-        <p class="v-pie"><span class="v-num">01</span><b>Tests de cada tema</b>10, 20, 50 o 100 preguntas, con corrección al momento o al final.</p>
-      </li><li class="v-tarjeta rev">
-        <figure class="marco"><img src="/img/app-cuaderno.png?v=bda04a21" alt="Mi cuaderno con una pregunta fallada, la correcta y el porqué" loading="lazy"></figure>
-        <p class="v-pie"><span class="v-num">02</span><b>Cada fallo, con su porqué</b>La respuesta buena, el porqué y lo que dice la ley. Y un botón para repetir solo esas.</p>
-      </li><li class="v-tarjeta rev">
-        <figure><img src="/img/estilo/dudo.jpg?v=637d151c" alt="Una pregunta con los botones Dudo y Dejar en blanco" loading="lazy"></figure>
-        <p class="v-pie"><span class="v-num">03</span><b>«Dudo» y «Dejar en blanco»</b>Como en el examen: −0,5 por fallo. Marcas las que dudas y luego ves si te compensó.</p>
-      </li><li class="v-tarjeta rev">
-        <figure class="marco"><img src="/img/app-pregunta-dd.png?v=5b63641e" alt="Una pregunta con la lupa activada: resalta «no», «ni» y «salvo»" loading="lazy"></figure>
-        <p class="v-pie"><span class="v-num">04</span><b>Lupa de negaciones</b>Te resalta los «NO», los «salvo» y los «excepto» para que no se te escapen.</p>
-      </li><li class="v-tarjeta rev">
-        <figure><img src="/img/estilo/repaso.jpg?v=5289b376" alt="Pantalla Repasar con el repaso de 5 minutos y los fallos pendientes" loading="lazy"></figure>
-        <p class="v-pie"><span class="v-num">05</span><b>Repaso de 5 minutos</b>Tus fallos pendientes cada día, sin pensar qué toca, y tu racha.</p>
-      </li></ul>
 </section>
-
-<section class="v-video"><div class="in">
-  <div class="v-video-cab rev"><span class="eti">La app en 50 segundos</span><h2 class="v-tit">Míralo antes de <em>probarla.</em></h2></div>
-  <div class="v-video-caja rev">
-    <video id="vv" muted loop playsinline preload="none" poster="/img/dosdecimas-presentacion.jpg?v=080f1e03" aria-label="Vídeo de Dos Décimas con todas las funciones de la app"><source src="/video/dosdecimas-presentacion-movil.mp4?v=b611e2f6" type="video/mp4" media="(max-width: 700px)"><source src="/video/dosdecimas-presentacion.mp4?v=67125fda" type="video/mp4"></video>
-    <button class="v-sonido" id="vv-sonido" type="button" aria-pressed="false">Activar sonido</button>
-  </div>
-</div></section>
-
-<section class="v-preg" id="pregunta"><div class="in">
-  <div class="rev"><span class="eti">Pregunta real del examen de 2026</span><h2 class="v-tit">¿Te la <em>sabes</em>?</h2><p class="v-sub">Un toque y lo ves. Si fallas, te decimos por qué, como en la app.</p></div>
-  <div class="rev"><div class="p1" id="p1" data-a="0" data-porque="Art. 81.2 de la Constitución: las leyes orgánicas exigen mayoría absoluta del Congreso, en una votación final sobre el conjunto del proyecto. La «simple» es la trampa.">
-        <p class="p1-tit">¿Te la sabes? <span>Pregunta real del examen de 2026</span></p>
-        <p class="p1-q">Según el artículo 81.2 de la Constitución Española, las Leyes Orgánicas para su aprobación exigirá:</p>
-        <div class="p1-ops"><button class="tg-op" type="button" data-k="0"><b>a</b><span>La mayoría absoluta del Congreso, en una votación final sobre el conjunto del proyecto.</span></button><button class="tg-op" type="button" data-k="1"><b>b</b><span>La mayoría simple del Congreso, en una votación final sobre el conjunto del proyecto.</span></button><button class="tg-op" type="button" data-k="2"><b>c</b><span>Respectivamente la aprobación por los Plenos de ambas Cámaras.</span></button></div>
-        <div class="p1-res" role="status" hidden></div>
-      </div></div>
-</div></section>
 
 <section class="v-sim" id="simulacro"><div class="in">
   <div class="v-sim-txt">
@@ -436,24 +436,10 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
   <figure class="v-sim-movil rev"><img src="/img/estilo/atestado.jpg?v=378de3a0" alt="El Atestado de un simulacro: tu nota, lo que restan los fallos y los blancos, los temas que más te han quitado y tu siguiente objetivo" loading="lazy"></figure>
 </div></section>
 
-<section class="v-comu" id="comunidad"><div class="in">
-  <figure class="v-comu-movil pantalla rev"><img src="/img/estilo/comunidad-chat.jpg?v=4ae397e5" alt="El chat de la Comunidad: Dani_oposita cuenta que ha fallado medio test del tema 3 y Marta_CNP le anima" width="600" height="840" loading="lazy"></figure>
-  <div class="rev"><span class="eti">La Comunidad</span><h2 class="v-tit">Aquí nadie <em>oposita solo.</em></h2><p class="v-sub">Un refugio para los días buenos y los malos: comparte tus fallos desde el test, resuelve tus dudas y encuentra apoyo en quienes están pasando por lo mismo.</p>
-    <ul class="v-comu-puntos"><li>Preguntas directamente desde el test</li><li>Te avisa en el móvil cuando te responden</li><li>Participas con un alias, sin mostrar tu correo</li></ul>
-    <p class="v-comu-nota">Un chat semanal dentro de la app: empieza de cero cada domingo a las 23:00.</p></div>
-</div></section>
-
 <section class="v-frase"><div class="in">
   <p class="rev">Saqué un 6,85 y el corte fue un 7,05. <span>Me faltaron dos décimas. Por eso hice esta app: para que tú sepas dónde pierdes las tuyas.</span></p>
   <a class="v-enl rev" href="#prueba">Pruébala 7 días gratis <span aria-hidden="true">↑</span></a>
 </div></section>
-
-<div class="in"><ul class="v-cifras rev">
-  <li><b data-cuenta="6.85">6,85</b><span>mi nota en el examen</span></li>
-  <li><b class="cobre" data-cuenta="7.05">7,05</b><span>la nota de corte</span></li>
-  <li><b data-cuenta="0.20">0,20</b><span>lo que me faltó</span></li>
-  <li><b data-cuenta="2">2</b><span>aciertos más y habría llegado al corte</span></li>
-</ul></div>
 
 <section class="v-opi" id="opiniones"><div class="in">
   <div class="v-opi-cab rev"><span class="eti">Opiniones reales</span><h2 class="v-tit">Lo que dice quien <em>ya la usa.</em></h2><p class="v-sub">Opiniones de opositores que usan la app.</p></div>
@@ -466,7 +452,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
     <div><span class="v-f-eti">Solo para las 30 primeras personas</span><span class="v-t-nom">Fundador</span><p class="v-t-nota">Te quedas con este precio para siempre, mientras sigas suscrito. Cuando se acaben las plazas, la mensual cuesta 10,99 €.</p></div>
     <div class="v-f-der"><span class="v-t-precio">7,99 €<small>al mes</small></span><a class="v-f-ir" href="https://buy.stripe.com/3cIcN7bck9DibmO7Vx04801" rel="noopener">Quiero ser Fundador</a></div>
   </div>
-  <p class="v-otras rev">Otras opciones</p>
+  <details class="v-mas-t rev"><summary class="v-otras">Ver otras tarifas <span aria-hidden="true">+</span></summary>
   <ul class="v-lista-t"><li class="v-tarifa rev">
         <span class="v-t-nom">Mensual</span>
         <span class="v-t-precio">10,99 €<small>al mes</small></span>
@@ -487,12 +473,66 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
         <span class="v-t-precio">89,99 €<small>pago único</small></span>
         <span class="v-t-nota">7,50 € al mes · Hasta el 31 de octubre de 2027. No se renueva.</span>
         <a class="v-t-ir" href="https://buy.stripe.com/28E9AV2FO16McqS1x904803" rel="noopener">Elegir<span aria-hidden="true">→</span></a>
-      </li></ul>
+      </li></ul></details>
   <p class="v-pie-t">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Paga con el mismo email con el que pruebas la app.</p>
+</div></section>
+<section class="v-ins" id="instalar"><div class="in">
+  <div class="rev">
+    <span class="eti">En tu móvil, como una app</span>
+    <h2 class="v-tit">Instálala en <em>un minuto.</em></h2>
+    <p class="v-sub">Dos Décimas no pasa por ninguna tienda: se instala desde el navegador y queda en tu pantalla de inicio como una app más.</p>
+    <div class="v-ins-tabs" role="tablist" aria-label="Tu dispositivo">
+      <button type="button" role="tab" id="ti-ios" aria-controls="pi-ios" aria-selected="true" data-k="ios">iPhone</button>
+      <button type="button" role="tab" id="ti-and" aria-controls="pi-and" aria-selected="false" data-k="and">Android</button>
+      <button type="button" role="tab" id="ti-pc" aria-controls="pi-pc" aria-selected="false" data-k="pc">Ordenador</button>
+    </div>
+    <div class="v-ins-panel" role="tabpanel" id="pi-ios" aria-labelledby="ti-ios">
+      <ol class="v-ins-pasos">
+        <li><span>Abre <code>dosdecimas.ruvilab.es</code> en <b>Safari</b>.</span></li>
+        <li><span>Toca el botón <b>Compartir</b> (el cuadrado con la flecha hacia arriba). Si no lo ves, está en <b>···</b>.</span></li>
+        <li><span>Baja y toca <b>«Añadir a pantalla de inicio»</b>.</span></li>
+        <li><span>Toca <b>«Añadir»</b>, abre el icono de Dos Décimas y entra con tu email.</span></li>
+      </ol>
+    </div>
+    <div class="v-ins-panel" role="tabpanel" id="pi-and" aria-labelledby="ti-and" hidden>
+      <ol class="v-ins-pasos">
+        <li><span>Abre <code>dosdecimas.ruvilab.es</code> en <b>Chrome</b>.</span></li>
+        <li><span>Toca los tres puntos <b>⋮</b> de arriba a la derecha.</span></li>
+        <li><span>Toca <b>«Instalar aplicación»</b> (en algunos móviles pone «Añadir a pantalla de inicio»).</span></li>
+        <li><span>Confirma, abre el icono de Dos Décimas y entra con tu email.</span></li>
+      </ol>
+    </div>
+    <div class="v-ins-panel" role="tabpanel" id="pi-pc" aria-labelledby="ti-pc" hidden>
+      <ol class="v-ins-pasos">
+        <li><span>Abre <code>dosdecimas.ruvilab.es</code> en <b>Chrome</b> o <b>Edge</b>.</span></li>
+        <li><span>En la barra de direcciones, pulsa el icono de <b>instalar</b> (una pantalla con una flecha).</span></li>
+        <li><span>Pulsa <b>«Instalar»</b>: se abre en su propia ventana y la tienes en el escritorio.</span></li>
+      </ol>
+    </div>
+    <p class="v-ins-aviso"><b>¿Vienes desde Instagram o TikTok?</b>Primero ábrela en el navegador: toca <b>···</b> arriba a la derecha y elige «Abrir en el navegador» (o «Abrir en Safari»). Desde dentro de Instagram no se puede instalar.</p>
+    <a class="v-ins-ir" href="https://dosdecimas.ruvilab.es">Abrir Dos Décimas <span aria-hidden="true">→</span></a>
+  </div>
+  <div class="v-ins-tel rev" aria-hidden="true">
+    <div data-k="ios">
+      <div class="t-barra"><span class="t-url">dosdecimas.ruvilab.es</span></div>
+      <div class="t-app"><i class="c"></i><i></i><i style="width:80%"></i><i class="b"></i><i></i><i style="width:70%"></i></div>
+      <div class="t-hoja"><div class="t-fila">Copiar <span class="t-ico"></span></div><div class="t-fila">Añadir a favoritos <span class="t-ico"></span></div><div class="t-fila si">Añadir a pantalla de inicio <span class="t-ico"></span></div><div class="t-fila">Buscar en la página <span class="t-ico"></span></div></div>
+    </div>
+    <div data-k="and" hidden>
+      <div class="t-barra"><span class="t-url">dosdecimas.ruvilab.es</span><span class="t-tres si">⋮</span></div>
+      <div class="t-app"><i class="c"></i><i></i><i style="width:80%"></i><i class="b"></i><i></i><i style="width:70%"></i></div>
+      <div class="t-menu"><div class="t-fila">Nueva pestaña</div><div class="t-fila">Historial</div><div class="t-fila si">Instalar aplicación</div><div class="t-fila">Compartir…</div></div>
+    </div>
+  </div>
+  <div class="v-ins-tel pc rev" aria-hidden="true" hidden>
+    <div class="t-barra"><span class="t-url">dosdecimas.ruvilab.es</span><span class="t-inst si">↓</span></div>
+    <div class="t-app"><i class="c"></i><i></i><i style="width:80%"></i><i class="b"></i><i style="width:70%"></i></div>
+    <div class="t-dialogo"><p><b>¿Instalar aplicación?</b><br>Dos Décimas</p><span class="si">Instalar</span></div>
+  </div>
 </div></section>
 <section class="v-faq"><div class="in">
   <div class="rev"><span class="eti">Preguntas</span><h2 class="v-tit">Antes de <em>empezar.</em></h2><p class="v-sub">¿Otra duda? Escribe a <a href="mailto:dosdecimas@ruvilab.es">dosdecimas@ruvilab.es</a>.</p></div>
-  <div class="rev"><details><summary>¿Por qué pagar si quien la hace también es opositor?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Porque no pagas por mi experiencia, sino por una herramienta que hay que mantener y mejorar cada semana: tests por temas con el porqué de cada respuesta, un simulacro cada fin de semana con El Atestado, exámenes oficiales y la Comunidad. Que yo también esté opositando es justo lo que me hace saber qué hace falta. Y puedes probarla 7 días gratis, sin tarjeta, antes de decidir.</p></details><details><summary>¿Puedo probarla antes de pagar?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Sí: 7 días gratis, sin tarjeta. Deja tu email en «Pruébala 7 días gratis» y normalmente entras al momento.</p></details><details><summary>¿Cómo entro después de pagar?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Entra en dosdecimas.ruvilab.es, pulsa «Primera vez» y escribe el mismo email con el que has pagado. Te llega un correo para crear tu contraseña y ya está.</p></details><details><summary>¿Están actualizadas a la ley vigente?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos.</p></details><details><summary>¿Qué cubre y qué no?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Cubre la prueba de conocimientos: tests de los 45 temas de la Escala Básica, 12 exámenes oficiales desde 2015 y un simulacro cada fin de semana. También te ayuda con las físicas, con el baremo oficial. No es un temario para estudiar desde cero: es para practicar lo que estudias. Tampoco incluye psicotécnicos ni la entrevista.</p></details><details><summary>¿Funciona en el móvil?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Sí. Se abre en el navegador del móvil o del ordenador y puedes añadirla a la pantalla de inicio como una app, sin pasar por ninguna tienda.</p></details><details><summary>¿Puedo darme de baja cuando quiera?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Sí, sin permanencia. Mantienes el acceso hasta el final de lo que ya pagaste. El curso completo es un pago único y no se renueva.</p></details><details><summary>¿Y si no me convence?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Tienes 14 días para desistir y te devolvemos todo, aunque ya la hayas usado. Basta con escribir a dosdecimas@ruvilab.es.</p></details></div>
+  <div class="rev"><details><summary>¿Por qué pagar si quien la hace también es opositor?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Porque no pagas por mi experiencia, sino por una herramienta que hay que mantener y mejorar cada semana: tests por temas con el porqué de cada respuesta, un simulacro cada fin de semana con El Atestado, exámenes oficiales y la Comunidad. Que yo también esté opositando es justo lo que me hace saber qué hace falta. Y puedes probarla 7 días gratis, sin tarjeta, antes de decidir.</p></details><details><summary>¿Cómo entro después de pagar?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Entra en dosdecimas.ruvilab.es, pulsa «Primera vez» y escribe el mismo email con el que has pagado. Te llega un correo para crear tu contraseña y ya está.</p></details><details><summary>¿Están actualizadas a la ley vigente?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Sí: cada pregunta se comprueba con la ley vigente del BOE antes de publicarse. Si una ley cambia o ves un error, avisas desde la propia pregunta y la corregimos para todos.</p></details><details><summary>¿Qué cubre y qué no?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Cubre la prueba de conocimientos: tests de los 45 temas de la Escala Básica, 12 exámenes oficiales desde 2015 y un simulacro cada fin de semana. También te ayuda con las físicas, con el baremo oficial. No es un temario para estudiar desde cero: es para practicar lo que estudias. Tampoco incluye psicotécnicos ni la entrevista.</p></details><details><summary>¿Puedo darme de baja cuando quiera?<svg class="mas" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></summary><p>Sí, sin permanencia: mantienes el acceso hasta el final de lo que ya pagaste. Y si no te convence, tienes 14 días para desistir y te devolvemos todo, aunque ya la hayas usado. Basta con escribir a dosdecimas@ruvilab.es.</p></details></div>
 </div></section>
 </main>
 
@@ -617,6 +657,13 @@ if(location.hash==="#prueba")directo();else ir(1);
     if(red||!window.IntersectionObserver){pon(fin);return}pon(0);
     var o=new IntersectionObserver(function(es){if(!es[0].isIntersecting)return;o.disconnect();var t0=performance.now();
       (function paso(t){var k=Math.min(1,(t-t0)/1400),e=1-Math.pow(1-k,3);pon(fin*e);if(k<1)requestAnimationFrame(paso)})(t0)},{threshold:.6});o.observe(b)});
+})();
+</script><script>
+(function(){var t=document.querySelector(".v-ins-tabs");if(!t)return;var bs=t.querySelectorAll("button"),tel=document.querySelector(".v-ins-tel:not(.pc)"),pc=document.querySelector(".v-ins-tel.pc");
+function ver(k){bs.forEach(function(b){var on=b.dataset.k===k;b.setAttribute("aria-selected",on);document.getElementById(b.getAttribute("aria-controls")).hidden=!on});
+  pc.hidden=k!=="pc";tel.hidden=k==="pc";tel.querySelectorAll("[data-k]").forEach(function(d){d.hidden=d.dataset.k!==k});pc.classList.add("ver");tel.classList.add("ver")}
+bs.forEach(function(b){b.addEventListener("click",function(){ver(b.dataset.k)})});
+var ua=navigator.userAgent||"";ver(/Android/i.test(ua)?"and":/iPhone|iPad|iPod/i.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1)?"ios":/Mobi/i.test(ua)?"and":"pc");
 })();
 </script>
 </body></html>
