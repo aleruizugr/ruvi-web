@@ -348,6 +348,15 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-ins-aviso>b:first-child{display:block;margin-bottom:4px}
 .v-ins-ir{display:inline-flex;align-items:center;gap:8px;margin-top:26px;min-height:48px;padding:0 24px;border-radius:999px;background:var(--tinta);color:var(--crema);font-weight:600;text-decoration:none}
 .v-ins-panel[hidden],.v-ins-tel [hidden]{display:none}
+.v-ins-fotos{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,1.6vw,18px);align-self:center}
+.v-ins-fotos[hidden]{display:none}
+.v-ins-fotos figure{margin:0}
+.f-mov{position:relative;border:5px solid #050403;border-radius:22px;overflow:hidden;background:#fff;box-shadow:0 18px 36px rgba(26,22,20,.18)}
+.f-mov img{display:block;width:100%;height:auto}
+.f-aro{position:absolute;border:3px solid var(--cobre);border-radius:12px;box-shadow:0 0 0 4px rgba(217,162,118,.25)}
+.v-ins-fotos figcaption{margin-top:10px;font-size:.85rem;line-height:1.3;color:var(--gris)}
+.v-ins-fotos figcaption b{display:inline-grid;place-items:center;width:20px;height:20px;margin-right:4px;border-radius:50%;background:var(--tinta);color:var(--crema);font:700 .72rem var(--fd)}
+@media (max-width:860px){.v-ins-fotos{gap:8px}.f-mov{border-width:3px;border-radius:14px}.f-aro{border-width:2px;border-radius:8px}.v-ins-fotos figcaption{font-size:.75rem}}
 /* el móvil dibujado */
 .v-ins-tel{justify-self:center;width:min(100%,290px);aspect-ratio:9/18.5;border:9px solid #050403;border-radius:38px;background:var(--papel);box-shadow:0 30px 60px rgba(26,22,20,.22);transform:rotate(3deg);overflow:hidden;position:relative;font-family:var(--ft)}
 .v-ins-tel.pc{aspect-ratio:16/11;width:min(100%,420px);border-radius:14px;border-width:7px;transform:rotate(-2deg)}
@@ -410,6 +419,11 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
     </div>
     <p class="q-saltar"><a href="#planes">¿Lo tienes claro? Apúntate directamente</a></p>
     <ul class="v-tres"><li>Tests de los 45 temas, comprobados con la ley vigente del BOE</li><li>Un simulacro cada fin de semana y El Atestado</li><li>Repasas justo lo que necesitas mejorar</li><li>Una Comunidad para no opositar solo</li></ul>
+    <div class="v-citas">
+    <figure class="v-cita"><blockquote><p>«Lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.»</p></blockquote><figcaption>Raúl I. · Cliente fundador · Opositor a Policía Nacional</figcaption></figure>
+    <figure class="v-cita"><blockquote><p>«El tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto.»</p></blockquote><figcaption>Alejandro L. · Cliente fundador · Opositor a Policía Nacional</figcaption></figure>
+    <figure class="v-cita"><blockquote><p>«Te da a elegir el formato de preguntas, ya sean 10, 20, y me ayuda mucho cuando tengo ratos libres trabajando o en el bus…»</p></blockquote><figcaption>Cris L. · Opositora a Policía Nacional · <a href="#opiniones">Leer las opiniones completas ↓</a></figcaption></figure>
+    </div>
   </div>
   <div class="v-movil-caja">
     <div class="v-movil"><img src="/img/estilo/inicio.jpg?v=ed834854" alt="La pantalla de inicio de Dos Décimas: «¿Qué practicamos hoy?», con la última nota, los fallos por repasar y el botón para empezar un test" width="780" height="1800"></div>
@@ -452,7 +466,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
     <div><span class="v-f-eti">Solo para las 30 primeras personas</span><span class="v-t-nom">Fundador</span><p class="v-t-nota">Te quedas con este precio para siempre, mientras sigas suscrito. Cuando se acaben las plazas, la mensual cuesta 10,99 €.</p></div>
     <div class="v-f-der"><span class="v-t-precio">7,99 €<small>al mes</small></span><a class="v-f-ir" href="https://buy.stripe.com/3cIcN7bck9DibmO7Vx04801" rel="noopener">Quiero ser Fundador</a></div>
   </div>
-  <details class="v-mas-t rev"><summary class="v-otras">Ver otras tarifas <span aria-hidden="true">+</span></summary>
+  <p class="v-otras rev">Otras opciones</p>
   <ul class="v-lista-t"><li class="v-tarifa rev">
         <span class="v-t-nom">Mensual</span>
         <span class="v-t-precio">10,99 €<small>al mes</small></span>
@@ -473,7 +487,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
         <span class="v-t-precio">89,99 €<small>pago único</small></span>
         <span class="v-t-nota">7,50 € al mes · Hasta el 31 de octubre de 2027. No se renueva.</span>
         <a class="v-t-ir" href="https://buy.stripe.com/28E9AV2FO16McqS1x904803" rel="noopener">Elegir<span aria-hidden="true">→</span></a>
-      </li></ul></details>
+      </li></ul>
   <p class="v-pie-t">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Paga con el mismo email con el que pruebas la app.</p>
 </div></section>
 <section class="v-ins" id="instalar"><div class="in">
@@ -489,9 +503,9 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
     <div class="v-ins-panel" role="tabpanel" id="pi-ios" aria-labelledby="ti-ios">
       <ol class="v-ins-pasos">
         <li><span>Abre <code>dosdecimas.ruvilab.es</code> en <b>Safari</b>.</span></li>
-        <li><span>Toca el botón <b>Compartir</b> (el cuadrado con la flecha hacia arriba). Si no lo ves, está en <b>···</b>.</span></li>
-        <li><span>Baja y toca <b>«Añadir a pantalla de inicio»</b>.</span></li>
-        <li><span>Toca <b>«Añadir»</b>, abre el icono de Dos Décimas y entra con tu email.</span></li>
+        <li><span>Toca <b>···</b> abajo a la derecha y luego <b>«Compartir»</b>.</span></li>
+        <li><span>Toca <b>«Ver más»</b> y baja hasta <b>«Añadir a pantalla de inicio»</b>.</span></li>
+        <li><span>Deja activado «Abrir como app web» y toca <b>«Añadir»</b>. Abre el icono de Dos Décimas y entra con tu email.</span></li>
       </ol>
     </div>
     <div class="v-ins-panel" role="tabpanel" id="pi-and" aria-labelledby="ti-and" hidden>
@@ -512,13 +526,13 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
     <p class="v-ins-aviso"><b>¿Vienes desde Instagram o TikTok?</b>Primero ábrela en el navegador: toca <b>···</b> arriba a la derecha y elige «Abrir en el navegador» (o «Abrir en Safari»). Desde dentro de Instagram no se puede instalar.</p>
     <a class="v-ins-ir" href="https://dosdecimas.ruvilab.es">Abrir Dos Décimas <span aria-hidden="true">→</span></a>
   </div>
-  <div class="v-ins-tel rev" aria-hidden="true">
-    <div data-k="ios">
-      <div class="t-barra"><span class="t-url">dosdecimas.ruvilab.es</span></div>
-      <div class="t-app"><i class="c"></i><i></i><i style="width:80%"></i><i class="b"></i><i></i><i style="width:70%"></i></div>
-      <div class="t-hoja"><div class="t-fila">Copiar <span class="t-ico"></span></div><div class="t-fila">Añadir a favoritos <span class="t-ico"></span></div><div class="t-fila si">Añadir a pantalla de inicio <span class="t-ico"></span></div><div class="t-fila">Buscar en la página <span class="t-ico"></span></div></div>
-    </div>
-    <div data-k="and" hidden>
+  <div class="v-ins-fotos rev" aria-label="Así se ve en un iPhone">
+    <figure><div class="f-mov"><img src="/img/instalar/ios-1.jpg" alt="Safari en el iPhone con el menú abierto y la opción Compartir" width="600" height="1239" loading="lazy"><i class="f-aro" style="left:19%;top:35%;width:62%;height:8%"></i></div><figcaption><b>2</b> ··· y «Compartir»</figcaption></figure>
+    <figure><div class="f-mov"><img src="/img/instalar/ios-2.jpg" alt="La hoja de Compartir con la opción Añadir a pantalla de inicio" width="600" height="1239" loading="lazy"><i class="f-aro" style="left:3%;top:68.5%;width:94%;height:8.5%"></i></div><figcaption><b>3</b> «Añadir a pantalla de inicio»</figcaption></figure>
+    <figure><div class="f-mov"><img src="/img/instalar/ios-3.jpg" alt="Pantalla Añadir a pantalla de inicio con el icono de Dos Décimas y el botón Añadir" width="600" height="1239" loading="lazy"><i class="f-aro" style="left:73%;top:2%;width:25%;height:9.5%"></i></div><figcaption><b>4</b> «Añadir»</figcaption></figure>
+  </div>
+  <div class="v-ins-tel rev" aria-hidden="true" hidden>
+    <div data-k="and">
       <div class="t-barra"><span class="t-url">dosdecimas.ruvilab.es</span><span class="t-tres si">⋮</span></div>
       <div class="t-app"><i class="c"></i><i></i><i style="width:80%"></i><i class="b"></i><i></i><i style="width:70%"></i></div>
       <div class="t-menu"><div class="t-fila">Nueva pestaña</div><div class="t-fila">Historial</div><div class="t-fila si">Instalar aplicación</div><div class="t-fila">Compartir…</div></div>
@@ -659,9 +673,9 @@ if(location.hash==="#prueba")directo();else ir(1);
       (function paso(t){var k=Math.min(1,(t-t0)/1400),e=1-Math.pow(1-k,3);pon(fin*e);if(k<1)requestAnimationFrame(paso)})(t0)},{threshold:.6});o.observe(b)});
 })();
 </script><script>
-(function(){var t=document.querySelector(".v-ins-tabs");if(!t)return;var bs=t.querySelectorAll("button"),tel=document.querySelector(".v-ins-tel:not(.pc)"),pc=document.querySelector(".v-ins-tel.pc");
+(function(){var t=document.querySelector(".v-ins-tabs");if(!t)return;var bs=t.querySelectorAll("button"),tel=document.querySelector(".v-ins-tel:not(.pc)"),pc=document.querySelector(".v-ins-tel.pc"),fo=document.querySelector(".v-ins-fotos");
 function ver(k){bs.forEach(function(b){var on=b.dataset.k===k;b.setAttribute("aria-selected",on);document.getElementById(b.getAttribute("aria-controls")).hidden=!on});
-  pc.hidden=k!=="pc";tel.hidden=k==="pc";tel.querySelectorAll("[data-k]").forEach(function(d){d.hidden=d.dataset.k!==k});pc.classList.add("ver");tel.classList.add("ver")}
+  pc.hidden=k!=="pc";tel.hidden=k!=="and";fo.hidden=k!=="ios";[pc,tel,fo].forEach(function(e){e.classList.add("ver")})}
 bs.forEach(function(b){b.addEventListener("click",function(){ver(b.dataset.k)})});
 var ua=navigator.userAgent||"";ver(/Android/i.test(ua)?"and":/iPhone|iPad|iPod/i.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1)?"ios":/Mobi/i.test(ua)?"and":"pc");
 })();
