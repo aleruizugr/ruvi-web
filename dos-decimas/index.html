@@ -333,6 +333,15 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .js .v-gigante.ver .l{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.js .rev,.js .v-gigante .l{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 
+.v-hist{padding:clamp(80px,12vw,160px) 0 clamp(40px,6vw,80px)}
+.v-hist .in{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,6vw,100px);align-items:start}
+.v-hist .v-cifras{grid-column:1/-1;margin-top:clamp(30px,5vw,60px)}
+.v-hist-txt p{margin:0 0 18px;max-width:52ch;font-size:1.08rem;line-height:1.6}
+.v-hist-txt .v-hist-1{font:600 clamp(1.4rem,2.2vw,1.8rem)/1.25 var(--fd);letter-spacing:-.02em}
+.v-hist-firma{margin-top:26px!important;padding-top:18px;border-top:1px solid var(--raya);color:var(--gris);font-size:.95rem!important}
+.v-hist-firma b{display:block;color:var(--tinta);font:700 1.1rem var(--fd)}
+.v-hist .v-enl{display:inline-flex;gap:10px;margin-top:14px;font-weight:600;text-decoration:none;color:var(--tinta);border-bottom:1.5px solid var(--tinta);padding-bottom:3px}
+@media (max-width:860px){.v-hist .in{grid-template-columns:1fr}}
 /* Instalar la app (18-11) */
 .v-ins{padding:clamp(70px,10vw,140px) 0;background:var(--papel-2)}
 .v-ins .in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(30px,6vw,100px);align-items:center}
@@ -386,7 +395,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 </head><body>
 <header class="v-cab"><div class="in">
   <a class="v-marca" href="/dos-decimas/"><img src="/img/dosdecimas-logo.png?v=cd061bc4" alt="" width="30" height="30">Dos Décimas</a>
-  <nav aria-label="Menú"><a class="opc" href="#app">La app</a><a class="opc" href="#simulacro">Simulacro</a><a class="opc" href="#instalar">Instalar</a><a class="opc" href="#opiniones">Opiniones</a><a class="opc" href="#planes">Tarifas</a><a class="v-entrar" href="https://dosdecimas.ruvilab.es">Entrar</a><a class="v-btn" href="#prueba">7 días gratis</a></nav>
+  <nav aria-label="Menú"><a class="opc" href="#app">La app</a><a class="opc" href="#historia">Mi historia</a><a class="opc" href="#simulacro">Simulacro</a><a class="opc" href="#instalar">Instalar</a><a class="opc" href="#opiniones">Opiniones</a><a class="opc" href="#planes">Tarifas</a><a class="v-entrar" href="https://dosdecimas.ruvilab.es">Entrar</a><a class="v-btn" href="#prueba">7 días gratis</a></nav>
 </div></header>
 
 <main>
@@ -450,13 +459,25 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
   <figure class="v-sim-movil rev"><img src="/img/estilo/atestado.jpg?v=378de3a0" alt="El Atestado de un simulacro: tu nota, lo que restan los fallos y los blancos, los temas que más te han quitado y tu siguiente objetivo" loading="lazy"></figure>
 </div></section>
 
-<section class="v-frase"><div class="in">
-  <p class="rev">Saqué un 6,85 y el corte fue un 7,05. <span>Me faltaron dos décimas. Por eso hice esta app: para que tú sepas dónde pierdes las tuyas.</span></p>
-  <a class="v-enl rev" href="#prueba">Pruébala 7 días gratis <span aria-hidden="true">↑</span></a>
+<section class="v-hist" id="historia"><div class="in">
+  <div class="v-hist-cab rev"><span class="eti">Mi historia</span><h2 class="v-tit">Me quedé fuera por <em>dos décimas.</em></h2></div>
+  <div class="v-hist-txt rev">
+    <p class="v-hist-1">Saqué un 6,85. El corte fue un 7,05.</p>
+    <p>Me faltaron 0,20: dos aciertos más, o cuatro fallos que tendría que haber dejado en blanco. Con un margen así, cada pregunta cuenta: una trampa que no ves, un plazo que confundes o una duda en la que arriesgas cuando tocaba dejarla en blanco.</p>
+    <p>Por eso hice Dos Décimas: la app que me habría gustado tener para saber exactamente dónde pierdo mis décimas. Ahora preparo mi tercer intento con ella, y lo cuento cada domingo en «Mi tercer intento».</p>
+    <p class="v-hist-firma"><b>Alejandro</b>Opositor a Policía Nacional y creador de Dos Décimas</p>
+    <a class="v-enl" href="#prueba">Pruébala 7 días gratis <span aria-hidden="true">↑</span></a>
+  </div>
+  <ul class="v-cifras rev">
+    <li><b data-cuenta="6.85">6,85</b><span>mi nota en el examen</span></li>
+    <li><b class="cobre" data-cuenta="7.05">7,05</b><span>la nota de corte</span></li>
+    <li><b data-cuenta="0.20">0,20</b><span>lo que me faltó</span></li>
+    <li><b data-cuenta="2">2</b><span>aciertos más y habría llegado al corte</span></li>
+  </ul>
 </div></section>
 
 <section class="v-opi" id="opiniones"><div class="in">
-  <div class="v-opi-cab rev"><span class="eti">Opiniones reales</span><h2 class="v-tit">Lo que dice quien <em>ya la usa.</em></h2><p class="v-sub">Opiniones de opositores que usan la app.</p></div>
+  <div class="v-opi-cab rev"><span class="eti">Opiniones</span><h2 class="v-tit">Opositores que ya entrenan con <em>Dos Décimas.</em></h2><p class="v-sub">Opiniones reales de usuarios de la app, publicadas con su permiso.</p></div>
   <ul class="v-opis rev"><li><figure><blockquote><p>«En general todo muy bien, preguntas en su mayoría con nivel parecido a examen, plataforma muy intuitiva y <em>lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.</em></p><p>Veo muy bien lo de hacer un simulacro semanal general para todos los integrantes, sacar una nota de corte… Eso nos dará una experiencia que se plasmará en el día del examen de forma positiva para todos.»</p></blockquote><figcaption><b>Raúl I.</b><span>Cliente fundador · Opositor a Policía Nacional</span></figcaption></figure></li><li><figure><blockquote><p>«La app la veo bastante bien […] <em>el tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto.</em></p><p>De momento no creo que necesite mucho más la app porque en sí como te he dicho antes está muy bien.»</p></blockquote><figcaption><b>Alejandro L.</b><span>Cliente fundador · Opositor a Policía Nacional</span></figcaption></figure></li><li><figure><blockquote><p>«Lo que más me gusta de Dos Décimas es que <em>te da a elegir el formato de preguntas, ya sean 10, 20, y me ayuda mucho cuando tengo ratos libres trabajando o en el bus…</em>»</p></blockquote><figcaption><b>Cris L.</b><span>Opositora a Policía Nacional</span></figcaption></figure></li></ul>
   <div class="v-opi-nav"><span class="v-opi-desliza">Desliza para ver más →</span><button type="button" aria-label="Opinión anterior" onclick="this.closest('.in').querySelector('.v-opis').scrollBy({left:-460,behavior:'smooth'})">←</button><button type="button" aria-label="Opinión siguiente" onclick="this.closest('.in').querySelector('.v-opis').scrollBy({left:460,behavior:'smooth'})">→</button></div>
 </div></section>
