@@ -23,9 +23,8 @@
 /* Hallmark · v2.0.0 · built: the project · redesign: full · genre: editorial · theme: brand (Dos Décimas: noche, crema y cobre; Bricolage Grotesque y Source Sans 3) · shape: Ledger · hero: Stage · signature: el móvil con la app real y el cuestionario de tres toques · nav: edge-aligned · footer: mast */
 /* Hallmark · pre-emit critique: P4 H5 E4 S5 R4 V4 · weakest: P, la página explica más de lo que discute; el 6,85 frente al 7,05 sube al segundo pliego para que el argumento (dos décimas) mande */
 /* Hallmark · waive 38iii · «dos décimas» en cobre en el titular de la portada y en ningún otro título · es la firma de la marca Dos Décimas desde el primer día */
-/* Hallmark · dismissed 59 · la franja de opiniones bajo la portada es una tira de 3 frases, no una sección: él quiso las opiniones arriba (18-11) */
 /* Hallmark · answered F19 · los pesos 300 (cifras), 400, 500, 600, 700 y 800 vienen del sistema de la marca y de las fuentes ya cargadas */
-/* Hallmark · dropped .eti (las etiquetas encima de los títulos), la lista de cuatro puntos de la portada y la palabra gigante de la portada (pasa al pie) · los títulos ya dicen lo mismo y la portada tenía demasiadas palabras */
+/* Hallmark · dropped .eti (las etiquetas encima de los títulos), la lista de cuatro puntos de la portada la palabra gigante de la portada (pasa al pie) y la franja de frases de opiniones (las opiniones completas suben justo debajo de la portada) · los títulos ya dicen lo mismo y la portada tenía demasiadas palabras */
 :root{
   --papel:#F5F3F0;--papel-2:#ECE7E1;--papel-0:#FFFCF8;--tinta:#1A1614;--gris:#6E655E;--raya:#D9D2CA;
   --cobre:#D9A276;--cobre-t:#8C5233;--cobre-0:#FBF4EC;--noche:#0D0B0A;--negro:#050403;--borde-n:#2B241F;
@@ -66,8 +65,9 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
 .v-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s-2);min-height:48px;padding:0 var(--s-6);border-radius:var(--r-control);border:0;cursor:pointer;text-decoration:none;font:700 1rem var(--ft);background:var(--cobre);color:var(--tinta);transition:transform .15s,background-color .15s;touch-action:manipulation}
 .v-btn:hover{background:var(--crema)}.v-btn:active{transform:translateY(1px)}
 .v-cab .v-btn{min-height:42px;padding:0 var(--s-5);opacity:1;white-space:nowrap}
-.v-cab nav a.v-entrar{display:inline-flex;align-items:center;min-height:42px;padding:0 var(--s-5);border:1.5px solid currentColor;border-radius:var(--r-control);font-weight:700;opacity:1;white-space:nowrap;transition:background-color .15s,color .15s}
+.v-cab nav a.v-entrar{display:inline-flex;align-items:center;min-height:42px;padding:0 var(--s-5);border:1.5px solid currentColor;border-radius:var(--r-control);background:var(--noche);font-weight:700;opacity:1;white-space:nowrap;transition:background-color .15s,color .15s}
 .v-cab nav a.v-entrar:hover{background:var(--crema);color:var(--tinta)}
+.v-cab.claro nav a.v-entrar{background:var(--papel-0)}
 .v-cab.claro nav a.v-entrar:hover{background:var(--tinta);color:var(--papel)}
 @media (max-width:1060px){.v-cab nav a.opc{display:none}}
 @media (max-width:760px){.v-cab nav{gap:var(--s-3)}}
@@ -114,7 +114,8 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
 .v-quiz:not(.con-res) .q-ultimo-n{display:none}
 .v-quiz .campo .sr{position:static;width:auto;height:auto;overflow:visible;clip:auto;font:600 .9rem var(--ft);color:var(--crema)}
 .v-quiz .v-como .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-.q-saltar{margin:var(--s-4) 0 0;font-size:.95rem}
+.q-saltar{margin:var(--s-4) 0 0;font-size:.95rem;color:var(--crema-2)}
+.q-saltar b{color:var(--crema);font-weight:600}
 .q-saltar a{color:var(--crema);text-underline-offset:3px}
 .v-quiz[data-paso="4"]+.q-saltar{display:none}
 .v-como summary{list-style:none;cursor:pointer;color:var(--crema-2);font-size:.9rem;padding:var(--s-1);width:max-content}
@@ -184,11 +185,12 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
 .v-horas b{display:block;white-space:nowrap;font:300 clamp(2.4rem,4.6vw,4.5rem)/1 var(--fd);letter-spacing:-.05em;font-variant-numeric:tabular-nums}
 .v-horas span{display:block;margin-top:var(--s-2);color:var(--crema-2)}
 .cuenta-sim{margin:var(--s-10) 0 0;font-size:1.1rem;color:var(--crema-2)}.cuenta-sim b{color:var(--cobre);font-weight:600}
-.v-sim-movil{margin:0;justify-self:center;width:min(100%,360px);transform:rotate(-3deg)}
-.v-sim-movil .v-movil{aspect-ratio:9/17}
+.v-sim-movil{margin:0;justify-self:center;width:min(100%,380px);aspect-ratio:3/5;border-radius:var(--r-media);overflow:hidden;background:radial-gradient(90% 60% at 50% 30%,var(--brasa-1) 0%,transparent 70%),var(--noche)}
+.v-sim-movil img{display:block;width:100%;height:100%;object-fit:cover}
 
 /* opiniones completas */
 .v-opi{padding-block:var(--hueco-s);background:var(--papel-2)}
+.v-opi .v-tit{max-width:none}
 .v-opis{list-style:none;margin:var(--s-12) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--col-gap)}
 .v-opis li{display:flex;padding-top:var(--s-6);border-top:1.5px solid var(--tinta)}
 .v-opis figure,.v-opis blockquote{margin:0}
@@ -301,7 +303,7 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
   .v-hist-cab,.v-hist-txt,.v-planes-cab,.v-faq .in,.v-sim .in,.v-ins .in,.v-cierre-fila{grid-template-columns:minmax(0,1fr)}
   .v-hist-cab .v-sub,.v-planes-cab .v-sub{justify-self:start;margin-top:var(--s-4)}
   .v-filas li{grid-template-columns:minmax(0,1fr) minmax(0,5fr);gap:var(--s-2) var(--s-5)}
-  .v-filas li p,.v-filas li .v-enl{grid-column:2}
+  .v-filas li p,.v-filas li .v-enl,.v-filas li>div{grid-column:2}
   .v-opis{grid-template-columns:minmax(0,1fr);gap:var(--s-10)}
   .v-sim-movil{width:min(66vw,300px)}
   .v-fund{grid-template-columns:minmax(0,1fr)}.v-f-der{align-items:flex-start}.v-fund .v-t-precio{text-align:left}.v-f-ir{width:100%;justify-content:center}
@@ -322,7 +324,8 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
   .q-ops button{font-size:.92rem;padding-inline:var(--s-3)}
   .v-cifras{grid-template-columns:minmax(0,1fr)}
   .v-cifras li,.v-cifras li+li{padding:var(--s-5) 0;border-left:0;border-bottom:1px solid var(--raya)}
-  .v-horas b{font-size:2.6rem}
+  .v-horas b{font-size:2.15rem}
+  .v-horas div+div{padding-left:var(--s-4)}
   .v-ins-tabs button{padding:0 var(--s-3);font-size:.9rem}
 }
 
@@ -359,22 +362,19 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
       </div>
       <button type="button" class="q-atras" hidden>← Atrás</button>
     </div>
-    <p class="q-saltar"><a href="#planes">¿Lo tienes claro? Apúntate directamente</a></p>
+    <p class="q-saltar"><b>7 días gratis, sin tarjeta.</b> ¿Prefieres ver los precios? <a href="#planes">Ver tarifas</a></p>
   </div>
   <figure class="v-movil-caja">
     <div class="v-movil"><img src="/img/estilo/inicio.jpg?v=ed834854" alt="La pantalla de inicio de Dos Décimas: «¿Qué practicamos hoy?», con la última nota, los fallos por repasar y el botón para empezar un test" width="780" height="1800"></div>
   </figure>
 </div></section>
-
-<section class="v-voces" aria-label="Lo que dicen quienes la usan"><div class="in"><ul>
-  <li><figure><blockquote><p>«Lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.»</p></blockquote><figcaption><b>Raúl I.</b><br>Cliente fundador, opositor a Policía Nacional</figcaption></figure></li>
-  <li><figure><blockquote><p>«El tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto.»</p></blockquote><figcaption><b>Alejandro L.</b><br>Cliente fundador, opositor a Policía Nacional</figcaption></figure></li>
-  <li><figure><blockquote><p>«Te da a elegir el formato de preguntas, ya sean 10, 20, y me ayuda mucho cuando tengo ratos libres trabajando o en el bus…»</p></blockquote><figcaption><b>Cris L.</b><br>Opositora a Policía Nacional</figcaption></figure></li>
-  <li class="v-voces-mas"><a href="#opiniones">Leer las opiniones completas</a></li>
-</ul></div></section>
+<section class="v-opi" id="opiniones"><div class="in">
+  <h2 class="v-tit rev">Lo que dicen nuestros usuarios.</h2>
+  <ul class="v-opis rev"><li><figure><blockquote><p>«En general todo muy bien, preguntas en su mayoría con nivel parecido a examen, plataforma muy intuitiva y <em>lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.</em></p><p>Veo muy bien lo de hacer un simulacro semanal general para todos los integrantes, sacar una nota de corte… Eso nos dará una experiencia que se plasmará en el día del examen de forma positiva para todos.»</p></blockquote><figcaption><b>Raúl I.</b><span>Cliente fundador, opositor a Policía Nacional</span></figcaption></figure></li><li><figure><blockquote><p>«La app la veo bastante bien […] <em>el tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto.</em></p><p>De momento no creo que necesite mucho más la app porque en sí como te he dicho antes está muy bien.»</p></blockquote><figcaption><b>Alejandro L.</b><span>Cliente fundador, opositor a Policía Nacional</span></figcaption></figure></li><li><figure><blockquote><p>«Lo que más me gusta de Dos Décimas es que <em>te da a elegir el formato de preguntas, ya sean 10, 20, y me ayuda mucho cuando tengo ratos libres trabajando o en el bus…</em>»</p></blockquote><figcaption><b>Cris L.</b><span>Opositora a Policía Nacional</span></figcaption></figure></li></ul>
+</div></section>
 
 <section class="v-hist" id="historia"><div class="in">
-  <div class="v-hist-cab rev"><h2 class="v-tit">Me quedé fuera por dos décimas.</h2><p class="v-sub">Me faltaron dos aciertos más, o cuatro fallos que tendría que haber dejado en blanco.</p></div>
+  <div class="v-hist-cab rev"><h2 class="v-tit">Me quedé fuera por dos décimas.</h2><p class="v-sub">Soy Alejandro y hago Dos Décimas. Me faltaron dos aciertos más, o cuatro fallos que tendría que haber dejado en blanco.</p></div>
   <ul class="v-cifras rev">
     <li><b data-cuenta="6.85">6,85</b><span>Mi nota</span></li>
     <li class="corte"><b data-cuenta="7.05">7,05</b><span>La nota de corte</span></li>
@@ -407,14 +407,8 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
     <div class="v-horas"><div><b>Vie 14:00</b><span>Abre</span></div><div><b>Dom 21:00</b><span>Cierra y llega El Atestado</span></div></div>
     <p class="cuenta-sim" hidden></p>
   </div>
-  <figure class="v-sim-movil rev"><div class="v-movil"><img src="/img/estilo/atestado.jpg?v=378de3a0" alt="El Atestado de un simulacro: tu nota, lo que restan los fallos y los blancos, los temas que más te han quitado y tu siguiente objetivo" loading="lazy"></div></figure>
+  <figure class="v-sim-movil rev"><img src="/img/estilo/atestado.jpg?v=378de3a0" alt="El Atestado de un simulacro: tu nota, lo que restan los fallos y los blancos, los temas que más te han quitado y tu siguiente objetivo" loading="lazy"></figure>
 </div></section>
-
-<section class="v-opi" id="opiniones"><div class="in">
-  <h2 class="v-tit rev">Lo que dicen nuestros usuarios.</h2>
-  <ul class="v-opis rev"><li><figure><blockquote><p>«En general todo muy bien, preguntas en su mayoría con nivel parecido a examen, plataforma muy intuitiva y <em>lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.</em></p><p>Veo muy bien lo de hacer un simulacro semanal general para todos los integrantes, sacar una nota de corte… Eso nos dará una experiencia que se plasmará en el día del examen de forma positiva para todos.»</p></blockquote><figcaption><b>Raúl I.</b><span>Cliente fundador, opositor a Policía Nacional</span></figcaption></figure></li><li><figure><blockquote><p>«La app la veo bastante bien […] <em>el tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto.</em></p><p>De momento no creo que necesite mucho más la app porque en sí como te he dicho antes está muy bien.»</p></blockquote><figcaption><b>Alejandro L.</b><span>Cliente fundador, opositor a Policía Nacional</span></figcaption></figure></li><li><figure><blockquote><p>«Lo que más me gusta de Dos Décimas es que <em>te da a elegir el formato de preguntas, ya sean 10, 20, y me ayuda mucho cuando tengo ratos libres trabajando o en el bus…</em>»</p></blockquote><figcaption><b>Cris L.</b><span>Opositora a Policía Nacional</span></figcaption></figure></li></ul>
-</div></section>
-
 <section class="v-planes" id="planes"><div class="in">
   <div class="v-planes-cab rev"><h2 class="v-tit">Precios claros. Sin permanencia.</h2><p class="v-sub">Paga con el mismo email con el que pruebas la app.</p></div>
   <div class="v-fund rev">
