@@ -20,14 +20,14 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600;700&display=swap">
 <script>document.documentElement.classList.add("js")</script>
 <style>
-:root{--papel:#F5F3F0;--papel-2:#ECE7E1;--tinta:#1A1614;--gris:#6E655E;--raya:#D9D2CA;--cobre:#D9A276;--cobre-t:#9A5B38;--noche:#0D0B0A;--crema:#F2EADF;--crema-2:#A89C93;--bien:#1F9D55;--mal:#E5484D;
+:root{--papel:#F5F3F0;--papel-2:#ECE7E1;--tinta:#1A1614;--gris:#6E655E;--raya:#D9D2CA;--cobre:#D9A276;--cobre-t:#9A5B38;--noche:#0D0B0A;--crema:#F2EADF;--crema-2:#A89C93;--bien:#1F9D55;--mal:#E5484D;--bien-f:#15803F;--mal-f:#CC3338;
   --fd:"Bricolage Grotesque",system-ui,sans-serif;--ft:"Source Sans 3",system-ui,sans-serif;--g:clamp(16px,4vw,48px)}
-*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:clip}
 body{margin:0;background:var(--papel);color:var(--tinta);font:400 1.1rem/1.5 var(--ft);overflow-x:clip}
 img{display:block;max-width:100%;height:auto}a{color:inherit}
 :focus-visible{outline:3px solid var(--cobre);outline-offset:3px;border-radius:4px}
 .in{max-width:1320px;margin:0 auto;padding:0 var(--g)}
-.eti{font:600 .8rem/1.2 var(--ft);letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+.eti{font:600 .95rem/1.3 var(--ft);color:var(--gris)}
 /* cabecera */
 .v-cab{position:fixed;inset:0 0 auto;z-index:20;transition:background-color .3s,color .3s,box-shadow .3s;color:var(--crema)}
 .v-cab .in{display:flex;align-items:center;gap:20px;min-height:68px}
@@ -75,7 +75,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 /* cuestionario de la portada */
 .v-quiz{margin-top:6px;padding:clamp(18px,3vw,26px);border:1px solid rgba(242,234,223,.16);border-radius:22px;background:rgba(13,11,10,.55);max-width:520px}
 .q-cab{display:flex;flex-direction:column;gap:12px;margin-bottom:18px}
-.q-tit{margin:0;font:600 .8rem/1.3 var(--ft);letter-spacing:.12em;text-transform:uppercase;color:var(--cobre)}
+.q-tit{margin:0;font:600 .95rem/1.3 var(--ft);color:var(--cobre)}
 .q-rayas{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .q-rayas i{height:3px;border-radius:3px;background:rgba(242,234,223,.18);transition:background-color .25s}
 .q-rayas i.on{background:var(--cobre)}
@@ -103,7 +103,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .q-saltar{margin:12px 0 0;font-size:.95rem}
 .q-saltar a{color:var(--crema);text-underline-offset:3px}
 .v-quiz[data-paso="4"]+.q-saltar{display:none}
-.v-para{margin:0 0 14px;font:600 .8rem/1.3 var(--ft);letter-spacing:.14em;text-transform:uppercase;color:var(--cobre)}
+.v-para{margin:0 0 14px;font:600 .95rem/1.3 var(--ft);color:var(--cobre)}
 .v-cita{margin:18px 0 0;padding-left:14px;border-left:2px solid var(--cobre);max-width:46ch}
 .v-cita blockquote{margin:0}
 .v-cita+.v-cita{margin-top:10px}
@@ -161,8 +161,8 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .p1 .tg-op b{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--papel-2);font:700 1rem var(--fd);text-transform:uppercase}
 .p1 .tg-op:disabled{cursor:default}
 .p1 .tg-op:disabled:not(.bien):not(.mal){opacity:.45}
-.p1 .tg-op.bien{border-color:var(--bien)}.p1 .tg-op.bien b{background:var(--bien);color:#fff}
-.p1 .tg-op.mal{border-color:var(--mal)}.p1 .tg-op.mal b{background:var(--mal);color:#fff}
+.p1 .tg-op.bien{border-color:var(--bien)}.p1 .tg-op.bien b{background:var(--bien-f);color:#fff}
+.p1 .tg-op.mal{border-color:var(--mal)}.p1 .tg-op.mal b{background:var(--mal-f);color:#fff}
 .p1-res p{margin:4px 0 8px}.p1-res .porque{color:var(--gris);font-size:1rem}
 .p1-res .btn{display:flex;align-items:center;justify-content:center;min-height:52px;margin-top:10px;border-radius:999px;background:var(--tinta);color:var(--papel);text-decoration:none;font:700 1rem var(--ft)}
 .p1-res .btn:hover{background:var(--cobre-t)}
@@ -233,13 +233,13 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 /* tarifas: Fundador */
 .v-fund{margin-top:48px;display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:center;padding:clamp(24px,3.4vw,44px);border-radius:20px;background:var(--noche);color:var(--crema)}
 .v-fund .v-t-nom{display:block;font-size:clamp(1.8rem,3vw,2.4rem)}
-.v-f-eti{display:block;margin-bottom:8px;font:600 .78rem var(--ft);letter-spacing:.12em;text-transform:uppercase;color:var(--cobre)}
+.v-f-eti{display:block;margin-bottom:8px;font:600 .92rem var(--ft);color:var(--cobre)}
 .v-fund .v-t-nota{margin:10px 0 0;color:var(--crema-2);max-width:40ch}
 .v-f-der{display:flex;flex-direction:column;align-items:flex-end;gap:18px}
 .v-fund .v-t-precio{font-size:clamp(2.8rem,5vw,4rem);text-align:right}.v-fund .v-t-precio small{color:var(--crema-2)}
 .v-f-ir{display:inline-flex;align-items:center;min-height:52px;padding:0 26px;border-radius:999px;background:var(--cobre);color:var(--tinta);font-weight:700;text-decoration:none}
 .v-f-ir:hover{background:var(--crema)}
-.v-otras{margin:40px 0 0;font:600 .8rem var(--ft);letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+.v-otras{margin:40px 0 0;font:600 .95rem var(--ft);color:var(--gris)}
 .v-planes .v-lista-t{margin-top:14px;gap:10px}
 .v-planes .v-tarifa{border:1px solid var(--raya);padding:16px clamp(16px,2vw,26px)}
 .v-planes .v-tarifa .v-t-nom{font-size:1.1rem}.v-planes .v-tarifa .v-t-precio{font-size:1.45rem}
@@ -253,13 +253,13 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 .v-t-precio{font:400 2rem/1 var(--fd);letter-spacing:-.04em}.v-t-precio small{display:block;margin-top:6px;font:400 .9rem var(--ft);letter-spacing:0;color:var(--gris)}
 .v-t-nota{color:var(--gris);font-size:.98rem}
 .v-t-ir{display:inline-flex;gap:8px;font-weight:700;text-decoration:none;border-bottom:1.5px solid currentColor;padding-bottom:2px;justify-self:end}
-.v-tarifa.destacada .v-t-nom::after{content:"La que más ahorra";display:block;margin-top:6px;font:600 .75rem var(--ft);letter-spacing:.12em;text-transform:uppercase;color:var(--cobre-t)}
+.v-tarifa.destacada .v-t-nom::after{content:"La que más ahorra";display:block;margin-top:6px;font:600 .9rem var(--ft);color:var(--cobre-t)}
 .v-pie-t{margin-top:22px;color:var(--gris);font-size:.95rem;max-width:70ch}
 @media (max-width:760px){.v-tarifa{grid-template-columns:1fr auto;gap:8px 16px}.v-t-precio{grid-row:1/3;grid-column:2;text-align:right}.v-t-nota{grid-column:1}.v-t-ir{grid-column:1/-1;justify-self:start;margin-top:6px}}
 /* alta */
 .alta-form{display:flex;flex-direction:column;gap:16px}
 .alta-form .campo{display:flex;flex-direction:column;gap:8px}
-.alta-form .campo b{font:600 .8rem var(--ft);letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+.alta-form .campo b{font:600 .92rem var(--ft);color:var(--gris)}
 .alta-form input,.alta-form select{font:inherit;color:var(--tinta);background:#fff;border:1.5px solid var(--raya);border-radius:12px;min-height:54px;padding:0 16px;width:100%;appearance:none;-webkit-appearance:none}
 .alta-form input:focus,.alta-form select:focus{border-color:var(--tinta);outline:none}
 .alta-form .opcional{text-transform:none;letter-spacing:0;font-weight:400}
@@ -273,7 +273,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 @media (max-width:760px){
   .v-portada .in{padding-top:80px}
   .v-arriba{display:flex;flex-direction:column;min-width:0;max-width:100%}
-  .v-para{order:1;margin-bottom:6px;font-size:.62rem;letter-spacing:.08em}
+  .v-para{order:1;margin-bottom:6px;font-size:.82rem}
   .v-gancho{order:2;margin-bottom:0;font-size:2rem}
   .v-quiz{order:3;margin-top:14px;padding:14px 16px}
   .q-cab{gap:8px;margin-bottom:10px}.q-tit{font-size:.7rem}
@@ -401,7 +401,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 <main>
 <section class="v-portada"><div class="in">
   <div class="v-arriba">
-    <p class="v-para">Para opositores a Policía Nacional · Escala Básica</p>
+    <p class="v-para">Para opositores a Policía Nacional, Escala Básica</p>
     <p class="v-gancho">Que no te dejen fuera por <em>dos décimas.</em></p>
     <p class="v-intro"><b>Cada fallo tiene un porqué.</b> Descúbrelo, aprende en qué preguntas sueles caer y entrena con cabeza para ir a por tu plaza.</p>
     <div class="v-quiz" id="prueba" data-paso="4">
@@ -410,7 +410,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
       <div class="q-pant" data-p="2"><p class="q-n">Pregunta 2 de 3</p><p class="q-preg">¿Dónde se te van los puntos?</p><div class="q-ops"><button type="button" data-v="leyes">Leyes, plazos y excepciones</button><button type="button" data-v="trampa">Preguntas trampa</button><button type="button" data-v="dudo">Las que dudo y arriesgo</button><button type="button" data-v="nose">No sé dónde fallo</button></div></div>
       <div class="q-pant" data-p="3"><p class="q-n">Pregunta 3 de 3</p><p class="q-preg">¿Qué te falta para estudiar mejor?</p><div class="q-ops"><button type="button" data-v="porque">Saber por qué fallo</button><button type="button" data-v="repasar">Repasar mis fallos sin buscarlos</button><button type="button" data-v="medirme">Medirme cada semana con otros</button><button type="button" data-v="solo">No estudiar solo</button></div></div>
       <div class="q-pant q-ultimo" data-p="4">
-        <p class="q-n q-ultimo-n">Último paso · Tu punto de partida</p>
+        <p class="q-n q-ultimo-n">Último paso: tu punto de partida</p>
         <div class="q-res" hidden><p class="q-res-1" hidden></p><p class="q-res-t"></p><p class="q-res-x"></p></div>
         <p class="q-directo-t">Empieza tus 7 días gratis</p>
     <form class="alta-form prueba-form portada-form" data-origen="web" novalidate>
@@ -420,7 +420,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
         <select name="como"><option value="">¿Dónde nos viste? (opcional)</option><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="companero">Me lo pasó un compañero</option><option value="grupo">En un grupo de opositores</option><option value="creador">Un creador de contenido</option><option value="google">Google</option><option value="otro">Otro</option></select></label></details>
       <label class="trampa" aria-hidden="true">No rellenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
       <div class="btns"><button class="btn btn-p" type="submit">Empezar mis 7 días gratis</button></div>
-      <p class="nota"><b>7 días gratis · Sin tarjeta · Sin compromiso</b> · En el móvil o el ordenador. <a href="https://dosdecimas.ruvilab.es/privacidad.html">Privacidad</a></p>
+      <p class="nota"><b>7 días gratis, sin tarjeta y sin compromiso.</b> En el móvil o el ordenador. <a href="https://dosdecimas.ruvilab.es/privacidad.html">Privacidad</a></p>
       <div class="aviso" role="status" hidden></div>
     </form>
       </div>
@@ -429,9 +429,9 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
     <p class="q-saltar"><a href="#planes">¿Lo tienes claro? Apúntate directamente</a></p>
     <ul class="v-tres"><li>Tests de los 45 temas, comprobados con la ley vigente del BOE</li><li>Un simulacro cada fin de semana y El Atestado</li><li>Repasas justo lo que necesitas mejorar</li><li>Una Comunidad para no opositar solo</li></ul>
     <div class="v-citas">
-    <figure class="v-cita"><blockquote><p>«Lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.»</p></blockquote><figcaption>Raúl I. · Cliente fundador · Opositor a Policía Nacional</figcaption></figure>
-    <figure class="v-cita"><blockquote><p>«El tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto.»</p></blockquote><figcaption>Alejandro L. · Cliente fundador · Opositor a Policía Nacional</figcaption></figure>
-    <figure class="v-cita"><blockquote><p>«Te da a elegir el formato de preguntas, ya sean 10, 20, y me ayuda mucho cuando tengo ratos libres trabajando o en el bus…»</p></blockquote><figcaption>Cris L. · Opositora a Policía Nacional · <a href="#opiniones">Leer las opiniones completas ↓</a></figcaption></figure>
+    <figure class="v-cita"><blockquote><p>«Lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.»</p></blockquote><figcaption>Raúl I.<br>Cliente fundador, opositor a Policía Nacional</figcaption></figure>
+    <figure class="v-cita"><blockquote><p>«El tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto.»</p></blockquote><figcaption>Alejandro L.<br>Cliente fundador, opositor a Policía Nacional</figcaption></figure>
+    <figure class="v-cita"><blockquote><p>«Te da a elegir el formato de preguntas, ya sean 10, 20, y me ayuda mucho cuando tengo ratos libres trabajando o en el bus…»</p></blockquote><figcaption>Cris L.<br>Opositora a Policía Nacional. <a href="#opiniones">Leer las opiniones completas ↓</a></figcaption></figure>
     </div>
   </div>
   <div class="v-movil-caja">
@@ -472,7 +472,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 
 <section class="v-opi" id="opiniones"><div class="in">
   <div class="v-opi-cab rev"><span class="eti">Opiniones reales</span><h2 class="v-tit">Lo que dicen <em>nuestros usuarios.</em></h2></div>
-  <ul class="v-opis rev"><li><figure><blockquote><p>«En general todo muy bien, preguntas en su mayoría con nivel parecido a examen, plataforma muy intuitiva y <em>lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.</em></p><p>Veo muy bien lo de hacer un simulacro semanal general para todos los integrantes, sacar una nota de corte… Eso nos dará una experiencia que se plasmará en el día del examen de forma positiva para todos.»</p></blockquote><figcaption><b>Raúl I.</b><span>Cliente fundador · Opositor a Policía Nacional</span></figcaption></figure></li><li><figure><blockquote><p>«La app la veo bastante bien […] <em>el tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto.</em></p><p>De momento no creo que necesite mucho más la app porque en sí como te he dicho antes está muy bien.»</p></blockquote><figcaption><b>Alejandro L.</b><span>Cliente fundador · Opositor a Policía Nacional</span></figcaption></figure></li><li><figure><blockquote><p>«Lo que más me gusta de Dos Décimas es que <em>te da a elegir el formato de preguntas, ya sean 10, 20, y me ayuda mucho cuando tengo ratos libres trabajando o en el bus…</em>»</p></blockquote><figcaption><b>Cris L.</b><span>Opositora a Policía Nacional</span></figcaption></figure></li></ul>
+  <ul class="v-opis rev"><li><figure><blockquote><p>«En general todo muy bien, preguntas en su mayoría con nivel parecido a examen, plataforma muy intuitiva y <em>lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.</em></p><p>Veo muy bien lo de hacer un simulacro semanal general para todos los integrantes, sacar una nota de corte… Eso nos dará una experiencia que se plasmará en el día del examen de forma positiva para todos.»</p></blockquote><figcaption><b>Raúl I.</b><span>Cliente fundador, opositor a Policía Nacional</span></figcaption></figure></li><li><figure><blockquote><p>«La app la veo bastante bien […] <em>el tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto.</em></p><p>De momento no creo que necesite mucho más la app porque en sí como te he dicho antes está muy bien.»</p></blockquote><figcaption><b>Alejandro L.</b><span>Cliente fundador, opositor a Policía Nacional</span></figcaption></figure></li><li><figure><blockquote><p>«Lo que más me gusta de Dos Décimas es que <em>te da a elegir el formato de preguntas, ya sean 10, 20, y me ayuda mucho cuando tengo ratos libres trabajando o en el bus…</em>»</p></blockquote><figcaption><b>Cris L.</b><span>Opositora a Policía Nacional</span></figcaption></figure></li></ul>
   <div class="v-opi-nav"><span class="v-opi-desliza">Desliza para ver más →</span><button type="button" aria-label="Opinión anterior" onclick="this.closest('.in').querySelector('.v-opis').scrollBy({left:-460,behavior:'smooth'})">←</button><button type="button" aria-label="Opinión siguiente" onclick="this.closest('.in').querySelector('.v-opis').scrollBy({left:460,behavior:'smooth'})">→</button></div>
 </div></section>
 <section class="v-planes" id="planes"><div class="in">
@@ -490,17 +490,17 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
       </li><li class="v-tarifa rev">
         <span class="v-t-nom">Trimestre</span>
         <span class="v-t-precio">29,99 €<small>cada 3 meses</small></span>
-        <span class="v-t-nota">9,99 € al mes · Se renueva cada 3 meses. Sin permanencia.</span>
+        <span class="v-t-nota">9,99 € al mes. Se renueva cada 3 meses. Sin permanencia.</span>
         <a class="v-t-ir" href="https://buy.stripe.com/aFafZjfsA4iY9eG0t504802" rel="noopener">Elegir<span aria-hidden="true">→</span></a>
       </li><li class="v-tarifa rev">
         <span class="v-t-nom">Semestre</span>
         <span class="v-t-precio">54,99 €<small>cada 6 meses</small></span>
-        <span class="v-t-nota">9,17 € al mes · Se renueva cada 6 meses. Sin permanencia.</span>
+        <span class="v-t-nota">9,17 € al mes. Se renueva cada 6 meses. Sin permanencia.</span>
         <a class="v-t-ir" href="https://buy.stripe.com/28E14peowdTy2QicbN04804" rel="noopener">Elegir<span aria-hidden="true">→</span></a>
       </li><li class="v-tarifa rev">
         <span class="v-t-nom">Curso completo</span>
         <span class="v-t-precio">89,99 €<small>pago único</small></span>
-        <span class="v-t-nota">7,50 € al mes · Hasta el 31 de octubre de 2027. No se renueva.</span>
+        <span class="v-t-nota">7,50 € al mes. Hasta el 31 de octubre de 2027. No se renueva.</span>
         <a class="v-t-ir" href="https://buy.stripe.com/28E9AV2FO16McqS1x904803" rel="noopener">Elegir<span aria-hidden="true">→</span></a>
       </li></ul>
   <p class="v-pie-t">Pago seguro con Stripe: tus datos de tarjeta no llegan a nosotros. Paga con el mismo email con el que pruebas la app.</p>
@@ -568,7 +568,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit}
 <footer class="v-cierre"><div class="in">
   <h2 class="rev">La plaza se decide por <em>dos décimas.</em></h2>
   <a class="v-btn rev" href="#prueba">Empieza tus 7 días gratis</a>
-  <div class="v-pie-web"><span>Dos Décimas · un proyecto de <a href="/">Ruvï</a></span><nav><a href="https://dosdecimas.ruvilab.es">Entrar en la app</a><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="mailto:dosdecimas@ruvilab.es">dosdecimas@ruvilab.es</a></nav></div>
+  <div class="v-pie-web"><span>Dos Décimas, un proyecto de <a href="/">Ruvï</a></span><nav><a href="https://dosdecimas.ruvilab.es">Entrar en la app</a><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="mailto:dosdecimas@ruvilab.es">dosdecimas@ruvilab.es</a></nav></div>
 </div></footer>
 <script>
 (function(){
