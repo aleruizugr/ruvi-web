@@ -200,6 +200,7 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
 .v-opis blockquote em{font-style:normal;color:var(--cobre-t)}
 .v-opis figcaption{margin-top:var(--s-5);font-size:var(--t-sm);color:var(--gris)}
 .v-opis figcaption b{display:block;color:var(--tinta);font:700 1rem var(--ft)}
+.v-opis-pista{display:none}
 
 /* tarifas: Fundador como oferta y las demás en tabla */
 .v-planes{padding-block:var(--hueco)}
@@ -304,7 +305,13 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
   .v-hist-cab .v-sub,.v-planes-cab .v-sub{justify-self:start;margin-top:var(--s-4)}
   .v-filas li{grid-template-columns:minmax(0,1fr) minmax(0,5fr);gap:var(--s-2) var(--s-5)}
   .v-filas li p,.v-filas li .v-enl,.v-filas li>div{grid-column:2}
-  .v-opis{grid-template-columns:minmax(0,1fr);gap:var(--s-10)}
+  .v-opis{display:flex;gap:var(--s-5);overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;margin-inline:calc(-1 * var(--margen));padding-inline:var(--margen);scroll-padding-inline:var(--margen)}
+  .v-opis::-webkit-scrollbar{display:none}
+  .v-opis:focus-visible{outline:2px solid var(--cobre-t);outline-offset:4px}
+  .v-opis li{flex:0 0 min(84%,420px);scroll-snap-align:start}
+  .v-opis blockquote p{font-size:1.08rem}
+  .v-opis blockquote p+p{font-size:.95rem}
+  .v-opis-pista{display:block;margin:var(--s-4) 0 0;font-size:var(--t-sm);color:var(--gris)}
   .v-sim-movil{width:min(66vw,300px)}
   .v-fund{grid-template-columns:minmax(0,1fr)}.v-f-der{align-items:flex-start}.v-fund .v-t-precio{text-align:left}.v-f-ir{width:100%;justify-content:center}
   .v-tarifa{grid-template-columns:minmax(0,1fr) auto;gap:var(--s-1) var(--s-4)}
@@ -370,21 +377,23 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
 </div></section>
 <section class="v-opi" id="opiniones"><div class="in">
   <h2 class="v-tit rev">Lo que dicen nuestros usuarios.</h2>
-  <ul class="v-opis rev"><li><figure><blockquote><p>«En general todo muy bien, preguntas en su mayoría con nivel parecido a examen, plataforma muy intuitiva y <em>lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.</em></p><p>Veo muy bien lo de hacer un simulacro semanal general para todos los integrantes, sacar una nota de corte… Eso nos dará una experiencia que se plasmará en el día del examen de forma positiva para todos.»</p></blockquote><figcaption><b>Raúl I.</b><span>Cliente fundador, opositor a Policía Nacional</span></figcaption></figure></li><li><figure><blockquote><p>«La app la veo bastante bien […] <em>el tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto.</em></p><p>De momento no creo que necesite mucho más la app porque en sí como te he dicho antes está muy bien.»</p></blockquote><figcaption><b>Alejandro L.</b><span>Cliente fundador, opositor a Policía Nacional</span></figcaption></figure></li><li><figure><blockquote><p>«Lo que más me gusta de Dos Décimas es que <em>te da a elegir el formato de preguntas, ya sean 10, 20, y me ayuda mucho cuando tengo ratos libres trabajando o en el bus…</em>»</p></blockquote><figcaption><b>Cris L.</b><span>Opositora a Policía Nacional</span></figcaption></figure></li></ul>
+  <ul class="v-opis rev" tabindex="0" aria-label="Opiniones; en el móvil, desliza para ver más"><li><figure><blockquote><p>«En general todo muy bien, preguntas en su mayoría con nivel parecido a examen, plataforma muy intuitiva y <em>lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.</em></p><p>Veo muy bien lo de hacer un simulacro semanal general para todos los integrantes, sacar una nota de corte… Eso nos dará una experiencia que se plasmará en el día del examen de forma positiva para todos.»</p></blockquote><figcaption><b>Raúl I.</b><span>Cliente fundador, opositor a Policía Nacional</span></figcaption></figure></li><li><figure><blockquote><p>«La app la veo bastante bien […] <em>el tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto.</em></p><p>De momento no creo que necesite mucho más la app porque en sí como te he dicho antes está muy bien.»</p></blockquote><figcaption><b>Alejandro L.</b><span>Cliente fundador, opositor a Policía Nacional</span></figcaption></figure></li><li><figure><blockquote><p>«Lo que más me gusta de Dos Décimas es que <em>te da a elegir el formato de preguntas, ya sean 10, 20, y me ayuda mucho cuando tengo ratos libres trabajando o en el bus…</em>»</p></blockquote><figcaption><b>Cris L.</b><span>Opositora a Policía Nacional</span></figcaption></figure></li></ul>
+  <p class="v-opis-pista" aria-hidden="true">Desliza para leer más</p>
 </div></section>
 
 <section class="v-hist" id="historia"><div class="in">
-  <div class="v-hist-cab rev"><h2 class="v-tit">Me quedé fuera por dos décimas.</h2><p class="v-sub">Soy Alejandro y hago Dos Décimas. Me faltaron dos aciertos más, o cuatro fallos que tendría que haber dejado en blanco.</p></div>
+  <h2 class="v-tit rev">Mi historia.</h2>
   <ul class="v-cifras rev">
     <li><b data-cuenta="6.85">6,85</b><span>Mi nota</span></li>
     <li class="corte"><b data-cuenta="7.05">7,05</b><span>La nota de corte</span></li>
     <li><b data-cuenta="0.20">0,20</b><span>Lo que me faltó</span></li>
   </ul>
   <div class="v-hist-txt rev">
-    <p class="v-hist-1">Con un margen así, cada pregunta cuenta.</p>
+    <p class="v-hist-1">Me quedé fuera por dos décimas.</p>
     <div>
+      <p>Me faltaron dos aciertos más, o cuatro fallos que tendría que haber dejado en blanco. Con un margen así, cada pregunta cuenta.</p>
       <p>Una trampa que no ves, un plazo que confundes o una duda en la que arriesgas cuando tocaba dejarla en blanco.</p>
-      <p>Por eso hice Dos Décimas: la app que me habría gustado tener para saber exactamente dónde pierdo mis décimas.</p>
+      <p>Por eso creé Dos Décimas: la app que me habría gustado tener para saber exactamente dónde pierdo mis décimas.</p>
       <p class="v-hist-firma"><b>Alejandro</b>Opositor a Policía Nacional y creador de Dos Décimas</p>
       <a class="v-enl" href="#prueba">Pruébala 7 días gratis</a>
     </div>
@@ -402,7 +411,7 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
 
 <section class="v-sim" id="simulacro"><div class="in">
   <div class="v-sim-txt rev">
-    <h2 class="v-tit">El Atestado: dónde se te van los puntos.</h2>
+    <h2 class="v-tit">El Atestado: el informe de tu simulacro.</h2>
     <p class="v-sub">Cada fin de semana, 100 preguntas en 50 minutos, un intento y sin repetir, como el día del examen. Al cerrar te llega <b>El Atestado</b>: tu nota, si habrías pasado el corte, los temas que más te han quitado y tu siguiente objetivo.</p>
     <div class="v-horas"><div><b>Vie 14:00</b><span>Abre</span></div><div><b>Dom 21:00</b><span>Cierra y llega El Atestado</span></div></div>
     <p class="cuenta-sim" hidden></p>
