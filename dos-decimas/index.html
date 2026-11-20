@@ -163,7 +163,9 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
 .v-hist-txt{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--col-gap);margin-top:var(--s-12)}
 .v-hist-txt .v-hist-1{margin:0;font:600 var(--t-titulo)/1.25 var(--fd);letter-spacing:-.02em}
 .v-hist-txt p{margin:0 0 var(--s-4);max-width:60ch}
-.v-hist-firma{margin-top:var(--s-6)!important;padding-top:var(--s-4);border-top:1px solid var(--raya);color:var(--gris)}
+.v-hist-pie{display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-10);align-items:end;justify-content:space-between;margin-top:var(--s-8)}
+.v-hist-pie .v-enl{margin:0}
+.v-hist-firma{margin:0!important;padding-top:var(--s-4);border-top:1px solid var(--raya);color:var(--gris)}
 .v-hist-firma b{display:block;color:var(--tinta);font:700 1.1rem var(--fd)}
 
 /* la app: tres filas con su número */
@@ -329,8 +331,10 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
 }
 @media (max-width:380px){
   .q-ops button{font-size:.92rem;padding-inline:var(--s-3)}
-  .v-cifras{grid-template-columns:minmax(0,1fr)}
-  .v-cifras li,.v-cifras li+li{padding:var(--s-5) 0;border-left:0;border-bottom:1px solid var(--raya)}
+  .v-cifras li{padding:var(--s-4) var(--s-3) var(--s-5) 0}
+  .v-cifras li+li{padding-left:var(--s-3)}
+  .v-cifras b{font-size:clamp(2.1rem,10.5vw,2.9rem);letter-spacing:-.05em}
+  .v-cifras span{margin-top:var(--s-2);font-size:.86rem;line-height:1.3}
   .v-horas b{font-size:2.15rem}
   .v-horas div+div{padding-left:var(--s-4)}
   .v-ins-tabs button{padding:0 var(--s-3);font-size:.9rem}
@@ -383,20 +387,22 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
 
 <section class="v-hist" id="historia"><div class="in">
   <h2 class="v-tit rev">Mi historia.</h2>
-  <ul class="v-cifras rev">
-    <li><b data-cuenta="6.85">6,85</b><span>Mi nota</span></li>
-    <li class="corte"><b data-cuenta="7.05">7,05</b><span>La nota de corte</span></li>
-    <li><b data-cuenta="0.20">0,20</b><span>Lo que me faltó</span></li>
-  </ul>
   <div class="v-hist-txt rev">
     <p class="v-hist-1">Me quedé fuera por dos décimas.</p>
     <div>
       <p>Me faltaron dos aciertos más, o cuatro fallos que tendría que haber dejado en blanco. Con un margen así, cada pregunta cuenta.</p>
       <p>Una trampa que no ves, un plazo que confundes o una duda en la que arriesgas cuando tocaba dejarla en blanco.</p>
       <p>Por eso creé Dos Décimas: la app que me habría gustado tener para saber exactamente dónde pierdo mis décimas.</p>
-      <p class="v-hist-firma"><b>Alejandro</b>Opositor a Policía Nacional y creador de Dos Décimas</p>
-      <a class="v-enl" href="#prueba">Pruébala 7 días gratis</a>
     </div>
+  </div>
+  <ul class="v-cifras rev">
+    <li><b data-cuenta="6.85">6,85</b><span>Mi nota</span></li>
+    <li class="corte"><b data-cuenta="7.05">7,05</b><span>La nota de corte</span></li>
+    <li><b data-cuenta="0.20">0,20</b><span>Lo que me faltó</span></li>
+  </ul>
+  <div class="v-hist-pie rev">
+    <p class="v-hist-firma"><b>Alejandro</b>Opositor a Policía Nacional y creador de Dos Décimas</p>
+    <a class="v-enl" href="#prueba">Pruébala 7 días gratis</a>
   </div>
 </div></section>
 
