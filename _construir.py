@@ -308,7 +308,7 @@ DD_CITA_FIRMA = "Raúl I. · Cliente fundador · Opositor a Policía Nacional"
 DD_CITA_2 = "El tema de que te salga las estadísticas de lo que fallas o más bien en lo que cojeas me viene perfecto."
 DD_CITA_2_FIRMA = "Alejandro L. · Cliente fundador · Opositor a Policía Nacional"
 DD_CITA_3 = "Te da a elegir el formato de preguntas, ya sean 10, 20, y me ayuda mucho cuando tengo ratos libres trabajando o en el bus…"
-DD_CITA_3_FIRMA = "Cris L. · Opositora a Policía Nacional"
+DD_CITA_3_FIRMA = "Cris L. · Clienta fundadora, opositora a Policía Nacional"
 # Apartado de opiniones: cada una es (párrafos, nombre, descripción). Solo reales y con permiso escrito.
 OPINIONES_DD = [
     (["En general todo muy bien, preguntas en su mayoría con nivel parecido a examen, plataforma muy intuitiva y <em>lo mejor es cómo la app analiza tus tests para decirte por dónde vas más flojo y el porqué.</em>",
@@ -322,7 +322,7 @@ OPINIONES_DD = [
     # Cris L., por Instagram el 16-11 (se suscribió como Fundadora ese día). Solo «Dos Décimas» con tilde.
     # La segunda parte de su mensaje es una mejora que pide (repaso diario): no va en la web.
     (["Lo que más me gusta de Dos Décimas es que <em>te da a elegir el formato de preguntas, ya sean 10, 20, y me ayuda mucho cuando tengo ratos libres trabajando o en el bus…</em>"],
-     "Cris L.", "Opositora a Policía Nacional"),
+     "Cris L.", "Clienta fundadora, opositora a Policía Nacional"),
 ]
 OPINIONES_DD_HTML = "".join('<li><figure><blockquote>' + "".join(f'<p>{"«" if i == 0 else ""}{t}{"»" if i == len(ps) - 1 else ""}</p>' for i, t in enumerate(ps)) + f'</blockquote><figcaption><b>{n}</b><span>{d}</span></figcaption></figure></li>' for ps, n, d in OPINIONES_DD)
 
