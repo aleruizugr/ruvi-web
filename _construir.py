@@ -924,7 +924,7 @@ escribir("/plantilla-repaso/", cabeza_ruvi("Plantilla de Repaso · Tu temario, c
   <div class="vias-cuerpo">
     <div>
       <ul class="lista-vias">{_PR_BOTONES}</ul>
-      <p class="ademas">Y además: <b>cada fallo corregido con la ley</b> (la buena, el porqué y el artículo), <b>«Dudo»</b> para saber si arriesgar les suma y un <b>cuaderno de fallos</b> que les devuelve lo que fallaron hasta que lo aciertan.</p>
+      <p class="ademas">Y además: <b>cada fallo corregido con la ley</b> (la buena, el porqué y el artículo), <b>«Dudo»</b> para saber si arriesgar les suma, un <b>cuaderno de fallos</b> que les devuelve lo que fallaron hasta que lo aciertan y, nuevo, <b>sus trampas</b> (plazos, órganos, «podrá» o «deberá»…), un <b>repaso de 5 minutos</b> para cada día y un <b>diagnóstico</b> tras cada test largo.</p>
     </div>
     <div class="pantalla" aria-live="polite"><div class="vidrio">{_PR_IMGS}</div></div>
   </div>
