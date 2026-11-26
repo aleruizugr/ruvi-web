@@ -340,11 +340,29 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
   .v-ins-tabs button{padding:0 var(--s-3);font-size:.9rem}
 }
 
+
+/* 26-11: menú de tres rayas en móvil y tablet («Entrar» y «7 días gratis» siempre fuera) */
+.v-menu{display:none;position:relative}
+.v-menu summary{list-style:none;display:grid;place-items:center;width:44px;height:44px;border-radius:var(--r-control);border:1.5px solid currentColor;cursor:pointer}
+.v-menu summary::-webkit-details-marker{display:none}
+.v-menu summary span,.v-menu summary span::before,.v-menu summary span::after{display:block;width:18px;height:2px;border-radius:2px;background:currentColor;position:relative;transition:transform .2s,background-color .2s}
+.v-menu summary span::before,.v-menu summary span::after{content:"";position:absolute;left:0}
+.v-menu summary span::before{top:-6px}.v-menu summary span::after{top:6px}
+.v-menu[open] summary span{background:transparent}
+.v-menu[open] summary span::before{top:0;transform:rotate(45deg)}
+.v-menu[open] summary span::after{top:0;transform:rotate(-45deg)}
+.v-menu-panel{position:fixed;top:68px;left:0;right:0;max-height:calc(100svh - 68px);overflow:auto;background:var(--noche);border-bottom:1px solid var(--raya-n);box-shadow:0 20px 40px var(--sombra-f);padding:var(--s-2) var(--margen) var(--s-6)}
+.v-cab .v-menu-panel a{display:flex;align-items:center;min-height:52px;border-bottom:1px solid var(--raya-n);color:var(--crema);font:600 1.1rem var(--ft);opacity:1}
+.v-cab .v-menu-panel a.dest{color:var(--cobre)}
+.v-cab .v-menu-panel .v-btn{display:flex;margin-top:var(--s-5);width:100%;border:0;color:var(--tinta)}
+@media (max-width:1060px){.v-menu{display:block}}
+@media (max-width:420px){.v-menu summary{width:40px;height:40px}.v-cab nav{gap:var(--s-2)}}
+@media (max-width:430px){.v-marca{font-size:0;gap:0}}
 </style>
 </head><body>
 <header class="v-cab"><div class="in">
   <a class="v-marca" href="/dos-decimas/"><img src="/img/dosdecimas-logo.png?v=cd061bc4" alt="" width="30" height="30">Dos Décimas</a>
-  <nav aria-label="Menú"><a class="opc" href="#app">La app</a><a class="opc" href="#historia">Mi historia</a><a class="opc" href="#simulacro">Simulacro</a><a class="opc" href="#instalar">Instalar</a><a class="opc" href="#opiniones">Opiniones</a><a class="v-entrar" href="https://dosdecimas.ruvilab.es">Entrar</a><a class="v-btn" href="#prueba">7 días gratis</a></nav>
+  <nav aria-label="Menú"><a class="opc" href="#app">La app</a><a class="opc" href="#historia">Mi historia</a><a class="opc" href="#simulacro">Simulacro</a><a class="opc" href="#instalar">Instalar</a><a class="opc" href="#opiniones">Opiniones</a><a class="opc" href="/dos-decimas/test-policia-nacional/">Tests por temas</a><a class="v-entrar" href="https://dosdecimas.ruvilab.es">Entrar</a><a class="v-btn" href="#prueba">7 días gratis</a><details class="v-menu"><summary aria-label="Abrir el menú"><span></span></summary><div class="v-menu-panel"><a href="#app">La app</a><a class="dest" href="/dos-decimas/test-policia-nacional/">Tests por temas</a><a href="/dos-decimas/test-gratis/">Test gratis de 10 preguntas</a><a href="#simulacro">El simulacro de los viernes</a><a href="#historia">Mi historia</a><a href="#opiniones">Opiniones</a><a href="#instalar">Instalar la app</a><a class="v-btn" href="#prueba">Empieza tus 7 días gratis</a></div></details></nav>
 </div></header>
 <main>
 <section class="v-portada"><div class="in">
@@ -493,7 +511,7 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
     <a class="v-btn rev" href="#prueba">Empieza tus 7 días gratis</a>
   </div>
   <p class="v-gigante" aria-hidden="true"><span class="l">Dos</span> <em class="l">Décimas</em></p>
-  <div class="v-pie-web"><span>Dos Décimas, un proyecto de <a href="/">Ruvï</a></span><nav aria-label="Pie"><a href="https://dosdecimas.ruvilab.es">Entrar en la app</a><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="mailto:dosdecimas@ruvilab.es">dosdecimas@ruvilab.es</a></nav></div>
+  <div class="v-pie-web"><span>Dos Décimas, un proyecto de <a href="/">Ruvï</a></span><nav aria-label="Pie"><a href="/dos-decimas/test-policia-nacional/">Tests por temas</a><a href="https://dosdecimas.ruvilab.es">Entrar en la app</a><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="mailto:dosdecimas@ruvilab.es">dosdecimas@ruvilab.es</a></nav></div>
 </div></footer>
 <script>
 (function(){
@@ -623,4 +641,5 @@ bs.forEach(function(b){b.addEventListener("click",function(){ver(b.dataset.k)})}
 var ua=navigator.userAgent||"";ver(/Android/i.test(ua)?"and":/iPhone|iPad|iPod/i.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1)?"ios":/Mobi/i.test(ua)?"and":"pc");
 })();
 </script>
+<script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest(".v-menu-panel a");if(a){var d=a.closest("details");if(d)d.removeAttribute("open")}});</script>
 </body></html>
