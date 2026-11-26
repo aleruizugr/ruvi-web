@@ -5,7 +5,7 @@
    - Eventos que manda (solo con permiso): PageView, TestTerminado, FormularioEmpezado, InitiateCheckout (pulsa tarifas),
      Lead + CompleteRegistration (alta de la semana gratis). Nunca manda el email ni el nombre. */
 (function(){
-  var PIXEL="";   // ← número del píxel «Dos Décimas · web ruvilab.es» (Administrador de eventos de Meta)
+  var PIXEL="1168015229207719";   // ← número del píxel «Dos Décimas · web ruvilab.es» (Administrador de eventos de Meta)
   var CLAVE="dd-cookies-v1";
   var h=location.hostname,local=/^(localhost|127\.0\.0\.1|192\.168\.)/.test(h);
   if(local){var pp=/[?&]pixelprueba=(\d{6,20})/.exec(location.search);if(pp)PIXEL=pp[1]}
