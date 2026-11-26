@@ -27,21 +27,31 @@
     cola.splice(0).forEach(manda);
   }
 
-  var css=".dd-ck{position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;max-width:560px;margin:0 auto;background:var(--noche,#0D0B0A);color:var(--crema,#F2EADF);border:1px solid var(--borde-n,#2B241F);border-radius:14px;padding:16px 16px 14px;box-shadow:0 10px 30px var(--sombra-f,rgba(0,0,0,.55));font:400 .95rem/1.45 var(--ft,system-ui,sans-serif)}"+
-    ".dd-ck p{margin:0 0 12px}.dd-ck a{color:var(--cobre,#D9A276)}"+
-    ".dd-ck .dd-ck-b{display:flex;gap:8px;flex-wrap:wrap}"+
-    ".dd-ck button{flex:1 1 140px;min-height:44px;border-radius:10px;border:1px solid var(--cobre,#D9A276);font:700 .95rem var(--ft,system-ui,sans-serif);cursor:pointer;transition:transform .15s,background-color .15s}"+
-    ".dd-ck .si{background:var(--cobre,#D9A276);color:var(--tinta,#1A1614)}.dd-ck .no{background:transparent;color:var(--crema,#F2EADF)}"+
-    ".dd-ck button:active{transform:scale(.98)}.dd-ck button:focus-visible{outline:3px solid var(--cobre,#D9A276);outline-offset:2px}"+
+  // Aviso como el de cualquier web: barra abajo a todo lo ancho, «Rechazar», «Configurar» y «Aceptar» (mismo tamaño)
+  var css=".dd-ck{position:fixed;left:0;right:0;bottom:0;z-index:9999;background:var(--papel-0,#FFFCF8);color:var(--tinta,#1A1614);border-top:1px solid var(--raya,#D9D2CA);box-shadow:0 -6px 24px var(--sombra-c,rgba(26,22,20,.16));font:400 .9rem/1.45 var(--ft,system-ui,sans-serif)}"+
+    ".dd-ck-in{max-width:1120px;margin:0 auto;padding:14px 16px;display:flex;gap:12px 24px;align-items:center;flex-wrap:wrap}"+
+    ".dd-ck-t{flex:1 1 420px;margin:0}.dd-ck-t b{display:block;margin-bottom:2px;font-size:.95rem}.dd-ck a{color:var(--cobre-t,#8C5233)}"+
+    ".dd-ck-b{display:flex;gap:8px;flex:0 1 auto;flex-wrap:wrap}"+
+    ".dd-ck button{min-height:42px;padding:0 18px;border-radius:8px;border:1px solid var(--tinta,#1A1614);background:transparent;color:var(--tinta,#1A1614);font:700 .9rem var(--ft,system-ui,sans-serif);cursor:pointer;transition:background-color .15s}"+
+    ".dd-ck button:hover{background:var(--papel-2,#ECE7E1)}.dd-ck button:focus-visible{outline:3px solid var(--cobre-t,#8C5233);outline-offset:2px}"+
+    ".dd-ck-conf{flex:1 1 100%;border-top:1px solid var(--raya,#D9D2CA);padding-top:10px;display:grid;gap:8px}.dd-ck-conf[hidden]{display:none}"+
+    ".dd-ck-conf label{display:flex;gap:10px;align-items:flex-start}.dd-ck-conf input{width:18px;height:18px;margin-top:2px;accent-color:var(--cobre-t,#8C5233)}"+
+    "@media (max-width:560px){.dd-ck-b{flex:1 1 100%}.dd-ck-b button{flex:1 1 0;padding:0 8px}}"+
     "@media (prefers-reduced-motion:reduce){.dd-ck button{transition:none}}";
   function aviso(){
     if(document.querySelector(".dd-ck"))return;
     if(!document.getElementById("dd-ck-css")){var st=document.createElement("style");st.id="dd-ck-css";st.textContent=css;document.head.appendChild(st)}
-    var d=document.createElement("div");d.className="dd-ck";d.setAttribute("role","dialog");d.setAttribute("aria-label","Cookies");
-    d.innerHTML="<p><b>¿Nos dejas medir los anuncios?</b> Con tu permiso usamos el píxel de Meta (cookies de Facebook e Instagram) para saber qué anuncios traen a opositores y no enseñártelos de más. Sin él, la web funciona igual. <a href=\"/privacidad/#cookies\">Más información</a></p>"+
-      "<div class=\"dd-ck-b\"><button type=\"button\" class=\"no\">Rechazar</button><button type=\"button\" class=\"si\">Aceptar</button></div>";
-    d.querySelector(".si").onclick=function(){guardar("si");d.remove();cargar()};
-    d.querySelector(".no").onclick=function(){guardar("no");d.remove();cola.length=0};
+    var d=document.createElement("div");d.className="dd-ck";d.setAttribute("role","region");d.setAttribute("aria-label","Aviso de cookies");
+    d.innerHTML="<div class=\"dd-ck-in\"><p class=\"dd-ck-t\"><b>Esta web usa cookies</b>Usamos cookies propias, necesarias para que la web funcione, y, si las aceptas, cookies de terceros (Meta) para medir nuestros anuncios y mostrarte publicidad relacionada. Puedes aceptarlas, rechazarlas o configurarlas. <a href=\"/privacidad/#cookies\">Más información</a></p>"+
+      "<div class=\"dd-ck-b\"><button type=\"button\" class=\"no\">Rechazar</button><button type=\"button\" class=\"cf\" aria-expanded=\"false\">Configurar</button><button type=\"button\" class=\"si\">Aceptar</button></div>"+
+      "<div class=\"dd-ck-conf\" hidden><label><input type=\"checkbox\" checked disabled> <span><b>Necesarias</b>: guardan tu elección sobre las cookies. Siempre activas.</span></label>"+
+      "<label><input type=\"checkbox\" class=\"pub\"> <span><b>Publicidad (Meta)</b>: miden qué anuncios de Facebook e Instagram te han traído.</span></label>"+
+      "<div><button type=\"button\" class=\"gd\">Guardar mi elección</button></div></div></div>";
+    var cerrar=function(si){guardar(si?"si":"no");d.remove();if(si)cargar();else cola.length=0};
+    d.querySelector(".si").onclick=function(){cerrar(true)};
+    d.querySelector(".no").onclick=function(){cerrar(false)};
+    d.querySelector(".cf").onclick=function(){var c=d.querySelector(".dd-ck-conf");c.hidden=!c.hidden;this.setAttribute("aria-expanded",String(!c.hidden))};
+    d.querySelector(".gd").onclick=function(){cerrar(d.querySelector(".pub").checked)};
     document.body.appendChild(d);
   }
   document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-cookies]");if(!a)return;e.preventDefault();
