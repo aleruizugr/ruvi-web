@@ -550,13 +550,18 @@ h1,h2,h3{overflow-wrap:break-word;min-width:0;text-wrap:balance}
         var esc=correo.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});
         // función bienvenida-dos-decimas: manda la bienvenida si de verdad acaba de recibir el alta o, si se ha
         // quedado en espera, avisa al dueño para que la dé a mano (migración 027)
-        var avisar=function(){try{fetch(URL.replace("/rest/v1/rpc/pedir_prueba","/functions/v1/bienvenida-dos-decimas"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({correo:correo}),keepalive:true}).catch(function(){})}catch(e){}};
-        avisar();
+        // 27-11: si la cuenta es nueva, la función devuelve también el enlace de un toque y llevamos al alumno a la app
+        // en ese mismo momento (sin esperar al correo). Si no lo devuelve, todo sigue como siempre (correo).
+        var avisar=function(){try{return fetch(URL.replace("/rest/v1/rpc/pedir_prueba","/functions/v1/bienvenida-dos-decimas"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({correo:correo}),keepalive:true}).then(function(r){return r.ok?r.json():null}).catch(function(){return null})}catch(e){return Promise.resolve(null)}};
+        var entrada=avisar();
         if(d&&d.estado==="en_espera"){aviso("<b>Recibido.</b> Te damos de alta en unas horas y te escribimos a <b>"+esc+"</b>.",true);return}
         window.ddCuenta&&ddCuenta("form_enviado");
         Array.prototype.forEach.call(f.children,function(c){if(c!==m)c.style.display="none"});   // deja solo el aviso (con display: el CSS de .campo y .btns gana a hidden)
         var nomEsc=nombre.split(" ")[0].replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]});
         aviso("<b>¡Hecho"+(nomEsc?", "+nomEsc:"")+"! Tienes 7 días gratis.</b><br>Te acabamos de mandar un correo a <b>"+esc+"</b>. Ábrelo, pulsa el botón y elige tu contraseña: ya estás dentro.<br><span class=\"muted\" style=\"font-size:.9rem\">¿No te llega en un par de minutos? Mira en spam o <a href=\""+APPDD+"/?primera\">entra por aquí</a> con «Primera vez».</span><br><span class=\"muted\" style=\"font-size:.9rem\">¿Ya la habías probado antes? Escríbenos a "+CORREO+".</span>",true);
+        entrada.then(function(x){var u=x&&x.entrar;if(typeof u!=="string"||u.indexOf(APPDD+"/?th=")!==0||/["<>\s]/.test(u))return;
+          aviso("<b>¡Hecho"+(nomEsc?", "+nomEsc:"")+"! Tienes 7 días gratis.</b><br>Te llevamos a la app ahora mismo…<br><a href=\""+u+"\" style=\"display:inline-block;margin-top:.6rem;font-weight:700\">Entrar ya</a><br><span class=\"muted\" style=\"font-size:.9rem\">También te hemos mandado el acceso a <b>"+esc+"</b>.</span>",true);
+          setTimeout(function(){location.href=u},1500)});
       }).catch(function(s){aviso(s===400?"Ese email no parece válido. Revísalo y prueba otra vez.":"No se ha podido enviar. Prueba otra vez o escríbenos a "+CORREO+".",false)})
       .then(function(){b.disabled=false;b.textContent=t});
     });
